@@ -1,3 +1,4 @@
+from threading import Timer
 import requests
 
 # Constants
@@ -87,9 +88,28 @@ def raise_status(response):
 
 
 class RiotWatcher:
-	def __init__(self, key, default_region=NORTH_AMERICA):
+	def __init__(self, key, default_region=NORTH_AMERICA, requests_per_10s=10, requests_per_10m=500):
 		self.key = key
 		self.default_region = default_region
+		self.requests_per_10s, self.requests_per_10m = requests_per_10s, requests_per_10m
+		self.requests_in_last_10s, self.requests_in_last_10m = 0, 0
+
+	def __remove_request_10s(self):
+		self.requests_in_last_10s -= 1
+
+	def __remove_request_10m(self):
+		self.requests_in_last_10m -= 1
+
+	def __add_requests(self):
+		self.requests_in_last_10s += 1
+		self.requests_in_last_10m += 1
+		ts = Timer(10, self.__remove_request_10s)
+		tm = Timer(600, self.__remove_request_10m)
+		ts.start()
+		tm.start()
+
+	def can_make_request(self):
+		return self.requests_in_last_10s < self.requests_per_10s and self.requests_in_last_10m < self.requests_per_10m
 
 	def base_request(self, url, region, static=False, **kwargs):
 		if region is None:
@@ -106,6 +126,8 @@ class RiotWatcher:
 							),
 							params=args
 		)
+		if not static:
+			self.__add_requests()
 		raise_status(r)
 		return r.json()
 
