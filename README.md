@@ -1,6 +1,6 @@
-# RiotWatcher v1.0
+# RiotWatcher v1.0.1a
 RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of the update on 2/4/2014 are supported in full. All game constants are also included in variable declarations.
-No request limiting or anything of the sort is included in this package (I'm working on that, but its not exactly a trivial problem).
+Request limit monitoring is experimentally in this branch. Currently does not prevent more requests, just can alert you before they are sent, if you ask.
 
 ## To Start...
 RiotWatcher uses the Requests Python package. To install:
@@ -19,6 +19,9 @@ Default region of this application is NA, but that can be changed during initial
 from riotwatcher import RiotWatcher
 
 w = RiotWatcher('<your-api-key>')
+
+# check if we have API calls remaining
+print(w.can_make_request())
 
 me = w.get_summoner(name='pseudonym117')
 print(me)

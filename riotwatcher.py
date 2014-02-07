@@ -1,4 +1,5 @@
-from threading import Timer
+from collections import deque
+import time
 import requests
 
 # Constants
@@ -87,29 +88,36 @@ def raise_status(response):
 		response.raise_for_status()
 
 
+class RateLimit:
+	def __init__(self, allowed_requests, seconds):
+		self.allowed_requests = allowed_requests
+		self.seconds = seconds
+		self.made_requests = deque()
+
+	def __reload(self):
+		t = time.time()
+		while len(self.made_requests) > 0 and self.made_requests[0] < t:
+			self.made_requests.popleft()
+
+	def add_request(self):
+		self.made_requests.append(time.time() + self.seconds)
+
+	def request_available(self):
+		self.__reload()
+		return len(self.made_requests) < self.allowed_requests
+
+
 class RiotWatcher:
-	def __init__(self, key, default_region=NORTH_AMERICA, requests_per_10s=10, requests_per_10m=500):
+	def __init__(self, key, default_region=NORTH_AMERICA, limits=[RateLimit(10, 10), RateLimit(500, 600), ]):
 		self.key = key
 		self.default_region = default_region
-		self.requests_per_10s, self.requests_per_10m = requests_per_10s, requests_per_10m
-		self.requests_in_last_10s, self.requests_in_last_10m = 0, 0
-
-	def __remove_request_10s(self):
-		self.requests_in_last_10s -= 1
-
-	def __remove_request_10m(self):
-		self.requests_in_last_10m -= 1
-
-	def __add_requests(self):
-		self.requests_in_last_10s += 1
-		self.requests_in_last_10m += 1
-		ts = Timer(10, self.__remove_request_10s)
-		tm = Timer(600, self.__remove_request_10m)
-		ts.start()
-		tm.start()
+		self.limits = limits
 
 	def can_make_request(self):
-		return self.requests_in_last_10s < self.requests_per_10s and self.requests_in_last_10m < self.requests_per_10m
+		for lim in self.limits:
+			if not lim.request_available():
+				return False
+		return True
 
 	def base_request(self, url, region, static=False, **kwargs):
 		if region is None:
@@ -127,7 +135,8 @@ class RiotWatcher:
 							params=args
 		)
 		if not static:
-			self.__add_requests()
+			for lim in self.limits:
+				lim.add_request()
 		raise_status(r)
 		return r.json()
 
