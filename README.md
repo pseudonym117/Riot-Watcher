@@ -1,6 +1,7 @@
-# RiotWatcher v1.0.1a
+# RiotWatcher v1.0.2
 RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of the update on 2/4/2014 are supported in full. All game constants are also included in variable declarations.
-Request limit monitoring is experimentally in this branch. Currently does not prevent more requests, just can alert you before they are sent, if you ask.
+Requests are kept track of so that you can stay below your rate limit. The default rate limits are set to 10 requests every 10 seconds and 500 requests every 6 minutes (the limit for development keys).
+The rate limiter does not prevent you from making requests that will be blocked and cause an exception, it simply allows you to check if you request will go through.
 
 ## To Start...
 RiotWatcher uses the Requests Python package. To install:
@@ -54,13 +55,24 @@ froggen = w.get_summoner(name='froggen', region=EUROPE_WEST)
 print(froggen)
 
 # create watcher with EUW as its default region
-euw = RiotClient('<your-api-key>', default_region='EUROPE_WEST')
+euw = RiotClient('<your-api-key>', default_region=EUROPE_WEST)
 
 # proper way to send names with spaces is to remove them, still works with spaces though
 xpeke = w.get_summoner(name='fnaticxmid')
 print(xpeke)
 ```
 I might get around to fully documenting this at some point, but I am working on using it right now for other things, not documenting it.
+
+## Changelog
+
+### v1.0.2 - 2/25/2014
+Added Riots new methods to get teams by id. In methods 'get_teams(team_ids, region)' and 'get_team(team_id, region)'.
+
+### v1.0.1a
+Alpha only, experimental rate limiting added
+
+### v1.0
+Initial release
 
 ### Maybe Important
 I don't own any part of Riot or League of Legends or any of their stuff. Don't claim to, and neither should you. This != Riot. My views are mine, theirs are theirs. Mine != theirs.

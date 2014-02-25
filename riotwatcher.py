@@ -50,6 +50,7 @@ sub_types = [
 	'ONEFORALL_5x5',			# One for All games
 	'FIRSTBLOOD_1x1',			# Snowdown Showdown 1x1 games
 	'FIRSTBLOOD_2x2',			# Snowdown Showdown 2x2 games
+	'SR_6x6',					# Hexakill games
 ]
 
 solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3'
@@ -292,6 +293,12 @@ class RiotWatcher:
 				region
 		)
 
-	# team-v2.2
-	def get_teams(self, summoner_id, region=None):
+	# team-v2.2, update 1
+	def get_teams_for_summoner(self, summoner_id, region=None):
 		return self.base_request('v2.2/team/by-summoner/{summoner_id}'.format(summoner_id=summoner_id), region)
+
+	def get_team(self, team_id, region=None):
+		return self.get_teams([team_id, ], region=region)
+
+	def get_teams(self, team_ids, region=None):
+		return self.base_request('v2.2/team/{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
