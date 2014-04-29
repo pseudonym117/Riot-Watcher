@@ -3,13 +3,16 @@ import time
 import requests
 
 # Constants
-NORTH_AMERICA = 'na'
-EUROPE_WEST = 'euw'
-EUROPE_NORDIC_EAST = 'eune'
 BRAZIL = 'br'
+EUROPE_NORDIC_EAST = 'eune'
+EUROPE_WEST = 'euw'
+KOREA = 'kr'
 LATIN_AMERICA_NORTH = 'lan'
 LATIN_AMERICA_SOUTH = 'las'
-KOREA = 'kr'
+NORTH_AMERICA = 'na'
+OCEANIa = 'oce'
+RUSSIA = 'ru'
+TURKEY = 'tr'
 
 game_maps = [
 	{'map_id': 1, 'name': "Summoner's Rift", 'notes': "Summer Variant"},
@@ -51,6 +54,28 @@ sub_types = [
 	'FIRSTBLOOD_1x1',			# Snowdown Showdown 1x1 games
 	'FIRSTBLOOD_2x2',			# Snowdown Showdown 2x2 games
 	'SR_6x6',					# Hexakill games
+	'CAP_5x5',					# Team Builder games
+	'URF',						# Ultra Rapid Fire games
+	'URF_BOT',					# Ultra Rapid Fire games against AI
+]
+
+player_stat_summary_types = [
+	'Unranked',					# Summoner's Rift unranked games
+	'Unranked3x3',				# Twisted Treeline unranked games
+	'OdinUnranked',				# Dominion/Crystal Scar games
+	'AramUnranked5x5',			# ARAM / Howling Abyss games
+	'CoopVsAI',					# Summoner's Rift and Crystal Scar games played against AI
+	'CoopVsAI3x3',				# Twisted Treeline games played against AI
+	'RankedSolo5x5',			# Summoner's Rift ranked solo queue games
+	'RankedTeams3x3',			# Twisted Treeline ranked team games
+	'RankedTeams5x5',			# Summoner's Rift ranked team games
+	'OneForAll5x5',				# One for All games
+	'FirstBlood1x1',			# Snowdown Showdown 1x1 games
+	'FirstBlood2x2',			# Snowdown Showdown 2x2 games
+	'SummonersRift6x6',			# Hexakill games
+	'CAP5x5',					# Team Builder games
+	'URF',						# Ultra Rapid Fire games
+	'URFBots',					# Ultra Rapid Fire games played against AI
 ]
 
 solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3'
@@ -141,9 +166,12 @@ class RiotWatcher:
 		raise_status(r)
 		return r.json()
 
-	# champion-v1.1
+	# champion-v1.2
 	def get_all_champions(self, region=None, free_to_play=False):
-		return self.base_request('v1.1/champion', region, freeToPlay=free_to_play)
+		return self.base_request('v1.2/champion', region, freeToPlay=free_to_play)
+
+	def get_champion(self, champion_id, region=None):
+		return self.base_request('v1.2/champion/{id}'.format(id=champion_id), region)
 
 	# game-v1.3
 	def get_recent_games(self, summoner_id, region=None):
@@ -160,12 +188,20 @@ class RiotWatcher:
 		return self.base_request('v2.3/league/challenger', region, type=queue)
 
 	# lol-static-data-v1
-	def static_get_champion_list(self, region=None, locale=None, version=None, champ_data=None):
-		return self.base_request('v1/champion', region, static=True, locale=locale, version=version, champData=champ_data)
+	def static_get_champion_list(self, region=None, locale=None, version=None, data_by_id=None, champ_data=None):
+		return self.base_request(
+				'v1.2/champion',
+				region,
+				static=True,
+				locale=locale,
+				version=version,
+				dataById=data_by_id,
+				champData=champ_data
+		)
 
 	def static_get_champion(self, champ_id, region=None, locale=None, version=None, champ_data=None):
 		return self.base_request(
-				'v1/champion/{id}'.format(id=champ_id),
+				'v1.2/champion/{id}'.format(id=champ_id),
 				region,
 				static=True,
 				locale=locale,
@@ -174,11 +210,11 @@ class RiotWatcher:
 		)
 
 	def static_get_item_list(self, region=None, locale=None, version=None, item_list_data=None):
-		return self.base_request('v1/item', region, static=True, locale=locale, version=version, itemListData=item_list_data)
+		return self.base_request('v1.2/item', region, static=True, locale=locale, version=version, itemListData=item_list_data)
 
 	def static_get_item(self, item_id, region=None, locale=None, version=None, item_data=None):
 		return self.base_request(
-				'v1/item/{id}'.format(id=item_id),
+				'v1.2/item/{id}'.format(id=item_id),
 				region,
 				static=True,
 				locale=locale,
@@ -188,7 +224,7 @@ class RiotWatcher:
 
 	def static_get_mastery_list(self, region=None, locale=None, version=None, mastery_list_data=None):
 		return self.base_request(
-				'v1/mastery',
+				'v1.2/mastery',
 				region,
 				static=True,
 				locale=locale,
@@ -198,7 +234,7 @@ class RiotWatcher:
 
 	def static_get_mastery(self, mastery_id, region=None, locale=None, version=None, mastery_data=None):
 		return self.base_request(
-				'v1/mastery/{id}'.format(id=mastery_id),
+				'v1.2/mastery/{id}'.format(id=mastery_id),
 				region,
 				static=True,
 				locale=locale,
@@ -207,14 +243,14 @@ class RiotWatcher:
 		)
 
 	def static_get_realm(self, region=None):
-		return self.base_request('v1/realm', region, static=True)
+		return self.base_request('v1.2/realm', region, static=True)
 
 	def static_get_rune_list(self, region=None, locale=None, version=None, rune_list_data=None):
-		return self.base_request('v1/rune', region, static=True, locale=locale, version=version, runeListData=rune_list_data)
+		return self.base_request('v1.2/rune', region, static=True, locale=locale, version=version, runeListData=rune_list_data)
 
 	def static_get_rune(self, rune_id, region=None, locale=None, version=None, rune_data=None):
 		return self.base_request(
-				'v1/rune/{id}'.format(id=rune_id),
+				'v1.2/rune/{id}'.format(id=rune_id),
 				region,
 				static=True,
 				locale=locale,
@@ -222,19 +258,20 @@ class RiotWatcher:
 				runeData=rune_data
 		)
 
-	def static_get_summoner_spell_list(self, region=None, locale=None, version=None, spell_data=None):
+	def static_get_summoner_spell_list(self, region=None, locale=None, version=None, data_by_id=None, spell_data=None):
 		return self.base_request(
-				'v1/summoner-spell',
+				'v1.2/summoner-spell',
 				region,
 				static=True,
 				locale=locale,
 				version=version,
+				dataById=data_by_id,
 				spellData=spell_data
 		)
 
 	def static_get_summoner_spell(self, spell_id, region=None, locale=None, version=None, spell_data=None):
 		return self.base_request(
-				'v1/summoner-spell/{id}'.format(id=spell_id),
+				'v1.2/summoner-spell/{id}'.format(id=spell_id),
 				region,
 				static=True,
 				locale=locale,
@@ -242,38 +279,41 @@ class RiotWatcher:
 				spellData=spell_data
 		)
 
-	# stats-v1.2
+	def static_get_versions(self, region=None):
+		return self.base_request('v1.2/versions', region, static=True)
+
+	# stats-v1.3
 	def get_stat_summary(self, summoner_id, region=None, season=None):
 		return self.base_request(
-				'v1.2/stats/by-summoner/{summoner_id}/summary'.format(summoner_id=summoner_id),
+				'v1.3/stats/by-summoner/{summoner_id}/summary'.format(summoner_id=summoner_id),
 				region,
 				season='SEASON{}'.format(season) if season is not None else None)
 
 	def get_ranked_stats(self, summoner_id, region=None, season=None):
 		return self.base_request(
-				'v1.2/stats/by-summoner/{summoner_id}/ranked'.format(summoner_id=summoner_id),
+				'v1.3/stats/by-summoner/{summoner_id}/ranked'.format(summoner_id=summoner_id),
 				region,
 				season='SEASON{}'.format(season) if season is not None else None
 		)
 
-	# summoner-v1.3
+	# summoner-v1.4
 	def get_mastery_pages(self, summoner_ids, region=None):
 		return self.base_request(
-				'v1.3/summoner/{summoner_ids}/masteries'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+				'v1.4/summoner/{summoner_ids}/masteries'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
 				region
 		)
 
 	def get_rune_pages(self, summoner_ids, region=None):
 		return self.base_request(
-				'v1.3/summoner/{summoner_ids}/runes'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+				'v1.4/summoner/{summoner_ids}/runes'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
 				region
 		)
 
 	def get_summoners(self, names=None, ids=None, region=None):
 		if (names is None) != (ids is None):
 			return self.base_request(
-				'v1.3/summoner/by-name/{summoner_names}'.format(summoner_names=','.join(names)) if names is not None
-				else 'v1.3/summoner/{summoner_ids}'.format(summoner_ids=','.join([str(i) for i in ids])),
+				'v1.4/summoner/by-name/{summoner_names}'.format(summoner_names=','.join(names)) if names is not None
+				else 'v1.4/summoner/{summoner_ids}'.format(summoner_ids=','.join([str(i) for i in ids])),
 				region
 			)
 		else:
@@ -289,7 +329,7 @@ class RiotWatcher:
 
 	def get_summoner_name(self, summoner_ids, region=None):
 		return self.base_request(
-				'v1.3/summoner/{summoner_ids}/name'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+				'v1.4/summoner/{summoner_ids}/name'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
 				region
 		)
 
