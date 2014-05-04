@@ -154,7 +154,7 @@ class RiotWatcher:
 				args[k] = kwargs[k]
 		r = requests.get('https://prod.api.pvp.net/api/lol/{static}{region}/{url}'
 							.format(
-								static='static/' if static else '',
+								static='static-data/' if static else '',
 								region=region,
 								url=url
 							),
