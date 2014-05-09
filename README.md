@@ -65,6 +65,15 @@ I might get around to fully documenting this at some point, but I am working on 
 
 ## Changelog
 
+### v1.1.5 - 5/9/2014
+Cause what do version numbers really mean anyways?
+
+Actually add endpoints to league API that I just forgot to add. Change is NOT backwards compatible, any use of the old league api calls will need to be changed, in addition to the riot changes.
+
+Newly supported API's:
+- league-v2.4
+- team-v2.3
+
 ### v1.1.1 - 5/3/2014
 Fix issue with static calls, namely that they didn't do anything right before. Now they work.
 

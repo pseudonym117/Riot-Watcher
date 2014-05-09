@@ -177,15 +177,37 @@ class RiotWatcher:
 	def get_recent_games(self, summoner_id, region=None):
 		return self.base_request('v1.3/game/by-summoner/{summoner_id}/recent'.format(summoner_id=summoner_id), region)
 
-	# league-v2.3, update 1
-	def get_league(self, summoner_id, region=None):
-		return self.base_request('v2.3/league/by-summoner/{summoner_id}'.format(summoner_id=summoner_id), region)
+	# league-v2.4
+	def get_league(self, summoner_ids=None, team_ids=None, region=None):
+		"""summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
+		if (summoner_ids is None) != (team_ids is None):
+			if summoner_ids is not None:
+				return self.base_request(
+					'v2.4/league/by-summoner/{summoner_ids}'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+					region
+				)
+			else:
+				return self.base_request(
+					'v2.4/league/by-team/{team_ids}'.format(team_ids=','.join([str(t) for t in team_ids])),
+					region
+				)
 
-	def get_league_for_summoner(self, summoner_id, region=None):
-		return self.base_request('v2.3/league/by-summoner/{summoner_id}/entry'.format(summoner_id=summoner_id), region)
+	def get_league_entry(self, summoner_ids=None, team_ids=None, region=None):
+		"""summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
+		if (summoner_ids is None) != (team_ids is None):
+			if summoner_ids is not None:
+				return self.base_request(
+					'v2.4/league/by-summoner/{summoner_ids}/entry'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+					region
+				)
+			else:
+				return self.base_request(
+					'v2.4/league/by-team/{team_ids}/entry'.format(team_ids=','.join([str(t) for t in team_ids])),
+					region
+				)
 
 	def get_challenger(self, region=None, queue=solo_queue):
-		return self.base_request('v2.3/league/challenger', region, type=queue)
+		return self.base_request('v2.4/league/challenger', region, type=queue)
 
 	# lol-static-data-v1
 	def static_get_champion_list(self, region=None, locale=None, version=None, data_by_id=None, champ_data=None):
@@ -335,10 +357,16 @@ class RiotWatcher:
 
 	# team-v2.2, update 1
 	def get_teams_for_summoner(self, summoner_id, region=None):
-		return self.base_request('v2.2/team/by-summoner/{summoner_id}'.format(summoner_id=summoner_id), region)
+		return self.get_teams_for_summoners([summoner_id, ], region=region)[str(summoner_id)]
+
+	def get_teams_for_summoners(self, summoner_ids, region=None):
+		return self.base_request(
+			'v2.2/team/by-summoner/{summoner_id}'.format(summoner_id=','.join([str(s) for s in summoner_ids])),
+			region
+		)
 
 	def get_team(self, team_id, region=None):
-		return self.get_teams([team_id, ], region=region)
+		return self.get_teams([team_id, ], region=region)[str(team_id)]
 
 	def get_teams(self, team_ids, region=None):
-		return self.base_request('v2.2/team/{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
+		return self.base_request('v2.3/team/{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
