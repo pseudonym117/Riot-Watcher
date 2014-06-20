@@ -134,7 +134,7 @@ class RateLimit:
 
 
 class RiotWatcher:
-	def __init__(self, key, default_region=NORTH_AMERICA, limits=[RateLimit(10, 10), RateLimit(500, 600), ]):
+	def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), )):
 		self.key = key
 		self.default_region = default_region
 		self.limits = limits
@@ -152,8 +152,9 @@ class RiotWatcher:
 		for k in kwargs:
 			if kwargs[k] is not None:
 				args[k] = kwargs[k]
-		r = requests.get('https://prod.api.pvp.net/api/lol/{static}{region}/{url}'
+		r = requests.get('https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'
 							.format(
+								proxy='global' if static else region,
 								static='static-data/' if static else '',
 								region=region,
 								url=url

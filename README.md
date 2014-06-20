@@ -1,5 +1,5 @@
-# RiotWatcher v1.1.1
-RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 4/30/2014 are supported in full. All game constants are also included in variable declarations.
+# RiotWatcher v1.1.6
+RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 6/19/2014 are supported in full. All game constants are also included in variable declarations.
 Requests are kept track of so that you can stay below your rate limit. The default rate limits are set to 10 requests every 10 seconds and 500 requests every 6 minutes (the limit for development keys).
 The rate limiter does not prevent you from making requests that will be blocked and cause an exception, it simply allows you to check if you request will go through.
 
@@ -64,6 +64,9 @@ print(xpeke)
 I might get around to fully documenting this at some point, but I am working on using it right now for other things, not documenting it.
 
 ## Changelog
+
+###v1.1.6 - 6/19.2014
+Added support for regional proxies, because EUW broke without it
 
 ### v1.1.5 - 5/9/2014
 Cause what do version numbers really mean anyways?
