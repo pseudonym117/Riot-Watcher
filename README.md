@@ -1,5 +1,5 @@
-# RiotWatcher v1.1.6
-RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 6/19/2014 are supported in full. All game constants are also included in variable declarations.
+# RiotWatcher v1.1.7
+RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 8/10/2014 are supported in full. All game constants are also included in variable declarations.
 Requests are kept track of so that you can stay below your rate limit. The default rate limits are set to 10 requests every 10 seconds and 500 requests every 6 minutes (the limit for development keys).
 The rate limiter does not prevent you from making requests that will be blocked and cause an exception, it simply allows you to check if you request will go through.
 
@@ -63,9 +63,26 @@ print(xpeke)
 ```
 I might get around to fully documenting this at some point, but I am working on using it right now for other things, not documenting it.
 
+## Testing
+
+After a couple bugs that were due to me forgetting to change one character and not testing the change, I decided to finally make a few tests.
+The tests included are not perfect, and don't have full code coverage, but they should detect most issues. To run these tests (to make sure its the API f-ing up not your code):
+
+- change key in tests.py to your API key
+- change summoner_name in tests.py to your summoner name (provided you have at least one ranked team and have ranked stats). Or just enter a name that does have those.
+- run python tests.py (I only tested these tests with python3, but I really doubt they are incompatible with python2 - if I'm wrong someone open an issue)
+
+
 ## Changelog
 
-###v1.1.6 - 6/19.2014
+###v1.1.7 - 8/10/2014
+Fixed issue #4 (forgot to change a number, oops) and made it much much less likely for me to do it again (moved api version part of url into a different method just to be sure I don't mess it up).
+
+Also there are now TESTS!! WOO! Everyone rejoice. They aren't very good tests though, so don't be too excited. BUT if they should detect if there's a clear issue in the API wrapper.
+
+Oh and some better formatting done (spaces not tabs, more consistent indentation, etc.). Should be no functional difference at all.
+
+###v1.1.6 - 6/19/2014
 Added support for regional proxies, because EUW broke without it
 
 ### v1.1.5 - 5/9/2014
