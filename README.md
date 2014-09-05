@@ -1,5 +1,5 @@
-# RiotWatcher v1.1.7
-RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 8/10/2014 are supported in full. All game constants are also included in variable declarations.
+# RiotWatcher v1.1.8
+RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods but match history related ones as of 9/4/2014 are supported in full. All game constants are also included in variable declarations.
 Requests are kept track of so that you can stay below your rate limit. The default rate limits are set to 10 requests every 10 seconds and 500 requests every 6 minutes (the limit for development keys).
 The rate limiter does not prevent you from making requests that will be blocked and cause an exception, it simply allows you to check if you request will go through.
 
@@ -74,6 +74,14 @@ The tests included are not perfect, and don't have full code coverage, but they 
 
 
 ## Changelog
+
+###v1.1.8 - 9/4/2014
+Updated API's supported. Updated API's:
+
+- league-v2.5
+- team-v2.4
+
+Don't worry, support for match data is coming. I just wanted to commit these changes first, since they already had tests.
 
 ###v1.1.7 - 8/10/2014
 Fixed issue #4 (forgot to change a number, oops) and made it much much less likely for me to do it again (moved api version part of url into a different method just to be sure I don't mess it up).

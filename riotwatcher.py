@@ -83,11 +83,11 @@ solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED
 api_versions = {
     'champion': 1.2,
     'game': 1.3,
-    'league': 2.4,
+    'league': 2.5,
     'lol-static-data': 1.2,
     'stats': 1.3,
     'summoner': 1.4,
-    'team': 2.3
+    'team': 2.4
 }
 
 
@@ -194,7 +194,7 @@ class RiotWatcher:
     def get_recent_games(self, summoner_id, region=None):
         return self._game_request('game/by-summoner/{summoner_id}/recent'.format(summoner_id=summoner_id), region)
 
-    # league-v2.4
+    # league-v2.5
     def _league_request(self, end_url, region, **kwargs):
         return self.base_request('v{version}/{end_url}'.format(version=api_versions['league'], end_url=end_url), region, **kwargs)
 
@@ -387,7 +387,7 @@ class RiotWatcher:
             region
         )
 
-    # team-v2.3
+    # team-v2.4
     def _team_request(self, end_url, region, **kwargs):
         return self.base_request('v{version}/{end_url}'.format(
             version=api_versions['team'],
