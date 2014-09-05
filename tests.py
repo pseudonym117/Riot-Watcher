@@ -4,7 +4,7 @@
 import time
 from riotwatcher import RiotWatcher
 
-key = '<ENTER-YOUR-KEY-HERE>'
+key = '<YOUR KEY HERE>'
 # if summoner doesnt have ranked teams, teams tests will fail
 # if summoner doesnt have ranked stats, stats tests will fail
 # these are not graceful failures, so try to use a summoner that has them
@@ -54,6 +54,17 @@ def static_tests():
     w.static_get_versions()
 
 
+def match_tests(match):
+    wait()
+    w.get_match(match['matchId'])
+
+
+def match_history_tests(summoner):
+    wait()
+    ms = w.get_match_history(summoner['id'])
+    return ms['matches'][0]
+
+
 def stats_tests(summoner):
     wait()
     w.get_stat_summary(summoner['id'])
@@ -97,6 +108,10 @@ def main():
     print('stats tests passed')
     team_tests(s)
     print('team tests passed')
+    m = match_history_tests(s)
+    print('match history tests passed')
+    match_tests(m)
+    print('match passed')
     print('all tests passed, w00t. if only they were better tests...')
 
 
