@@ -2,7 +2,7 @@
 # these tests are pretty bad, mostly to make sure no exceptions are thrown
 
 import time
-from riotwatcher import RiotWatcher
+from riotwatcher import RiotWatcher, NORTH_AMERICA
 
 key = '<YOUR KEY HERE>'
 # if summoner doesnt have ranked teams, teams tests will fail
@@ -54,6 +54,11 @@ def static_tests():
     w.static_get_versions()
 
 
+def status_tests():
+    w.get_server_status()
+    w.get_server_status(region=NORTH_AMERICA)
+
+
 def match_tests(match):
     wait()
     w.get_match(match['matchId'])
@@ -96,6 +101,8 @@ def team_tests(summoner):
 def main():
     static_tests()
     print('static tests passed')
+    status_tests()
+    print('status tests passed')
     champion_tests()
     print('champion tests passed')
     s = summoner_tests(summoner_name)

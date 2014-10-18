@@ -117,6 +117,7 @@ api_versions = {
     'game': 1.3,
     'league': 2.5,
     'lol-static-data': 1.2,
+    'lol-status': '1.0',
     'match': 2.2,
     'matchhistory': 2.2,
     'stats': 1.3,
@@ -401,6 +402,17 @@ class RiotWatcher:
             region,
             includeTimeline=include_timeline
         )
+
+    # lol-status-v1.0
+    def get_server_status(self, region=None):
+        if region is None:
+            url = 'shards'
+        else:
+            url = 'shards/{region}'.format(region=region)
+        r = requests.get('http://status.leagueoflegends.com/{url}'.format(url=url))
+        raise_status(r)
+        return r.json()
+
 
     # matchhistory-v2.2
     def _match_history_request(self, end_url, region, **kwargs):
