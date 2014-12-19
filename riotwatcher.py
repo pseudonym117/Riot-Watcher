@@ -117,7 +117,7 @@ api_versions = {
     'game': 1.3,
     'league': 2.5,
     'lol-static-data': 1.2,
-    'lol-status': '1.0',
+    'lol-status': 1.0,
     'match': 2.2,
     'matchhistory': 2.2,
     'stats': 1.3,
