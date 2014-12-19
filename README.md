@@ -8,7 +8,7 @@ RiotWatcher uses the Requests Python package. To install:
 ```
 pip install requests
 ```
-You also need to be a have an API from Riot. Get that from [here][1].
+You also need to have an API key from Riot. Get that from [here][1].
 
 ## Using it...
 All methods return dictionaries representing the json objects described by the official Riot API.
