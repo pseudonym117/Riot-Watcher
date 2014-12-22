@@ -117,7 +117,7 @@ api_versions = {
     'game': 1.3,
     'league': 2.5,
     'lol-static-data': 1.2,
-    'lol-status': '1.0',
+    'lol-status': 1.0,
     'match': 2.2,
     'matchhistory': 2.2,
     'stats': 1.3,
@@ -492,12 +492,12 @@ class RiotWatcher:
         else:
             return None
 
-    def get_summoner(self, name=None, id=None, region=None):
-        if (name is None) != (id is None):
+    def get_summoner(self, name=None, _id=None, region=None):
+        if (name is None) != (_id is None):
             if name is not None:
                 return self.get_summoners(names=[name, ], region=region)[name]
             else:
-                return self.get_summoners(ids=[id, ], region=region)[str(id)]
+                return self.get_summoners(ids=[_id, ], region=region)[str(_id)]
         return None
 
     def get_summoner_name(self, summoner_ids, region=None):
