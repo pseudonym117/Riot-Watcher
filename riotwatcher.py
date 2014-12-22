@@ -43,6 +43,9 @@ queue_types = [
     'NIGHTMARE_BOT_5x5_RANK1',  # Doom Bots Rank 1 games
     'NIGHTMARE_BOT_5x5_RANK2',  # Doom Bots Rank 2 games
     'NIGHTMARE_BOT_5x5_RANK5',  # Doom Bots Rank 5 games
+    'ASCENSION_5x5',            # Ascension games
+    'HEXAKILL',                 # 6v6 games on twisted treeline
+    'KING_PORO_5x5',            # King Poro game games
 ]
 
 game_maps = [
@@ -52,6 +55,7 @@ game_maps = [
     {'map_id': 4, 'name': "Twisted Treeline", 'notes': "Original Version"},
     {'map_id': 8, 'name': "The Crystal Scar", 'notes': "Dominion Map"},
     {'map_id': 10, 'name': "Twisted Treeline", 'notes': "Current Version"},
+    {'map_id': 11, 'name': "Summoner's Rift", 'notes': "Current Version"},
     {'map_id': 12, 'name': "Howling Abyss", 'notes': "ARAM Map"},
 ]
 
@@ -61,7 +65,9 @@ game_modes = [
     'ARAM',					# ARAM games
     'TUTORIAL',				# Tutorial games
     'ONEFORALL',			# One for All games
+    'ASCENSION',            # Ascension games
     'FIRSTBLOOD',			# Snowdown Showdown games
+    'KINGPORO',             # King Poro games
 ]
 
 game_types = [
@@ -89,6 +95,9 @@ sub_types = [
     'URF',						# Ultra Rapid Fire games
     'URF_BOT',					# Ultra Rapid Fire games against AI
     'NIGHTMARE_BOT',            # Nightmare bots
+    'ASCENSION',                # Ascension games
+    'HEXAKILL',                 # Twisted Treeline 6x6 Hexakill
+    ' KING_PORO',               # King Poro games
 ]
 
 player_stat_summary_types = [
@@ -108,6 +117,9 @@ player_stat_summary_types = [
     'CAP5x5',					# Team Builder games
     'URF',						# Ultra Rapid Fire games
     'URFBots',					# Ultra Rapid Fire games played against AI
+    'NightmareBot',             # Summoner's Rift games played against Nightmare AI
+    'Hexakill',                 # Twisted Treeline 6x6 Hexakill games
+    'KingPoro',                 # King Poro games
 ]
 
 solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3'

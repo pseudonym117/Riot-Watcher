@@ -81,7 +81,7 @@ def summoner_tests(summoner_name):
     wait()
     s = w.get_summoner(name=summoner_name)
     wait()
-    w.get_summoner(id=s['id'])
+    w.get_summoner(_id=s['id'])
     wait()
     w.get_mastery_pages([s['id'], ])
     wait()
