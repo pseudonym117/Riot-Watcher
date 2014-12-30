@@ -507,7 +507,7 @@ class RiotWatcher:
     def get_summoner(self, name=None, _id=None, region=None):
         if (name is None) != (_id is None):
             if name is not None:
-                return self.get_summoners(names=[name, ], region=region)[name]
+                return self.get_summoners(names=[name, ], region=region)[name.replace(" ",'').lower()]
             else:
                 return self.get_summoners(ids=[_id, ], region=region)[str(_id)]
         return None
