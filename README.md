@@ -1,5 +1,5 @@
-# RiotWatcher v1.2.2
-RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 12/22/2014 are supported in full. All game constants are also included in variable declarations.
+# RiotWatcher v1.2.3
+RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 12/31/2014 are supported in full. All game constants are also included in variable declarations.
 Requests are kept track of so that you can stay below your rate limit. The default rate limits are set to 10 requests every 10 seconds and 500 requests every 6 minutes (the limit for development keys).
 The rate limiter does not prevent you from making requests that will be blocked and cause an exception, it simply allows you to check if you request will go through.
 
@@ -74,6 +74,9 @@ The tests included are not perfect, and don't have full code coverage, but they 
 
 
 ## Changelog
+
+###v1.2.3 - 12/31/2014
+Fixed bug/undocumented feature when getting a single summoner with space in the name. Also added static method `RiotWatched.sanitize_name(name)` for stripping special characters from summoner names.
 
 ###v1.2.2 - 12/22/2014
 Tiny changes, function signature of get_summoner changed, to get by ID the keyword is now `_id`, not `id`, tests updated to reflect this

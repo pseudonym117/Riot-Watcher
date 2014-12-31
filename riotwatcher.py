@@ -224,6 +224,10 @@ class RiotWatcher:
         raise_status(r)
         return r.json()
 
+    @staticmethod
+    def sanitized_name(name):
+        return name.replace(' ', '').lower()
+
     # champion-v1.2
     def _champion_request(self, end_url, region, **kwargs):
         return self.base_request(
@@ -416,7 +420,8 @@ class RiotWatcher:
         )
 
     # lol-status-v1.0
-    def get_server_status(self, region=None):
+    @staticmethod
+    def get_server_status(region=None):
         if region is None:
             url = 'shards'
         else:
@@ -425,8 +430,7 @@ class RiotWatcher:
         raise_status(r)
         return r.json()
 
-
-    # matchhistory-v2.2
+    # match history-v2.2
     def _match_history_request(self, end_url, region, **kwargs):
         return self.base_request(
             'v{version}/matchhistory/{end_url}'.format(
@@ -497,7 +501,7 @@ class RiotWatcher:
     def get_summoners(self, names=None, ids=None, region=None):
         if (names is None) != (ids is None):
             return self._summoner_request(
-                'by-name/{summoner_names}'.format(summoner_names=','.join(names)) if names is not None
+                'by-name/{summoner_names}'.format(summoner_names=','.join([self.sanitized_name(n) for n in names])) if names is not None
                 else '{summoner_ids}'.format(summoner_ids=','.join([str(i) for i in ids])),
                 region
             )
@@ -507,7 +511,8 @@ class RiotWatcher:
     def get_summoner(self, name=None, _id=None, region=None):
         if (name is None) != (_id is None):
             if name is not None:
-                return self.get_summoners(names=[name, ], region=region)[name.replace(" ",'').lower()]
+                name = self.sanitized_name(name)
+                return self.get_summoners(names=[name, ], region=region)[name]
             else:
                 return self.get_summoners(ids=[_id, ], region=region)[str(_id)]
         return None

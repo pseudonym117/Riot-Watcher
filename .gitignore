@@ -1,6 +1,7 @@
 # Created by .gitignore support plugin (hsz.mobi)
 
 .idea/
+*.iml
 
 ### Python template
 # Byte-compiled / optimized / DLL files
