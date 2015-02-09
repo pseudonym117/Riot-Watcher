@@ -55,7 +55,7 @@ froggen = w.get_summoner(name='froggen', region=EUROPE_WEST)
 print(froggen)
 
 # create watcher with EUW as its default region
-euw = RiotClient('<your-api-key>', default_region=EUROPE_WEST)
+euw = RiotWatcher('<your-api-key>', default_region=EUROPE_WEST)
 
 # proper way to send names with spaces is to remove them, still works with spaces though
 xpeke = w.get_summoner(name='fnaticxmid')
