@@ -2,17 +2,30 @@ from collections import deque
 import time
 import requests
 
-# Constants
-BRAZIL = 'br'
-EUROPE_NORDIC_EAST = 'eune'
-EUROPE_WEST = 'euw'
-KOREA = 'kr'
-LATIN_AMERICA_NORTH = 'lan'
-LATIN_AMERICA_SOUTH = 'las'
-NORTH_AMERICA = 'na'
-OCEANIA = 'oce'
-RUSSIA = 'ru'
-TURKEY = 'tr'
+# Constants  --  comments are constants for current-game-info
+BRAZIL = 'br' #BR1
+EUROPE_NORDIC_EAST = 'eune' #EUN1
+EUROPE_WEST = 'euw' #EUW1
+KOREA = 'kr' #KR
+LATIN_AMERICA_NORTH = 'lan' #LA1
+LATIN_AMERICA_SOUTH = 'las' #LA2
+NORTH_AMERICA = 'na' #NA1
+OCEANIA = 'oce' #OC1
+RUSSIA = 'ru' #RU
+TURKEY = 'tr' #TR1
+
+cur_region = {
+    BRAZIL: 'BR1',
+    EUROPE_NORDIC_EAST: 'EUN1',
+    EUROPE_WEST: 'EUW1',
+    KOREA: 'KR',
+    LATIN_AMERICA_NORTH: 'LA1',
+    LATIN_AMERICA_SOUTH: 'LA2',
+    NORTH_AMERICA: 'NA1',
+    OCEANIA: 'OC1',
+    RUSSIA: 'RU',
+    TURKEY: 'TR1'
+}
 
 queue_types = [
     'CUSTOM',                   # Custom games
@@ -134,7 +147,8 @@ api_versions = {
     'matchhistory': 2.2,
     'stats': 1.3,
     'summoner': 1.4,
-    'team': 2.4
+    'team': 2.4,
+    'current-game': 1.0
 }
 
 
@@ -548,3 +562,30 @@ class RiotWatcher:
 
     def get_teams(self, team_ids, region=None):
         return self._team_request('{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
+
+    # current-game-v1.0
+    def _current_game_request(self, summoner_id, region):
+        if region is None:
+            region = self.default_region
+        args = {'api_key': self.key}
+        r = requests.get(
+            "https://{region}.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/{region2}/{summoner_id}".format(
+            region = region,
+            summoner_id = summoner_id,
+            region2 = cur_region[region]
+            ),
+            params = args
+        )
+        for lim in self.limits:
+            lim.add_request()
+        raise_status(r)
+        return r.json()
+
+    def get_current_game_by_id(self, _id, region = None):
+        return self._current_game_request(_id, region)
+
+    def get_current_game_by_name(self, name, region = None):
+        if region is None:
+            region = self.default_region
+        _id = self.get_summoner(name = name, region = region)['id']
+        return self.get_current_game_by_id(_id, region)
