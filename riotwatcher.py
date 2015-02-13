@@ -134,7 +134,8 @@ api_versions = {
     'matchhistory': 2.2,
     'stats': 1.3,
     'summoner': 1.4,
-    'team': 2.4
+    'team': 2.4,
+    'current-game': 1.0
 }
 
 
