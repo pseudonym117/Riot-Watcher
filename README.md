@@ -1,4 +1,4 @@
-# RiotWatcher v1.2.3
+# RiotWatcher v1.2.4
 RiotWatcher is a thin wrapper on top of the [Riot Games API for League of Legends][1]. All public methods as of 12/31/2014 are supported in full. All game constants are also included in variable declarations.
 Requests are kept track of so that you can stay below your rate limit. The default rate limits are set to 10 requests every 10 seconds and 500 requests every 6 minutes (the limit for development keys).
 The rate limiter does not prevent you from making requests that will be blocked and cause an exception, it simply allows you to check if you request will go through.
@@ -61,6 +61,10 @@ euw = RiotWatcher('<your-api-key>', default_region=EUROPE_WEST)
 xpeke = w.get_summoner(name='fnaticxmid')
 print(xpeke)
 ```
+# get current game info (by name)
+froggen_game = w.get_current_game_by_name(region = EUROPE_WEST, summoner_name = 'froggen')
+
+
 I might get around to fully documenting this at some point, but I am working on using it right now for other things, not documenting it.
 
 ## Testing
@@ -74,6 +78,9 @@ The tests included are not perfect, and don't have full code coverage, but they 
 
 
 ## Changelog
+
+###v.1.2.4 - 02/13/2014
+Added CurrentGame API. Added constants reflecting region for CurrentGame.
 
 ###v1.2.3 - 12/31/2014
 Fixed bug/undocumented feature when getting a single summoner with space in the name. Also added static method `RiotWatcher.sanitize_name(name)` for stripping special characters from summoner names.
