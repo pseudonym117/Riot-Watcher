@@ -25,6 +25,20 @@ def champion_tests():
     w.get_champion(temp['champions'][0]['id'])
 
 
+def current_game_tests():
+    wait()
+    player = w.get_featured_games()['gameList'][0]['participants'][0]['summonerName']
+    wait()
+    player_id = w.get_summoner(name=player)['id']
+    wait()
+    w.get_current_game(player_id)
+
+
+def featured_games_tests():
+    wait()
+    w.get_featured_games()
+
+
 def game_tests(summoner):
     wait()
     w.get_recent_games(summoner['id'])
@@ -105,6 +119,10 @@ def main():
     print('status tests passed')
     champion_tests()
     print('champion tests passed')
+    featured_games_tests()
+    print('featured games tests passed')
+    current_game_tests()
+    print('current games tests passed')
     s = summoner_tests(summoner_name)
     print('summoner tests passed')
     game_tests(s)
