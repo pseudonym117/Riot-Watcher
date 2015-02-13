@@ -55,7 +55,7 @@ froggen = w.get_summoner(name='froggen', region=EUROPE_WEST)
 print(froggen)
 
 # create watcher with EUW as its default region
-euw = RiotClient('<your-api-key>', default_region=EUROPE_WEST)
+euw = RiotWatcher('<your-api-key>', default_region=EUROPE_WEST)
 
 # proper way to send names with spaces is to remove them, still works with spaces though
 xpeke = w.get_summoner(name='fnaticxmid')
@@ -79,7 +79,7 @@ The tests included are not perfect, and don't have full code coverage, but they 
 Added current-game-v1.0 and featured-games-v1.0 api's
 
 ###v1.2.3 - 12/31/2014
-Fixed bug/undocumented feature when getting a single summoner with space in the name. Also added static method `RiotWatched.sanitize_name(name)` for stripping special characters from summoner names.
+Fixed bug/undocumented feature when getting a single summoner with space in the name. Also added static method `RiotWatcher.sanitize_name(name)` for stripping special characters from summoner names.
 
 ###v1.2.2 - 12/22/2014
 Tiny changes, function signature of get_summoner changed, to get by ID the keyword is now `_id`, not `id`, tests updated to reflect this
