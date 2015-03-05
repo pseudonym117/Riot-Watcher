@@ -3,7 +3,7 @@ RiotWatcher v1.2.4
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 2/12/2015 are supported in full. All game constants are also included
+of 3/5/2015 are supported in full. All game constants are also included
 in variable declarations. Requests are kept track of so that you can
 stay below your rate limit. The default rate limits are set to 10
 requests every 10 seconds and 500 requests every 6 minutes (the limit
@@ -14,11 +14,17 @@ you to check if you request will go through.
 To Start...
 -----------
 
-RiotWatcher uses the Requests Python package. To install:
+To install RiotWatcher:
 
 ::
 
-    pip install requests
+    pip install riotwatcher
+
+OR:
+
+::
+
+    python setup.py install
 
 You also need to have an API key from Riot. Get that from
 `here <https://developer.riotgames.com/>`__.
