@@ -1,3 +1,3 @@
-from riotwatcher import *
+from .riotwatcher import *
 
 __all__ = ['riotwatcher']
