@@ -354,6 +354,9 @@ class RiotWatcher:
     def get_challenger(self, region=None, queue=solo_queue):
         return self._league_request('challenger', region, type=queue)
 
+    def get_master(self, region=None, queue=solo_queue):
+        return self._league_request('master', region, type=queue)
+
     # lol-static-data-v1.2
     def _static_request(self, end_url, region, **kwargs):
         return self.base_request(
