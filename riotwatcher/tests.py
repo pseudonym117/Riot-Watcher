@@ -51,6 +51,8 @@ def league_tests(summoner):
     w.get_league_entry(summoner_ids=[summoner['id'], ])
     wait()
     w.get_challenger()
+    wait()
+    w.get_master()
 
 
 def static_tests():
