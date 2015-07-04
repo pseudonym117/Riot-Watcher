@@ -234,10 +234,7 @@ v1.0
 
 Initial release
 
-Maybe Important
+Attribution
 ~~~~~~~~~~~~~~~
 
-I don't own any part of Riot or League of Legends or any of their stuff.
-Don't claim to, and neither should you. This != Riot. My views are mine,
-theirs are theirs. Mine != theirs. Also if anything is trademarked, I
-don't own that trademark. Riot probably does.
+RiotWatcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing *League of Legends*. *League of Legends* and Riot Games are trademarks or registered trademarks of Riot Games, Inc. *League of Legends* © Riot Games, Inc.
