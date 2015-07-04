@@ -60,6 +60,7 @@ queue_types = [
     'ASCENSION_5x5',  # Ascension games
     'HEXAKILL',  # 6v6 games on twisted treeline
     'KING_PORO_5x5',  # King Poro game games
+    'COUNTER_PICK', # Nemesis games
 ]
 
 game_maps = [
@@ -111,7 +112,8 @@ sub_types = [
     'NIGHTMARE_BOT',  # Nightmare bots
     'ASCENSION',  # Ascension games
     'HEXAKILL',  # Twisted Treeline 6x6 Hexakill
-    ' KING_PORO',  # King Poro games
+    'KING_PORO',  # King Poro games
+    'COUNTER_PICK', # Nemesis games
 ]
 
 player_stat_summary_types = [
@@ -134,6 +136,7 @@ player_stat_summary_types = [
     'NightmareBot',  # Summoner's Rift games played against Nightmare AI
     'Hexakill',  # Twisted Treeline 6x6 Hexakill games
     'KingPoro',  # King Poro games
+    'CounterPick', # Nemesis games
 ]
 
 solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3'
