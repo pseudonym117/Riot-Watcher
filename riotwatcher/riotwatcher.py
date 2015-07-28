@@ -521,7 +521,7 @@ class RiotWatcher:
             **kwargs
         )
     def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, seasons=None, 
-                        begin_time=None, end_time=None begin_index=None, end_index=None):
+                        begin_time=None, end_time=None, begin_index=None, end_index=None):
         return self._match_list_request(
             '{summoner_id}'.format(summoner_id=summoner_id),
             region,
