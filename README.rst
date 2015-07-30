@@ -6,7 +6,7 @@ of Legends <https://developer.riotgames.com/>`__. All public methods as
 of 3/8/2015 are supported in full. All game constants are also included
 in variable declarations. Requests are kept track of so that you can
 stay below your rate limit. The default rate limits are set to 10
-requests every 10 seconds and 500 requests every 6 minutes (the limit
+requests every 10 seconds and 500 requests every 10 minutes (the limit
 for development keys). The rate limiter does not prevent you from making
 requests that will be blocked and cause an exception, it simply allows
 you to check if you request will go through.
@@ -110,6 +110,19 @@ make sure its the API f-ing up not your code):
 
 Changelog
 ---------
+
+v1.3 - 7/29/2015
+~~~~~~~~~~~~~~~~~
+
+merged pull requests to (done at previous date, changelog not updated):
+ - use matchlist endpoint
+ - use nemesis draft
+ - use riot attribution
+ - get master tier
+
+fixed issue with merged matchlist endpoint tests
+fixed issue #24 in readme
+added black market brawlers constants
 
 v1.2.5 - 3/8/2015
 ~~~~~~~~~~~~~~~~~
