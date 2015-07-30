@@ -151,6 +151,7 @@ api_versions = {
     'lol-status': 1.0,
     'match': 2.2,
     'matchhistory': 2.2,
+    'matchlist': 2.2,
     'stats': 1.3,
     'summoner': 1.4,
     'team': 2.4
@@ -508,7 +509,30 @@ class RiotWatcher:
             beginIndex=begin_index,
             endIndex=end_index
         )
-
+    
+    # match list-v2.2
+    def _match_list_request(self, end_url, region, **kwargs):
+        return self.base_request(
+            'v{version}/matchlist/by-summoner/{end_url}'.format(
+                version=api_versions['matchlist'],
+                end_url=end_url,
+            ),
+            region,
+            **kwargs
+        )
+    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, seasons=None, 
+                        begin_time=None, end_time=None, begin_index=None, end_index=None):
+        return self._match_list_request(
+            '{summoner_id}'.format(summoner_id=summoner_id),
+            region,
+            championsIds=champion_ids,
+            rankedQueues=ranked_queues,
+            seasons=seasons,
+            beginTime=begin_time,
+            endTime=end_time,
+            beginIndex=begin_index,
+            endIndex=end_index
+        )
     # stats-v1.3
     def _stats_request(self, end_url, region, **kwargs):
         return self.base_request(

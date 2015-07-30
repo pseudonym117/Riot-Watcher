@@ -113,6 +113,9 @@ def team_tests(summoner):
     wait()
     w.get_team(t[0]['fullId'])
 
+def match_list_tests(summoner):
+    wait()
+    w.get_match_list(summoner['id'], region=region)
 
 def main():
     static_tests()
@@ -139,6 +142,8 @@ def main():
     print('match history tests passed')
     match_tests(m)
     print('match passed')
+    match_list_tests(s)
+    print('match list tests passed')
     print('all tests passed, w00t. if only they were better tests...')
 
 
