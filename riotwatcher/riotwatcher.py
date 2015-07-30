@@ -60,7 +60,8 @@ queue_types = [
     'ASCENSION_5x5',  # Ascension games
     'HEXAKILL',  # 6v6 games on twisted treeline
     'KING_PORO_5x5',  # King Poro game games
-    'COUNTER_PICK', # Nemesis games
+    'COUNTER_PICK',  # Nemesis games,
+    'BILGEWATER_5x5',  # Black Market Brawlers games
 ]
 
 game_maps = [
@@ -72,6 +73,7 @@ game_maps = [
     {'map_id': 10, 'name': "Twisted Treeline", 'notes': "Current Version"},
     {'map_id': 11, 'name': "Summoner's Rift", 'notes': "Current Version"},
     {'map_id': 12, 'name': "Howling Abyss", 'notes': "ARAM Map"},
+    {'map_id': 14, 'name': "Butcher's Bridge", 'notes': "ARAM Map"},
 ]
 
 game_modes = [
@@ -113,7 +115,8 @@ sub_types = [
     'ASCENSION',  # Ascension games
     'HEXAKILL',  # Twisted Treeline 6x6 Hexakill
     'KING_PORO',  # King Poro games
-    'COUNTER_PICK', # Nemesis games
+    'COUNTER_PICK',  # Nemesis games
+    'BILGEWATER',  # Black Market Brawlers games
 ]
 
 player_stat_summary_types = [
@@ -136,7 +139,8 @@ player_stat_summary_types = [
     'NightmareBot',  # Summoner's Rift games played against Nightmare AI
     'Hexakill',  # Twisted Treeline 6x6 Hexakill games
     'KingPoro',  # King Poro games
-    'CounterPick', # Nemesis games
+    'CounterPick',  # Nemesis games
+    'Bilgewater',  # Black Market Brawlers games
 ]
 
 solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3'
@@ -520,7 +524,8 @@ class RiotWatcher:
             region,
             **kwargs
         )
-    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, seasons=None, 
+
+    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, seasons=None,
                         begin_time=None, end_time=None, begin_index=None, end_index=None):
         return self._match_list_request(
             '{summoner_id}'.format(summoner_id=summoner_id),
@@ -533,6 +538,7 @@ class RiotWatcher:
             beginIndex=begin_index,
             endIndex=end_index
         )
+
     # stats-v1.3
     def _stats_request(self, end_url, region, **kwargs):
         return self.base_request(

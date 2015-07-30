@@ -4,11 +4,11 @@
 import time
 from riotwatcher import RiotWatcher, NORTH_AMERICA
 
-key = '<YOUR KEY HERE>'
+key = '5cf65626-43f1-4919-aade-47bba8c847b9'
 # if summoner doesnt have ranked teams, teams tests will fail
 # if summoner doesnt have ranked stats, stats tests will fail
 # these are not graceful failures, so try to use a summoner that has them
-summoner_name = 'YOUR NAME HERE'
+summoner_name = 'pseudonym117'
 
 w = RiotWatcher(key)
 
@@ -115,7 +115,7 @@ def team_tests(summoner):
 
 def match_list_tests(summoner):
     wait()
-    w.get_match_list(summoner['id'], region=region)
+    w.get_match_list(summoner['id'])
 
 def main():
     static_tests()
