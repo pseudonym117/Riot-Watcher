@@ -3,8 +3,9 @@
 
 import time
 from riotwatcher import RiotWatcher, NORTH_AMERICA
+import os
 
-key = 'YOUR-KEY-HERE'
+key = os.environ['RIOT_API_KEY']
 # if summoner doesnt have ranked teams, teams tests will fail
 # if summoner doesnt have ranked stats, stats tests will fail
 # these are not graceful failures, so try to use a summoner that has them
