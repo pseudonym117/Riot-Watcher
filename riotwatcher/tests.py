@@ -21,145 +21,93 @@ def wait():
 
 class TestAPI(unittest.TestCase):
 
-    def test_can_get_summoner(self):
+    @classmethod
+    def setUpClass(cls):
+        # only initialize some variables once
+        cls.summoner = w.get_summoner(name=summoner_name)
+
+    def setUp(self):
         wait()
+
+    def test_can_get_champion(self):
         temp = w.get_all_champions()
         wait()
-        w.get_champion(temp['champions'][0]['id'])
+        self.assertIsNotNone(w.get_champion(temp['champions'][0]['id']))
+
+    def test_can_get_featured_games(self):
+        temp = w.get_featured_games()
+        self.assertIsNotNone(temp)
+
+    def test_can_get_current_game(self):
+        player = w.get_featured_games()['gameList'][0]['participants'][0]['summonerName']
+        wait()
+        player_id = w.get_summoner(name=player)['id']
+        wait()
+        self.assertIsNotNone(w.get_current_game(player_id))
+
+    def test_can_get_static(self):
+        temp = w.static_get_champion_list()
+        self.assertIsNotNone(w.static_get_champion(temp['data'][list(temp['data'])[0]]['id']))
+        temp = w.static_get_item_list()
+        self.assertIsNotNone(w.static_get_item(temp['data'][list(temp['data'])[0]]['id']))
+        temp = w.static_get_mastery_list()
+        self.assertIsNotNone(w.static_get_mastery(temp['data'][list(temp['data'])[0]]['id']))
+        self.assertIsNotNone(w.static_get_realm())
+        temp = w.static_get_rune_list()
+        self.assertIsNotNone(w.static_get_rune(temp['data'][list(temp['data'])[0]]['id']))
+        temp = w.static_get_summoner_spell_list()
+        self.assertIsNotNone(w.static_get_summoner_spell(temp['data'][list(temp['data'])[0]]['id']))
+        self.assertIsNotNone(w.static_get_versions())
+
+    def test_can_get_status(self):
+        self.assertIsNotNone(w.get_server_status())
+        self.assertIsNotNone(w.get_server_status(region=NORTH_AMERICA))
+
+    def test_can_get_summoner(self):
+        summoner = w.get_summoner(name=summoner_name)
+        self.assertIsNotNone(summoner)
+        wait()
+        self.assertIsNotNone(w.get_summoner(_id=summoner['id']))
+        wait()
+        self.assertIsNotNone(w.get_mastery_pages([summoner['id'], ]))
+        wait()
+        self.assertIsNotNone(w.get_rune_pages([summoner['id'], ]))
+        wait()
+        self.assertIsNotNone(w.get_summoner_name([summoner['id'], ]))
+
+    def test_can_get_recent_games(self):
+        temp = w.get_recent_games(self.summoner['id'])
+        self.assertIsNotNone(temp)
+
+    def test_can_get_league(self):
+        self.assertIsNotNone(w.get_league(summoner_ids=[self.summoner['id'], ]))
+        wait()
+        self.assertIsNotNone(w.get_league_entry(summoner_ids=[self.summoner['id'], ]))
+        wait()
+        self.assertIsNotNone(w.get_challenger())
+        wait()
+        self.assertIsNotNone(w.get_master())
+
+    def test_can_get_match_history(self):
+        self.assertIsNotNone(w.get_match_history(self.summoner['id']))
+
+    def test_can_get_match(self):
+        match = w.get_match_history(self.summoner['id'])['matches'][0]
+        self.assertIsNotNone( w.get_match(match['matchId']))
+
+    def test_can_get_stats(self):
+        self.assertIsNotNone(w.get_stat_summary(self.summoner['id']))
+        wait()
+        self.assertIsNotNone(w.get_ranked_stats(self.summoner['id']))
+
+    def test_can_get_team(self):
+        team = w.get_teams_for_summoner(self.summoner['id'])
+        self.assertIsNotNone(team)
+        wait()
+        self.assertIsNotNone(w.get_team(team[0]['fullId']))
+
+    def test_can_get_match_list(self):
+        self.assertIsNotNone(w.get_match_list(self.summoner['id']))
 
 if __name__ == '__main__':
     unittest.main()
-
-
-# def champion_tests():
-#     wait()
-#     temp = w.get_all_champions()
-#     wait()
-#     w.get_champion(temp['champions'][0]['id'])
-
-
-# def current_game_tests():
-#     wait()
-#     player = w.get_featured_games()['gameList'][0]['participants'][0]['summonerName']
-#     wait()
-#     player_id = w.get_summoner(name=player)['id']
-#     wait()
-#     w.get_current_game(player_id)
-
-
-# def featured_games_tests():
-#     wait()
-#     w.get_featured_games()
-
-
-# def game_tests(summoner):
-#     wait()
-#     w.get_recent_games(summoner['id'])
-
-
-# def league_tests(summoner):
-#     wait()
-#     w.get_league(summoner_ids=[summoner['id'], ])
-#     wait()
-#     w.get_league_entry(summoner_ids=[summoner['id'], ])
-#     wait()
-#     w.get_challenger()
-#     wait()
-#     w.get_master()
-
-
-# def static_tests():
-#     temp = w.static_get_champion_list()
-#     w.static_get_champion(temp['data'][list(temp['data'])[0]]['id'])
-#     temp = w.static_get_item_list()
-#     w.static_get_item(temp['data'][list(temp['data'])[0]]['id'])
-#     temp = w.static_get_mastery_list()
-#     w.static_get_mastery(temp['data'][list(temp['data'])[0]]['id'])
-#     w.static_get_realm()
-#     temp = w.static_get_rune_list()
-#     w.static_get_rune(temp['data'][list(temp['data'])[0]]['id'])
-#     temp = w.static_get_summoner_spell_list()
-#     w.static_get_summoner_spell(temp['data'][list(temp['data'])[0]]['id'])
-#     w.static_get_versions()
-
-
-# def status_tests():
-#     w.get_server_status()
-#     w.get_server_status(region=NORTH_AMERICA)
-
-
-# def match_tests(match):
-#     wait()
-#     w.get_match(match['matchId'])
-
-
-# def match_history_tests(summoner):
-#     wait()
-#     ms = w.get_match_history(summoner['id'])
-#     return ms['matches'][0]
-
-
-# def stats_tests(summoner):
-#     wait()
-#     w.get_stat_summary(summoner['id'])
-#     wait()
-#     w.get_ranked_stats(summoner['id'])
-
-
-# def summoner_tests(summoner_name):
-#     wait()
-#     s = w.get_summoner(name=summoner_name)
-#     wait()
-#     w.get_summoner(_id=s['id'])
-#     wait()
-#     w.get_mastery_pages([s['id'], ])
-#     wait()
-#     w.get_rune_pages([s['id'], ])
-#     wait()
-#     w.get_summoner_name([s['id'], ])
-#     return s
-
-
-# def team_tests(summoner):
-#     wait()
-#     t = w.get_teams_for_summoner(summoner['id'])
-#     wait()
-#     w.get_team(t[0]['fullId'])
-
-# def match_list_tests(summoner):
-#     wait()
-#     w.get_match_list(summoner['id'])
-
-# def main():
-#     static_tests()
-#     print('static tests passed')
-#     status_tests()
-#     print('status tests passed')
-#     champion_tests()
-#     print('champion tests passed')
-#     featured_games_tests()
-#     print('featured games tests passed')
-#     current_game_tests()
-#     print('current games tests passed')
-#     s = summoner_tests(summoner_name)
-#     print('summoner tests passed')
-#     game_tests(s)
-#     print('game tests passed')
-#     league_tests(s)
-#     print('league tests passed')
-#     stats_tests(s)
-#     print('stats tests passed')
-#     team_tests(s)
-#     print('team tests passed')
-#     m = match_history_tests(s)
-#     print('match history tests passed')
-#     match_tests(m)
-#     print('match passed')
-#     match_list_tests(s)
-#     print('match list tests passed')
-#     print('all tests passed, w00t. if only they were better tests...')
-
-
-# if __name__ == '__main__':
-#     main()
-
