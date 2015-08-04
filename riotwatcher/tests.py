@@ -17,7 +17,7 @@ import unittest
 
 def wait():
     while not w.can_make_request():
-        time.sleep(1)
+        time.sleep(2)
 
 class TestAPI(unittest.TestCase):
 
@@ -88,12 +88,11 @@ class TestAPI(unittest.TestCase):
         wait()
         self.assertIsNotNone(w.get_master())
 
-    def test_can_get_match_history(self):
-        self.assertIsNotNone(w.get_match_history(self.summoner['id']))
-
     def test_can_get_match(self):
-        match = w.get_match_history(self.summoner['id'])['matches'][0]
-        self.assertIsNotNone( w.get_match(match['matchId']))
+        matches = w.get_match_history(self.summoner['id'])
+        self.assertIsNotNone(matches)
+        match = matches['matches'][0]
+        self.assertIsNotNone(w.get_match(match['matchId']))
 
     def test_can_get_stats(self):
         self.assertIsNotNone(w.get_stat_summary(self.summoner['id']))
