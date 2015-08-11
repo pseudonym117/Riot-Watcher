@@ -163,34 +163,35 @@ api_versions = {
 
 
 class LoLException(Exception):
-    def __init__(self, error):
+    def __init__(self, error, response):
         self.error = error
+        self.headers = response.headers
 
     def __str__(self):
         return self.error
 
 
-error_400 = LoLException("Bad request")
-error_401 = LoLException("Unauthorized")
-error_404 = LoLException("Game data not found")
-error_429 = LoLException("Too many requests")
-error_500 = LoLException("Internal server error")
-error_503 = LoLException("Service unavailable")
+error_400 = "Bad request"
+error_401 = "Unauthorized"
+error_404 = "Game data not found"
+error_429 = "Too many requests"
+error_500 = "Internal server error"
+error_503 = "Service unavailable"
 
 
 def raise_status(response):
     if response.status_code == 400:
-        raise error_400
+        raise LoLException(error_400, response)
     elif response.status_code == 401:
-        raise error_401
+        raise LoLException(error_401, response)
     elif response.status_code == 404:
-        raise error_404
+        raise LoLException(error_404, response)
     elif response.status_code == 429:
-        raise error_429
+        raise LoLException(error_429, response)
     elif response.status_code == 500:
-        raise error_500
+        raise LoLException(error_500, response)
     elif response.status_code == 503:
-        raise error_503
+        raise LoLException(error_503, response)
     else:
         response.raise_for_status()
 
