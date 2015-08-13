@@ -214,12 +214,19 @@ class RateLimit:
         self.__reload()
         return len(self.made_requests) < self.allowed_requests
 
+    def wait_until_available(self):
+        while not self.request_available():
+            timer_expires = self.made_requests[0]
+            sleep_duration = timer_expires - time.time()
+            time.sleep(sleep_duration)
+
 
 class RiotWatcher:
-    def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), )):
+    def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), ), enforce_limits=False):
         self.key = key
         self.default_region = default_region
         self.limits = limits
+        self.enforce_limits = enforce_limits
 
     def can_make_request(self):
         for lim in self.limits:
@@ -234,6 +241,9 @@ class RiotWatcher:
         for k in kwargs:
             if kwargs[k] is not None:
                 args[k] = kwargs[k]
+        if not static and self.enforce_limits:
+            for lim in self.limits:
+                lim.wait_until_available()
         r = requests.get(
             'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
                 proxy='global' if static else region,
@@ -256,6 +266,9 @@ class RiotWatcher:
         for k in kwargs:
             if kwargs[k] is not None:
                 args[k] = kwargs[k]
+        if self.enforce_limits:
+            for lim in self.limits:
+                lim.wait_until_available()
         r = requests.get(
             'https://{proxy}.api.pvp.net/observer-mode/rest/{url}'.format(
                 proxy=proxy,
