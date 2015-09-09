@@ -638,3 +638,32 @@ class RiotWatcher:
 
     def get_teams(self, team_ids, region=None):
         return self._team_request('{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
+
+
+class RateEnforcingRiotWatcher(RiotWatcher):
+    def base_request(self, url, region, static=False, **kwargs):
+        if region is None:
+            region = self.default_region
+        args = {'api_key': self.key}
+        for k in kwargs:
+            if kwargs[k] is not None:
+                args[k] = kwargs[k]
+        while not self.can_make_request():
+            time.sleep(1)
+        r = requests.get(
+            'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
+                proxy='global' if static else region,
+                static='static-data/' if static else '',
+                region=region,
+                url=url
+            ),
+            params=args
+        )
+        if not static:
+            for lim in self.limits:
+                lim.add_request()
+        if r.status_code == 429:
+            pass
+        else:
+            raise_status(r)
+        return r.json()
