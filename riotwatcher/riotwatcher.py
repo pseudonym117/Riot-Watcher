@@ -207,12 +207,23 @@ class RateLimit:
         while len(self.made_requests) > 0 and self.made_requests[0] < t:
             self.made_requests.popleft()
 
-    def add_request(self):
-        self.made_requests.append(time.time() + self.seconds)
+    def add_request(self, append_left=None, expiration_time=None):
+        if expiration_time is None:
+            expiration_time = time.time() + self.seconds
+        if append_left:
+            self.made_requests.appendleft(expiration_time)
+        else:
+            self.made_requests.append(expiration_time)
 
     def request_available(self):
         self.__reload()
         return len(self.made_requests) < self.allowed_requests
+
+    def get_next_permission_time(self):
+        if self.request_available():
+            return time.time()
+        else:
+            return self.made_requests[0]
 
 
 class RiotWatcher:
@@ -648,22 +659,35 @@ class RateEnforcingRiotWatcher(RiotWatcher):
         for k in kwargs:
             if kwargs[k] is not None:
                 args[k] = kwargs[k]
-        while not self.can_make_request():
-            time.sleep(1)
-        r = requests.get(
-            'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
-                proxy='global' if static else region,
-                static='static-data/' if static else '',
-                region=region,
-                url=url
-            ),
-            params=args
-        )
-        if not static:
-            for lim in self.limits:
-                lim.add_request()
-        if r.status_code == 429:
-            pass
-        else:
-            raise_status(r)
+        while True:
+            self.wait_until_permitted()
+            r = requests.get(
+                'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
+                    proxy='global' if static else region,
+                    static='static-data/' if static else '',
+                    region=region,
+                    url=url
+                ),
+                params=args
+            )
+            if r.status_code == 429:
+                # Try fetching the 'retry-after' field and add this as the earliest retry time
+                try:
+                    wait_time = time.time() + r.headers['retry-after']
+                except KeyError:
+                    wait_time = None
+                for lim in self.limits:
+                    lim.add_request(append_left=True, wait_time=wait_time)
+                    continue
+            if not static:
+                for lim in self.limits:
+                    lim.add_request()
+            break
+        raise_status(r)
         return r.json()
+
+    def wait_until_permitted(self):
+        for lim in self.limits:
+            next_perm = lim.get_next_permission_time()
+            if time.time() < next_perm:
+                time.sleep(next_perm - time.time())
