@@ -80,12 +80,6 @@ def match_tests(match):
     w.get_match(match['matchId'])
 
 
-def match_history_tests(summoner):
-    wait()
-    ms = w.get_match_history(summoner['id'])
-    return ms['matches'][0]
-
-
 def stats_tests(summoner):
     wait()
     w.get_stat_summary(summoner['id'])
@@ -113,9 +107,11 @@ def team_tests(summoner):
     wait()
     w.get_team(t[0]['fullId'])
 
+
 def match_list_tests(summoner):
     wait()
-    w.get_match_list(summoner['id'])
+    return w.get_match_list(summoner['id'])['matches'][0]
+
 
 def main():
     static_tests()
@@ -138,12 +134,10 @@ def main():
     print('stats tests passed')
     team_tests(s)
     print('team tests passed')
-    m = match_history_tests(s)
-    print('match history tests passed')
+    m = match_list_tests(s)
+    print('match list tests passed')
     match_tests(m)
     print('match passed')
-    match_list_tests(s)
-    print('match list tests passed')
     print('all tests passed, w00t. if only they were better tests...')
 
 

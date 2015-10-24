@@ -1,4 +1,4 @@
-RiotWatcher v1.3
+RiotWatcher v1.3.1
 ==================
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
@@ -111,8 +111,13 @@ make sure its the API f-ing up not your code):
 Changelog
 ---------
 
+v1.3.1 - 10/24/2015
+~~~~~~~~~~~~~~~~~~~
+
+removed match history functions, as these were deprecated.
+
 v1.3 - 7/29/2015
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 merged pull requests to (done at previous date, changelog not updated):
  - use matchlist endpoint
@@ -248,7 +253,7 @@ v1.0
 Initial release
 
 Attribution
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~
 
 RiotWatcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially
 involved in producing or managing *League of Legends*. *League of Legends* and Riot Games are trademarks or registered

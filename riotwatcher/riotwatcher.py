@@ -154,7 +154,6 @@ api_versions = {
     'lol-static-data': 1.2,
     'lol-status': 1.0,
     'match': 2.2,
-    'matchhistory': 2.2,
     'matchlist': 2.2,
     'stats': 1.3,
     'summoner': 1.4,
@@ -492,28 +491,6 @@ class RiotWatcher:
         r = requests.get('http://status.leagueoflegends.com/{url}'.format(url=url))
         raise_status(r)
         return r.json()
-
-    # match history-v2.2
-    def _match_history_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/matchhistory/{end_url}'.format(
-                version=api_versions['matchhistory'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_match_history(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, begin_index=None,
-                          end_index=None):
-        return self._match_history_request(
-            '{summoner_id}'.format(summoner_id=summoner_id),
-            region,
-            championIds=champion_ids,
-            rankedQueues=ranked_queues,
-            beginIndex=begin_index,
-            endIndex=end_index
-        )
     
     # match list-v2.2
     def _match_list_request(self, end_url, region, **kwargs):
