@@ -145,6 +145,13 @@ player_stat_summary_types = [
 
 solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3'
 
+preseason_3, season_3, preseason_2014, season_2014, preseason_2015, season_2015, preseason_2016, season_2016 = [
+    'PRESEASON3', 'SEASON3',
+    'PRESEASON2014', 'SEASON2014',
+    'PRESEASON2015', 'SEASON2015',
+    'PRESEASON2016', 'SEASON2016',
+]
+
 api_versions = {
     'champion': 1.2,
     'current-game': 1.0,
@@ -168,6 +175,17 @@ class LoLException(Exception):
 
     def __str__(self):
         return self.error
+
+    def __eq__(self, other):
+        if isinstance(other, "".__class__):
+            return self.error == other
+        elif isinstance(other, self.__class__):
+            return self.error == other.error and self.headers == other.headers
+        else:
+            return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
 
 error_400 = "Bad request"
@@ -503,14 +521,14 @@ class RiotWatcher:
             **kwargs
         )
 
-    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, seasons=None,
+    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, season=None,
                         begin_time=None, end_time=None, begin_index=None, end_index=None):
         return self._match_list_request(
             '{summoner_id}'.format(summoner_id=summoner_id),
             region,
             championsIds=champion_ids,
             rankedQueues=ranked_queues,
-            seasons=seasons,
+            season=season,
             beginTime=begin_time,
             endTime=end_time,
             beginIndex=begin_index,
@@ -579,7 +597,8 @@ class RiotWatcher:
         if (name is None) != (_id is None):
             if name is not None:
                 name = self.sanitized_name(name)
-                return self.get_summoners(names=[name, ], region=region)[name]
+                key, summoner = self.get_summoners(names=[name, ], region=region).popitem()
+                return summoner
             else:
                 return self.get_summoners(ids=[_id, ], region=region)[str(_id)]
         return None

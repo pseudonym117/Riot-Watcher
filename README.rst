@@ -1,4 +1,4 @@
-RiotWatcher v1.3.1
+RiotWatcher v1.3.2
 ==================
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
@@ -110,6 +110,13 @@ make sure its the API f-ing up not your code):
 
 Changelog
 ---------
+
+v1.3.2 - 11/16/2015
+~~~~~~~~~~~~~~~~~~~
+
+fixed issue with special characters in names in get_summoners method (issue #28)
+fixed bug in matchlist API causing requests for past seasons to fail, added constants for each possible season. (issue #44)
+fixed bug introduced in pull request #35 (method of checked for what exception is thrown changed from what was documented) - old method should work now. (issue #43)
 
 v1.3.1 - 10/24/2015
 ~~~~~~~~~~~~~~~~~~~
