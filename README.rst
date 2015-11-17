@@ -88,6 +88,25 @@ initialization.
     xpeke = w.get_summoner(name='fnaticxmid')
     print(xpeke)
 
+    # Error checking requires importing LoLException as well as any errors you wish to check for.
+    #
+    # For Riot's API, the 404 status code indicates that the requested data wasn't found and
+    # should be expected to occur in normal operation, as in the case of a an invalid summoner name,
+    # match ID, etc.
+    #
+    # The 429 status code indicates that the user has sent too many requests
+    # in a given amount of time ("rate limiting").
+
+    from riotwatcher import LoLException, error_404, error_429
+
+    try:
+        response = rw.get_summoner('voyboy')
+    except LoLException as e:
+        if e == error_429:
+            print('We should retry in {} seconds.'.format(e.headers['Retry-After']))
+        elif e == error_404:
+            print('Summoner not found.')
+
 I might get around to fully documenting this at some point, but I am
 working on using it right now for other things, not documenting it.
 
