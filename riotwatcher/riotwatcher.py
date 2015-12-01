@@ -190,6 +190,7 @@ class LoLException(Exception):
 
 error_400 = "Bad request"
 error_401 = "Unauthorized"
+error_403 = "Blacklisted key"
 error_404 = "Game data not found"
 error_429 = "Too many requests"
 error_500 = "Internal server error"
@@ -201,6 +202,8 @@ def raise_status(response):
         raise LoLException(error_400, response)
     elif response.status_code == 401:
         raise LoLException(error_401, response)
+    elif response.status_code == 403:
+        raise LoLException(error_403, response)
     elif response.status_code == 404:
         raise LoLException(error_404, response)
     elif response.status_code == 429:
