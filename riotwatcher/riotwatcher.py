@@ -187,6 +187,9 @@ class LoLException(Exception):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    def __hash__(self):
+        return super(LoLException).__hash__()
+
 
 error_400 = "Bad request"
 error_401 = "Unauthorized"
