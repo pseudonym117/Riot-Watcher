@@ -529,9 +529,9 @@ class RiotWatcher:
         return self._match_list_request(
             '{summoner_id}'.format(summoner_id=summoner_id),
             region,
-            championsIds=champion_ids,
+            championIds=champion_ids,
             rankedQueues=ranked_queues,
-            season=season,
+            seasons=season,
             beginTime=begin_time,
             endTime=end_time,
             beginIndex=begin_index,
