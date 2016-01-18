@@ -198,6 +198,7 @@ error_404 = "Game data not found"
 error_429 = "Too many requests"
 error_500 = "Internal server error"
 error_503 = "Service unavailable"
+error_504 = 'Gateway timeout'
 
 
 def raise_status(response):
@@ -215,6 +216,8 @@ def raise_status(response):
         raise LoLException(error_500, response)
     elif response.status_code == 503:
         raise LoLException(error_503, response)
+    elif response.status_code == 504:
+        raise LoLException(error_504, response)
     else:
         response.raise_for_status()
 
