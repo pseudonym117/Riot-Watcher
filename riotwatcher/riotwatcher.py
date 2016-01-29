@@ -531,7 +531,11 @@ class RiotWatcher:
         )
 
     def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, season=None,
-                        begin_time=None, end_time=None, begin_index=None, end_index=None):
+                       begin_time=None, end_time=None, begin_index=None, end_index=None):
+        if ranked_queues is not None and not isinstance(ranked_queues, str) :
+            ranked_queues = ','.join(ranked_queues)
+        if season is not None and not isinstance(season, str):
+            season = ','.join(season)
         return self._match_list_request(
             '{summoner_id}'.format(summoner_id=summoner_id),
             region,
