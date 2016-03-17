@@ -240,18 +240,31 @@ class RateLimit:
         self.__reload()
         return len(self.made_requests) < self.allowed_requests
 
+    # This assumes a singleton api instance. But so does the rate limit system overall.
+    def wait_for_available(self):
+        if not self.request_available():
+            time.sleep(self.made_requests[0]-time.time())
+            return
+
 
 class RiotWatcher:
-    def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), )):
+    def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), ), blocking=False):
         self.key = key  #If you have a production key, use limits=(RateLimit(3000,10), RateLimit(180000,600),)
         self.default_region = default_region
         self.limits = limits
+        self.blocking = blocking
 
     def can_make_request(self):
         for lim in self.limits:
             if not lim.request_available():
                 return False
         return True
+
+    def wait_for_limits(self):
+        for limit in self.limits:
+            limit.wait_for_available()
+        return
+
 
     def base_request(self, url, region, static=False, **kwargs):
         if region is None:
@@ -260,6 +273,9 @@ class RiotWatcher:
         for k in kwargs:
             if kwargs[k] is not None:
                 args[k] = kwargs[k]
+        if not static:
+            if self.blocking:
+                self.wait_for_limits()
         r = requests.get(
             'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
                 proxy='global' if static else region,
@@ -282,6 +298,8 @@ class RiotWatcher:
         for k in kwargs:
             if kwargs[k] is not None:
                 args[k] = kwargs[k]
+        if self.blocking:
+            self.wait_for_limits()
         r = requests.get(
             'https://{proxy}.api.pvp.net/observer-mode/rest/{url}'.format(
                 proxy=proxy,
@@ -518,7 +536,7 @@ class RiotWatcher:
         r = requests.get('http://status.leagueoflegends.com/{url}'.format(url=url))
         raise_status(r)
         return r.json()
-    
+
     # match list-v2.2
     def _match_list_request(self, end_url, region, **kwargs):
         return self.base_request(
