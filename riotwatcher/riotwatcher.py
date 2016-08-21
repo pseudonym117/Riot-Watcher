@@ -13,6 +13,7 @@ NORTH_AMERICA = 'na'
 OCEANIA = 'oce'
 RUSSIA = 'ru'
 TURKEY = 'tr'
+JAPAN = 'jp'
 
 # Platforms
 platforms = {
@@ -25,7 +26,8 @@ platforms = {
     NORTH_AMERICA: 'NA1',
     OCEANIA: 'OC1',
     RUSSIA: 'RU',
-    TURKEY: 'TR1'
+    TURKEY: 'TR1',
+    JAPAN: 'JP1'
 }
 
 queue_types = [
