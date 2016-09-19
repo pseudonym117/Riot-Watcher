@@ -166,7 +166,8 @@ api_versions = {
     'matchlist': 2.2,
     'stats': 1.3,
     'summoner': 1.4,
-    'team': 2.4
+    'team': 2.4,
+    'championmastery': None
 }
 
 
@@ -263,10 +264,8 @@ class RiotWatcher:
             if kwargs[k] is not None:
                 args[k] = kwargs[k]
         r = requests.get(
-            'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
+            'https://{proxy}.api.pvp.net/{url}'.format(
                 proxy='global' if static else region,
-                static='static-data/' if static else '',
-                region=region,
                 url=url
             ),
             params=args
@@ -303,7 +302,8 @@ class RiotWatcher:
     # champion-v1.2
     def _champion_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/champion/{end_url}'.format(
+            'api/lol/{region}/v{version}/champion/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['champion'],
                 end_url=end_url
             ),
@@ -316,6 +316,52 @@ class RiotWatcher:
 
     def get_champion(self, champion_id, region=None):
         return self._champion_request('{id}'.format(id=champion_id), region)
+
+    # championmastery
+    def _champion_mastery_request(self, url, region, **kwargs):
+        region_platforms_map = {
+            'br': 'br1',
+            'eune': 'eun1',
+            'euw': 'euw1',
+            'kr': 'kr',
+            'lan': 'la1',
+            'las': 'la2',
+            'na': 'na1',
+            'oce': 'oc1',
+            'ru': 'ru',
+            'tk': 'tr1',
+            'jp': 'jp1'
+        }
+        return self.base_request(
+            'championmastery/location/{platform}/player/{url}'.format(
+                platform=region_platforms_map[region.lower()],
+                url=url
+            ),
+            region,
+            **kwargs
+        )
+
+    def get_champion_mastery(self, summoner_id, champion_id, region=None):
+        return self._champion_mastery_request(
+            '{summoner_id}/champion/{champion_id}'.format(
+                summoner_id=summoner_id,
+                champion_id=champion_id
+            ),
+            region
+        )
+
+    def get_champion_masteries(self, summoner_id, region=None):
+        return self._champion_mastery_request('{summoner_id}/champions'.format(summoner_id=summoner_id), region)
+
+    def get_mastery_score(self, summoner_id, region=None):
+        return self._champion_mastery_request('{summoner_id}/score'.format(summoner_id=summoner_id), region)
+
+    def get_top_champions(self, summoner_id, region=None, count=3):
+        return self._champion_mastery_request(
+            '{summoner_id}/topchampions'.format(summoner_id=summoner_id),
+            region,
+            count=count
+        )
 
     # current-game-v1.0
     def get_current_game(self, summoner_id, platform_id=None, region=None):
@@ -336,7 +382,8 @@ class RiotWatcher:
     # game-v1.3
     def _game_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/game/{end_url}'.format(
+            'api/lol/{region}/v{version}/game/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['game'],
                 end_url=end_url
             ),
@@ -350,7 +397,8 @@ class RiotWatcher:
     # league-v2.5
     def _league_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/league/{end_url}'.format(
+            'api/lol/{region}/v{version}/league/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['league'],
                 end_url=end_url
             ),
@@ -397,7 +445,8 @@ class RiotWatcher:
     # lol-static-data-v1.2
     def _static_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/{end_url}'.format(
+            'api/lol/static-data/{region}/v{version}/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['lol-static-data'],
                 end_url=end_url
             ),
@@ -495,8 +544,9 @@ class RiotWatcher:
     # match-v2.2
     def _match_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/match/{end_url}'.format(
-                version=api_versions['match'],
+            'api/lol/{region}/v{version}/match/{end_url}'.format(
+                 region=region if region else self.default_region,
+                 version=api_versions['match'],
                 end_url=end_url
             ),
             region,
@@ -520,11 +570,12 @@ class RiotWatcher:
         r = requests.get('http://status.leagueoflegends.com/{url}'.format(url=url))
         raise_status(r)
         return r.json()
-    
+
     # match list-v2.2
     def _match_list_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/matchlist/by-summoner/{end_url}'.format(
+            'api/lol/{region}/v{version}/matchlist/by-summoner/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['matchlist'],
                 end_url=end_url,
             ),
@@ -553,7 +604,8 @@ class RiotWatcher:
     # stats-v1.3
     def _stats_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/stats/{end_url}'.format(
+            'api/lol/{region}/v{version}/stats/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['stats'],
                 end_url=end_url
             ),
@@ -577,7 +629,8 @@ class RiotWatcher:
     # summoner-v1.4
     def _summoner_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/summoner/{end_url}'.format(
+            'api/lol/{region}/v{version}/summoner/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['summoner'],
                 end_url=end_url
             ),
@@ -627,7 +680,8 @@ class RiotWatcher:
     # team-v2.4
     def _team_request(self, end_url, region, **kwargs):
         return self.base_request(
-            'v{version}/team/{end_url}'.format(
+            'api/lol/{region}/v{version}/team/{end_url}'.format(
+                region=region if region else self.default_region,
                 version=api_versions['team'],
                 end_url=end_url
             ),
