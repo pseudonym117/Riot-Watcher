@@ -323,7 +323,7 @@ class RiotWatcher:
             region = self.default_region
         return self.base_request(
             'championmastery/location/{platform}/player/{url}'.format(
-                platform=platforms[region],
+                platform=platforms[region.lower()],
                 url=url
             ),
             region,
