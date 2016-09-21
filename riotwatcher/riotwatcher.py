@@ -319,22 +319,11 @@ class RiotWatcher:
 
     # championmastery
     def _champion_mastery_request(self, url, region, **kwargs):
-        region_platforms_map = {
-            'br': 'br1',
-            'eune': 'eun1',
-            'euw': 'euw1',
-            'kr': 'kr',
-            'lan': 'la1',
-            'las': 'la2',
-            'na': 'na1',
-            'oce': 'oc1',
-            'ru': 'ru',
-            'tk': 'tr1',
-            'jp': 'jp1'
-        }
+        if region is None:
+            region = self.default_region
         return self.base_request(
             'championmastery/location/{platform}/player/{url}'.format(
-                platform=region_platforms_map[region.lower()],
+                platform=platforms[region],
                 url=url
             ),
             region,
