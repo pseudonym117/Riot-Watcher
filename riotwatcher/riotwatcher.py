@@ -193,7 +193,7 @@ class LoLException(Exception):
     def __hash__(self):
         return super(LoLException).__hash__()
 
-
+error_204 = "No data"
 error_400 = "Bad request"
 error_401 = "Unauthorized"
 error_403 = "Blacklisted key"
@@ -205,7 +205,9 @@ error_504 = 'Gateway timeout'
 
 
 def raise_status(response):
-    if response.status_code == 400:
+    if response.status_code == 204:
+        raise LoLException(error_204, response)
+    elif response.status_code == 400:
         raise LoLException(error_400, response)
     elif response.status_code == 401:
         raise LoLException(error_401, response)
