@@ -244,13 +244,17 @@ class RateLimit:
 
 
 class RiotWatcher:
-    def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), )):
-        self.key = key  #If you have a production key, use limits=(RateLimit(3000,10), RateLimit(180000,600),)
+    def __init__(self, key, default_region=NORTH_AMERICA, limits=((10, 10), (500, 600),)):
+        self.key = key  #If you have a production key, use limits=((3000,10), (180000,600),)
         self.default_region = default_region
+        self.rate_limiters = {platform: [RateLimit(*lim) for lim in limits]
+                             for platform in platforms}
         self.limits = limits
 
-    def can_make_request(self):
-        for lim in self.limits:
+    def can_make_request(self, region=None):
+        if region is None:
+            region = self.default_region
+        for lim in self.rate_limiters[region]:
             if not lim.request_available():
                 return False
         return True
@@ -272,7 +276,7 @@ class RiotWatcher:
             params=args
         )
         if not static:
-            for lim in self.limits:
+            for lim in self.rate_limiters[region]:
                 lim.add_request()
         raise_status(r)
         return r.json()
@@ -291,7 +295,7 @@ class RiotWatcher:
             ),
             params=args
         )
-        for lim in self.limits:
+        for lim in self.rate_limiters[proxy]:
             lim.add_request()
         raise_status(r)
         return r.json()
