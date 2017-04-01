@@ -1,6 +1,7 @@
 from collections import deque
 import time
 import requests
+from pprint import pprint
 
 # Constants
 BRAZIL = 'br'
@@ -165,8 +166,7 @@ api_versions = {
     'match': 2.2,
     'matchlist': 2.2,
     'stats': 1.3,
-    'summoner': 1.4,
-    'team': 2.4
+    'summoner': 1.4
 }
 
 
@@ -192,36 +192,49 @@ class LoLException(Exception):
     def __hash__(self):
         return super(LoLException).__hash__()
 
-
-error_400 = "Bad request"
-error_401 = "Unauthorized"
-error_403 = "Blacklisted key"
-error_404 = "Game data not found"
-error_429 = "Too many requests"
-error_500 = "Internal server error"
-error_503 = "Service unavailable"
-error_504 = 'Gateway timeout'
+d_error_code_msg_s = {
+    400: "Bad request",
+    401: "Unauthorized",
+    403: "Blacklisted or invalid key",
+    404: "Game data not found",
+    429: "Too many requests",
+    500: "Internal server error",
+    503: "Service unavailable",
+    504: 'Gateway timeout',
+}
 
 
 def raise_status(response):
-    if response.status_code == 400:
-        raise LoLException(error_400, response)
-    elif response.status_code == 401:
-        raise LoLException(error_401, response)
-    elif response.status_code == 403:
-        raise LoLException(error_403, response)
-    elif response.status_code == 404:
-        raise LoLException(error_404, response)
-    elif response.status_code == 429:
-        raise LoLException(error_429, response)
-    elif response.status_code == 500:
-        raise LoLException(error_500, response)
-    elif response.status_code == 503:
-        raise LoLException(error_503, response)
-    elif response.status_code == 504:
-        raise LoLException(error_504, response)
-    else:
+    # Check if there exists an error message corresponding to the status code
+    # If not the exception KeyError is raised then caught
+    # and the response.raise_for_status method is called
+    try:
+        s_error_msg = d_error_code_msg_s[response.status_code]
+        raise LoLException(s_error_msg, response)
+    except KeyError:
         response.raise_for_status()
+
+    # if response.status_code == 400:
+    #     raise LoLException(error_400, response)
+    #
+    #
+    #
+    # elif response.status_code == 401:
+    #     raise LoLException(error_401, response)
+    # elif response.status_code == 403:
+    #     raise LoLException(error_403, response)
+    # elif response.status_code == 404:
+    #     raise LoLException(error_404, response)
+    # elif response.status_code == 429:
+    #     raise LoLException(error_429, response)
+    # elif response.status_code == 500:
+    #     raise LoLException(error_500, response)
+    # elif response.status_code == 503:
+    #     raise LoLException(error_503, response)
+    # elif response.status_code == 504:
+    #     raise LoLException(error_504, response)
+    # else:
+    #     response.raise_for_status()
 
 
 class RateLimit:
@@ -241,13 +254,33 @@ class RateLimit:
     def request_available(self):
         self.__reload()
         return len(self.made_requests) < self.allowed_requests
+#
+# class RiotAPIRequest:
+#
+#     def __init__(self, p_api_key, url, region, ):
 
 
 class RiotWatcher:
-    def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), )):
+    def __init__(self, key, default_region=EUROPE_WEST, limits=(RateLimit(10, 10), RateLimit(500, 600), )):
         self.key = key  #If you have a production key, use limits=(RateLimit(3000,10), RateLimit(180000,600),)
         self.default_region = default_region
         self.limits = limits
+
+    def _wait(call):
+        """
+        Decorator that aims to check if the current RiotWatcher can do requests.
+
+        :param func:
+        :return:
+        """
+        def wrapper(*args, **kwargs):
+            watcher = args[0]
+            print(call, args)
+            # loop until watcher's limit has been refreshed
+            while not watcher.can_make_request():
+                time.sleep(1)
+            return call(*args, **kwargs)
+        return wrapper
 
     def can_make_request(self):
         for lim in self.limits:
@@ -255,28 +288,24 @@ class RiotWatcher:
                 return False
         return True
 
-    def base_request(self, url, region, static=False, **kwargs):
+    @staticmethod
+    def sanitized_name(name):
+        return name.replace(' ', '').lower()
+
+    # lol-status-v1.0
+    @staticmethod
+    def get_server_status(region=None):
         if region is None:
-            region = self.default_region
-        args = {'api_key': self.key}
-        for k in kwargs:
-            if kwargs[k] is not None:
-                args[k] = kwargs[k]
-        r = requests.get(
-            'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
-                proxy='global' if static else region,
-                static='static-data/' if static else '',
-                region=region,
-                url=url
-            ),
-            params=args
-        )
-        if not static:
-            for lim in self.limits:
-                lim.add_request()
+            url = 'shards'
+        else:
+            url = 'shards/{region}'.format(region=region)
+        r = requests.get('http://status.leagueoflegends.com/{url}'.format(url=url))
         raise_status(r)
         return r.json()
 
+#################################################################################################"
+
+    @_wait
     def _observer_mode_request(self, url, proxy=None, **kwargs):
         if proxy is None:
             proxy = self.default_region
@@ -296,27 +325,68 @@ class RiotWatcher:
         raise_status(r)
         return r.json()
 
-    @staticmethod
-    def sanitized_name(name):
-        return name.replace(' ', '').lower()
+    @_wait
+    def base_request(self, url, region, static=False, **kwargs):
+        if region is None:
+            region = self.default_region
+        args = {'api_key': self.key}
+        for k in kwargs:
+            if kwargs[k] is not None:
+                args[k] = kwargs[k]
 
-    # champion-v1.2
-    def _champion_request(self, end_url, region, **kwargs):
+        final_url ='https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
+                proxy='global' if static else region,
+                static='static-data/' if static else '',
+                region=region,
+                url=url
+            )
+        r = requests.get(final_url,
+            params=args
+        )
+        if not static:
+            for lim in self.limits:
+                lim.add_request()
+        raise_status(r)
+        return r.json()
+
+    # Requests
+    def _category_base_request(self, category, end_url, region, **kwargs):
+        d_categories = {
+            'lol-static-data': "/",
+            "game": "/game/",
+            "league": "/league/",
+            "matchlist": "/matchlist/",
+            "match": "/match/",
+            "stats": "/stats/",
+            "summoner": "/summoner/"
+        }
+        if category not in d_categories:
+            raise Exception("Category %s not in l_categories" % category)
+
         return self.base_request(
-            'v{version}/champion/{end_url}'.format(
-                version=api_versions['champion'],
-                end_url=end_url
+            'v{version}{category}{end_url}'.format(
+                version=api_versions[category],
+                end_url=end_url,
+                category=d_categories[category]
             ),
             region,
             **kwargs
         )
 
-    def get_all_champions(self, region=None, free_to_play=False):
-        return self._champion_request('', region, freeToPlay=free_to_play)
+    # lol-static-data-v1.2
+    def _static_request(self, end_url, region, **kwargs):
+        return self._category_base_request(category='lol-static-data',
+                                            end_url='{end_url}'.format(
+                                                      end_url=end_url
+                                            ),
+                                            region=region,
+                                            static=True,
+                                            **kwargs
+                                            )
 
-    def get_champion(self, champion_id, region=None):
-        return self._champion_request('{id}'.format(id=champion_id), region)
+######################################################################################################
 
+    # summoner related
     # current-game-v1.0
     def get_current_game(self, summoner_id, platform_id=None, region=None):
         if platform_id is None:
@@ -328,84 +398,132 @@ class RiotWatcher:
             ),
             region
         )
+    # todo
 
-    # featured-game-v1.0
+    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, season=None,
+                       begin_time=None, end_time=None, begin_index=None, end_index=None):
+        if ranked_queues is not None and not isinstance(ranked_queues, str) :
+            ranked_queues = ','.join(ranked_queues)
+        if season is not None and not isinstance(season, str):
+            season = ','.join(season)
+
+        return self._category_base_request(category='matchlist',
+                                            end_url='by-summoner/{summoner_id}'.format(summoner_id=summoner_id),
+                                            region=region,
+                                            championIds=champion_ids,
+                                            rankedQueues=ranked_queues,
+                                            seasons=season,
+                                            beginTime=begin_time,
+                                            endTime=end_time,
+                                            beginIndex=begin_index,
+                                            endIndex=end_index
+        )
+
+    def get_stat_summary(self, summoner_id, region=None, season=None):
+        return self._category_base_request(category='stats',
+                                           end_url='by-summoner/{summoner_id}/summary'.format(summoner_id=summoner_id),
+                                           region=region,
+                                           season='SEASON{}'.format(season) if season is not None else None)
+
+    def get_ranked_stats(self, summoner_id, region=None, season=None):
+        return self._category_base_request(category='stats',
+                                           end_url='by-summoner/{summoner_id}/ranked'.format(summoner_id=summoner_id),
+                                           region=region,
+                                           season='SEASON{}'.format(season) if season is not None else None
+                                           )
+
+    def get_mastery_pages(self, summoner_ids, region=None):
+        return self._category_base_request(category='summoner',
+                                           end_url='{summoner_ids}/masteries'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+                                           region=region
+        )
+
+    def get_rune_pages(self, summoner_ids, region=None):
+        return self._category_base_request(category='summoner',
+                                           end_url='{summoner_ids}/runes'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+                                           region=region
+        )
+
+    def get_league(self, summoner_ids=None, region=None):
+        """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
+        # todo wtf is this shit?
+
+        if summoner_ids is None:
+            return self._category_base_request(category="league",
+                                               end_url='by-summoner/{summoner_ids}'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+                                               region=region)
+
+    def get_league_entry(self, summoner_ids=None, region=None):
+        """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
+        if summoner_ids is None:
+            return self._category_base_request(category="league",
+                                               end_url='by-summoner/{summoner_ids}/entry'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+                                               region=region)
+
+    def get_recent_games(self, summoner_id, region=None):
+        return self._category_base_request(category='game',
+                                           end_url='by-summoner/{summoner_id}/recent'.format(summoner_id=summoner_id),
+                                           region=region)
+
+    def get_summoner_name(self, summoner_ids, region=None):
+        return self._category_base_request(category='summoner',
+                                           end_url='{summoner_ids}/name'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+                                           region=region
+                                           )
+
+# League related
+
+    def get_challenger(self, region=None, queue=solo_queue):
+        return self._category_base_request(category='league',
+                                           end_url='challenger',
+                                           region=region,
+                                           type=queue
+                                           )
+
+    def get_master(self, region=None, queue=solo_queue):
+        return self._category_base_request(category='league',
+                                           end_url='master',
+                                           region=region,
+                                           type=queue
+                                           )
+
+    def get_match(self, match_id, region=None, include_timeline=False):
+        return self._category_base_request(category='match',
+                                           end_url='{match_id}'.format(match_id=match_id),
+                                           region=region,
+                                           includeTimeline=include_timeline
+                                           )
+
+    def get_summoners(self, names=None, ids=None, region=None):
+        # todo je pense qu'on peut mieux faire iici, avec un elif
+        if (names is None) != (ids is None):
+            if names is not None:
+                end_url = 'by-name/{summoner_names}'.format(summoner_names=','.join([self.sanitized_name(n) for n in names]))
+            else:
+                end_url = '{summoner_ids}'.format(summoner_ids=','.join([str(i) for i in ids]))
+            return self._category_base_request(category='summoner',
+                                               end_url=end_url,
+                                               region=region)
+        else:
+            return None
+
+
+# todo complicado
+
+    def get_summoner(self, name=None, _id=None, region=None):
+        if (name is None) != (_id is None):
+            if name is not None:
+                name = self.sanitized_name(name)
+                key, summoner = self.get_summoners(names=[name, ], region=region).popitem()
+                return summoner
+            else:
+                return self.get_summoners(ids=[_id, ], region=region)[str(_id)]
+        return None
+
     def get_featured_games(self, proxy=None):
         return self._observer_mode_request('featured', proxy)
 
-    # game-v1.3
-    def _game_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/game/{end_url}'.format(
-                version=api_versions['game'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_recent_games(self, summoner_id, region=None):
-        return self._game_request('by-summoner/{summoner_id}/recent'.format(summoner_id=summoner_id), region)
-
-    # league-v2.5
-    def _league_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/league/{end_url}'.format(
-                version=api_versions['league'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_league(self, summoner_ids=None, team_ids=None, region=None):
-        """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
-        if (summoner_ids is None) != (team_ids is None):
-            if summoner_ids is not None:
-                return self._league_request(
-                    'by-summoner/{summoner_ids}'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-                    region
-                )
-            else:
-                return self._league_request(
-                    'by-team/{team_ids}'.format(team_ids=','.join([str(t) for t in team_ids])),
-                    region
-                )
-
-    def get_league_entry(self, summoner_ids=None, team_ids=None, region=None):
-        """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
-        if (summoner_ids is None) != (team_ids is None):
-            if summoner_ids is not None:
-                return self._league_request(
-                    'by-summoner/{summoner_ids}/entry'.format(
-                        summoner_ids=','.join([str(s) for s in summoner_ids])
-                    ),
-                    region
-                )
-            else:
-                return self._league_request(
-                    'by-team/{team_ids}/entry'.format(team_ids=','.join([str(t) for t in team_ids])),
-                    region
-                )
-
-    def get_challenger(self, region=None, queue=solo_queue):
-        return self._league_request('challenger', region, type=queue)
-
-    def get_master(self, region=None, queue=solo_queue):
-        return self._league_request('master', region, type=queue)
-
-    # lol-static-data-v1.2
-    def _static_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/{end_url}'.format(
-                version=api_versions['lol-static-data'],
-                end_url=end_url
-            ),
-            region,
-            static=True,
-            **kwargs
-        )
-
+    # todo static class for static functions
     def static_get_champion_list(self, region=None, locale=None, version=None, data_by_id=None, champ_data=None):
         return self._static_request(
             'champion',
@@ -491,161 +609,3 @@ class RiotWatcher:
 
     def static_get_versions(self, region=None):
         return self._static_request('versions', region)
-
-    # match-v2.2
-    def _match_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/match/{end_url}'.format(
-                version=api_versions['match'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_match(self, match_id, region=None, include_timeline=False):
-        return self._match_request(
-            '{match_id}'.format(match_id=match_id),
-            region,
-            includeTimeline=include_timeline
-        )
-
-    # lol-status-v1.0
-    @staticmethod
-    def get_server_status(region=None):
-        if region is None:
-            url = 'shards'
-        else:
-            url = 'shards/{region}'.format(region=region)
-        r = requests.get('http://status.leagueoflegends.com/{url}'.format(url=url))
-        raise_status(r)
-        return r.json()
-    
-    # match list-v2.2
-    def _match_list_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/matchlist/by-summoner/{end_url}'.format(
-                version=api_versions['matchlist'],
-                end_url=end_url,
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, season=None,
-                       begin_time=None, end_time=None, begin_index=None, end_index=None):
-        if ranked_queues is not None and not isinstance(ranked_queues, str) :
-            ranked_queues = ','.join(ranked_queues)
-        if season is not None and not isinstance(season, str):
-            season = ','.join(season)
-        return self._match_list_request(
-            '{summoner_id}'.format(summoner_id=summoner_id),
-            region,
-            championIds=champion_ids,
-            rankedQueues=ranked_queues,
-            seasons=season,
-            beginTime=begin_time,
-            endTime=end_time,
-            beginIndex=begin_index,
-            endIndex=end_index
-        )
-
-    # stats-v1.3
-    def _stats_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/stats/{end_url}'.format(
-                version=api_versions['stats'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_stat_summary(self, summoner_id, region=None, season=None):
-        return self._stats_request(
-            'by-summoner/{summoner_id}/summary'.format(summoner_id=summoner_id),
-            region,
-            season='SEASON{}'.format(season) if season is not None else None)
-
-    def get_ranked_stats(self, summoner_id, region=None, season=None):
-        return self._stats_request(
-            'by-summoner/{summoner_id}/ranked'.format(summoner_id=summoner_id),
-            region,
-            season='SEASON{}'.format(season) if season is not None else None
-        )
-
-    # summoner-v1.4
-    def _summoner_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/summoner/{end_url}'.format(
-                version=api_versions['summoner'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_mastery_pages(self, summoner_ids, region=None):
-        return self._summoner_request(
-            '{summoner_ids}/masteries'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    def get_rune_pages(self, summoner_ids, region=None):
-        return self._summoner_request(
-            '{summoner_ids}/runes'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    def get_summoners(self, names=None, ids=None, region=None):
-        if (names is None) != (ids is None):
-            return self._summoner_request(
-                'by-name/{summoner_names}'.format(
-                    summoner_names=','.join([self.sanitized_name(n) for n in names])) if names is not None
-                else '{summoner_ids}'.format(summoner_ids=','.join([str(i) for i in ids])),
-                region
-            )
-        else:
-            return None
-
-    def get_summoner(self, name=None, _id=None, region=None):
-        if (name is None) != (_id is None):
-            if name is not None:
-                name = self.sanitized_name(name)
-                key, summoner = self.get_summoners(names=[name, ], region=region).popitem()
-                return summoner
-            else:
-                return self.get_summoners(ids=[_id, ], region=region)[str(_id)]
-        return None
-
-    def get_summoner_name(self, summoner_ids, region=None):
-        return self._summoner_request(
-            '{summoner_ids}/name'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    # team-v2.4
-    def _team_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/team/{end_url}'.format(
-                version=api_versions['team'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_teams_for_summoner(self, summoner_id, region=None):
-        return self.get_teams_for_summoners([summoner_id, ], region=region)[str(summoner_id)]
-
-    def get_teams_for_summoners(self, summoner_ids, region=None):
-        return self._team_request(
-            'by-summoner/{summoner_id}'.format(summoner_id=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    def get_team(self, team_id, region=None):
-        return self.get_teams([team_id, ], region=region)[str(team_id)]
-
-    def get_teams(self, team_ids, region=None):
-        return self._team_request('{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
