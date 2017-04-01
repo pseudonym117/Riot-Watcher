@@ -292,7 +292,6 @@ class RiotWatcher:
     def sanitized_name(name):
         return name.replace(' ', '').lower()
 
-    # lol-status-v1.0
     @staticmethod
     def get_server_status(region=None):
         if region is None:
@@ -349,7 +348,6 @@ class RiotWatcher:
         raise_status(r)
         return r.json()
 
-    # Requests
     def _category_base_request(self, category, end_url, region, **kwargs):
         d_categories = {
             'lol-static-data': "/",
@@ -373,7 +371,6 @@ class RiotWatcher:
             **kwargs
         )
 
-    # lol-static-data-v1.2
     def _static_request(self, end_url, region, **kwargs):
         return self._category_base_request(category='lol-static-data',
                                             end_url='{end_url}'.format(
@@ -386,8 +383,6 @@ class RiotWatcher:
 
 ######################################################################################################
 
-    # summoner related
-    # current-game-v1.0
     def get_current_game(self, summoner_id, platform_id=None, region=None):
         if platform_id is None:
             platform_id = platforms[self.default_region]
@@ -398,7 +393,6 @@ class RiotWatcher:
             ),
             region
         )
-    # todo
 
     def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, season=None,
                        begin_time=None, end_time=None, begin_index=None, end_index=None):
@@ -446,8 +440,6 @@ class RiotWatcher:
 
     def get_league(self, summoner_ids=None, region=None):
         """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
-        # todo wtf is this shit?
-
         if summoner_ids is None:
             return self._category_base_request(category="league",
                                                end_url='by-summoner/{summoner_ids}'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
@@ -471,8 +463,6 @@ class RiotWatcher:
                                            region=region
                                            )
 
-# League related
-
     def get_challenger(self, region=None, queue=solo_queue):
         return self._category_base_request(category='league',
                                            end_url='challenger',
@@ -495,7 +485,7 @@ class RiotWatcher:
                                            )
 
     def get_summoners(self, names=None, ids=None, region=None):
-        # todo je pense qu'on peut mieux faire iici, avec un elif
+        # todo With an elif, it could be better
         if (names is None) != (ids is None):
             if names is not None:
                 end_url = 'by-name/{summoner_names}'.format(summoner_names=','.join([self.sanitized_name(n) for n in names]))
@@ -506,9 +496,6 @@ class RiotWatcher:
                                                region=region)
         else:
             return None
-
-
-# todo complicado
 
     def get_summoner(self, name=None, _id=None, region=None):
         if (name is None) != (_id is None):
