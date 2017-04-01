@@ -14,6 +14,9 @@ Cleaned the main `RiotWatcher` class:
         - added `wait` decorator for requests of the api
                 - May be used for loging purposes
 
+TODO:
+-----
+We need some documentation
 
 
 RiotWatcher v1.3.2
