@@ -1,23 +1,23 @@
-RiotWatcher v2.0.1
+RiotWatcher v1.3.3
 ==================
 
-Interface very similar, see `helloworld.py` to see changes.
+Interface very similar to v1.3.2 , see ``helloworld.py`` to see changes.
 
-Added environment file support for api_key setting `riotwatcher.yml`:
-        - May be used for other purposes like server
+Added environment file support for api_key setting ``riotwatcher.yml``:
+        - May be used for other purposes (server location)
 
-Changed implementation of unitary tests in order to make them work with `unittest`. run `python -m unittest discover` from root directory.
+Changed implementation of unit tests in order to make them work with ``unittest``. run ``python -m unittest discover`` from root directory to run the tests after install.
 
-Cleaned the main `RiotWatcher` class:
-        - removed `team` api request that doesn't exist anymore
+Cleaned the main ``RiotWatcher`` class:
+        - removed ``team`` api request that doesn't exist anymore
         - changed implementation of requests, they are now all do with 1 function
-        - added `wait` decorator for requests of the api
+        - added ``wait`` decorator for requests of the api
                 - May be used for loging purposes
 
 TODO:
 -----
-We need some documentation
-
+Some doc is needed
+Object-Relational mapping between queries would be nice
 
 RiotWatcher v1.3.2
 ==================
