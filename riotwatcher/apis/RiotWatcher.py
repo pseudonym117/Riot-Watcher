@@ -9,6 +9,7 @@ from MasteriesApiV3 import MasteriesApiV3
 from MatchApiV3 import MatchApiV3
 from RunesApiV3 import RunesApiV3
 from SpectatorApiV3 import SpectatorApiV3
+from StaticDataApiV3 import StaticDataApiV3
 from SummonerApiV3 import SummonerApiV3
 
 
@@ -24,7 +25,7 @@ class RiotWatcher:
         self._match = MatchApiV3(self._base_api)
         self._runes = RunesApiV3(self._base_api)
         self._spectator = SpectatorApiV3(self._base_api)
-        # todo: static data
+        self._static_data = StaticDataApiV3(self._base_api)
         self._summoner = SummonerApiV3(self._base_api)
         # todo: tournament-stub
         # todo: tournament
@@ -60,6 +61,10 @@ class RiotWatcher:
     @property
     def spectator(self):
         return self._spectator
+
+    @property
+    def static_data(self):
+        return self._static_data
 
     @property
     def summoner(self):

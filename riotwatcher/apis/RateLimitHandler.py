@@ -6,10 +6,11 @@ class RequestHandler:
     def __init__(self):
         pass
 
-    def preview_request(self, url):
+    def preview_request(self, url, query_params):
         """
         called before a request is processed.
         :param url: the URL that is being requested.
+        :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
         """
         pass
 
@@ -45,10 +46,11 @@ class RateLimitHandler(RequestHandler):
         """
         return self._last_rate_headers
 
-    def preview_request(self, url):
+    def preview_request(self, url, query_params):
         """
         called before a request is processed.
         :param url: the URL that is being requested.
+        :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
         """
         super(RateLimitHandler, self).preview_request(url)
 

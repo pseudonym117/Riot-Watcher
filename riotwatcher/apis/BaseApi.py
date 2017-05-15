@@ -17,14 +17,16 @@ class BaseApi:
     def api_key(self):
         return self._api_key
 
-    def request(self, region, url_ext):
+    def request(self, region, url_ext, **kwargs):
         url = 'https://{region}.api.riotgames.com{ext}'.format(region=region, ext=url_ext)
+
+        query_params = {k: v for k, v in kwargs.items() if v is not None}
 
         if self._request_handlers is not None:
             for handler in self._request_handlers:
-                handler.preview_request(url)
+                handler.preview_request(url, query_params)
 
-        response = requests.get(url, headers={'X-Riot-Token': self.api_key})
+        response = requests.get(url, params=query_params, headers={'X-Riot-Token': self.api_key})
 
         if self._request_handlers is not None:
             for handler in self._request_handlers:
