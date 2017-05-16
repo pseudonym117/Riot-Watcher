@@ -30,7 +30,7 @@ stay below your rate limit. The default rate limits are set to 10
 requests every 10 seconds and 500 requests every 10 minutes (the limit
 for development keys). The rate limiter does not prevent you from making
 requests that will be blocked and cause an exception, it simply allows
-you to check if you request will go through.
+you to check if you request will go through. sdsd
 
 To Start...
 -----------
