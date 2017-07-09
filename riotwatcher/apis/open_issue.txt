@@ -9,5 +9,3 @@ should JSON convert be handled by a post-handler?
 where should regions be specified?
     - each request?
     - base api?
-
-should allow arbitrary query params?

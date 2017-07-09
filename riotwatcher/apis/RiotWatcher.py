@@ -1,25 +1,22 @@
 
-from BaseApi import BaseApi
-
-from ChampionMasteryApiV3 import ChampionMasteryApiV3
-from ChampionApiV3 import ChampionApiV3
-from LeagueStatusApiV3 import LeagueStatusApiV3
-from LolStatusApiV3 import LolStatusApiV3
-from MasteriesApiV3 import MasteriesApiV3
-from MatchApiV3 import MatchApiV3
-from RunesApiV3 import RunesApiV3
-from SpectatorApiV3 import SpectatorApiV3
-from StaticDataApiV3 import StaticDataApiV3
-from SummonerApiV3 import SummonerApiV3
-
+from _apis import *
+from Handlers import *
 
 class RiotWatcher:
-    def __init__(self, api_key):
-        self._base_api = BaseApi(api_key)
+    def __init__(self, api_key, custom_handler_chain=None, rate_limits=None):
+        if custom_handler_chain is None:
+            custom_handler_chain = [
+                ConsoleLoggingHandler('first'),
+                JsonifyHandler(),
+                WaitingRateLimitHandler(rate_limits=rate_limits),
+                ConsoleLoggingHandler('closest'),
+            ]
 
-        self._champion_mastery = ChampionMasteryApiV3(self._base_api)
+        self._base_api = BaseApi(api_key, custom_handler_chain)
+
         self._champion = ChampionApiV3(self._base_api)
-        self._league = LeagueStatusApiV3(self._base_api)
+        self._champion_mastery = ChampionMasteryApiV3(self._base_api)
+        self._league = LeagueApiV3(self._base_api)
         self._lol_status = LolStatusApiV3(self._base_api)
         self._masteries = MasteriesApiV3(self._base_api)
         self._match = MatchApiV3(self._base_api)

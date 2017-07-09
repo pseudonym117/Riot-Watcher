@@ -22,14 +22,23 @@ class BaseApi:
 
         query_params = {k: v for k, v in kwargs.items() if v is not None}
 
-        if self._request_handlers is not None:
-            for handler in self._request_handlers:
-                handler.preview_request(url, query_params)
-
-        response = requests.get(url, params=query_params, headers={'X-Riot-Token': self.api_key})
+        response = None
+        early_ret_idx = None
 
         if self._request_handlers is not None:
-            for handler in self._request_handlers:
-                handler.after_request(url, response)
+            for idx, handler in enumerate(self._request_handlers, start=1):
+                response = handler.preview_request(url, query_params)
+                early_ret_idx = idx
+                if(response is not None):
+                    break
 
-        return response.json()
+        if response is None:
+            response = requests.get(url, params=query_params, headers={'X-Riot-Token': self.api_key})
+
+        if self._request_handlers is not None:
+            for handler in self._request_handlers[early_ret_idx:None:-1]:
+                mod = handler.after_request(url, response)
+                if mod is not None:
+                    response = mod
+
+        return response

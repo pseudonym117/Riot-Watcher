@@ -5,3 +5,4 @@ class LolStatusApiV3:
 
     def shard_data(self, region='na1'):
         return self._base_api.request(region, '/lol/status/v3/shard-data')
+        

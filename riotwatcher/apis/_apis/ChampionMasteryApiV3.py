@@ -1,5 +1,5 @@
 
-class ChampionMasterApiV3:
+class ChampionMasteryApiV3:
     def __init__(self, base_api):
         self._base_api = base_api
 
