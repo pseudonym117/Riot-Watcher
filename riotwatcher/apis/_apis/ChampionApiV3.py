@@ -1,7 +1,7 @@
 
 class ChampionApiV3:
     """
-    This class wraps the Champion Api v3 calls provided by the Riot API.
+    This class wraps the Champion-v3 Api calls provided by the Riot API.
     See https://developer.riotgames.com/api-methods/#champion-v3 for more detailed information
     """
     def __init__(self, base_api):
@@ -16,8 +16,8 @@ class ChampionApiV3:
         """
         Retrieve all champions.
 
-        :param string region: the region to execute this request on
-        :param bool free_to_play: Optional filter param to retrieve only free to play champions.
+        :param region string: the region to execute this request on
+        :param free_to_play bool: Optional filter param to retrieve only free to play champions.
         :returns: List[ChampionDto] - This object contains a collection of champion information.
         """
         return self._base_api.request(region, '/lol/platform/v3/champions', freeToPlay=free_to_play)
@@ -26,8 +26,8 @@ class ChampionApiV3:
         """
         Retrieve champion by ID
 
-        :param string region: the region to execute this request on
-        :param int champion_id: Champion ID
+        :param region string: the region to execute this request on
+        :param champion_id int: Champion ID
         :returns: ChampionDto - This object contains a collection of champion information.
         """
         return self._base_api.request(region, '/lol/platform/v3/champions/{id}'.format(id=champion_id))
