@@ -5,8 +5,8 @@ class StaticDataApiV3:
 
     def champions(
             self,
+            region,
             champion_id=None,
-            region='na1',
             version=None,
             champ_list_data=None,
             champ_data=None,
@@ -31,7 +31,7 @@ class StaticDataApiV3:
                 champData=champ_data
             )
 
-    def items(self, item_id=None, region='na1', version=None, item_data=None, item_list_data=None, locale=None):
+    def items(self, region, item_id=None, version=None, item_data=None, item_list_data=None, locale=None):
         if item_id is None:
             return self._base_api.request(
                 region,
@@ -49,16 +49,16 @@ class StaticDataApiV3:
                 locale=locale
             )
 
-    def language_strings(self, region='na1', version=None, locale=None):
+    def language_strings(self, region, version=None, locale=None):
         return self._base_api.request(region, '/lol/static-data/v3/language-strings', version=version, locale=locale)
 
-    def languages(self, region='na1'):
+    def languages(self, region):
         return self._base_api.request(region, '/lol/static-data/v3/languages')
 
-    def maps(self, region='na1', version=None, locale=None):
+    def maps(self, region, version=None, locale=None):
         return self._base_api.request(region, '/lol/static-data/v3/maps', version=version, locale=locale)
 
-    def masteries(self, mastery_id=None, region='na1', version=None, mastery_data=None, mastery_list_data=None, locale=None):
+    def masteries(self, region, mastery_id=None, version=None, mastery_data=None, mastery_list_data=None, locale=None):
         if mastery_id is None:
             return self._base_api.request(
                 region,
@@ -76,13 +76,13 @@ class StaticDataApiV3:
                 locale=locale
             )
 
-    def profile_icons(self, region='na1', version=None, locale=None):
+    def profile_icons(self, region, version=None, locale=None):
         return self._base_api.request(region, '/lol/static-data/v3/profile-icons', version=version, locale=locale)
 
-    def realms(self, region='na1'):
+    def realms(self, region):
         return self._base_api.request(region, '/lol/static-data/v3/realms')
 
-    def runes(self, rune_id=None, region='na1', version=None, rune_data=None, rune_list_data=None, locale=None):
+    def runes(self, region, rune_id=None, version=None, rune_data=None, rune_list_data=None, locale=None):
         if rune_id is None:
             return self._base_api.request(
                 region,
@@ -102,8 +102,8 @@ class StaticDataApiV3:
 
     def summoner_spells(
             self,
+            region,
             summoner_spell_id=None,
-            region='na1',
             version=None,
             spell_data=None,
             spell_list_data=None,
@@ -128,5 +128,5 @@ class StaticDataApiV3:
                 locale=locale
             )
 
-    def versions(self, region='na1'):
+    def versions(self, region):
         return self._base_api.request(region, '/lol/static-data/v3/versions')

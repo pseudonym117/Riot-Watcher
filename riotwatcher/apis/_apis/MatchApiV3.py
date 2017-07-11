@@ -3,16 +3,16 @@ class MatchApiV3:
     def __init__(self, base_api):
         self._base_api = base_api
 
-    def __call__(self, match_id, region='na1'):
-        return self.by_id(match_id, region=region)
+    def __call__(self, region, match_id):
+        return self.by_id(match_id, region)
 
-    def by_id(self, match_id, region='na1'):
+    def by_id(self, region, match_id):
         return self._base_api.request(region, '/lol/match/v3/matches/{matchId}'.format(matchId=match_id))
 
     def matchlist_by_account(
             self,
+            region,
             account_id,
-            region='na1',
             queue=None,
             begin_time=None,
             end_time=None,
@@ -33,11 +33,11 @@ class MatchApiV3:
             champion=champion
         )
 
-    def matchlist_by_account_recent(self, account_id, region='na1'):
+    def matchlist_by_account_recent(self, region, account_id):
         return self._base_api.request(
             region,
             '/lol/match/v3/matchlists/by-account/{accountId}/recent'.format(accountId=account_id)
         )
 
-    def timeline_by_match(self, match_id, region='na1'):
+    def timeline_by_match(self, region, match_id):
         return self._base_api.request(region, '/lol/match/v3/timelines/by-match/{matchId}'.format(matchId=match_id))
