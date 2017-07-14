@@ -20,6 +20,8 @@ class LeagueApiV3TestCase(unittest.TestCase):
         ret = league.challenger_by_queue(region, queue)
 
         self._base_api_mock.request.assert_called_once_with(
+            LeagueApiV3.__name__,
+            league.challenger_by_queue.__name__,
             region,
             '/lol/league/v3/challengerleagues/by-queue/{queue}'.format(queue=queue)
         )
@@ -34,6 +36,8 @@ class LeagueApiV3TestCase(unittest.TestCase):
         ret = league.masters_by_queue(region, queue)
 
         self._base_api_mock.request.assert_called_once_with(
+            LeagueApiV3.__name__,
+            league.masters_by_queue.__name__,
             region,
             '/lol/league/v3/masterleagues/by-queue/{queue}'.format(queue=queue)
         )
@@ -48,6 +52,8 @@ class LeagueApiV3TestCase(unittest.TestCase):
         ret = league.leagues_by_summoner(region, summoner_id)
 
         self._base_api_mock.request.assert_called_once_with(
+            LeagueApiV3.__name__,
+            league.leagues_by_summoner.__name__,
             region,
             '/lol/league/v3/leagues/by-summoner/{summonerId}'.format(summonerId=summoner_id)
         )
@@ -62,6 +68,8 @@ class LeagueApiV3TestCase(unittest.TestCase):
         ret = league.positions_by_summoner(region, summoner_id)
 
         self._base_api_mock.request.assert_called_once_with(
+            LeagueApiV3.__name__,
+            league.positions_by_summoner.__name__,
             region,
             '/lol/league/v3/positions/by-summoner/{summonerId}'.format(summonerId=summoner_id)
         )

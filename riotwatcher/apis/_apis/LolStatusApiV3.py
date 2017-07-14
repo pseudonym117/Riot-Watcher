@@ -1,5 +1,8 @@
 
-class LolStatusApiV3:
+from . import NamedEndpoint
+
+
+class LolStatusApiV3(NamedEndpoint):
     """
     This class wraps the LoL-Status-v3 Api calls provided by the Riot API.
     See https://developer.riotgames.com/api-methods/#lol-status-v3 for more detailed information
@@ -10,7 +13,7 @@ class LolStatusApiV3:
 
         :param base_api BaseApi: the root API object to use for making all requests.
         """
-        self._base_api = base_api
+        super(LolStatusApiV3, self).__init__(base_api, LolStatusApiV3.__name__)
 
     def shard_data(self, region):
         """
@@ -20,4 +23,8 @@ class LolStatusApiV3:
 
         :returns: ShardStatus
         """
-        return self._base_api.request(region, '/lol/status/v3/shard-data')
+        return self._request(
+            self.shard_data.__name__,
+            region,
+            '/lol/status/v3/shard-data'
+        )

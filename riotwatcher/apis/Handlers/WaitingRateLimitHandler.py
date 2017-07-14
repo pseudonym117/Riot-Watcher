@@ -14,7 +14,7 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
     def limits(self):
         return self._limits
 
-    def preview_request(self, url, query_params):
+    def preview_request(self, endpoint_name, method_name, url, query_params):
         super(BaseRateLimitHandler, self).preview_request(url, query_params)
 
         seconds_waited = 0

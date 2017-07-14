@@ -6,8 +6,24 @@ class ConsoleLoggingHandler(RequestHandler):
         super(ConsoleLoggingHandler, self).__init__()
         self._log_start_message = log_start_message
 
-    def preview_request(self, url, query_params):
-        print('{} - requesting url {}, query_params={}'.format(self._log_start_message, url, query_params))
+    def preview_request(self, endpoint_name, method_name, url, query_params):
+        print(
+            '{} - requesting endpoint {}, method {}, url {}, query_params={}'.format(
+                self._log_start_message,
+                endpoint_name,
+                method_name,
+                url,
+                query_params
+            )
+        )
 
-    def after_request(self, url, response):
-        print('{} - requested url {}, got response={}'.format(self._log_start_message, url, response))
+    def after_request(self, endpoint_name, method_name, url, response):
+        print(
+            '{} - requesting endpoint {}, method {}, url {}, query_params={}'.format(
+                self._log_start_message,
+                endpoint_name,
+                method_name,
+                url,
+                response
+            )
+        )

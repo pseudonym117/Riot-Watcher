@@ -19,6 +19,8 @@ class ChampionApiV3TestCase(unittest.TestCase):
         ret = champ.champions(region)
 
         self._base_api_mock.request.assert_called_once_with(
+            ChampionApiV3.__name__,
+            champ.champions.__name__,
             region,
             '/lol/platform/v3/champions',
             freeToPlay=False
@@ -33,6 +35,8 @@ class ChampionApiV3TestCase(unittest.TestCase):
         ret = champ.champions(test_region, free_to_play=True)
 
         self._base_api_mock.request.assert_called_once_with(
+            ChampionApiV3.__name__,
+            champ.champions.__name__,
             test_region,
             '/lol/platform/v3/champions',
             freeToPlay=True
@@ -48,6 +52,8 @@ class ChampionApiV3TestCase(unittest.TestCase):
         ret = champ.champions_by_id(test_region, champ_id)
 
         self._base_api_mock.request.assert_called_once_with(
+            ChampionApiV3.__name__,
+            champ.champions_by_id.__name__,
             test_region,
             '/lol/platform/v3/champions/75'
         )

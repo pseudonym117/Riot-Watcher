@@ -20,6 +20,8 @@ class ChampionMasteryApiV3TestCase(unittest.TestCase):
         ret = mastery.by_summoner(region, summoner_id)
 
         self._base_api_mock.request.assert_called_once_with(
+            ChampionMasteryApiV3.__name__,
+            mastery.by_summoner.__name__,
             region,
             '/lol/champion-mastery/v3/champion-masteries/by-summoner/15462'
         )
@@ -35,6 +37,8 @@ class ChampionMasteryApiV3TestCase(unittest.TestCase):
         ret = mastery.by_summoner_by_champion(region, summoner_id, champion_id)
 
         self._base_api_mock.request.assert_called_once_with(
+            ChampionMasteryApiV3.__name__,
+            mastery.by_summoner_by_champion.__name__,
             region,
             '/lol/champion-mastery/v3/champion-masteries/by-summoner/53526/by-champion/7'
         )
@@ -49,6 +53,8 @@ class ChampionMasteryApiV3TestCase(unittest.TestCase):
         ret = mastery.scores_by_summoner(region, summoner_id)
 
         self._base_api_mock.request.assert_called_once_with(
+            ChampionMasteryApiV3.__name__,
+            mastery.scores_by_summoner.__name__,
             region,
             '/lol/champion-mastery/v3/scores/by-summoner/6243'
         )

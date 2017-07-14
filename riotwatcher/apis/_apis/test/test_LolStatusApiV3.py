@@ -19,6 +19,8 @@ class LolStatusApiV3TestCase(unittest.TestCase):
         ret = status.shard_data(region)
 
         self._base_api_mock.request.assert_called_once_with(
+            LolStatusApiV3.__name__,
+            status.shard_data.__name__,
             region,
             '/lol/status/v3/shard-data'
         )

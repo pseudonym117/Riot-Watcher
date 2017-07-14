@@ -36,7 +36,7 @@ class BaseRateLimitHandler(RequestHandler):
         """
         return self._app_rate_limit_start_times
 
-    def preview_request(self, url, query_params):
+    def preview_request(self, endpoint_name, method_name, url, query_params):
         """
         called before a request is processed.
         :param url: the URL that is being requested.
@@ -44,7 +44,7 @@ class BaseRateLimitHandler(RequestHandler):
         """
         super(BaseRateLimitHandler, self).preview_request(url)
 
-    def after_request(self, url, response):
+    def after_request(self, endpoint_name, method_name, url, response):
         """
         Called after a response is received and before it is returned to the user.
         :param url: The url that was requested

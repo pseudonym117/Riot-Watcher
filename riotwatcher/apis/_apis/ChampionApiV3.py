@@ -1,5 +1,8 @@
 
-class ChampionApiV3:
+from . import NamedEndpoint
+
+
+class ChampionApiV3(NamedEndpoint):
     """
     This class wraps the Champion-v3 Api calls provided by the Riot API.
     See https://developer.riotgames.com/api-methods/#champion-v3 for more detailed information
@@ -10,7 +13,7 @@ class ChampionApiV3:
 
         :param base_api BaseApi: the root API object to use for making all requests.
         """
-        self._base_api = base_api
+        super(ChampionApiV3, self).__init__(base_api, self.__class__.__name__)
 
     def champions(self, region, free_to_play=False):
         """
@@ -18,9 +21,14 @@ class ChampionApiV3:
 
         :param region string: the region to execute this request on
         :param free_to_play bool: Optional filter param to retrieve only free to play champions.
-        :returns: List[ChampionDto] - This object contains a collection of champion information.
+        :returns: List[ChampionDto]: This object contains a collection of champion information.
         """
-        return self._base_api.request(region, '/lol/platform/v3/champions', freeToPlay=free_to_play)
+        return self._request(
+            self.champions.__name__,
+            region,
+            '/lol/platform/v3/champions',
+            freeToPlay=free_to_play
+        )
 
     def champions_by_id(self, region, champion_id):
         """
@@ -28,6 +36,10 @@ class ChampionApiV3:
 
         :param region string: the region to execute this request on
         :param champion_id int: Champion ID
-        :returns: ChampionDto - This object contains a collection of champion information.
+        :returns: ChampionDto: This object contains a collection of champion information.
         """
-        return self._base_api.request(region, '/lol/platform/v3/champions/{id}'.format(id=champion_id))
+        return self._request(
+            self.champions_by_id.__name__,
+            region,
+            '/lol/platform/v3/champions/{id}'.format(id=champion_id)
+        )

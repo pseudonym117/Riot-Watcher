@@ -1,5 +1,6 @@
 
 from .BaseApi import BaseApi
+from .NamedEndpoint import NamedEndpoint
 from .ChampionApiV3 import ChampionApiV3
 from .ChampionMasteryApiV3 import ChampionMasteryApiV3
 from .LeagueApiV3 import LeagueApiV3
@@ -13,6 +14,7 @@ from .SummonerApiV3 import SummonerApiV3
 
 __all__ = [
     'BaseApi',
+    'NamedEndpoint',
     'ChampionApiV3',
     'ChampionMasteryApiV3',
     'LeagueApiV3',

@@ -7,17 +7,11 @@ class BaseApi:
         self._api_key = api_key
         self._request_handlers = request_handlers
 
-    def add_request_handler(self, request_handler):
-        if self._request_handlers is None:
-            self._request_handlers = [request_handler]
-        else:
-            self._request_handlers.append(request_handler)
-
     @property
     def api_key(self):
         return self._api_key
 
-    def request(self, region, url_ext, **kwargs):
+    def request(self, endpoint_name, method_name, region, url_ext, **kwargs):
         url = 'https://{region}.api.riotgames.com{ext}'.format(region=region, ext=url_ext)
 
         query_params = {k: v for k, v in kwargs.items() if v is not None}
@@ -27,7 +21,7 @@ class BaseApi:
 
         if self._request_handlers is not None:
             for idx, handler in enumerate(self._request_handlers, start=1):
-                response = handler.preview_request(url, query_params)
+                response = handler.preview_request(endpoint_name, method_name, url, query_params)
                 early_ret_idx = idx
                 if(response is not None):
                     break
@@ -37,7 +31,7 @@ class BaseApi:
 
         if self._request_handlers is not None:
             for handler in self._request_handlers[early_ret_idx:None:-1]:
-                mod = handler.after_request(url, response)
+                mod = handler.after_request(endpoint_name, method_name, url, response)
                 if mod is not None:
                     response = mod
 
