@@ -22,11 +22,18 @@ class RateLimitHeaders:
         retry_after = headers.get('Retry-After')
         self._retry_after = int(retry_after) if retry_after is not None else None
 
-        self._app_rate_limit_count = None
-        app_lim = headers.get('X-App-Rate-Limit-Count')
+        self._app_rate_limit = None
+        app_lim = headers.get('X-App-Rate-Limit')
 
         if app_lim is not None:
             limit_strings = app_lim.split(',')
+            self._app_rate_limit = [LimitCount(lim_str) for lim_str in limit_strings]
+
+        self._app_rate_limit_count = None
+        app_lim_count = headers.get('X-App-Rate-Limit-Count')
+
+        if app_lim_count is not None:
+            limit_strings = app_lim_count.split(',')
             if last_headers is not None and last_headers.app_rate_limit_count is not None:
                 strings_with_old_limits = zip(limit_strings, last_headers.app_rate_limit_count)
 
@@ -34,11 +41,18 @@ class RateLimitHeaders:
             else:
                 self._app_rate_limit_count = [LimitCount(lim_str) for lim_str in limit_strings]
 
-        method_lim = headers.get('X-Method-Rate-Limit-Count')
+        self._method_rate_limit = None
+        method_lim = headers.get('X-Method-Rate-Limit')
+
+        if method_lim is not None:
+            limit_strings = method_lim.split(',')
+            self._method_rate_limit = [LimitCount(lim_str) for lim_str in limit_strings]
 
         self._method_rate_limit_count = None
-        if method_lim is not None:
-            method_limit_strings = method_lim.split(',')
+        method_lim_count = headers.get('X-Method-Rate-Limit-Count')
+
+        if method_lim_count is not None:
+            method_limit_strings = method_lim_count.split(',')
             if last_headers is not None and last_headers.method_rate_limit_count is not None:
                 strings_with_old_limits = zip(method_limit_strings, last_headers.method_rate_limit_count)
 
@@ -82,6 +96,10 @@ class RateLimitHeaders:
         return self._retry_after
 
     @property
+    def app_rate_limit(self):
+        return self._app_rate_limit
+
+    @property
     def app_rate_limit_count(self):
         """
         The number of calls that have been made during a specific rate limit. See LimitCount for more information.
@@ -90,6 +108,10 @@ class RateLimitHeaders:
         :return: list of LimitCount objects, or None if service is not rate limited
         """
         return self._app_rate_limit_count
+
+    @property
+    def method_rate_limit(self):
+        return self._method_rate_limit
 
     @property
     def method_rate_limit_count(self):

@@ -4,8 +4,8 @@ from .RateLimitHeaders import RateLimitHeaders
 from .RequestHandler import RequestHandler
 
 from .BaseRateLimitHandler import BaseRateLimitHandler
-from .ConsoleLoggingHandler import ConsoleLoggingHandler
 from .JsonifyHandler import JsonifyHandler
+from .ThrowOnErrorHandler import ThrowOnErrorHandler
 from .WaitingRateLimitHandler import WaitingRateLimitHandler
 
 __all__ = [
@@ -14,7 +14,7 @@ __all__ = [
     'RequestHandler',
 
     'BaseRateLimitHandler',
-    'ConsoleLoggingHandler',
     'JsonifyHandler',
+    'ThrowOnErrorHandler',
     'WaitingRateLimitHandler',
 ]

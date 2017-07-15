@@ -1,15 +1,14 @@
 
-from _apis import *
-from Handlers import *
+from ._apis import *
+from .Handlers import *
 
 class RiotWatcher:
-    def __init__(self, api_key, custom_handler_chain=None, rate_limits=None):
+    def __init__(self, api_key, custom_handler_chain=None):
         if custom_handler_chain is None:
             custom_handler_chain = [
-                ConsoleLoggingHandler('first'),
                 JsonifyHandler(),
-                WaitingRateLimitHandler(rate_limits=rate_limits),
-                ConsoleLoggingHandler('closest'),
+                ThrowOnErrorHandler(),
+                WaitingRateLimitHandler(),
             ]
 
         self._base_api = BaseApi(api_key, custom_handler_chain)

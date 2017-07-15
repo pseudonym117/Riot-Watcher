@@ -18,6 +18,11 @@ class BaseRateLimitHandler(RequestHandler):
         super(BaseRateLimitHandler, self).__init__()
         self._last_rate_headers = None
         self._app_rate_limit_start_times = None
+        self._app_limits = None
+
+    @property
+    def app_limits(self):
+        return self._app_limits
 
     @property
     def last_rate_headers(self):
@@ -42,7 +47,7 @@ class BaseRateLimitHandler(RequestHandler):
         :param url: the URL that is being requested.
         :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
         """
-        super(BaseRateLimitHandler, self).preview_request(url)
+        super(BaseRateLimitHandler, self).preview_request(endpoint_name, method_name, url, query_params)
 
     def after_request(self, endpoint_name, method_name, url, response):
         """
@@ -50,9 +55,12 @@ class BaseRateLimitHandler(RequestHandler):
         :param url: The url that was requested
         :param response: the response received. This is a response from the Requests library
         """
-        super(BaseRateLimitHandler, self).after_request(url, response)
+        super(BaseRateLimitHandler, self).after_request(endpoint_name, method_name, url, response)
 
         headers = RateLimitHeaders(response.headers, self.last_rate_headers)
 
         if headers.app_rate_limit_count is not None or headers.method_rate_limit_count is not None:
             self._last_rate_headers = headers
+
+        if headers.app_rate_limit is not None:
+            self._app_limits = headers.app_rate_limit

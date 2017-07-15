@@ -6,16 +6,11 @@ from . import BaseRateLimitHandler
 
 
 class WaitingRateLimitHandler(BaseRateLimitHandler):
-    def __init__(self, rate_limits=None):
+    def __init__(self):
         super(WaitingRateLimitHandler, self).__init__()
-        self._limits = rate_limits
-
-    @property
-    def limits(self):
-        return self._limits
 
     def preview_request(self, endpoint_name, method_name, url, query_params):
-        super(BaseRateLimitHandler, self).preview_request(url, query_params)
+        super(BaseRateLimitHandler, self).preview_request(endpoint_name, method_name, url, query_params)
 
         seconds_waited = 0
 
@@ -56,13 +51,13 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
         :return list of tuples, [(LimitCount, (datetime, int)), ...] with the datetime
             being the time this limit started and the int being the number of calls.
         """
-        if self.limits is not None:
+        if self.app_limits is not None:
             last_header = self.last_rate_headers
 
             if last_header is not None and last_header.app_rate_limit_count is not None:
                 valid_limits = []
 
-                for configured_limit in self.limits:
+                for configured_limit in self.app_limits:
                     matching_limit = next(
                         (riot_limit for riot_limit in last_header.app_rate_limit_count if lambda limit: limit.time == configured_limit.time),
                         None
