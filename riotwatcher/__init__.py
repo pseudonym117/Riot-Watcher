@@ -1,3 +1,6 @@
-from .riotwatcher import *
+from .RiotWatcher import RiotWatcher
 
-__all__ = ['riotwatcher']
+__all__ = [
+    'RiotWatcher',
+    'Handlers',
+]
