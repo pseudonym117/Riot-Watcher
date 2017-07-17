@@ -1,5 +1,0 @@
-
-what do when preview handler returns data?
-    - further previewers down the chain should NOT be called
-    - should the after_request handlers be call?
-        - if so, should they know where the response came from (network/previewer)?
