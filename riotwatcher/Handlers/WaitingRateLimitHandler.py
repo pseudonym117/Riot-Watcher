@@ -4,6 +4,8 @@ import time
 
 from . import BaseRateLimitHandler
 
+from .._apis import LolStatusApiV3, StaticDataApiV3
+
 
 class WaitingRateLimitHandler(BaseRateLimitHandler):
     def __init__(self):
@@ -11,6 +13,10 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
 
     def preview_request(self, endpoint_name, method_name, url, query_params):
         super(BaseRateLimitHandler, self).preview_request(endpoint_name, method_name, url, query_params)
+
+        # these APIs do not have rate limits
+        if endpoint_name == LolStatusApiV3.__name__ or endpoint_name == StaticDataApiV3.__name__:
+            return
 
         seconds_waited = 0
 
