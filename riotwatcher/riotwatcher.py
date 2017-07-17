@@ -1,651 +1,141 @@
-from collections import deque
-import time
-import requests
 
-# Constants
-BRAZIL = 'br'
-EUROPE_NORDIC_EAST = 'eune'
-EUROPE_WEST = 'euw'
-KOREA = 'kr'
-LATIN_AMERICA_NORTH = 'lan'
-LATIN_AMERICA_SOUTH = 'las'
-NORTH_AMERICA = 'na'
-OCEANIA = 'oce'
-RUSSIA = 'ru'
-TURKEY = 'tr'
-JAPAN = 'jp'
-
-# Platforms
-platforms = {
-    BRAZIL: 'BR1',
-    EUROPE_NORDIC_EAST: 'EUN1',
-    EUROPE_WEST: 'EUW1',
-    KOREA: 'KR',
-    LATIN_AMERICA_NORTH: 'LA1',
-    LATIN_AMERICA_SOUTH: 'LA2',
-    NORTH_AMERICA: 'NA1',
-    OCEANIA: 'OC1',
-    RUSSIA: 'RU',
-    TURKEY: 'TR1',
-    JAPAN: 'JP1'
-}
-
-queue_types = [
-    'CUSTOM',  # Custom games
-    'NORMAL_5x5_BLIND',  # Normal 5v5 blind pick
-    'BOT_5x5',  # Historical Summoners Rift coop vs AI games
-    'BOT_5x5_INTRO',  # Summoners Rift Intro bots
-    'BOT_5x5_BEGINNER',  # Summoner's Rift Coop vs AI Beginner Bot games
-    'BOT_5x5_INTERMEDIATE',  # Historical Summoner's Rift Coop vs AI Intermediate Bot games
-    'NORMAL_3x3',  # Normal 3v3 games
-    'NORMAL_5x5_DRAFT',  # Normal 5v5 Draft Pick games
-    'ODIN_5x5_BLIND',  # Dominion 5v5 Blind Pick games
-    'ODIN_5x5_DRAFT',  # Dominion 5v5 Draft Pick games
-    'BOT_ODIN_5x5',  # Dominion Coop vs AI games
-    'RANKED_SOLO_5x5',  # Ranked Solo 5v5 games
-    'RANKED_PREMADE_3x3',  # Ranked Premade 3v3 games
-    'RANKED_PREMADE_5x5',  # Ranked Premade 5v5 games
-    'RANKED_TEAM_3x3',  # Ranked Team 3v3 games
-    'RANKED_TEAM_5x5',  # Ranked Team 5v5 games
-    'BOT_TT_3x3',  # Twisted Treeline Coop vs AI games
-    'GROUP_FINDER_5x5',  # Team Builder games
-    'ARAM_5x5',  # ARAM games
-    'ONEFORALL_5x5',  # One for All games
-    'FIRSTBLOOD_1x1',  # Snowdown Showdown 1v1 games
-    'FIRSTBLOOD_2x2',  # Snowdown Showdown 2v2 games
-    'SR_6x6',  # Hexakill games
-    'URF_5x5',  # Ultra Rapid Fire games
-    'BOT_URF_5x5',  # Ultra Rapid Fire games played against AI games
-    'NIGHTMARE_BOT_5x5_RANK1',  # Doom Bots Rank 1 games
-    'NIGHTMARE_BOT_5x5_RANK2',  # Doom Bots Rank 2 games
-    'NIGHTMARE_BOT_5x5_RANK5',  # Doom Bots Rank 5 games
-    'ASCENSION_5x5',  # Ascension games
-    'HEXAKILL',  # 6v6 games on twisted treeline
-    'KING_PORO_5x5',  # King Poro game games
-    'COUNTER_PICK',  # Nemesis games,
-    'BILGEWATER_5x5',  # Black Market Brawlers games
-]
-
-game_maps = [
-    {'map_id': 1, 'name': "Summoner's Rift", 'notes': "Summer Variant"},
-    {'map_id': 2, 'name': "Summoner's Rift", 'notes': "Autumn Variant"},
-    {'map_id': 3, 'name': "The Proving Grounds", 'notes': "Tutorial Map"},
-    {'map_id': 4, 'name': "Twisted Treeline", 'notes': "Original Version"},
-    {'map_id': 8, 'name': "The Crystal Scar", 'notes': "Dominion Map"},
-    {'map_id': 10, 'name': "Twisted Treeline", 'notes': "Current Version"},
-    {'map_id': 11, 'name': "Summoner's Rift", 'notes': "Current Version"},
-    {'map_id': 12, 'name': "Howling Abyss", 'notes': "ARAM Map"},
-    {'map_id': 14, 'name': "Butcher's Bridge", 'notes': "ARAM Map"},
-]
-
-game_modes = [
-    'CLASSIC',  # Classic Summoner's Rift and Twisted Treeline games
-    'ODIN',  # Dominion/Crystal Scar games
-    'ARAM',  # ARAM games
-    'TUTORIAL',  # Tutorial games
-    'ONEFORALL',  # One for All games
-    'ASCENSION',  # Ascension games
-    'FIRSTBLOOD',  # Snowdown Showdown games
-    'KINGPORO',  # King Poro games
-]
-
-game_types = [
-    'CUSTOM_GAME',  # Custom games
-    'TUTORIAL_GAME',  # Tutorial games
-    'MATCHED_GAME',  # All other games
-]
-
-sub_types = [
-    'NONE',  # Custom games
-    'NORMAL',  # Summoner's Rift unranked games
-    'NORMAL_3x3',  # Twisted Treeline unranked games
-    'ODIN_UNRANKED',  # Dominion/Crystal Scar games
-    'ARAM_UNRANKED_5v5',  # ARAM / Howling Abyss games
-    'BOT',  # Summoner's Rift and Crystal Scar games played against AI
-    'BOT_3x3',  # Twisted Treeline games played against AI
-    'RANKED_SOLO_5x5',  # Summoner's Rift ranked solo queue games
-    'RANKED_TEAM_3x3',  # Twisted Treeline ranked team games
-    'RANKED_TEAM_5x5',  # Summoner's Rift ranked team games
-    'ONEFORALL_5x5',  # One for All games
-    'FIRSTBLOOD_1x1',  # Snowdown Showdown 1x1 games
-    'FIRSTBLOOD_2x2',  # Snowdown Showdown 2x2 games
-    'SR_6x6',  # Hexakill games
-    'CAP_5x5',  # Team Builder games
-    'URF',  # Ultra Rapid Fire games
-    'URF_BOT',  # Ultra Rapid Fire games against AI
-    'NIGHTMARE_BOT',  # Nightmare bots
-    'ASCENSION',  # Ascension games
-    'HEXAKILL',  # Twisted Treeline 6x6 Hexakill
-    'KING_PORO',  # King Poro games
-    'COUNTER_PICK',  # Nemesis games
-    'BILGEWATER',  # Black Market Brawlers games
-]
-
-player_stat_summary_types = [
-    'Unranked',  # Summoner's Rift unranked games
-    'Unranked3x3',  # Twisted Treeline unranked games
-    'OdinUnranked',  # Dominion/Crystal Scar games
-    'AramUnranked5x5',  # ARAM / Howling Abyss games
-    'CoopVsAI',  # Summoner's Rift and Crystal Scar games played against AI
-    'CoopVsAI3x3',  # Twisted Treeline games played against AI
-    'RankedSolo5x5',  # Summoner's Rift ranked solo queue games
-    'RankedTeams3x3',  # Twisted Treeline ranked team games
-    'RankedTeams5x5',  # Summoner's Rift ranked team games
-    'OneForAll5x5',  # One for All games
-    'FirstBlood1x1',  # Snowdown Showdown 1x1 games
-    'FirstBlood2x2',  # Snowdown Showdown 2x2 games
-    'SummonersRift6x6',  # Hexakill games
-    'CAP5x5',  # Team Builder games
-    'URF',  # Ultra Rapid Fire games
-    'URFBots',  # Ultra Rapid Fire games played against AI
-    'NightmareBot',  # Summoner's Rift games played against Nightmare AI
-    'Hexakill',  # Twisted Treeline 6x6 Hexakill games
-    'KingPoro',  # King Poro games
-    'CounterPick',  # Nemesis games
-    'Bilgewater',  # Black Market Brawlers games
-]
-
-solo_queue, ranked_5s, ranked_3s = 'RANKED_SOLO_5x5', 'RANKED_TEAM_5x5', 'RANKED_TEAM_3x3'
-
-preseason_3, season_3, preseason_2014, season_2014, preseason_2015, season_2015, preseason_2016, season_2016 = [
-    'PRESEASON3', 'SEASON3',
-    'PRESEASON2014', 'SEASON2014',
-    'PRESEASON2015', 'SEASON2015',
-    'PRESEASON2016', 'SEASON2016',
-]
-
-api_versions = {
-    'champion': 1.2,
-    'current-game': 1.0,
-    'featured-games': 1.0,
-    'game': 1.3,
-    'league': 2.5,
-    'lol-static-data': 1.2,
-    'lol-status': 1.0,
-    'match': 2.2,
-    'matchlist': 2.2,
-    'stats': 1.3,
-    'summoner': 1.4,
-    'team': 2.4
-}
-
-
-class LoLException(Exception):
-    def __init__(self, error, response):
-        self.error = error
-        self.headers = response.headers
-
-    def __str__(self):
-        return self.error
-
-    def __eq__(self, other):
-        if isinstance(other, "".__class__):
-            return self.error == other
-        elif isinstance(other, self.__class__):
-            return self.error == other.error and self.headers == other.headers
-        else:
-            return False
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __hash__(self):
-        return super(LoLException).__hash__()
-
-
-error_400 = "Bad request"
-error_401 = "Unauthorized"
-error_403 = "Blacklisted key"
-error_404 = "Game data not found"
-error_429 = "Too many requests"
-error_500 = "Internal server error"
-error_503 = "Service unavailable"
-error_504 = 'Gateway timeout'
-
-
-def raise_status(response):
-    if response.status_code == 400:
-        raise LoLException(error_400, response)
-    elif response.status_code == 401:
-        raise LoLException(error_401, response)
-    elif response.status_code == 403:
-        raise LoLException(error_403, response)
-    elif response.status_code == 404:
-        raise LoLException(error_404, response)
-    elif response.status_code == 429:
-        raise LoLException(error_429, response)
-    elif response.status_code == 500:
-        raise LoLException(error_500, response)
-    elif response.status_code == 503:
-        raise LoLException(error_503, response)
-    elif response.status_code == 504:
-        raise LoLException(error_504, response)
-    else:
-        response.raise_for_status()
-
-
-class RateLimit:
-    def __init__(self, allowed_requests, seconds):
-        self.allowed_requests = allowed_requests
-        self.seconds = seconds
-        self.made_requests = deque()
-
-    def __reload(self):
-        t = time.time()
-        while len(self.made_requests) > 0 and self.made_requests[0] < t:
-            self.made_requests.popleft()
-
-    def add_request(self):
-        self.made_requests.append(time.time() + self.seconds)
-
-    def request_available(self):
-        self.__reload()
-        return len(self.made_requests) < self.allowed_requests
-
+from ._apis import *
+from .Handlers import *
 
 class RiotWatcher:
-    def __init__(self, key, default_region=NORTH_AMERICA, limits=(RateLimit(10, 10), RateLimit(500, 600), )):
-        self.key = key  #If you have a production key, use limits=(RateLimit(3000,10), RateLimit(180000,600),)
-        self.default_region = default_region
-        self.limits = limits
+    """
+    RiotWatcher class is intended to be the main interaction point with the RiotAPI.
+    """
 
-    def can_make_request(self):
-        for lim in self.limits:
-            if not lim.request_available():
-                return False
-        return True
+    def __init__(self, api_key, custom_handler_chain=None):
+        """
+        Initialize a new instance of the RiotWatcher class.
 
-    def base_request(self, url, region, static=False, **kwargs):
-        if region is None:
-            region = self.default_region
-        args = {'api_key': self.key}
-        for k in kwargs:
-            if kwargs[k] is not None:
-                args[k] = kwargs[k]
-        r = requests.get(
-            'https://{proxy}.api.pvp.net/api/lol/{static}{region}/{url}'.format(
-                proxy='global' if static else region,
-                static='static-data/' if static else '',
-                region=region,
-                url=url
-            ),
-            params=args
-        )
-        if not static:
-            for lim in self.limits:
-                lim.add_request()
-        raise_status(r)
-        return r.json()
+        :param api_key string: the API key to use for this instance
+        :param custom_handler_chain List[RequestHandler]: RequestHandler chain to
+                pass to the created BaseApi object.
+                This chain is called in order before any calls to the API, and
+                called in reverse order after any calls to the API.
+                If preview_request returns data, the rest of the call short circuits,
+                preventing any call to the real API and calling any handlers that
+                have already been run in reverse order.
+                This should allow for dynamic tiered caching of data.
+                If after_request returns data, that is the data that is fed to the next
+                handler in the chain.
+                Default chain is:
+                    [
+                        JsonifyHandler,
+                        ThrowOnErrorHandler,
+                        WaitingRateLimitHandler
+                    ]
+        """
+        if custom_handler_chain is None:
+            custom_handler_chain = [
+                JsonifyHandler(),
+                ThrowOnErrorHandler(),
+                WaitingRateLimitHandler(),
+            ]
 
-    def _observer_mode_request(self, url, proxy=None, **kwargs):
-        if proxy is None:
-            proxy = self.default_region
-        args = {'api_key': self.key}
-        for k in kwargs:
-            if kwargs[k] is not None:
-                args[k] = kwargs[k]
-        r = requests.get(
-            'https://{proxy}.api.pvp.net/observer-mode/rest/{url}'.format(
-                proxy=proxy,
-                url=url
-            ),
-            params=args
-        )
-        for lim in self.limits:
-            lim.add_request()
-        raise_status(r)
-        return r.json()
+        self._base_api = BaseApi(api_key, custom_handler_chain)
 
-    @staticmethod
-    def sanitized_name(name):
-        return name.replace(' ', '').lower()
+        self._champion = ChampionApiV3(self._base_api)
+        self._champion_mastery = ChampionMasteryApiV3(self._base_api)
+        self._league = LeagueApiV3(self._base_api)
+        self._lol_status = LolStatusApiV3(self._base_api)
+        self._masteries = MasteriesApiV3(self._base_api)
+        self._match = MatchApiV3(self._base_api)
+        self._runes = RunesApiV3(self._base_api)
+        self._spectator = SpectatorApiV3(self._base_api)
+        self._static_data = StaticDataApiV3(self._base_api)
+        self._summoner = SummonerApiV3(self._base_api)
+        # todo: tournament-stub
+        # todo: tournament
 
-    # champion-v1.2
-    def _champion_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/champion/{end_url}'.format(
-                version=api_versions['champion'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
+    @property
+    def champion_mastery(self):
+        """
+        Interface to the ChampionMastery Endpoint
 
-    def get_all_champions(self, region=None, free_to_play=False):
-        return self._champion_request('', region, freeToPlay=free_to_play)
+        :rtype: ChampionMasteryApiV3
+        """
+        return self._champion_mastery
 
-    def get_champion(self, champion_id, region=None):
-        return self._champion_request('{id}'.format(id=champion_id), region)
+    @property
+    def champion(self):
+        """
+        Interface to the Champion Endpoint
 
-    # current-game-v1.0
-    def get_current_game(self, summoner_id, platform_id=None, region=None):
-        if platform_id is None:
-            platform_id = platforms[self.default_region]
-        return self._observer_mode_request(
-            'consumer/getSpectatorGameInfo/{platform}/{summoner_id}'.format(
-                platform=platform_id,
-                summoner_id=summoner_id
-            ),
-            region
-        )
+        :rtype: ChampionApiV3
+        """
+        return self._champion
 
-    # featured-game-v1.0
-    def get_featured_games(self, proxy=None):
-        return self._observer_mode_request('featured', proxy)
+    @property
+    def league(self):
+        """
+        Interface to the League Endpoint
 
-    # game-v1.3
-    def _game_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/game/{end_url}'.format(
-                version=api_versions['game'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
+        :rtype: LeagueApiV3
+        """
+        return self._league
 
-    def get_recent_games(self, summoner_id, region=None):
-        return self._game_request('by-summoner/{summoner_id}/recent'.format(summoner_id=summoner_id), region)
+    @property
+    def lol_status(self):
+        """
+        Interface to the LoLStatus Endpoint
 
-    # league-v2.5
-    def _league_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/league/{end_url}'.format(
-                version=api_versions['league'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
+        :rtype: LolStatusApiV3
+        """
+        return self._lol_status
 
-    def get_league(self, summoner_ids=None, team_ids=None, region=None):
-        """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
-        if (summoner_ids is None) != (team_ids is None):
-            if summoner_ids is not None:
-                return self._league_request(
-                    'by-summoner/{summoner_ids}'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-                    region
-                )
-            else:
-                return self._league_request(
-                    'by-team/{team_ids}'.format(team_ids=','.join([str(t) for t in team_ids])),
-                    region
-                )
+    @property
+    def masteries(self):
+        """Interface to the Masteries Endpoint
 
-    def get_league_entry(self, summoner_ids=None, team_ids=None, region=None):
-        """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
-        if (summoner_ids is None) != (team_ids is None):
-            if summoner_ids is not None:
-                return self._league_request(
-                    'by-summoner/{summoner_ids}/entry'.format(
-                        summoner_ids=','.join([str(s) for s in summoner_ids])
-                    ),
-                    region
-                )
-            else:
-                return self._league_request(
-                    'by-team/{team_ids}/entry'.format(team_ids=','.join([str(t) for t in team_ids])),
-                    region
-                )
+        :rtype: MasteriesApiV3
+        """
+        return self._masteries
 
-    def get_challenger(self, region=None, queue=solo_queue):
-        return self._league_request('challenger', region, type=queue)
+    @property
+    def match(self):
+        """
+        Interface to the Match Endpoint
 
-    def get_master(self, region=None, queue=solo_queue):
-        return self._league_request('master', region, type=queue)
+        :rtype: MatchApiV3
+        """
+        return self._match
 
-    # lol-static-data-v1.2
-    def _static_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/{end_url}'.format(
-                version=api_versions['lol-static-data'],
-                end_url=end_url
-            ),
-            region,
-            static=True,
-            **kwargs
-        )
+    @property
+    def runes(self):
+        """
+        Interface to the Runes Endpoint
 
-    def static_get_champion_list(self, region=None, locale=None, version=None, data_by_id=None, champ_data=None):
-        return self._static_request(
-            'champion',
-            region,
-            locale=locale,
-            version=version,
-            dataById=data_by_id,
-            champData=champ_data
-        )
+        :rtype: RunesApiV3
+        """
+        return self._runes
 
-    def static_get_champion(self, champ_id, region=None, locale=None, version=None, champ_data=None):
-        return self._static_request(
-            'champion/{id}'.format(id=champ_id),
-            region,
-            locale=locale,
-            version=version,
-            champData=champ_data
-        )
+    @property
+    def spectator(self):
+        """
+        Interface to the Spectator Endpoint
 
-    def static_get_item_list(self, region=None, locale=None, version=None, item_list_data=None):
-        return self._static_request('item', region, locale=locale, version=version, itemListData=item_list_data)
+        :rtype: SpectatorApiV3
+        """
+        return self._spectator
 
-    def static_get_item(self, item_id, region=None, locale=None, version=None, item_data=None):
-        return self._static_request(
-            'item/{id}'.format(id=item_id),
-            region,
-            locale=locale,
-            version=version,
-            itemData=item_data
-        )
+    @property
+    def static_data(self):
+        """
+        Interface to the LoL-Static-Data Endpoint
 
-    def static_get_mastery_list(self, region=None, locale=None, version=None, mastery_list_data=None):
-        return self._static_request(
-            'mastery',
-            region,
-            locale=locale,
-            version=version,
-            masteryListData=mastery_list_data
-        )
+        :rtype: StaticDataApiV3
+        """
+        return self._static_data
 
-    def static_get_mastery(self, mastery_id, region=None, locale=None, version=None, mastery_data=None):
-        return self._static_request(
-            'mastery/{id}'.format(id=mastery_id),
-            region,
-            locale=locale,
-            version=version,
-            masteryData=mastery_data
-        )
+    @property
+    def summoner(self):
+        """
+        Interface to the Summoner Endpoint
 
-    def static_get_realm(self, region=None):
-        return self._static_request('realm', region)
-
-    def static_get_rune_list(self, region=None, locale=None, version=None, rune_list_data=None):
-        return self._static_request('rune', region, locale=locale, version=version, runeListData=rune_list_data)
-
-    def static_get_rune(self, rune_id, region=None, locale=None, version=None, rune_data=None):
-        return self._static_request(
-            'rune/{id}'.format(id=rune_id),
-            region,
-            locale=locale,
-            version=version,
-            runeData=rune_data
-        )
-
-    def static_get_summoner_spell_list(self, region=None, locale=None, version=None, data_by_id=None, spell_data=None):
-        return self._static_request(
-            'summoner-spell',
-            region,
-            locale=locale,
-            version=version,
-            dataById=data_by_id,
-            spellData=spell_data
-        )
-
-    def static_get_summoner_spell(self, spell_id, region=None, locale=None, version=None, spell_data=None):
-        return self._static_request(
-            'summoner-spell/{id}'.format(id=spell_id),
-            region,
-            locale=locale,
-            version=version,
-            spellData=spell_data
-        )
-
-    def static_get_versions(self, region=None):
-        return self._static_request('versions', region)
-
-    # match-v2.2
-    def _match_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/match/{end_url}'.format(
-                version=api_versions['match'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_match(self, match_id, region=None, include_timeline=False):
-        return self._match_request(
-            '{match_id}'.format(match_id=match_id),
-            region,
-            includeTimeline=include_timeline
-        )
-
-    # lol-status-v1.0
-    @staticmethod
-    def get_server_status(region=None):
-        if region is None:
-            url = 'shards'
-        else:
-            url = 'shards/{region}'.format(region=region)
-        r = requests.get('http://status.leagueoflegends.com/{url}'.format(url=url))
-        raise_status(r)
-        return r.json()
-    
-    # match list-v2.2
-    def _match_list_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/matchlist/by-summoner/{end_url}'.format(
-                version=api_versions['matchlist'],
-                end_url=end_url,
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_match_list(self, summoner_id, region=None, champion_ids=None, ranked_queues=None, season=None,
-                       begin_time=None, end_time=None, begin_index=None, end_index=None):
-        if ranked_queues is not None and not isinstance(ranked_queues, str) :
-            ranked_queues = ','.join(ranked_queues)
-        if season is not None and not isinstance(season, str):
-            season = ','.join(season)
-        return self._match_list_request(
-            '{summoner_id}'.format(summoner_id=summoner_id),
-            region,
-            championIds=champion_ids,
-            rankedQueues=ranked_queues,
-            seasons=season,
-            beginTime=begin_time,
-            endTime=end_time,
-            beginIndex=begin_index,
-            endIndex=end_index
-        )
-
-    # stats-v1.3
-    def _stats_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/stats/{end_url}'.format(
-                version=api_versions['stats'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_stat_summary(self, summoner_id, region=None, season=None):
-        return self._stats_request(
-            'by-summoner/{summoner_id}/summary'.format(summoner_id=summoner_id),
-            region,
-            season='SEASON{}'.format(season) if season is not None else None)
-
-    def get_ranked_stats(self, summoner_id, region=None, season=None):
-        return self._stats_request(
-            'by-summoner/{summoner_id}/ranked'.format(summoner_id=summoner_id),
-            region,
-            season='SEASON{}'.format(season) if season is not None else None
-        )
-
-    # summoner-v1.4
-    def _summoner_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/summoner/{end_url}'.format(
-                version=api_versions['summoner'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_mastery_pages(self, summoner_ids, region=None):
-        return self._summoner_request(
-            '{summoner_ids}/masteries'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    def get_rune_pages(self, summoner_ids, region=None):
-        return self._summoner_request(
-            '{summoner_ids}/runes'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    def get_summoners(self, names=None, ids=None, region=None):
-        if (names is None) != (ids is None):
-            return self._summoner_request(
-                'by-name/{summoner_names}'.format(
-                    summoner_names=','.join([self.sanitized_name(n) for n in names])) if names is not None
-                else '{summoner_ids}'.format(summoner_ids=','.join([str(i) for i in ids])),
-                region
-            )
-        else:
-            return None
-
-    def get_summoner(self, name=None, _id=None, region=None):
-        if (name is None) != (_id is None):
-            if name is not None:
-                name = self.sanitized_name(name)
-                key, summoner = self.get_summoners(names=[name, ], region=region).popitem()
-                return summoner
-            else:
-                return self.get_summoners(ids=[_id, ], region=region)[str(_id)]
-        return None
-
-    def get_summoner_name(self, summoner_ids, region=None):
-        return self._summoner_request(
-            '{summoner_ids}/name'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    # team-v2.4
-    def _team_request(self, end_url, region, **kwargs):
-        return self.base_request(
-            'v{version}/team/{end_url}'.format(
-                version=api_versions['team'],
-                end_url=end_url
-            ),
-            region,
-            **kwargs
-        )
-
-    def get_teams_for_summoner(self, summoner_id, region=None):
-        return self.get_teams_for_summoners([summoner_id, ], region=region)[str(summoner_id)]
-
-    def get_teams_for_summoners(self, summoner_ids, region=None):
-        return self._team_request(
-            'by-summoner/{summoner_id}'.format(summoner_id=','.join([str(s) for s in summoner_ids])),
-            region
-        )
-
-    def get_team(self, team_id, region=None):
-        return self.get_teams([team_id, ], region=region)[str(team_id)]
-
-    def get_teams(self, team_ids, region=None):
-        return self._team_request('{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
+        :rtype: SummonerApiV3
+        """
+        return self._summoner

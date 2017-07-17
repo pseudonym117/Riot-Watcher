@@ -1,5 +1,7 @@
-RiotWatcher v1.3.2
+RiotWatcher v2.0.0
 ==================
+
+README IS INCORRECT FOR VERSION 2.0.0 - THIS INFO IS INCORRECT. SORRY.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
