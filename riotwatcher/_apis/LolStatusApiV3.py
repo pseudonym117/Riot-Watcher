@@ -18,6 +18,7 @@ class LolStatusApiV3(NamedEndpoint):
     def shard_data(self, region):
         """
         Get League of Legends status for the given shard.
+        Requests to this API are not counted against the application Rate Limits.
 
         :param region string: the region to execute this request on
 

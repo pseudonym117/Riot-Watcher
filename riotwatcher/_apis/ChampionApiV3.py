@@ -27,10 +27,10 @@ class ChampionApiV3(NamedEndpoint):
             self.champions.__name__,
             region,
             '/lol/platform/v3/champions',
-            freeToPlay=free_to_play
+            freeToPlay=str(free_to_play).lower()
         )
 
-    def champions_by_id(self, region, champion_id):
+    def by_id(self, region, champion_id):
         """
         Retrieve champion by ID
 
@@ -39,7 +39,7 @@ class ChampionApiV3(NamedEndpoint):
         :returns: ChampionDto: This object contains a collection of champion information.
         """
         return self._request(
-            self.champions_by_id.__name__,
+            self.by_id.__name__,
             region,
             '/lol/platform/v3/champions/{id}'.format(id=champion_id)
         )

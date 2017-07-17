@@ -23,7 +23,7 @@ class ChampionApiV3TestCase(unittest.TestCase):
             champ.champions.__name__,
             region,
             '/lol/platform/v3/champions',
-            freeToPlay=False
+            freeToPlay="false"
         )
 
         self.assertIs(self._expected_return, ret)
@@ -39,7 +39,7 @@ class ChampionApiV3TestCase(unittest.TestCase):
             champ.champions.__name__,
             test_region,
             '/lol/platform/v3/champions',
-            freeToPlay=True
+            freeToPlay="true"
         )
 
         self.assertIs(self._expected_return, ret)
@@ -49,11 +49,11 @@ class ChampionApiV3TestCase(unittest.TestCase):
         test_region = 'fsfsf'
         champ_id = 75
 
-        ret = champ.champions_by_id(test_region, champ_id)
+        ret = champ.by_id(test_region, champ_id)
 
         self._base_api_mock.request.assert_called_once_with(
             ChampionApiV3.__name__,
-            champ.champions_by_id.__name__,
+            champ.by_id.__name__,
             test_region,
             '/lol/platform/v3/champions/75'
         )
