@@ -1,3 +1,24 @@
+RiotWatcher v1.3.3
+==================
+
+Interface very similar to v1.3.2 , see ``helloworld.py`` to see changes.
+
+Added environment file support for api_key setting ``riotwatcher.yml``:
+        - May be used for other purposes (server location)
+
+Changed implementation of unit tests in order to make them work with ``unittest``. run ``python -m unittest discover`` from root directory to run the tests after install.
+
+Cleaned the main ``RiotWatcher`` class:
+        - removed ``team`` api request that doesn't exist anymore
+        - changed implementation of requests, they are now all do with 1 function
+        - added ``wait`` decorator for requests of the api
+                - May be used for loging purposes
+
+TODO:
+-----
+Some doc is needed
+Object-Relational mapping between queries would be nice
+
 RiotWatcher v1.3.2
 ==================
 
@@ -9,7 +30,7 @@ stay below your rate limit. The default rate limits are set to 10
 requests every 10 seconds and 500 requests every 10 minutes (the limit
 for development keys). The rate limiter does not prevent you from making
 requests that will be blocked and cause an exception, it simply allows
-you to check if you request will go through.
+you to check if you request will go through. sdsd
 
 To Start...
 -----------
