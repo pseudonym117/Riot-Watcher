@@ -4,7 +4,7 @@ import unittest
 
 from requests import HTTPError
 
-from .. import RiotWatcher, constants
+from .. import RiotWatcher
 
 class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
     def setUp(self):
