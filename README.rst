@@ -7,6 +7,8 @@ made sense. Because of this, the library has been heavily refactored in order
 to provide for much better maintainability in the future, as well as adding
 in easy integration points for user-defined caching and rate limiting.
 
+See further down for backwards compatibility options...
+
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
 of 7/16/2017 are supported in full.
@@ -95,6 +97,21 @@ All rate limiting, caching, and data transformation is handled by objects extend
 the Handlers.RequestHandler class. These are completely user configurable.
 
 TODO: add more info about this
+
+Backwards Compatibility
+-----------------------
+
+A wrapper has been made to make the API somewhat backwards compatible. If you
+REALLY dont want to change much of your code, you can use the following
+package to keep all the same method signatures (note that the schema of the data
+you receive may be completely different):
+
+::
+
+    from riotwatcher.legacy import RiotWatcher
+
+This legacy wrapper SEEMS to work ok, but i would HIGHLY encourage everyone
+to switch to the new API in the standard riotwatcher package.
 
 Testing
 -------

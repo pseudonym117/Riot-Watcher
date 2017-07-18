@@ -45,7 +45,7 @@ class LeagueApiV3(NamedEndpoint):
             '/lol/league/v3/masterleagues/by-queue/{queue}'.format(queue=queue)
         )
 
-    def leagues_by_summoner(self, region, summoner_id):
+    def by_summoner(self, region, summoner_id):
         """
         Get leagues in all queues for a given summoner ID
 
@@ -55,7 +55,7 @@ class LeagueApiV3(NamedEndpoint):
         :returns: Set[LeagueListDTO]
         """
         return self._request(
-            self.leagues_by_summoner.__name__,
+            self.by_summoner.__name__,
             region,
             '/lol/league/v3/leagues/by-summoner/{summonerId}'.format(summonerId=summoner_id)
         )
