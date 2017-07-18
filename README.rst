@@ -11,7 +11,7 @@ See further down for backwards compatibility options...
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 7/16/2017 are supported in full.
+of 7/18/2017 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test environment
@@ -110,7 +110,7 @@ you receive may be completely different):
 
     from riotwatcher.legacy import RiotWatcher
 
-This legacy wrapper SEEMS to work ok, but i would HIGHLY encourage everyone
+This legacy wrapper SEEMS to work ok, but I would HIGHLY encourage everyone
 to switch to the new API in the standard riotwatcher package.
 
 Testing
@@ -137,7 +137,7 @@ quite some time to run; definitely hits the dev key rate limit):
 Changelog
 ---------
 
-v2.0.0 - 7/16/2017
+v2.0.0 - 7/18/2017
 ~~~~~~~~~~~~~~~~~~
 
 v3 API support.
