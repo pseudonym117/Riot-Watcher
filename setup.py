@@ -1,7 +1,7 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import os.path
 
-__version__ = '2.0.0'
+__version__ = '2.0.1'
 
 descr_file = os.path.join(os.path.dirname(__file__), 'README.rst')
 
@@ -9,7 +9,7 @@ setup(
     name='riotwatcher',
     version=__version__,
 
-    packages=['riotwatcher'],
+    packages=find_packages(exclude=['test']),
 
     description='RiotWatcher is a thin wrapper on top of the Riot Games API for League of Legends.',
     long_description=open(descr_file).read(),
