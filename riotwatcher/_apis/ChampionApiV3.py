@@ -15,7 +15,7 @@ class ChampionApiV3(NamedEndpoint):
         """
         super(ChampionApiV3, self).__init__(base_api, self.__class__.__name__)
 
-    def champions(self, region, free_to_play=False):
+    def all(self, region, free_to_play=False):
         """
         Retrieve all champions.
 
@@ -24,7 +24,7 @@ class ChampionApiV3(NamedEndpoint):
         :returns: List[ChampionDto]: This object contains a collection of champion information.
         """
         return self._request(
-            self.champions.__name__,
+            self.all.__name__,
             region,
             '/lol/platform/v3/champions',
             freeToPlay=str(free_to_play).lower()

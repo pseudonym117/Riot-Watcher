@@ -13,19 +13,19 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
         with open('api_key', 'r') as f:
             key = f.read()
-            self._watcher = RiotWatcher(key)
+            self._watcher = RiotWatcher(key.strip())
 
         self._region = 'na1'
 
         self._test_accounts = ['pseudonym117', 'fakename117']
 
     def test_champion_api(self):
-        champion_list_dto = self._watcher.champion.champions(self._region)
+        champion_list_dto = self._watcher.champion.all(self._region)
 
         for champ in champion_list_dto['champions']:
             c = self._watcher.champion.by_id(self._region, champ['id'])
 
-        f2p_champs = self._watcher.champion.champions(self._region, free_to_play=True)
+        f2p_champs = self._watcher.champion.all(self._region, free_to_play=True)
 
     def test_champion_mastery_api(self):
         for account in self._test_accounts:
@@ -61,7 +61,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
             s_id = s['id']
 
-            my_leagues = self._watcher.league.leagues_by_summoner(self._region, s_id)
+            my_leagues = self._watcher.league.by_summoner(self._region, s_id)
 
             my_positions = self._watcher.league.positions_by_summoner(self._region, s_id)
 

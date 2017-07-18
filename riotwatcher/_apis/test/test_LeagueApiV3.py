@@ -44,16 +44,16 @@ class LeagueApiV3TestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_leagues_by_summoner(self):
+    def test_by_summoner(self):
         league = LeagueApiV3(self._base_api_mock)
         region = 'afasf'
         summoner_id = 13542
 
-        ret = league.leagues_by_summoner(region, summoner_id)
+        ret = league.by_summoner(region, summoner_id)
 
         self._base_api_mock.request.assert_called_once_with(
             LeagueApiV3.__name__,
-            league.leagues_by_summoner.__name__,
+            league.by_summoner.__name__,
             region,
             '/lol/league/v3/leagues/by-summoner/{summonerId}'.format(summonerId=summoner_id)
         )

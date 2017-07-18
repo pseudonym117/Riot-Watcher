@@ -1,17 +1,22 @@
 RiotWatcher v2.0.0
 ==================
 
-README IS INCORRECT FOR VERSION 2.0.0 - THIS INFO IS INCORRECT. SORRY.
+Verion 2.0.0 is a breaking change to the API. Riot deprecated all batch queries,
+so most of the older method signatures from the 1.* releases of RiotWatcher no longer
+made sense. Because of this, the library has been heavily refactored in order
+to provide for much better maintainability in the future, as well as adding
+in easy integration points for user-defined caching and rate limiting.
+
+See further down for backwards compatibility options...
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 7/29/2015 are supported in full. All game constants are also included
-in variable declarations. Requests are kept track of so that you can
-stay below your rate limit. The default rate limits are set to 10
-requests every 10 seconds and 500 requests every 10 minutes (the limit
-for development keys). The rate limiter does not prevent you from making
-requests that will be blocked and cause an exception, it simply allows
-you to check if you request will go through.
+of 7/18/2017 are supported in full.
+
+RiotWatcher by default supports a naive rate limiter. This rate limiter will
+try to stop you from making too many requests, and in a single threaded test environment
+does this rather well. In a multithreaded environment, you may still get some
+429 errors. 429 errors are currently NOT retried for you.
 
 To Start...
 -----------
@@ -35,102 +40,117 @@ Using it...
 -----------
 
 All methods return dictionaries representing the json objects described
-by the official Riot API. Any error (e.g. 404) that are known to the
-service are returned as custom objects (error\_404, error\_500, ...),
-for you to deal with however you like. Any other HTTP errors that are
-not known returns of the API are raised as exceptions as in the Requests
-API.
-
-Default region of this application is NA, but that can be changed during
-initialization.
+by the official Riot API. Any HTTP errors that are returned by the API are
+raised as HTTPError exceptions from the Requests library.
 
 .. code:: python
 
     from riotwatcher import RiotWatcher
 
-    w = RiotWatcher('<your-api-key>')
+    watcher = RiotWatcher('<your-api-key>')
 
-    # check if we have API calls remaining
-    print(w.can_make_request())
+    my_region = 'na1'
 
-    me = w.get_summoner(name='pseudonym117')
+    me = watcher.summoner.by_name(my_region, 'pseudonym117')
     print(me)
 
-    # takes list of summoner ids as argument, supports up to 40 at a time
-    # (limit enforced on riot's side, no warning from code)
-    my_mastery_pages = w.get_mastery_pages([me['id'], ])[str(me['id'])]
-    # returns a dictionary, mapping from summoner_id to mastery pages
-    # unfortunately, this dictionary can only have strings as keys,
-    # so must convert id from a long to a string
+    # all objects are returned (by default) as a dict
+    # get my 1 mastery page i keep changing
+    my_mastery_pages = watcher.masteries.by_summoner(my_region, me['id'])
     print(my_mastery_pages)
 
-    my_ranked_stats = w.get_ranked_stats(me['id'])
+    # lets see if i got diamond yet (i probably didnt)
+    my_ranked_stats = watcher.league.leagues_by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
-    my_ranked_stats_last_season = w.get_ranked_stats(me['id'], season=3)
-    print(my_ranked_stats_last_season)
-
-    # all static methods are prefaced with 'static'
-    # static requests do not count against your request limit
-    # but at the same time, they don't change often....
-    static_champ_list = w.static_get_champion_list()
+    # Lets some champions
+    static_champ_list = watcher.static_data.champions(my_region)
     print(static_champ_list)
 
-    # import new region code
-    from riotwatcher import EUROPE_WEST
+    # Error checking requires importing HTTPError from requests
 
-    # request data from EUW
-    froggen = w.get_summoner(name='froggen', region=EUROPE_WEST)
-    print(froggen)
+    from requests import HTTPError
 
-    # create watcher with EUW as its default region
-    euw = RiotWatcher('<your-api-key>', default_region=EUROPE_WEST)
-
-    # proper way to send names with spaces is to remove them, still works with spaces though
-    xpeke = w.get_summoner(name='fnaticxmid')
-    print(xpeke)
-
-    # Error checking requires importing LoLException as well as any errors you wish to check for.
-    #
     # For Riot's API, the 404 status code indicates that the requested data wasn't found and
-    # should be expected to occur in normal operation, as in the case of a an invalid summoner name,
-    # match ID, etc.
+    # should be expected to occur in normal operation, as in the case of a an
+    # invalid summoner name, match ID, etc.
     #
     # The 429 status code indicates that the user has sent too many requests
     # in a given amount of time ("rate limiting").
 
-    from riotwatcher import LoLException, error_404, error_429
-
     try:
-        response = rw.get_summoner('voyboy')
-    except LoLException as e:
-        if e == error_429:
+        response = watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
+    except HTTPError as err:
+        if err.response.status_code == 429:
             print('We should retry in {} seconds.'.format(e.headers['Retry-After']))
-        elif e == error_404:
-            print('Summoner not found.')
+            print('this retry-after is handled by default by the RiotWatcher library')
+            print('future requests wait until the retry-after time passes')
+        elif err.response.status_code == 404:
+            print('Summoner with that ridiculous name not found.')
+        else:
+            raise
 
-I might get around to fully documenting this at some point, but I am
-working on using it right now for other things, not documenting it.
+Advanced
+--------
+
+All rate limiting, caching, and data transformation is handled by objects extending
+the Handlers.RequestHandler class. These are completely user configurable.
+
+TODO: add more info about this
+
+Backwards Compatibility
+-----------------------
+
+A wrapper has been made to make the API somewhat backwards compatible. If you
+REALLY dont want to change much of your code, you can use the following
+package to keep all the same method signatures (note that the schema of the data
+you receive may be completely different):
+
+::
+
+    from riotwatcher.legacy import RiotWatcher
+
+This legacy wrapper SEEMS to work ok, but I would HIGHLY encourage everyone
+to switch to the new API in the standard riotwatcher package.
 
 Testing
 -------
 
-After a couple bugs that were due to me forgetting to change one
-character and not testing the change, I decided to finally make a few
-tests. The tests included are not perfect, and don't have full code
-coverage, but they should detect most issues. To run these tests (to
-make sure its the API f-ing up not your code):
+There currently are 2 sets of tests. There are basic unit tests for API related
+functionality, and there is a full system test, which directly accesses the API.
 
--  change key in tests.py to your API key
--  change summoner\_name in tests.py to your summoner name (provided you
-   have at least one ranked team and have ranked stats). Or just enter a
-   name that does have those.
--  run python tests.py (I only tested these tests with python3, but I
-   really doubt they are incompatible with python2 - if I'm wrong
-   someone open an issue)
+Unit tests can be run with the following command from the RiotWatcher folder:
+
+::
+
+    python -m unittest
+
+Full access API tests should be run by first creating a file named api_key,
+which should contain a valid API key (no newline), to the folder Riot-Watcher.
+Then the following command will run the full system test (WARNING: it takes
+quite some time to run; definitely hits the dev key rate limit):
+
+::
+
+    python -m unittest discover -p full_test*.py
+
+Known Issues
+------------
+
+Method Rate limit is not supported yet. It is read, and stored. Just isn't
+respected. Should be fixed soon tm.
 
 Changelog
 ---------
+
+v2.0.0 - 7/18/2017
+~~~~~~~~~~~~~~~~~~
+
+v3 API support.
+
+Huge refactor of code, many old calls broken.
+
+Rate limiting added by default, can be removed/replaced.
 
 v1.3.2 - 11/16/2015
 ~~~~~~~~~~~~~~~~~~~
