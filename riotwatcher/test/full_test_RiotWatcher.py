@@ -13,7 +13,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
         with open('api_key', 'r') as f:
             key = f.read()
-            self._watcher = RiotWatcher(key)
+            self._watcher = RiotWatcher(key.strip())
 
         self._region = 'na1'
 
@@ -61,7 +61,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
             s_id = s['id']
 
-            my_leagues = self._watcher.league.leagues_by_summoner(self._region, s_id)
+            my_leagues = self._watcher.league.by_summoner(self._region, s_id)
 
             my_positions = self._watcher.league.positions_by_summoner(self._region, s_id)
 

@@ -1,5 +1,6 @@
 
 import datetime
+import logging
 import time
 
 from . import BaseRateLimitHandler
@@ -26,6 +27,7 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
                 sleep_time = last_header.retry_after - (datetime.now() - last_header.time).seconds
                 if sleep_time > 0:
                     seconds_waited = seconds_waited + sleep_time
+                    logging.info('waiting for {} seconds'.format(sleep_time))
                     time.sleep(sleep_time)
 
             limits_to_check = self._combine_server_headers_with_configured_headers()
@@ -44,7 +46,7 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
 
                     if wait_for.total_seconds() > 0:
                         seconds_waited = seconds_waited + wait_for.total_seconds()
-                        print('waiting for {} seconds'.format(wait_for.total_seconds()))
+                        logging.info('waiting for {} seconds'.format(wait_for.total_seconds()))
                         time.sleep(wait_for.total_seconds())
 
 

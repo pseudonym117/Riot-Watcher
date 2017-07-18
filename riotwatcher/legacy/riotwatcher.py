@@ -2,6 +2,7 @@
 from .. import RiotWatcher as RW
 
 from collections import deque
+import logging
 import time
 import requests
 
@@ -246,6 +247,8 @@ class RateLimit:
 
 class RiotWatcher:
     def __init__(self, key, default_region=NORTH_AMERICA, limits=None):
+        logging.warn('legacy RiotWatcher class is not intended to be used long term')
+        logging.warn('please update to RiotWatcher v2.0.0 APIs as soon as possible')
         self.key = key
         self._watcher = RW(key)
         self.default_region = default_region
