@@ -12,15 +12,15 @@ class ChampionApiV3TestCase(unittest.TestCase):
         self._base_api_mock.request = MagicMock(name='request')
         self._base_api_mock.request.return_value = self._expected_return
 
-    def test_champions_default(self):
+    def test_all_default(self):
         champ = ChampionApiV3(self._base_api_mock)
         region = 'na1'
 
-        ret = champ.champions(region)
+        ret = champ.all(region)
 
         self._base_api_mock.request.assert_called_once_with(
             ChampionApiV3.__name__,
-            champ.champions.__name__,
+            champ.all.__name__,
             region,
             '/lol/platform/v3/champions',
             freeToPlay="false"
@@ -32,11 +32,11 @@ class ChampionApiV3TestCase(unittest.TestCase):
         champ = ChampionApiV3(self._base_api_mock)
         test_region = 'fsfsf'
 
-        ret = champ.champions(test_region, free_to_play=True)
+        ret = champ.all(test_region, free_to_play=True)
 
         self._base_api_mock.request.assert_called_once_with(
             ChampionApiV3.__name__,
-            champ.champions.__name__,
+            champ.all.__name__,
             test_region,
             '/lol/platform/v3/champions',
             freeToPlay="true"

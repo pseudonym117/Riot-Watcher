@@ -63,7 +63,7 @@ raised as HTTPError exceptions from the Requests library.
     my_ranked_stats = watcher.league.leagues_by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
-    # Lets get which champs are free to play
+    # Lets some champions
     static_champ_list = watcher.static_data.champions(my_region)
     print(static_champ_list)
 
@@ -133,6 +133,12 @@ quite some time to run; definitely hits the dev key rate limit):
 ::
 
     python -m unittest discover -p full_test*.py
+
+Known Issues
+------------
+
+Method Rate limit is not supported yet. It is read, and stored. Just isn't
+respected. Should be fixed soon tm.
 
 Changelog
 ---------

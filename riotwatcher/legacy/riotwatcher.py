@@ -267,7 +267,7 @@ class RiotWatcher:
     def get_all_champions(self, region=None, free_to_play=False):
         if region is None:
             region = self.default_region
-        return self._watcher.champion.champions(region, free_to_play=free_to_play)
+        return self._watcher.champion.all(region, free_to_play=free_to_play)
 
     def get_champion(self, champion_id, region=None):
         if region is None:
