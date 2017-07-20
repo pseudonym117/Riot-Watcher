@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 
 from .. import MatchApiV3
 
+
 class MatchApiV3TestCase(unittest.TestCase):
     def setUp(self):
         self._expected_return = object()
@@ -58,7 +59,7 @@ class MatchApiV3TestCase(unittest.TestCase):
 
         queue = 'dfdfdaaa'
         begin_time, end_time = 'sgshrhr', 'sfsfsjjrj'
-        begin_index, end_index = 'jtj3d','3tn3ti'
+        begin_index, end_index = 'jtj3d', '3tn3ti'
         season = 'hg4reg422'
         champion = 'cancer'
 

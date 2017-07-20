@@ -6,6 +6,7 @@ from requests import HTTPError
 
 from .. import RiotWatcher
 
+
 class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
     def setUp(self):
         if not os.path.isfile('api_key'):

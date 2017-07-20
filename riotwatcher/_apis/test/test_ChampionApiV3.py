@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 
 from .. import ChampionApiV3
 
+
 class ChampionApiV3TestCase(unittest.TestCase):
     def setUp(self):
         self._expected_return = object()

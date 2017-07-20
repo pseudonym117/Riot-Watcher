@@ -49,7 +49,6 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
                         logging.info('waiting for {} seconds'.format(wait_for.total_seconds()))
                         time.sleep(wait_for.total_seconds())
 
-
     def _combine_server_headers_with_configured_headers(self):
         """
         Combines the last received headers from Riot and the user configured
@@ -67,7 +66,11 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
 
                 for configured_limit in self.app_limits:
                     matching_limit = next(
-                        (riot_limit for riot_limit in last_header.app_rate_limit_count if lambda limit: limit.time == configured_limit.time),
+                        (
+                            riot_limit
+                            for riot_limit in last_header.app_rate_limit_count
+                            if lambda limit: limit.time == configured_limit.time
+                        ),
                         None
                     )
 

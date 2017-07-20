@@ -12,7 +12,7 @@ class StaticDataApiV3(NamedEndpoint):
         """
         Initialize a new StaticDataApiV3 which uses the provided base_api
 
-        :param base_api BaseApi: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(StaticDataApiV3, self).__init__(base_api, StaticDataApiV3.__name__)
 
@@ -29,19 +29,16 @@ class StaticDataApiV3(NamedEndpoint):
         Not all data is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only type, version, data,
-                                id, key, name, and title are returned by default if this
-                                parameter isn't specified. To return all additional data,
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default
+                                locale for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region
+                                is used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only type, version, data, id, key, name, and title are
+                                returned by default if this parameter isn't specified. To return all additional data,
                                 use the tag 'all'.
-        :param data_by_id bool: If specified as true, the returned data map will use the
-                                champions' IDs as the keys. If not specified or specified
-                                as false, the returned data map will use the champions'
+        :param bool data_by_id: If specified as true, the returned data map will use the champions' IDs as the keys.
+                                If not specified or specified as false, the returned data map will use the champions'
                                 keys instead.
 
         :returns: ChampionListDto: This object contains champion list data.
@@ -69,17 +66,14 @@ class StaticDataApiV3(NamedEndpoint):
         Not all data is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param champion_id int: Champion ID
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only id, key, name,
-                                and title are returned by default if this parameter
-                                isn't specified. To return all additional data, use the
-                                tag 'all'.
+        :param string region:   The region to execute this request on
+        :param int champion_id: Champion ID
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only id, key, name, and title are returned by default if
+                                this parameter isn't specified. To return all additional data, use the tag 'all'.
 
         :returns: ChampionDto: This object contains champion data.
         """
@@ -98,17 +92,14 @@ class StaticDataApiV3(NamedEndpoint):
         Not all data is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only type, version,
-                                data, id, name, description, plaintext, and group
-                                are returned by default if this parameter isn't
-                                specified. To return all additional data, use the
-                                tag 'all'.
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only type, version, data, id, name, description,
+                                plaintext, and group are returned by default if this parameter isn't specified. To
+                                return all additional data, use the tag 'all'.
 
         :returns: ItemListDto: This object contains item list data.
         """
@@ -127,18 +118,15 @@ class StaticDataApiV3(NamedEndpoint):
         Not all data is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param item_id int:     Item ID
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only type, version,
-                                data, id, name, description, plaintext, and group
-                                are returned by default if this parameter isn't
-                                specified. To return all additional data, use the
-                                tag 'all'.
+        :param string region:   The region to execute this request on
+        :param int item_id:     Item ID
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only type, version, data, id, name, description,
+                                plaintext, and group are returned by default if this parameter isn't specified. To
+                                return all additional data, use the tag 'all'.
 
         :returns: ItemDto: This object contains item data.
         """
@@ -157,12 +145,11 @@ class StaticDataApiV3(NamedEndpoint):
         Language strings data was not generated for patch version 7.4.2.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
 
         :returns: LanguageStringsDto: This object contains language strings data.
         """
@@ -179,7 +166,7 @@ class StaticDataApiV3(NamedEndpoint):
         Retrieve supported languages data.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
+        :param string region:   The region to execute this request on
 
         :returns: List[string]:
         """
@@ -196,12 +183,11 @@ class StaticDataApiV3(NamedEndpoint):
         Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
 
         :returns: MapDataDto: This object contains map data.
         """
@@ -216,20 +202,17 @@ class StaticDataApiV3(NamedEndpoint):
     def masteries(self, region, locale=None, version=None, tags=None):
         """
         Retrieves mastery list.
-        Not all data specified below is returned by default. See the tags parameter
-        for more information.
+        Not all data specified below is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only type, version,
-                                data, id, name, and description are returned by
-                                default if this parameter isn't specified. To
-                                return all additional data, use the tag 'all'.
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only type, version, data, id, name, and description are
+                                returned by default if this parameter isn't specified. To return all additional data,
+                                use the tag 'all'.
 
         :returns: MasteryListDto: This object contains mastery list data.
         """
@@ -245,21 +228,17 @@ class StaticDataApiV3(NamedEndpoint):
     def mastery(self, region, mastery_id, locale=None, version=None, tags=None):
         """
         Retrieves mastery item by ID.
-        Not all data specified below is returned by default. See the tags parameter
-        for more information.
+        Not all data specified below is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param mastery_id int:  Mastery ID
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only id, name,
-                                and description are returned by default if this
-                                parameter isn't specified. To return all additional
-                                data, use the tag 'all'.
+        :param string region:   The region to execute this request on
+        :param int mastery_id:  Mastery ID
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only id, name, and description are returned by default
+                                if this parameter isn't specified. To return all additional data, use the tag 'all'.
 
         :returns: MasteryDto: This object contains mastery data.
         """
@@ -277,12 +256,11 @@ class StaticDataApiV3(NamedEndpoint):
         Retrieve profile icons.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
 
         :returns: ProfileIconDataDto: This object contains profile icon data.
         """
@@ -299,7 +277,7 @@ class StaticDataApiV3(NamedEndpoint):
         Retrieve realm data.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
+        :param string region:   The region to execute this request on
 
         :returns: RealmDto: This object contains realm data.
         """
@@ -308,20 +286,17 @@ class StaticDataApiV3(NamedEndpoint):
     def runes(self, region, locale=None, version=None, tags=None):
         """
         Retrieves rune list.
-        Not all data specified below is returned by default. See the tags parameter
-        for more information.
+        Not all data specified below is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only type, version,
-                                data, id, name, description, and rune are returned
-                                by default if this parameter isn't specified. To
-                                return all additional data, use the tag 'all'.
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only type, version, data, id, name, description, and
+                                rune are returned by default if this parameter isn't specified. To return all additional
+                                data, use the tag 'all'.
 
         :returns: RuneListDto: This object contains rune list data.
         """
@@ -337,21 +312,18 @@ class StaticDataApiV3(NamedEndpoint):
     def rune(self, region, rune_id, locale=None, version=None, tags=None):
         """
         Retrieves rune by ID.
-        Not all data specified below is returned by default. See the tags parameter
-        for more information.
+        Not all data specified below is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param rune_id int:     Rune ID
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param tags Set[string]:Tags to return additional data. Only id, name,
-                                description, and rune are returned by default if
-                                this parameter isn't specified. To return all
-                                additional data, use the tag 'all'.
+        :param string region:   The region to execute this request on
+        :param int rune_id:     Rune ID
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:Tags to return additional data. Only id, name, description, and rune are returned by
+                                default if this parameter isn't specified. To return all additional data, use the
+                                tag 'all'.
 
         :returns: RuneDto: This object contains rune data.
         """
@@ -374,25 +346,19 @@ class StaticDataApiV3(NamedEndpoint):
     ):
         """
         Retrieves summoner spell list.
-        Not all data specified below is returned by default. See the tags parameter
-        for more information.
+        Not all data specified below is returned by default. See the tags parameter for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
-        :param locale string:   Locale code for returned data (e.g., en_US, es_ES). If not
-                                specified, the default locale for the region is used.
-        :param version string:  Patch version for returned data. If not specified,
-                                the latest version for the region is used. List of
-                                valid versions can be obtained from the versions method.
-        :param data_by_id bool: If specified as true, the returned data map will
-                                use the spells' IDs as the keys. If not specified
-                                or specified as false, the returned data map will
-                                use the spells' keys instead.
-        :param tags Set[string]:Tags to return additional data. Only type,
-                                version, data, id, key, name, description, and
-                                summonerLevel are returned by default if this
-                                parameter isn't specified. To return all additional
-                                data, use the tag 'all'.
+        :param string region:   The region to execute this request on
+        :param string locale:   Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale
+                                for the region is used.
+        :param string version:  Patch version for returned data. If not specified, the latest version for the region is
+                                used. List of valid versions can be obtained from the versions method.
+        :param bool data_by_id: If specified as true, the returned data map will use the spells' IDs as the keys. If not
+                                specified or specified as false, the returned data map will use the spells' keys instead
+        :param Set[string] tags:Tags to return additional data. Only type, version, data, id, key, name, description,
+                                and summonerLevel are returned by default if this parameter isn't specified. To return
+                                all additional data, use the tag 'all'.
 
         :returns: SummonerSpellListDto: This object contains summoner spell list data.
         """
@@ -413,20 +379,15 @@ class StaticDataApiV3(NamedEndpoint):
         for more information.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:           The region to execute this request on
-        :param summoner_spell_id int:   Summoner spell ID
-        :param locale string:           Locale code for returned data (e.g., en_US,
-                                        es_ES). If not specified, the default
-                                        locale for the region is used.
-        :param version string:          Patch version for returned data. If not
-                                        specified, the latest version for the
-                                        region is used. List of valid versions
-                                        can be obtained from the versions method.
-        :param tags Set[string]:        Tags to return additional data. Only id,
-                                        key, name, description, and summonerLevel
-                                        are returned by default if this parameter
-                                        isn't specified. To return all additional
-                                        data, use the tag 'all'.
+        :param string region:           The region to execute this request on
+        :param int summoner_spell_id:   Summoner spell ID
+        :param string locale:           Locale code for returned data (e.g., en_US, es_ES). If not specified, the
+                                        default locale for the region is used.
+        :param string version:          Patch version for returned data. If not specified, the latest version for the
+                                        region is used. List of valid versions can be obtained from the versions method.
+        :param Set[string] tags:        Tags to return additional data. Only id, key, name, description, and
+                                        summonerLevel are returned by default if this parameter isn't specified. To
+                                        return all additional data, use the tag 'all'.
 
         :returns: SummonerSpellDto: This object contains summoner spell data.
         """
@@ -444,7 +405,7 @@ class StaticDataApiV3(NamedEndpoint):
         Retrieve version data.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string:   The region to execute this request on
+        :param string region:   The region to execute this request on
 
         :returns: List[string]:
         """

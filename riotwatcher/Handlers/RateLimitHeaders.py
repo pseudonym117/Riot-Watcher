@@ -12,7 +12,7 @@ class RateLimitHeaders:
         """
         Creates a new RateLimitHeaders object by parsing the HTTP headers provided
         :param headers: dict of HTTP headers from a request to the Riot API
-        :param last_header: previous RateLimitHeaders object, used to determine
+        :param last_headers: previous RateLimitHeaders object, used to determine
             what the actual start time of each rate limit is
         """
         self._time = datetime.datetime.now()
@@ -37,7 +37,9 @@ class RateLimitHeaders:
             if last_headers is not None and last_headers.app_rate_limit_count is not None:
                 strings_with_old_limits = zip(limit_strings, last_headers.app_rate_limit_count)
 
-                self._app_rate_limit_count = [LimitCount(lim_str, last_limit=old_limit) for lim_str, old_limit in strings_with_old_limits]
+                self._app_rate_limit_count = [
+                    LimitCount(lim_str, last_limit=old_limit) for lim_str, old_limit in strings_with_old_limits
+                ]
             else:
                 self._app_rate_limit_count = [LimitCount(lim_str) for lim_str in limit_strings]
 
@@ -56,7 +58,10 @@ class RateLimitHeaders:
             if last_headers is not None and last_headers.method_rate_limit_count is not None:
                 strings_with_old_limits = zip(method_limit_strings, last_headers.method_rate_limit_count)
 
-                self._method_rate_limit_count = [LimitCount(lim_str, last_limit=old_limit) for lim_str, old_limit in strings_with_old_limits]
+                self._method_rate_limit_count = [
+                    LimitCount(lim_str, last_limit=old_limit)
+                    for lim_str, old_limit in strings_with_old_limits
+                ]
             else:
                 self._method_rate_limit_count = [LimitCount(lim_str) for lim_str in method_limit_strings]
 

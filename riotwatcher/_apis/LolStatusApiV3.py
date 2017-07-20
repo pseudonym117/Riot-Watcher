@@ -11,7 +11,7 @@ class LolStatusApiV3(NamedEndpoint):
         """
         Initialize a new LolStatusApiV3 which uses the provided base_api
 
-        :param base_api BaseApi: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(LolStatusApiV3, self).__init__(base_api, LolStatusApiV3.__name__)
 
@@ -20,7 +20,7 @@ class LolStatusApiV3(NamedEndpoint):
         Get League of Legends status for the given shard.
         Requests to this API are not counted against the application Rate Limits.
 
-        :param region string: the region to execute this request on
+        :param string region: the region to execute this request on
 
         :returns: ShardStatus
         """

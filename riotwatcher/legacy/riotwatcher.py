@@ -4,7 +4,7 @@ from .. import RiotWatcher as RW
 from collections import deque
 import logging
 import time
-import requests
+from requests import HTTPError
 
 # Constants
 BRAZIL = 'br'
@@ -272,7 +272,7 @@ class RiotWatcher:
     def get_champion(self, champion_id, region=None):
         if region is None:
             region = self.default_region
-        return self._watcher.champion.by_id(region, '{id}'.format(id=champion_id))
+        return self._watcher.champion.by_id(region, champion_id)
 
     # current-game-v1.0
     def get_current_game(self, summoner_id, platform_id=None, region=None):
@@ -296,7 +296,7 @@ class RiotWatcher:
     # league-v2.5
     def get_league(self, summoner_ids=None, team_ids=None, region=None):
         """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
-        if (summoner_ids is not None):
+        if summoner_ids is not None:
             if region is None:
                 region = self.default_region
             return [
@@ -441,7 +441,7 @@ class RiotWatcher:
     def get_match(self, match_id, region=None, include_timeline=False):
         if region is None:
             region = self.default_region
-        match =  self._watcher.match.by_id(region, match_id)
+        match = self._watcher.match.by_id(region, match_id)
 
         if include_timeline:
             try:

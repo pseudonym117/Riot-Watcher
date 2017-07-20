@@ -23,7 +23,7 @@ class BaseApi:
             for idx, handler in enumerate(self._request_handlers, start=1):
                 response = handler.preview_request(endpoint_name, method_name, url, query_params)
                 early_ret_idx = idx
-                if(response is not None):
+                if response is not None:
                     break
 
         if response is None:

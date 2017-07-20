@@ -11,7 +11,7 @@ class SpectatorApiV3(NamedEndpoint):
         """
         Initialize a new SpectatorApiV3 which uses the provided base_api
 
-        :param base_api BaseApi: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(SpectatorApiV3, self).__init__(base_api, SpectatorApiV3.__name__)
 
@@ -19,8 +19,8 @@ class SpectatorApiV3(NamedEndpoint):
         """
         Get current game information for the given summoner ID
 
-        :param region string:       The region to execute this request on
-        :param summoner_id long:    The ID of the summoner.
+        :param string region:       The region to execute this request on
+        :param long summoner_id:    The ID of the summoner.
 
         :returns: CurrentGameInfo
         """
@@ -34,7 +34,7 @@ class SpectatorApiV3(NamedEndpoint):
         """
         Get list of featured games.
 
-        :param region string: The region to execute this request on
+        :param string region: The region to execute this request on
 
         :returns: FeaturedGames
         """

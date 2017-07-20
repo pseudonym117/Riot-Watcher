@@ -2,6 +2,7 @@
 from ._apis import *
 from .Handlers import *
 
+
 class RiotWatcher:
     """
     RiotWatcher class is intended to be the main interaction point with the RiotAPI.
@@ -11,23 +12,21 @@ class RiotWatcher:
         """
         Initialize a new instance of the RiotWatcher class.
 
-        :param api_key string: the API key to use for this instance
-        :param custom_handler_chain List[RequestHandler]: RequestHandler chain to
-                pass to the created BaseApi object.
-                This chain is called in order before any calls to the API, and
-                called in reverse order after any calls to the API.
-                If preview_request returns data, the rest of the call short circuits,
-                preventing any call to the real API and calling any handlers that
-                have already been run in reverse order.
-                This should allow for dynamic tiered caching of data.
-                If after_request returns data, that is the data that is fed to the next
-                handler in the chain.
-                Default chain is:
-                    [
-                        JsonifyHandler,
-                        ThrowOnErrorHandler,
-                        WaitingRateLimitHandler
-                    ]
+        :param string api_key: the API key to use for this instance
+        :param List[RequestHandler] custom_handler_chain:
+                    RequestHandler chain to pass to the created BaseApi object.
+                    This chain is called in order before any calls to the API, and called in reverse order after any
+                    calls to the API.
+                    If preview_request returns data, the rest of the call short circuits, preventing any call to the
+                    real API and calling any handlers that have already been run in reverse order.
+                    This should allow for dynamic tiered caching of data.
+                    If after_request returns data, that is the data that is fed to the next handler in the chain.
+                    Default chain is:
+                        [
+                            JsonifyHandler,
+                            ThrowOnErrorHandler,
+                            WaitingRateLimitHandler
+                        ]
         """
         if custom_handler_chain is None:
             custom_handler_chain = [

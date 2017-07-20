@@ -11,7 +11,7 @@ class SummonerApiV3(NamedEndpoint):
         """
         Initialize a new SummonerApiV3 which uses the provided base_api
 
-        :param base_api BaseApi: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(SummonerApiV3, self).__init__(base_api, SummonerApiV3.__name__)
 
@@ -19,8 +19,8 @@ class SummonerApiV3(NamedEndpoint):
         """
         Get a summoner by account ID.
 
-        :param region string:   The region to execute this request on
-        :param account_id long: The account ID.
+        :param string region:   The region to execute this request on
+        :param long account_id: The account ID.
 
         :returns: SummonerDTO: represents a summoner
         """
@@ -34,8 +34,8 @@ class SummonerApiV3(NamedEndpoint):
         """
         Get a summoner by summoner name
 
-        :param region string:           The region to execute this request on
-        :param summoner_name string:    Summoner Name
+        :param string region:           The region to execute this request on
+        :param string summoner_name:    Summoner Name
 
         :returns: SummonerDTO: represents a summoner
         """
@@ -49,8 +49,8 @@ class SummonerApiV3(NamedEndpoint):
         """
         Get a summoner by summoner ID.
 
-        :param region string:       The region to execute this request on
-        :param summoner_id long:    Summoner ID
+        :param string region:       The region to execute this request on
+        :param long summoner_id:    Summoner ID
 
         :returns: SummonerDTO: represents a summoner
         """

@@ -1,4 +1,4 @@
-RiotWatcher v2.0.1
+RiotWatcher v2.0.2
 ==================
 
 Verion 2.0.0 is a breaking change to the API. Riot deprecated all batch queries,
@@ -142,6 +142,10 @@ respected. Should be fixed soon tm.
 
 Changelog
 ---------
+v2.0.2 - 7/20/2017
+~~~~~~~~~~~~~~~~~~
+
+Fixed a bunch of PEP violations and fixed comments format.
 
 v2.0.1 - 7/18/2017
 ~~~~~~~~~~~~~~~~~~

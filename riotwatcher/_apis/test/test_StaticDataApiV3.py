@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 
 from .. import StaticDataApiV3
 
+
 class StaticDataApiV3TestCase(unittest.TestCase):
     def setUp(self):
         self._expected_return = object()
@@ -389,8 +390,8 @@ class StaticDataApiV3TestCase(unittest.TestCase):
     def test_profile_icons(self):
         static_data = StaticDataApiV3(self._base_api_mock)
         region = 'gewv4'
-        locale='afnnn64'
-        version='27yhtgf'
+        locale = 'afnnn64'
+        version = '27yhtgf'
 
         ret = static_data.profile_icons(region, locale=locale, version=version)
 

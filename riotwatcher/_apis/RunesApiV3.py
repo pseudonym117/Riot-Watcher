@@ -11,7 +11,7 @@ class RunesApiV3(NamedEndpoint):
         """
         Initialize a new RunesApiV3 which uses the provided base_api
 
-        :param base_api BaseApi: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(RunesApiV3, self).__init__(base_api, RunesApiV3.__name__)
 
@@ -19,8 +19,8 @@ class RunesApiV3(NamedEndpoint):
         """
         Get rune pages for a given summoner ID.
 
-        :param region string:       The region to execute this request on
-        :param summoner_id long:    Summoner ID
+        :param string region:       The region to execute this request on
+        :param long summoner_id:    Summoner ID
 
         :returns: RunePagesDto
         """

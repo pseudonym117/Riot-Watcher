@@ -11,7 +11,7 @@ class LeagueApiV3(NamedEndpoint):
         """
         Initialize a new LeagueApiV3 which uses the provided base_api
 
-        :param base_api BaseApi: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(LeagueApiV3, self).__init__(base_api, self.__class__.__name__)
 
@@ -19,8 +19,8 @@ class LeagueApiV3(NamedEndpoint):
         """
         Get the challenger league for a given queue.
 
-        :param region string: the region to execute this request on
-        :param queue string: the queue to get the challenger players for
+        :param string region: the region to execute this request on
+        :param string queue: the queue to get the challenger players for
 
         :returns: LeagueListDTO
         """
@@ -34,8 +34,8 @@ class LeagueApiV3(NamedEndpoint):
         """
         Get the master league for a given queue.
 
-        :param region string: the region to execute this request on
-        :param queue string: the queue to get the challenger players for
+        :param string region: the region to execute this request on
+        :param string queue: the queue to get the challenger players for
 
         :returns: LeagueListDTO
         """
@@ -49,8 +49,8 @@ class LeagueApiV3(NamedEndpoint):
         """
         Get leagues in all queues for a given summoner ID
 
-        :param region string: the region to execute this request on
-        :param summoner_id long: the summoner ID to query
+        :param string region: the region to execute this request on
+        :param long summoner_id: the summoner ID to query
 
         :returns: Set[LeagueListDTO]
         """
@@ -64,10 +64,10 @@ class LeagueApiV3(NamedEndpoint):
         """
         Get league positions in all queues for a given summoner ID
 
-        :param region string: the region to execute this request on
-        :param summoner_id long: the summoner ID to query
+        :param string region: the region to execute this request on
+        :param long summoner_id: the summoner ID to query
 
-        :returns:Set[LeaguePositionDTO]
+        :returns: Set[LeaguePositionDTO]
         """
         return self._request(
             self.positions_by_summoner.__name__,

@@ -11,7 +11,7 @@ class ChampionApiV3(NamedEndpoint):
         """
         Initialize a new ChampionApiV3 which uses the provided base_api
 
-        :param base_api BaseApi: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(ChampionApiV3, self).__init__(base_api, self.__class__.__name__)
 
@@ -19,8 +19,9 @@ class ChampionApiV3(NamedEndpoint):
         """
         Retrieve all champions.
 
-        :param region string: the region to execute this request on
-        :param free_to_play bool: Optional filter param to retrieve only free to play champions.
+        :param string region: the region to execute this request on
+        :param bool free_to_play: Optional filter param to retrieve only free to play champions.
+
         :returns: List[ChampionDto]: This object contains a collection of champion information.
         """
         return self._request(
@@ -34,8 +35,9 @@ class ChampionApiV3(NamedEndpoint):
         """
         Retrieve champion by ID
 
-        :param region string: the region to execute this request on
-        :param champion_id int: Champion ID
+        :param string region: the region to execute this request on
+        :param int champion_id: Champion ID
+
         :returns: ChampionDto: This object contains a collection of champion information.
         """
         return self._request(
