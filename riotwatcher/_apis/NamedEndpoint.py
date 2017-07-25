@@ -1,5 +1,5 @@
 
-class NamedEndpoint:
+class NamedEndpoint(object):
     """
     Helper class to inject endpoint name into calls to a BaseApi instance without
     the child class explicitly adding the name every time.

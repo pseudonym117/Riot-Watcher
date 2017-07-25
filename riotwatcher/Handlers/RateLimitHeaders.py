@@ -4,7 +4,7 @@ import datetime
 from . import LimitCount
 
 
-class RateLimitHeaders:
+class RateLimitHeaders(object):
     """
     The RateLimitHeaders class contains all information that the Riot API returns regarding rate limiting.
     """

@@ -2,7 +2,7 @@
 import datetime
 
 
-class LimitCount:
+class LimitCount(object):
     """
     The LimitCount class contains how many requests have been made in a specified time period,
     as well as how long that time period is.

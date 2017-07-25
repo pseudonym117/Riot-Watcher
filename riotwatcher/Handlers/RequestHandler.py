@@ -1,5 +1,5 @@
 
-class RequestHandler:
+class RequestHandler(object):
     def __init__(self):
         pass
 
