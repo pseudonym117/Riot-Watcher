@@ -142,9 +142,10 @@ respected. Should be fixed soon tm.
 
 Changelog
 ---------
-v2.0.2 - 7/20/2017
+v2.0.2 - 7/25/2017
 ~~~~~~~~~~~~~~~~~~
 
+Python 2 Support
 Fixed a bunch of PEP violations and fixed comments format.
 
 v2.0.1 - 7/18/2017
