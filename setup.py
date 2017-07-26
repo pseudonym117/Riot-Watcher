@@ -1,9 +1,21 @@
 from setuptools import setup, find_packages
 import os.path
 
+import sys
+
 __version__ = '2.0.2'
 
 descr_file = os.path.join(os.path.dirname(__file__), 'README.rst')
+
+if sys.version_info > (3, 0):
+    requirements = [
+        'requests'
+    ]
+else:
+    requirements = [
+        'requests',
+        'mock'
+    ]
 
 setup(
     name='riotwatcher',
@@ -23,7 +35,5 @@ setup(
         'Topic :: Games/Entertainment :: Role-Playing'
     ],
     license='MIT',
-    install_requires=[
-        'requests'
-    ],
+    install_requires=requirements,
  )

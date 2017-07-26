@@ -1,6 +1,12 @@
 
 import unittest
-from unittest.mock import MagicMock
+import sys
+
+if sys.version_info > (3, 0):
+    from unittest.mock import MagicMock
+else:
+    from mock import MagicMock
+
 
 from .. import ChampionApiV3
 
