@@ -15,19 +15,28 @@ class MatchApiV3(NamedEndpoint):
         """
         super(MatchApiV3, self).__init__(base_api, MatchApiV3.__name__)
 
-    def by_id(self, region, match_id):
+    def by_id(
+            self,
+            region,
+            match_id,
+            for_account_id=None,
+            for_platform_id=None):
         """
         Get match by match ID
 
-        :param string region: The region to execute this request on
-        :param long match_id: The match ID.
+        :param string region:           The region to execute this request on
+        :param long match_id:           The match ID.
+        :param long for_account_id:     Used to identify the participant to be unobfuscated
+        :param string for_platform_id:  Used to identify the participant to be unobfuscated
 
         :returns: MatchDto
         """
         return self._request(
             self.by_id.__name__,
             region,
-            '/lol/match/v3/matches/{matchId}'.format(matchId=match_id)
+            '/lol/match/v3/matches/{matchId}'.format(matchId=match_id),
+            forAccountId=for_account_id,
+            forPlatformId=for_platform_id
         )
 
     def matchlist_by_account(
