@@ -1,4 +1,4 @@
-from .RiotWatcher import RiotWatcher
+from .riotwatcher import RiotWatcher
 
 __all__ = [
     'RiotWatcher',
