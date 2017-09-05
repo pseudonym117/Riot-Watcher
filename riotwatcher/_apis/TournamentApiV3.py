@@ -14,6 +14,37 @@ class TournamentApiV3(NamedEndpoint):
 		:param BaseApi base_api: the root API object to use for making all requests.
 		"""
 		super(TournamentApiV3, self).__init__(base_api, TournamentApiV3.__name__)
+	
+	def create_provider(self, region, url):
+		"""
+		Creates a tournament provider and returns its ID.
+
+		Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
+
+		:param string region: The region in which the provider will be running tournaments. (Legal values: BR, EUNE, EUW, JP, LAN, LAS, NA, OCE, PBE, RU, TR)
+		:parm string url:     The provider's callback URL to which tournament game results in this region should be posted.
+							  The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
+		
+		:returns: int provider id
+		"""
+		return self._request(
+			self.create_provider.__name__,
+			'/lol/tournament/v3/providers',
+			ProviderRegistrationParameters={'region':region,'url':url})
+
+	def create_tournament(self, provider_id, tournament_name=None):
+		"""
+		Creates a tournament and returns its ID.
+
+		:param optional string tournament_name: The optional name of the tournament.
+		:param int provider_id: The provider ID to specify the regional registered provider data to associate this tournament.
+
+		:returns: int tournament_id
+		"""
+		return self._request(
+			self.create_tournament.__name__,
+			'/lol/tournament/v3/tournaments',
+			TournamentRegistrationParameters={'name':tournament_name,'providerId':provider_id})
 
 	def codes(self,
 			  count,
@@ -43,9 +74,9 @@ class TournamentApiV3(NamedEndpoint):
 		return self._request(
 			self.codes.__name__,
 			'/lol/tournament/v3/codes',
-            count=count,
-            tournamentId=tournament_id,
-            TournamentCodeParameters=tournament_code_parameters
+			count=count,
+			tournamentId=tournament_id,
+			TournamentCodeParameters=tournament_code_parameters
 		)
 
 	def update_by_id(self, tournament_code, tournament_parameters={'allowedParticipants':'','mapType':'','pickType':'','spectatorType':''}):
@@ -54,16 +85,16 @@ class TournamentApiV3(NamedEndpoint):
 
 		:param string tournament_code: The tournament code to update
 		:param dict tournament_parameters: 
-                                    string	spectatorType	    The spectator type (Legal values: NONE, LOBBYONLY, ALL)
-                                    string	pickType	        The pick type (Legal values: BLIND_PICK, DRAFT_MODE, ALL_RANDOM, TOURNAMENT_DRAFT)
-                                    string	allowedParticipants	Comma separated list of summoner Ids
-                                    string	mapType	            The map type (Legal values: SUMMONERS_RIFT, TWISTED_TREELINE, HOWLING_ABYSS)
+									string	spectatorType	    The spectator type (Legal values: NONE, LOBBYONLY, ALL)
+									string	pickType	        The pick type (Legal values: BLIND_PICK, DRAFT_MODE, ALL_RANDOM, TOURNAMENT_DRAFT)
+									string	allowedParticipants	Comma separated list of summoner Ids
+									string	mapType	            The map type (Legal values: SUMMONERS_RIFT, TWISTED_TREELINE, HOWLING_ABYSS)
 
 		"""
 		return self._request(
 			self.update_by_id.__name__,
 			'/lol/tournament/v3/codes/{tournamentCode}'.format(tournamentCode=tournament_code),
-            TournamentCodeUpdateParameters=tournament_parameters
+			TournamentCodeUpdateParameters=tournament_parameters
 		)
 
 	def by_id(self, tournament_code):
@@ -78,3 +109,15 @@ class TournamentApiV3(NamedEndpoint):
 			self.by_id.__name__,
 			'/lol/tournament/v3/codes/{tournamentCode}'.format(tournamentCode=tournament_code)
 		)
+	
+	def lobby_events(self, tournament_code):
+		"""
+		Gets a list of lobby events by tournament code.
+
+		:param string tournament_code: The tournament code string.
+
+		:returns: LobbyEventDTOWrapper: lobby events as a list, each element contains lobby event details
+		"""
+		return self._request(
+			self.lobby_events.__name__,
+			'/lol/tournament/v3/lobby-events/by-code/{tournamentCode}'.format(tournamentCode=tournament_code)
