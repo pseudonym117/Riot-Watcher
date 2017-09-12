@@ -5,6 +5,7 @@ from . import NamedEndpoint
 class SpectatorApiV3(NamedEndpoint):
     """
     This class wraps the Spectator-v3 endpoint calls provided by the Riot API.
+    
     See https://developer.riotgames.com/api-methods/#spectator-v3 for more detailed information
     """
     def __init__(self, base_api):

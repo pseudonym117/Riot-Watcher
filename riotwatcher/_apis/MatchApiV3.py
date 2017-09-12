@@ -5,6 +5,7 @@ from . import NamedEndpoint
 class MatchApiV3(NamedEndpoint):
     """
     This class wraps the Match-v3 endpoint calls provided by the Riot API.
+
     See https://developer.riotgames.com/api-methods/#match-v3 for more detailed information
     """
     def __init__(self, base_api):
@@ -49,11 +50,15 @@ class MatchApiV3(NamedEndpoint):
         A number of optional parameters are provided for filtering. It is up to the caller to ensure that the
         combination of filter parameters provided is valid for the requested account, otherwise, no matches may
         be returned.
+
         Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be
         greater than beginIndex.
+
         If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match
         history.
+
         If beginTime is specified, but not endTime, then endTime is effectively the current time.
+
         Note that endTime should be greater than beginTime if both are specified, although there is no maximum
         limit on their range.
 

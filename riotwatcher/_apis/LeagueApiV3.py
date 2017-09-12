@@ -5,6 +5,7 @@ from . import NamedEndpoint
 class LeagueApiV3(NamedEndpoint):
     """
     This class wraps the League-v3 Api calls provided by the Riot API.
+    
     See https://developer.riotgames.com/api-methods/#league-v3/ for more detailed information
     """
     def __init__(self, base_api):

@@ -5,6 +5,7 @@ from . import NamedEndpoint
 class MasteriesApiV3(NamedEndpoint):
     """
     This class wraps the Masteries-v3 Api calls provided by the Riot API.
+
     See https://developer.riotgames.com/api-methods/#masteries-v3 for more detailed information
     """
     def __init__(self, base_api):
