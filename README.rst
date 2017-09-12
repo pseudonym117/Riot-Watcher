@@ -4,6 +4,8 @@ RiotWatcher v2.0.2
 .. image:: https://readthedocs.org/projects/riot-watcher/badge/?version=latest
   :target: http://riot-watcher.readthedocs.io/en/latest/?badge=latest
   :alt: Documentation Status
+.. image:: https://travis-ci.org/pseudonym117/Riot-Watcher.svg?branch=master
+  :target: https://travis-ci.org/pseudonym117/Riot-Watcher
 
 
 Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
