@@ -1,6 +1,8 @@
 RiotWatcher v2.0.2
 ==================
 
+Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
+
 Verion 2.0.0 is a breaking change to the API. Riot deprecated all batch queries,
 so most of the older method signatures from the 1.* releases of RiotWatcher no longer
 made sense. Because of this, the library has been heavily refactored in order
