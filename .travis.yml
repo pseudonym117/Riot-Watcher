@@ -1,0 +1,13 @@
+language: python
+python:
+  - "2.7"
+  - "3.6"
+
+cache:
+  directories:
+    - $HOME/.pip-cache/
+
+install:
+  - pip install -r requirements2.txt --cache-dir $HOME/.pip-cache
+
+script: pytest
