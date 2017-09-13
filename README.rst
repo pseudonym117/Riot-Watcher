@@ -1,12 +1,7 @@
 RiotWatcher v2.0.2
 ==================
 
-.. image:: https://readthedocs.org/projects/riot-watcher/badge/?version=latest
-  :target: http://riot-watcher.readthedocs.io/en/latest/?badge=latest
-  :alt: Documentation Status
-.. image:: https://travis-ci.org/pseudonym117/Riot-Watcher.svg?branch=master
-  :target: https://travis-ci.org/pseudonym117/Riot-Watcher
-
+|pypi| |docs| |build| |coverage|
 
 Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
 
@@ -330,3 +325,20 @@ Attribution
 RiotWatcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially
 involved in producing or managing *League of Legends*. *League of Legends* and Riot Games are trademarks or registered
 trademarks of Riot Games, Inc. *League of Legends* (c) Riot Games, Inc.
+
+
+.. |pypi| image:: https://img.shields.io/pypi/v/riotwatcher.svg
+  :target: https://pypi.python.org/pypi/riotwatcher
+  :alt: Latest version released on PyPi
+
+.. |docs| image:: https://readthedocs.org/projects/riot-watcher/badge/?version=latest
+  :target: http://riot-watcher.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
+
+.. |build| image:: https://travis-ci.org/pseudonym117/Riot-Watcher.svg?branch=master
+  :target: https://travis-ci.org/pseudonym117/Riot-Watcher
+  :alt: Build status
+
+.. |coverage| image:: https://img.shields.io/codecov/c/gh/pseudonym117/Riot-Watcher.svg
+  :target: https://codecov.io/gh/pseudonym117/Riot-Watcher
+  :alt: Test coverage
