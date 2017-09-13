@@ -1,9 +1,14 @@
 language: python
 python:
   - "2.7"
+  - "3.5"
   - "3.6"
 
 install:
+  - pip install codecov
   - pip install -r requirements2.txt
 
 script: pytest
+
+after_success:
+  - codecov
