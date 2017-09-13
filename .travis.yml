@@ -8,7 +8,7 @@ install:
   - pip install codecov
   - pip install -r requirements2.txt
 
-script: pytest
+script: coverage run tests.py
 
 after_success:
   - codecov
