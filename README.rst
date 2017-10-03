@@ -1,4 +1,4 @@
-RiotWatcher v2.0.2
+RiotWatcher v2.0.3
 ==================
 
 |pypi| |docs| |build| |coverage|
@@ -146,6 +146,11 @@ respected. Should be fixed soon tm.
 
 Changelog
 ---------
+v2.0.3 - 10/3/2017
+
+Many fixes to documentation and automatic test runners (no pypi version)
+Fixed defect #80 (booleans not converted to lower case in requests)
+
 v2.0.2 - 7/25/2017
 ~~~~~~~~~~~~~~~~~~
 

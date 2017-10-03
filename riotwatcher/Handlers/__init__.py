@@ -5,6 +5,7 @@ from .RequestHandler import RequestHandler
 
 from .BaseRateLimitHandler import BaseRateLimitHandler
 from .JsonifyHandler import JsonifyHandler
+from .TypeCorrectorHandler import TypeCorrectorHandler
 from .ThrowOnErrorHandler import ThrowOnErrorHandler
 from .WaitingRateLimitHandler import WaitingRateLimitHandler
 
@@ -16,5 +17,6 @@ __all__ = [
     'BaseRateLimitHandler',
     'JsonifyHandler',
     'ThrowOnErrorHandler',
+    'TypeCorrectorHandler',
     'WaitingRateLimitHandler',
 ]
