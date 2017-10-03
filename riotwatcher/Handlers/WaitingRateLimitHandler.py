@@ -12,8 +12,8 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
     def __init__(self):
         super(WaitingRateLimitHandler, self).__init__()
 
-    def preview_request(self, endpoint_name, method_name, url, query_params):
-        super(BaseRateLimitHandler, self).preview_request(endpoint_name, method_name, url, query_params)
+    def preview_request(self, region, endpoint_name, method_name, url, query_params):
+        super(BaseRateLimitHandler, self).preview_request(region, endpoint_name, method_name, url, query_params)
 
         # these APIs do not have rate limits
         if endpoint_name == LolStatusApiV3.__name__ or endpoint_name == StaticDataApiV3.__name__:

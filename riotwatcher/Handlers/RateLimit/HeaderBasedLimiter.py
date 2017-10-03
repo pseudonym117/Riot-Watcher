@@ -1,7 +1,18 @@
 
-class RequestHandler(object):
-    def __init__(self):
-        pass
+from datetime import datetime
+
+from .. import RequestHandler
+
+
+class HeaderBasedLimiter(RequestHandler):
+    def __init__(self, limit_header, count_header, friendly_name=None):
+        self._limit_header = limit_header
+        self._count_header = count_header
+        self._friendly_name = friendly_name
+
+    @property
+    def friendly_name(self):
+        return self._friendly_name
 
     def preview_request(self, region, endpoint_name, method_name, url, query_params):
         """
@@ -12,6 +23,8 @@ class RequestHandler(object):
         :param string method_name: the name of the method being requested
         :param url: the URL that is being requested.
         :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
+
+        :returns datetime: the time at which the next request can be made
         """
         pass
 
