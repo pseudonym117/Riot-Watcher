@@ -24,7 +24,7 @@ class WaitingRateLimitHandler(BaseRateLimitHandler):
         last_header = self.last_rate_headers
         if last_header is not None:
             if last_header.retry_after is not None:
-                sleep_time = last_header.retry_after - (datetime.now() - last_header.time).seconds
+                sleep_time = last_header.retry_after - (datetime.datetime.now() - last_header.time).seconds
                 if sleep_time > 0:
                     seconds_waited = seconds_waited + sleep_time
                     logging.info('waiting for {} seconds'.format(sleep_time))
