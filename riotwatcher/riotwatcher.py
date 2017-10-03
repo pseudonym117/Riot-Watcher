@@ -25,6 +25,7 @@ class RiotWatcher:
                         [
                             JsonifyHandler,
                             ThrowOnErrorHandler,
+                            TypeCorrector,
                             WaitingRateLimitHandler
                         ]
         """
@@ -32,6 +33,7 @@ class RiotWatcher:
             custom_handler_chain = [
                 JsonifyHandler(),
                 ThrowOnErrorHandler(),
+                TypeCorrectorHandler(),
                 WaitingRateLimitHandler(),
             ]
 
