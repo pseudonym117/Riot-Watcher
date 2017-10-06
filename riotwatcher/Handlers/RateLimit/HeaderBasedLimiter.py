@@ -1,41 +1,114 @@
 
+import logging
+import threading
+
+from collections import namedtuple
 from datetime import datetime
 
 from .. import RequestHandler
 
+from .Limit import LimitCollection, RawLimit
 
-class HeaderBasedLimiter(RequestHandler):
+class HeaderBasedLimiter(object):
     def __init__(self, limit_header, count_header, friendly_name=None):
         self._limit_header = limit_header
         self._count_header = count_header
         self._friendly_name = friendly_name
 
+        # todo: is this needed here?
+        self._start_time = None
+
+        self._limits = {}
+        self._limits_lock = threading.Lock()
+
     @property
     def friendly_name(self):
         return self._friendly_name
 
-    def preview_request(self, region, endpoint_name, method_name, url, query_params):
-        """
-        called before a request is processed.
+    def _get_limit_scope(self, region, endpoint_name, method_name):
+        return ""
 
-        :param string region: the region of this request
-        :param string endpoint_name: the name of the endpoint being requested
-        :param string method_name: the name of the method being requested
-        :param url: the URL that is being requested.
-        :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
+    def __get_limit(self, region, endpoint_name, method_name):
+        scope = self._get_limit_scope(region, endpoint_name, method_name)
 
-        :returns datetime: the time at which the next request can be made
-        """
-        pass
+        if scope not in self._limits:
+            with self._limits_lock:
+                # double check this hasnt been added by another thread already
+                if scope not in self._limits:
+                    self._limits[scope] = LimitCollection()
+                return self._limits[scope]
 
-    def after_request(self, region, endpoint_name, method_name, url, response):
-        """
-        Called after a response is received and before it is returned to the user.
+        return self._limits[scope]
 
-        :param string region: the region of this request
-        :param string endpoint_name: the name of the endpoint that was requested
-        :param string method_name: the name of the method that was requested
-        :param url: The url that was requested
-        :param response: the response received. This is a response from the Requests library
-        """
-        pass
+
+    def wait_until(self, region, endpoint_name, method_name):
+        scoped_limit = self.__get_limit(region, endpoint_name, method_name)
+
+        return scoped_limit.wait_until()
+
+
+    def update_limiter(self, region, endpoint_name, method_name, response):
+        raw_limits = self._extract_headers(response)
+
+        if raw_limits is None:
+            return
+
+        scoped_limit = self.__get_limit(region, endpoint_name, method_name)
+
+        scoped_limit.update_limits(raw_limits)
+
+
+    def _extract_headers(self, response):
+        limits = HeaderBasedLimiter._extract_single_header(self._limit_header, response)
+        counts = HeaderBasedLimiter._extract_single_header(self._count_header, response)
+
+        if limits is None or counts is None:
+            return None
+
+        if len(limits) != len(counts):
+            logging.warning(
+                'header "{}" and "{}" have different sizes!',
+                self._limit_header,
+                self._count_header
+            )
+
+        combined_limits = zip(limits, counts)
+
+        for limit in combined_limits:
+            if limit[0][1] != limit[1][1]:
+                logging.warning(
+                    'seems that limits for headers "{}" and "{}" did not match up correctly! ' +
+                    'There may be issues in rate limiting. Headers were: "{}", "{}"' +
+                    'Limits from "{}" will be used.',
+                    self._limit_header,
+                    self._count_header,
+                    response.headers.get(self._limit_header),
+                    response.headers.get(self._count_header),
+                    self._limit_header
+                )
+
+        values = [
+            RawLimit(count=limit[0][0], limit=limit[1][0], time=limit[0][0])
+            for limit in combined_limits
+        ]
+
+        return values
+
+    @staticmethod
+    def _extract_single_header(cls, header, response):
+        values = response.headers.get(header)
+
+        if values is None:
+            return None
+
+        values = values.split(',')
+
+        values = [
+            [
+                int(val)
+                for val in value.split(':')
+            ]
+            for value in values
+        ]
+
+        return values

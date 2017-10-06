@@ -1,23 +1,21 @@
 
+import datetime
+import logging
+import time
 import threading
 
 from .. import RequestHandler
 
+from . import ApplicationRateLimiter, MethodRateLimiter
 
-class BaseRateLimitHandler(RequestHandler):
+class RateLimitHandler(RequestHandler):
     def __init__(self):
-        super(BaseRateLimitHandler, self).__init__()
+        super(RateLimitHandler, self).__init__()
 
-        self._regions_lock = threading.Lock()
-        self._regions = []
-
-    def _get_region_limiter(self, region):
-        if region not in self._regions:
-            with self._regions_lock:
-                # double check that another thread hasnt just added this
-                if region not in self._regions:
-                    self._regions[region] = RegionLimiter(region)
-        return self._regions[region]
+        self._limiters = (
+            ApplicationRateLimiter(),
+            MethodRateLimiter()
+        )
 
     def preview_request(self, region, endpoint_name, method_name, url, query_params):
         """
@@ -29,14 +27,27 @@ class BaseRateLimitHandler(RequestHandler):
         :param url: the URL that is being requested.
         :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
         """
-        return self._get_region_limiter(region)
-                   .preview_request(
-                        region,
-                        endpoint_name,
-                        method_name,
-                        url,
-                        query_params
-                   )
+        wait_until = max(
+            [
+                (
+                    limiter.wait_until(region, endpoint_name, method_name),
+                    limiter.friendly_name()
+                )
+                for limiter in self._limiters
+            ],
+            key=lambda lim_pair: lim_pair[0]
+        )
+
+        if wait_until[0] is not None and wait_until > datetime.datetime.now():
+            to_wait = wait_until[0] - datetime.datetime.now()
+
+            logging.info(
+                '{} - waiting for {} seconds due to {} limit...',
+                self._region,
+                to_wait.total_seconds(),
+                wait_until[1]
+            )
+            time.sleep(to_wait.total_seconds())
 
     def after_request(self, region, endpoint_name, method_name, url, response):
         """
@@ -48,11 +59,7 @@ class BaseRateLimitHandler(RequestHandler):
         :param url: The url that was requested
         :param response: the response received. This is a response from the Requests library
         """
-        return self._get_region_limiter(region)
-                   .after_request(
-                        region,
-                        endpoint_name,
-                        method_name,
-                        url,
-                        response
-                   )
+        for limiter in self._limiters:
+            limiter.update_limiter(region, endpoint_name, method_name, response)
+
+        return response
