@@ -2,6 +2,7 @@
 from ._apis import *
 from .Handlers import *
 
+from .Handlers.RateLimit import *
 
 class RiotWatcher:
     """
@@ -34,7 +35,7 @@ class RiotWatcher:
                 JsonifyHandler(),
                 ThrowOnErrorHandler(),
                 TypeCorrectorHandler(),
-                WaitingRateLimitHandler(),
+                RateLimitHandler(),
             ]
 
         self._base_api = BaseApi(api_key, custom_handler_chain)

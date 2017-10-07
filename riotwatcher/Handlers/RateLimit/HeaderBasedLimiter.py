@@ -2,12 +2,8 @@
 import logging
 import threading
 
-from collections import namedtuple
-from datetime import datetime
-
-from .. import RequestHandler
-
 from .Limit import LimitCollection, RawLimit
+
 
 class HeaderBasedLimiter(object):
     def __init__(self, limit_header, count_header, friendly_name=None):
@@ -40,12 +36,10 @@ class HeaderBasedLimiter(object):
 
         return self._limits[scope]
 
-
     def wait_until(self, region, endpoint_name, method_name):
         scoped_limit = self.__get_limit(region, endpoint_name, method_name)
 
         return scoped_limit.wait_until()
-
 
     def update_limiter(self, region, endpoint_name, method_name, response):
         raw_limits = self._extract_headers(response)
@@ -57,7 +51,6 @@ class HeaderBasedLimiter(object):
 
         scoped_limit.update_limits(raw_limits)
 
-
     def _extract_headers(self, response):
         limits = HeaderBasedLimiter._extract_single_header(self._limit_header, response)
         counts = HeaderBasedLimiter._extract_single_header(self._count_header, response)
@@ -67,19 +60,19 @@ class HeaderBasedLimiter(object):
 
         if len(limits) != len(counts):
             logging.warning(
-                'header "{}" and "{}" have different sizes!',
+                'header "%s" and "%s" have different sizes!',
                 self._limit_header,
                 self._count_header
             )
 
-        combined_limits = zip(limits, counts)
+        combined_limits = list(zip(counts, limits))
 
         for limit in combined_limits:
             if limit[0][1] != limit[1][1]:
                 logging.warning(
-                    'seems that limits for headers "{}" and "{}" did not match up correctly! ' +
-                    'There may be issues in rate limiting. Headers were: "{}", "{}"' +
-                    'Limits from "{}" will be used.',
+                    'seems that limits for headers "%s" and "%s" did not match up correctly! ' +
+                    'There may be issues in rate limiting. Headers were: "%s", "%s"' +
+                    'Limits from "%s" will be used.',
                     self._limit_header,
                     self._count_header,
                     response.headers.get(self._limit_header),
@@ -88,14 +81,14 @@ class HeaderBasedLimiter(object):
                 )
 
         values = [
-            RawLimit(count=limit[0][0], limit=limit[1][0], time=limit[0][0])
+            RawLimit(count=limit[0][0], limit=limit[1][0], time=limit[0][1])
             for limit in combined_limits
         ]
 
         return values
 
     @staticmethod
-    def _extract_single_header(cls, header, response):
+    def _extract_single_header(header, response):
         values = response.headers.get(header)
 
         if values is None:

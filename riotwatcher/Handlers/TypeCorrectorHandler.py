@@ -13,7 +13,7 @@ class TypeCorrectorHandler(RequestHandler):
     def __init__(self):
         super(TypeCorrectorHandler, self).__init__()
 
-    def preview_request(self, endpoint_name, method_name, url, query_params):
+    def preview_request(self, region, endpoint_name, method_name, url, query_params):
         """
         called before a request is processed.
 

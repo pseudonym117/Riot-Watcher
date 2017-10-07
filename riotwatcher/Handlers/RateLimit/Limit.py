@@ -1,10 +1,12 @@
 
 import datetime
+import logging
 import threading
 
 from collections import namedtuple
 
 RawLimit = namedtuple('RawLimit', ['count', 'limit', 'time'])
+
 
 class LimitCollection(object):
     def __init__(self):
@@ -15,10 +17,11 @@ class LimitCollection(object):
         # we dont really want to update the limits as we process them
         # may be able to move the max() call outside the lock though
         with self._limits_lock:
-            return max([
+            limits_waits = [
                 limit.wait_until()
-                for key, limit in self._limits
-            ])
+                for key, limit in self._limits.items()
+            ]
+            return max(limits_waits) if len(limits_waits) > 0 else None
 
     def update_limits(self, raw_limits):
         for raw_limit in raw_limits:
@@ -64,7 +67,7 @@ class Limit(object):
             # and should reset our timer
             if self._raw_limit.time != raw_limit.time:
                 logging.warning(
-                    'overwriting time limit, previously {}, now {}. ' +
+                    'overwriting time limit, previously %s, now %s. ' +
                     'This may cause rate limitting issues.',
                     self._raw_limit.time,
                     raw_limit.time
@@ -73,7 +76,7 @@ class Limit(object):
 
             if self._raw_limit.limit != raw_limit.limit:
                 logging.info(
-                    'rate limit chaged from {}/{}s to {}/{}s',
+                    'rate limit changed from %s/%ss to %s/%ss',
                     self._raw_limit.limit,
                     self._raw_limit.time,
                     raw_limit.limit,
@@ -95,7 +98,6 @@ class Limit(object):
                 if self._raw_limit.count > raw_limit.count:
                     raw_limit.count = self._raw_limit.count
                 self._raw_limit = raw_limit
-
 
     def wait_until(self):
         if self.count >= self.limit:
