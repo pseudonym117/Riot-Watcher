@@ -102,3 +102,5 @@ class Limit(object):
     def wait_until(self):
         if self.count >= self.limit:
             return self._start_time + datetime.timedelta(seconds=self.duration)
+        else:
+            return datetime.datetime(datetime.MINYEAR, 1, 1)
