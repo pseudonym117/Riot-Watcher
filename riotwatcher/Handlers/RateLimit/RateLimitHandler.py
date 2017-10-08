@@ -5,7 +5,7 @@ import time
 
 from .. import RequestHandler
 
-from . import ApplicationRateLimiter, MethodRateLimiter
+from . import ApplicationRateLimiter, MethodRateLimiter, OopsRateLimiter
 
 
 class RateLimitHandler(RequestHandler):
@@ -14,7 +14,8 @@ class RateLimitHandler(RequestHandler):
 
         self._limiters = (
             ApplicationRateLimiter(),
-            MethodRateLimiter()
+            MethodRateLimiter(),
+            OopsRateLimiter(),
         )
 
     def preview_request(self, region, endpoint_name, method_name, url, query_params):

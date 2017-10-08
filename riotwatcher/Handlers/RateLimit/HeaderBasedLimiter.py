@@ -11,9 +11,6 @@ class HeaderBasedLimiter(object):
         self._count_header = count_header
         self._friendly_name = friendly_name
 
-        # todo: is this needed here?
-        self._start_time = None
-
         self._limits = {}
         self._limits_lock = threading.Lock()
 
