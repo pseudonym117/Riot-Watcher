@@ -4,7 +4,8 @@ from .Handlers import *
 
 from .Handlers.RateLimit import *
 
-class RiotWatcher:
+
+class RiotWatcher(object):
     """
     RiotWatcher class is intended to be the main interaction point with the RiotAPI.
     """
@@ -27,7 +28,7 @@ class RiotWatcher:
                             JsonifyHandler,
                             ThrowOnErrorHandler,
                             TypeCorrector,
-                            WaitingRateLimitHandler
+                            RateLimitHandler
                         ]
         """
         if custom_handler_chain is None:
