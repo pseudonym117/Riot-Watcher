@@ -1,4 +1,4 @@
-RiotWatcher v2.0.3
+RiotWatcher v2.1.0
 ==================
 
 |pypi| |docs| |build| |coverage|
@@ -15,7 +15,7 @@ See further down for backwards compatibility options...
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 7/18/2017 are supported in full.
+of 10/9/2017 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test environment
@@ -146,6 +146,13 @@ respected. Should be fixed soon tm.
 
 Changelog
 ---------
+v2.1.0 - 10/9/2017
+~~~~~~~~~~~~~~~~~~
+
+Service Rate limits now actually respected!
+
+A bunch of random doc fixes... other non-insteresting stuff. etc.
+
 v2.0.3 - 10/3/2017
 ~~~~~~~~~~~~~~~~~~
 

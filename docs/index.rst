@@ -1,14 +1,10 @@
-.. RiotWatcher documentation master file, created by
-   sphinx-quickstart on Wed Aug 23 22:32:45 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 Welcome to RiotWatcher's documentation!
 =======================================
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 7/18/2017 are supported in full.
+of 10/9/2017 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test environment
