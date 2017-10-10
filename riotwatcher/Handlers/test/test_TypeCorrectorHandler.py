@@ -19,7 +19,7 @@ class TypeCorrectorHandlerTestCase(unittest.TestCase):
             'h': ['hard', 2, True, False],
         }
 
-        corrector.preview_request(None, None, None, query_params)
+        corrector.preview_request(None, None, None, None, query_params)
 
         self.assertEquals('test', query_params['a'])
         self.assertEquals(123, query_params['b'])

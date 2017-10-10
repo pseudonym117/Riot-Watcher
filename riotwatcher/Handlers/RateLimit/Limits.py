@@ -66,6 +66,7 @@ class Limit(object):
             # if the time increment changed, we dont really know anything anymore
             # and should reset our timer
             if self._raw_limit.time != raw_limit.time:
+                reset_timer = True
                 if not(self._raw_limit.time == 0 and self._raw_limit.limit == 0 and self._raw_limit.count == 0):
                     logging.warning(
                         'overwriting time limit, previously %s, now %s. ' +
@@ -73,7 +74,6 @@ class Limit(object):
                         self._raw_limit.time,
                         raw_limit.time
                     )
-                    reset_timer = True
 
             if self._raw_limit.limit != raw_limit.limit:
                 logging.info(
