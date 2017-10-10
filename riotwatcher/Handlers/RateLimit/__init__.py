@@ -1,7 +1,7 @@
 
 from .HeaderBasedLimiter import HeaderBasedLimiter
 from .ApplicationRateLimiter import ApplicationRateLimiter
-from .Limit import Limit, LimitCollection, RawLimit
+from .Limits import Limit, LimitCollection, RawLimit
 from .MethodRateLimiter import MethodRateLimiter
 from .OopsRateLimiter import OopsRateLimiter
 from .RateLimitHandler import RateLimitHandler

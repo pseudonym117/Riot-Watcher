@@ -2,7 +2,7 @@
 import logging
 import threading
 
-from .Limit import LimitCollection, RawLimit
+from .Limits import LimitCollection, RawLimit
 
 
 class HeaderBasedLimiter(object):
