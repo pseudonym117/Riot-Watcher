@@ -48,12 +48,8 @@ raised as HTTPError exceptions from the Requests library.
     print(me)
 
     # all objects are returned (by default) as a dict
-    # get my 1 mastery page i keep changing
-    my_mastery_pages = watcher.masteries.by_summoner(my_region, me['id'])
-    print(my_mastery_pages)
-
     # lets see if i got diamond yet (i probably didnt)
-    my_ranked_stats = watcher.league.leagues_by_summoner(my_region, me['id'])
+    my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
     # Lets some champions

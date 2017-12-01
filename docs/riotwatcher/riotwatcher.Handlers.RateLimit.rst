@@ -1,5 +1,5 @@
 riotwatcher\.Handlers\.RateLimit package
-=============================
+========================================
 
 .. toctree::
     :caption: Classes
