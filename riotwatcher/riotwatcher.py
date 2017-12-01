@@ -1,8 +1,9 @@
 
-from ._apis import *
-from .Handlers import *
+from ._apis import BaseApi, ChampionApiV3, ChampionMasteryApiV3, LeagueApiV3, LolStatusApiV3
+from ._apis import MatchApiV3, SpectatorApiV3, StaticDataApiV3, SummonerApiV3
+from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
 
-from .Handlers.RateLimit import *
+from .Handlers.RateLimit import RateLimitHandler
 
 
 class RiotWatcher(object):
@@ -17,12 +18,14 @@ class RiotWatcher(object):
         :param string api_key: the API key to use for this instance
         :param List[RequestHandler] custom_handler_chain:
                     RequestHandler chain to pass to the created BaseApi object.
-                    This chain is called in order before any calls to the API, and called in reverse order after any
-                    calls to the API.
-                    If preview_request returns data, the rest of the call short circuits, preventing any call to the
-                    real API and calling any handlers that have already been run in reverse order.
+                    This chain is called in order before any calls to the API, and called in
+                    reverse order after any calls to the API.
+                    If preview_request returns data, the rest of the call short circuits,
+                    preventing any call to the real API and calling any handlers that have already
+                    been run in reverse order.
                     This should allow for dynamic tiered caching of data.
-                    If after_request returns data, that is the data that is fed to the next handler in the chain.
+                    If after_request returns data, that is the data that is fed to the next handler
+                    in the chain.
                     Default chain is:
                         [
                             JsonifyHandler,
@@ -95,7 +98,7 @@ class RiotWatcher(object):
 
         :rtype: MatchApiV3
         """
-        return self._match1
+        return self._match
 
     @property
     def spectator(self):

@@ -10,8 +10,6 @@ class TypeCorrectorHandler(RequestHandler):
     Currently this only involves changing boolean values into strings,
     as the API only accepts lower case booleans for some reason.
     """
-    def __init__(self):
-        super(TypeCorrectorHandler, self).__init__()
 
     def preview_request(self, region, endpoint_name, method_name, url, query_params):
         """
@@ -20,7 +18,8 @@ class TypeCorrectorHandler(RequestHandler):
         :param string endpoint_name: the name of the endpoint being requested
         :param string method_name: the name of the method being requested
         :param url: the URL that is being requested.
-        :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
+        :param query_params: dict: the parameters to the url that is being queried,
+                                   e.g. ?key1=val&key2=val2
         """
         if query_params is not None:
             for key, value in query_params.items():

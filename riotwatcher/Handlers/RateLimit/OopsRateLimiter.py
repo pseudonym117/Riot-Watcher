@@ -31,6 +31,8 @@ class OopsRateLimiter(object):
                     limit_type,
                     retry_after
                 )
-                self._retry_at = datetime.datetime.now() + datetime.timedelta(seconds=int(retry_after))
+                self._retry_at = datetime.datetime.now() + datetime.timedelta(
+                    seconds=int(retry_after)
+                )
             else:
                 logging.info('hit 429 from "%s" limit! no retry after header...', limit_type)

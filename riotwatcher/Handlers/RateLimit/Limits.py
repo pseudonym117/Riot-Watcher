@@ -67,7 +67,11 @@ class Limit(object):
             # and should reset our timer
             if self._raw_limit.time != raw_limit.time:
                 reset_timer = True
-                if not(self._raw_limit.time == 0 and self._raw_limit.limit == 0 and self._raw_limit.count == 0):
+                if not(
+                        self._raw_limit.time == 0 and
+                        self._raw_limit.limit == 0 and
+                        self._raw_limit.count == 0
+                ):
                     logging.warning(
                         'overwriting time limit, previously %s, now %s. ' +
                         'This may cause rate limitting issues.',
@@ -103,5 +107,4 @@ class Limit(object):
     def wait_until(self):
         if self.count >= self.limit:
             return self._start_time + datetime.timedelta(seconds=self.duration)
-        else:
-            return datetime.datetime(datetime.MINYEAR, 1, 1)
+        return datetime.datetime(datetime.MINYEAR, 1, 1)

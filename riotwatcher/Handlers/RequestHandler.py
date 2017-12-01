@@ -11,7 +11,8 @@ class RequestHandler(object):
         :param string endpoint_name: the name of the endpoint being requested
         :param string method_name: the name of the method being requested
         :param url: the URL that is being requested.
-        :param query_params: dict: the parameters to the url that is being queried, e.g. ?key1=val&key2=val2
+        :param query_params: dict: the parameters to the url that is being queried,
+                                   e.g. ?key1=val&key2=val2
         """
         pass
 
