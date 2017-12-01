@@ -47,29 +47,31 @@ class MatchApiV3(NamedEndpoint):
         Get matchlist for ranked games played on given account ID and platform ID
         and filtered using given filter parameters, if any
 
-        A number of optional parameters are provided for filtering. It is up to the caller to ensure that the
-        combination of filter parameters provided is valid for the requested account, otherwise, no matches may
-        be returned.
+        A number of optional parameters are provided for filtering. It is up to the caller to
+        ensure that the combination of filter parameters provided is valid for the requested
+        account, otherwise, no matches may be returned.
 
-        Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be
-        greater than beginIndex.
+        Note that if either beginIndex or endIndex are specified, then both must be specified and
+        endIndex must be greater than beginIndex.
 
-        If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match
-        history.
+        If endTime is specified, but not beginTime, then beginTime is effectively the start of the
+        account's match history.
 
         If beginTime is specified, but not endTime, then endTime is effectively the current time.
 
-        Note that endTime should be greater than beginTime if both are specified, although there is no maximum
-        limit on their range.
+        Note that endTime should be greater than beginTime if both are specified, although there is
+        no maximum limit on their range.
 
         :param string region:       The region to execute this request on
         :param long account_id:     The account ID.
         :param Set[int] queue:      Set of queue IDs for which to filtering matchlist.
-        :param long begin_time:     The begin time to use for filtering matchlist specified as epoch milliseconds.
-        :param long end_time:       The end time to use for filtering matchlist specified as epoch milliseconds.
+        :param long begin_time:     The begin time to use for filtering matchlist specified as
+                                    epoch milliseconds.
+        :param long end_time:       The end time to use for filtering matchlist specified as epoch
+                                    milliseconds.
         :param int begin_index:     The begin index to use for filtering matchlist.
         :param int end_index:       The end index to use for filtering matchlist.
-        :param Set[int] season:      Set of season IDs for which to filtering matchlist.
+        :param Set[int] season:     Set of season IDs for which to filtering matchlist.
         :param Set[int] champion:   Set of champion IDs for which to filtering matchlist.
 
         :returns: MatchlistDto

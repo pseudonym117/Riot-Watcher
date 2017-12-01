@@ -34,7 +34,7 @@ class MatchApiV3TestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_matchlist_by_account_defaults(self):
+    def test_ml_by_account_defaults(self):
         match = MatchApiV3(self._base_api_mock)
         region = 'sfsfa'
         account_id = 15357
@@ -57,7 +57,7 @@ class MatchApiV3TestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_matchlist_by_account_takes_params(self):
+    def test_ml_by_account_takes_param(self):
         match = MatchApiV3(self._base_api_mock)
         region = 'sfsfa'
         account_id = 15357
@@ -96,7 +96,7 @@ class MatchApiV3TestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_matchlist_by_account_recent(self):
+    def test_ml_by_account_recent(self):
         match = MatchApiV3(self._base_api_mock)
         region = 'afaaas'
         account_id = 2624

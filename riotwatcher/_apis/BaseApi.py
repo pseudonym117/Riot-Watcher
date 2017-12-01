@@ -21,13 +21,23 @@ class BaseApi:
 
         if self._request_handlers is not None:
             for idx, handler in enumerate(self._request_handlers, start=1):
-                response = handler.preview_request(region, endpoint_name, method_name, url, query_params)
+                response = handler.preview_request(
+                    region,
+                    endpoint_name,
+                    method_name,
+                    url,
+                    query_params
+                )
                 early_ret_idx = idx
                 if response is not None:
                     break
 
         if response is None:
-            response = requests.get(url, params=query_params, headers={'X-Riot-Token': self.api_key})
+            response = requests.get(
+                url,
+                params=query_params,
+                headers={'X-Riot-Token': self.api_key}
+            )
 
         if self._request_handlers is not None:
             for handler in self._request_handlers[early_ret_idx:None:-1]:
