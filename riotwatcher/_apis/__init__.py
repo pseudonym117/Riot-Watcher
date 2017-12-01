@@ -9,6 +9,7 @@ from .MatchApiV3 import MatchApiV3
 from .SpectatorApiV3 import SpectatorApiV3
 from .StaticDataApiV3 import StaticDataApiV3
 from .SummonerApiV3 import SummonerApiV3
+from .ThirdPartyCodeApiV3 import ThirdPartyCodeApiV3
 
 __all__ = [
     'BaseApi',
@@ -21,4 +22,5 @@ __all__ = [
     'SpectatorApiV3',
     'StaticDataApiV3',
     'SummonerApiV3',
+    'ThirdPartyCodeApiV3'
 ]
