@@ -8,9 +8,7 @@ riotwatcher\._apis package
     ChampionMasteryApiV3.rst
     LeagueApiV3.rst
     LolStatusApiV3.rst
-    MasteriesApiV3.rst
     MatchApiV3.rst
-    RunesApiV3.rst
     SpectatorApiV3.rst
     StaticDataApiV3.rst
     SummonerApiV3.rst

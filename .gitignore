@@ -58,4 +58,6 @@ docs/_build/
 # PyBuilder
 target/
 
+.vscode/
+
 api_key

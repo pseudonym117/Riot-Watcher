@@ -45,9 +45,7 @@ class RiotWatcher(object):
         self._champion_mastery = ChampionMasteryApiV3(self._base_api)
         self._league = LeagueApiV3(self._base_api)
         self._lol_status = LolStatusApiV3(self._base_api)
-        self._masteries = MasteriesApiV3(self._base_api)
         self._match = MatchApiV3(self._base_api)
-        self._runes = RunesApiV3(self._base_api)
         self._spectator = SpectatorApiV3(self._base_api)
         self._static_data = StaticDataApiV3(self._base_api)
         self._summoner = SummonerApiV3(self._base_api)
@@ -91,30 +89,13 @@ class RiotWatcher(object):
         return self._lol_status
 
     @property
-    def masteries(self):
-        """Interface to the Masteries Endpoint
-
-        :rtype: MasteriesApiV3
-        """
-        return self._masteries
-
-    @property
     def match(self):
         """
         Interface to the Match Endpoint
 
         :rtype: MatchApiV3
         """
-        return self._match
-
-    @property
-    def runes(self):
-        """
-        Interface to the Runes Endpoint
-
-        :rtype: RunesApiV3
-        """
-        return self._runes
+        return self._match1
 
     @property
     def spectator(self):
