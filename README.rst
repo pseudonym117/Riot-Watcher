@@ -5,14 +5,6 @@ RiotWatcher v2.1.0
 
 Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
 
-Verion 2.0.0 is a breaking change to the API. Riot deprecated all batch queries,
-so most of the older method signatures from the 1.* releases of RiotWatcher no longer
-made sense. Because of this, the library has been heavily refactored in order
-to provide for much better maintainability in the future, as well as adding
-in easy integration points for user-defined caching and rate limiting.
-
-See further down for backwards compatibility options...
-
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
 of 10/9/2017 are supported in full.
@@ -113,6 +105,9 @@ you receive may be completely different):
 This legacy wrapper SEEMS to work ok, but I would HIGHLY encourage everyone
 to switch to the new API in the standard riotwatcher package.
 
+This wrapper is going to be removed from the library with the next version of
+Riot-Watcher. Please discontinue use, or freeze your version of Riot-Watcher.
+
 Testing
 -------
 
@@ -142,6 +137,20 @@ respected. Should be fixed soon tm.
 
 Changelog
 ---------
+v2.2.0 - 12/1/2017
+~~~~~~~~~~~~~~~~~~
+
+Completely removed masteries and runes APIs
+
+Added ThirdPartyCode API
+
+Fixed some documentation typos
+
+Learned what PyLint is and used it.
+
+Legacy interface is to be removed with next non-bugfix version.
+Time to adapt to proper usage of v3 interfaces!
+
 v2.1.0 - 10/9/2017
 ~~~~~~~~~~~~~~~~~~
 

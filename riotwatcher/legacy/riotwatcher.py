@@ -249,6 +249,7 @@ class RiotWatcher:
     def __init__(self, key, default_region=NORTH_AMERICA, limits=None):
         logging.warn('legacy RiotWatcher class is not intended to be used long term')
         logging.warn('please update to RiotWatcher v2.0.0 APIs as soon as possible')
+        logging.warn('THIS WILL BE REMOVED IN THE NEXT UPDATE OF RIOT WATCHER')
         self.key = key
         self._watcher = RW(key)
         self.default_region = default_region
@@ -486,25 +487,6 @@ class RiotWatcher:
             season=season,
             champion=champion_ids
         )
-
-    # summoner-v1.4
-    def get_mastery_pages(self, summoner_ids, region=None):
-        if region is None:
-            region = self.default_region
-
-        return [
-            self._watcher.masteries.by_summoner(region, summoner_id)
-            for summoner_id in summoner_ids
-        ]
-
-    def get_rune_pages(self, summoner_ids, region=None):
-        if region is None:
-            region = self.default_region
-
-        return [
-            self._watcher.runes.by_summoner(region, summoner_id)
-            for summoner_id in summoner_ids
-        ]
 
     def get_summoners(self, names=None, ids=None, region=None):
         if region is None:
