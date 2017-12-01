@@ -1,4 +1,4 @@
-RiotWatcher v2.1.0
+RiotWatcher v2.2.0
 ==================
 
 |pypi| |docs| |build| |coverage|
