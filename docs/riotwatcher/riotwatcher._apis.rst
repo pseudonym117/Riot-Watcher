@@ -12,6 +12,7 @@ riotwatcher\._apis package
     SpectatorApiV3.rst
     StaticDataApiV3.rst
     SummonerApiV3.rst
+    ThirdPartyCodeApiV3.rst
 
 Submodules
 ----------
