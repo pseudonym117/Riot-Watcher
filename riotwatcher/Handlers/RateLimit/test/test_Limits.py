@@ -33,15 +33,17 @@ class LimitTestCase(unittest.TestCase):
         lim = Limit()
         self.assertEqual(0, lim.limit)
 
-    def test_set_raw_limit_first_set(self):
+    @mock.patch(Limit.__module__ + '.datetime.datetime')
+    def test_set_raw_limit_first_set(self, mock_datetime):
+        mock_datetime.now.return_value = LimitTestCase._initial_date
+
         lim = Limit()
 
         raw = RawLimit(50, 100, 10)
 
-        now = datetime.datetime.now()
         lim.set_raw_limit(raw)
 
-        self.assertAlmostEqual(now, lim.start_time)
+        self.assertEqual(LimitTestCase._initial_date, lim.start_time)
 
         self.assertEqual(50, lim.count)
         self.assertEqual(100, lim.limit)
