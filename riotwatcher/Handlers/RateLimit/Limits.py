@@ -98,10 +98,10 @@ class Limit(object):
             else:
                 # double check that we arent assigning a lower, non-1 value to
                 # our count. This may be screwy if a bunch of requests are sent
-                # as the rate limit is getting reset, but I dont think There
+                # as the rate limit is getting reset, but I dont think there
                 # is a more elegant solution.
                 if self._raw_limit.count > raw_limit.count:
-                    raw_limit.count = self._raw_limit.count
+                    raw_limit = RawLimit(self._raw_limit.count, raw_limit.limit, raw_limit.time)
                 self._raw_limit = raw_limit
 
     def wait_until(self):
