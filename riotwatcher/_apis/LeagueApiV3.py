@@ -71,7 +71,7 @@ class LeagueApiV3(NamedEndpoint):
         :returns: LeagueListDTO
         """
         return self._request(
-            self.leagues.__name__,
+            self.by_id.__name__,
             region,
             '/lol/league/v3/leagues/{league_id}'.format(league_id=league_id)
         )
