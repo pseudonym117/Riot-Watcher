@@ -54,7 +54,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
             'RANKED_FLEX_TT',
         ]
 
-        leagueIds = [
+        league_ids = [
             '091e46a0-fdb0-11e7-9e8c-c81f66cf135e',
             '24c70240-fff2-11e7-919f-c81f66cf2333'
         ]
@@ -64,8 +64,8 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
             self._watcher.league.masters_by_queue(self._region, queue)
 
-        for leagueId in leagueIds:
-            self._watcher.league.leagues(self._region, leagueId)
+        for league_id in league_ids:
+            self._watcher.league.by_id(self._region, league_id)
 
         for account in self._test_accounts:
             summ = self._watcher.summoner.by_name(self._region, account)

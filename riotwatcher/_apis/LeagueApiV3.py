@@ -61,7 +61,7 @@ class LeagueApiV3(NamedEndpoint):
             '/lol/league/v3/leagues/by-summoner/{summonerId}'.format(summonerId=summoner_id)
         )
 
-    def leagues(self, region, league_id):
+    def by_id(self, region, league_id):
         """
         Get league with given ID, including inactive entries
 
