@@ -46,19 +46,19 @@ class LeagueApiV3(NamedEndpoint):
             '/lol/league/v3/masterleagues/by-queue/{queue}'.format(queue=queue)
         )
 
-    def by_summoner(self, region, summoner_id):
+    def by_id(self, region, league_id):
         """
-        Get leagues in all queues for a given summoner ID
+        Get league with given ID, including inactive entries
 
         :param string region: the region to execute this request on
-        :param long summoner_id: the summoner ID to query
+        :param string league_id: the league ID to query
 
-        :returns: Set[LeagueListDTO]
+        :returns: LeagueListDTO
         """
         return self._request(
-            self.by_summoner.__name__,
+            self.by_id.__name__,
             region,
-            '/lol/league/v3/leagues/by-summoner/{summonerId}'.format(summonerId=summoner_id)
+            '/lol/league/v3/leagues/{league_id}'.format(league_id=league_id)
         )
 
     def by_id(self, region, league_id):
