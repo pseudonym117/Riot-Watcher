@@ -1,4 +1,4 @@
-RiotWatcher v2.2.1
+RiotWatcher v2.2.2
 ==================
 
 |pypi| |docs| |build| |coverage|
@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 12/28/2017 are supported in full.
+of 4/2/2018 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test environment
@@ -132,10 +132,20 @@ quite some time to run; definitely hits the dev key rate limit):
 Known Issues
 ------------
 
-[x] Method Rate limit is not supported yet. It is read, and stored. Just isn't respected. Should be fixed soon tm.
+Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v2.2.2 - 4/2/2018
+~~~~~~~~~~~~~~~~~
+
+Fixed issue #84 where old endpoint was in examples
+
+Added league.by_id endpoint
+
+Fixed a few documentation issues
+
+
 v2.2.1 - 12/28/2017
 ~~~~~~~~~~~~~~~~~~~
 

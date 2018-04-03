@@ -4,7 +4,7 @@ Welcome to RiotWatcher's documentation!
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 10/9/2017 are supported in full.
+of 4/2/2018 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test environment
@@ -49,7 +49,7 @@ raised as HTTPError exceptions from the Requests library.
 
     # all objects are returned (by default) as a dict
     # lets see if i got diamond yet (i probably didnt)
-    my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+    my_ranked_stats = watcher.league.positions_by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
     # Lets some champions
