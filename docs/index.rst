@@ -4,7 +4,11 @@ Welcome to RiotWatcher's documentation!
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
+<<<<<<< HEAD
 of 8/23/2018 are supported in full.
+=======
+of 4/2/2018 are supported in full.
+>>>>>>> fixed documentation issues
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test environment
