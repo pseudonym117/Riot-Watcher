@@ -72,8 +72,6 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
             s_id = summ['id']
 
-            self._watcher.league.by_summoner(self._region, s_id)
-
             self._watcher.league.positions_by_summoner(self._region, s_id)
 
     def test_lol_status_api(self):

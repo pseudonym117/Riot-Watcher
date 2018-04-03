@@ -52,7 +52,7 @@ raised as HTTPError exceptions from the Requests library.
 
     # all objects are returned (by default) as a dict
     # lets see if i got diamond yet (i probably didnt)
-    my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+    my_ranked_stats = watcher.league.positions_by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
     # Lets some champions
@@ -132,8 +132,7 @@ quite some time to run; definitely hits the dev key rate limit):
 Known Issues
 ------------
 
-Method Rate limit is not supported yet. It is read, and stored. Just isn't
-respected. Should be fixed soon tm.
+[x] Method Rate limit is not supported yet. It is read, and stored. Just isn't respected. Should be fixed soon tm.
 
 Changelog
 ---------
