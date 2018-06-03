@@ -81,9 +81,11 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
         for name in self._test_accounts:
             summ = self._watcher.summoner.by_name(self._region, name)
 
-            recent = self._watcher.match.matchlist_by_account_recent(
+            recent = self._watcher.match.matchlist_by_account(
                 self._region,
-                summ['accountId']
+                summ['accountId'],
+                begin_index=0,
+                end_index=20
             )
 
             for match in recent['matches']:

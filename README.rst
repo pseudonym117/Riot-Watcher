@@ -1,4 +1,4 @@
-RiotWatcher v2.2.2
+RiotWatcher v2.3.0
 ==================
 
 |pypi| |docs| |build| |coverage|
@@ -90,24 +90,6 @@ the Handlers.RequestHandler class. These are completely user configurable.
 
 TODO: add more info about this
 
-Backwards Compatibility
------------------------
-
-A wrapper has been made to make the API somewhat backwards compatible. If you
-REALLY dont want to change much of your code, you can use the following
-package to keep all the same method signatures (note that the schema of the data
-you receive may be completely different):
-
-::
-
-    from riotwatcher.legacy import RiotWatcher
-
-This legacy wrapper SEEMS to work ok, but I would HIGHLY encourage everyone
-to switch to the new API in the standard riotwatcher package.
-
-This wrapper is going to be removed from the library with the next version of
-Riot-Watcher. Please discontinue use, or freeze your version of Riot-Watcher.
-
 Testing
 -------
 
@@ -136,6 +118,13 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v2.3.0 - 6/3/2018
+~~~~~~~~~~~~~~~~~
+
+Fixed issue #88 (recent matchlist endpoint deprecated)
+
+Removed riotewatcher.legacy namespace and API. Please (finally) update to the v3 API.
+
 v2.2.2 - 4/2/2018
 ~~~~~~~~~~~~~~~~~
 

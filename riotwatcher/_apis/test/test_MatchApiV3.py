@@ -96,22 +96,6 @@ class MatchApiV3TestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_ml_by_account_recent(self):
-        match = MatchApiV3(self._base_api_mock)
-        region = 'afaaas'
-        account_id = 2624
-
-        ret = match.matchlist_by_account_recent(region, account_id)
-
-        self._base_api_mock.request.assert_called_once_with(
-            MatchApiV3.__name__,
-            match.matchlist_by_account_recent.__name__,
-            region,
-            '/lol/match/v3/matchlists/by-account/{accountId}/recent'.format(accountId=account_id)
-        )
-
-        self.assertIs(self._expected_return, ret)
-
     def test_timeline_by_match(self):
         match = MatchApiV3(self._base_api_mock)
         region = 'afaaas'
