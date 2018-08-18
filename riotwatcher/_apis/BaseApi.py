@@ -1,4 +1,3 @@
-
 import requests
 
 
@@ -42,6 +41,31 @@ class BaseApi:
         if self._request_handlers is not None:
             for handler in self._request_handlers[early_ret_idx:None:-1]:
                 mod = handler.after_request(region, endpoint_name, method_name, url, response)
+                if mod is not None:
+                    response = mod
+
+        return response
+
+    def request_static(self, version, locale, url_ext):
+        url = 'http://ddragon.leagueoflegends.com/cdn/{version}/data/{loc}/{ext}.json'.format(version=version,
+                                                                                              loc=locale, ext=url_ext)
+
+        response = None
+        early_ret_idx = None
+
+        if self._request_handlers is not None:
+            for idx, handler in enumerate(self._request_handlers, start=1):
+                response = handler.preview_static_request(version, locale, url)
+                early_ret_idx = idx
+                if response is not None:
+                    break
+
+        if response is None:
+            response = requests.get(url)
+
+        if self._request_handlers is not None:
+            for handler in self._request_handlers[early_ret_idx:None:-1]:
+                mod = handler.after_static_request(version, locale, url, response)
                 if mod is not None:
                     response = mod
 

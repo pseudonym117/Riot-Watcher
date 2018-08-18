@@ -27,3 +27,11 @@ class RequestHandler(object):
         :param response: the response received. This is a response from the Requests library
         """
         pass
+
+    def preview_static_request(self, version, locale, url):
+        # TODO docs
+        pass
+
+    def after_static_request(self, version, locale, url, response):
+        # TODO docs
+        pass
