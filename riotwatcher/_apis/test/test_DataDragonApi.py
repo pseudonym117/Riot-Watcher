@@ -17,15 +17,29 @@ class DataDragonApiTestCase(unittest.TestCase):
         static_data = DataDragonApi(self._base_api_mock)
 
         version = '234'
+
+        ret = static_data.champions(version)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            'en_US',
+            'champion'
+        )
+
+        self.assertIs(self._expected_return, ret)
+
+    def test_all_champions_Full(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
         locale = 'asdf'
 
-        ret = static_data.champions(version, locale)
-        print(ret)
+        ret = static_data.champions(version, True, locale)
 
         self._base_api_mock.request_static.assert_called_once_with(
             version,
             locale,
-            'champion'
+            'championFull'
         )
 
         self.assertIs(self._expected_return, ret)
