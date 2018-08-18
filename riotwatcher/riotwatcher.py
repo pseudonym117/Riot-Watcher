@@ -1,6 +1,5 @@
-
 from ._apis import BaseApi, DataDragonApi, ChampionApiV3, ChampionMasteryApiV3, LeagueApiV3, LolStatusApiV3
-from ._apis import MatchApiV3, SpectatorApiV3, StaticDataApiV3, SummonerApiV3, ThirdPartyCodeApiV3
+from ._apis import MatchApiV3, SpectatorApiV3, StaticDataApiV3, SummonerApiV3, ThirdPartyCodeApiV3, VersionApi
 from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
 
 from .Handlers.RateLimit import RateLimitHandler
@@ -54,6 +53,7 @@ class RiotWatcher(object):
         self._data_dragon = DataDragonApi(self._base_api)
         self._summoner = SummonerApiV3(self._base_api)
         self._third_party_code = ThirdPartyCodeApiV3(self._base_api)
+        self._version = VersionApi(self._base_api)
         # todo: tournament-stub
         # todo: tournament
 
@@ -142,3 +142,12 @@ class RiotWatcher(object):
         :rtype: ThirdPartyCodeApiV3
         """
         return self._third_party_code
+
+    @property
+    def version(self):
+        """
+        Interface to the DataDragon Version Endpoint
+
+        :rtype: VersionApi
+        """
+        return self._version

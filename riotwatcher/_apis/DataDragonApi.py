@@ -12,6 +12,41 @@ class DataDragonApi:
 
         return self._request(version, url_ext, locale)
 
+    def items(self, version, locale=None):
+        url_ext = 'item'
+
+        return self._request(version, url_ext, locale)
+
+    def languages(self, version, locale=None):
+        url_ext = 'language'
+
+        return self._request(version, url_ext, locale)
+
+    def maps(self, version, locale=None):
+        url_ext = 'map'
+
+        return self._request(version, url_ext, locale)
+
+    def masteries(self, version, locale=None):
+        url_ext = 'mastery'
+
+        return self._request(version, url_ext, locale)
+
+    def profileIcons(self, version, locale=None):
+        url_ext = 'profileicon'
+
+        return self._request(version, url_ext, locale)
+
+    def runes(self, version, locale=None):
+        url_ext = 'rune'
+
+        return self._request(version, url_ext, locale)
+
+    def summonerSpells(self, version, locale=None):
+        url_ext = 'summoner'
+
+        return self._request(version, url_ext, locale)
+
     def _request(self, version, url_ext, locale):
         if locale is None:
             locale = 'en_US'

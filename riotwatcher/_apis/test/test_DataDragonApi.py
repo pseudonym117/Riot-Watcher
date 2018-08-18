@@ -43,3 +43,115 @@ class DataDragonApiTestCase(unittest.TestCase):
         )
 
         self.assertIs(self._expected_return, ret)
+
+    def test_items(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.items(version, locale)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            locale,
+            'item'
+        )
+
+        self.assertIs(self._expected_return, ret)
+
+    def test_languages(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.languages(version, locale)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            locale,
+            'language'
+        )
+
+        self.assertIs(self._expected_return, ret)
+
+    def test_maps(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.maps(version, locale)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            locale,
+            'map'
+        )
+
+        self.assertIs(self._expected_return, ret)
+
+    def test_masteries(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.masteries(version, locale)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            locale,
+            'mastery'
+        )
+
+        self.assertIs(self._expected_return, ret)
+
+    def test_profileIcons(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.profileIcons(version, locale)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            locale,
+            'profileicon'
+        )
+
+        self.assertIs(self._expected_return, ret)
+
+    def test_Runes(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.runes(version, locale)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            locale,
+            'rune'
+        )
+
+        self.assertIs(self._expected_return, ret)
+
+    def test_SummonerSpells(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.summonerSpells(version, locale)
+
+        self._base_api_mock.request_static.assert_called_once_with(
+            version,
+            locale,
+            'summoner'
+        )
+
+        self.assertIs(self._expected_return, ret)
