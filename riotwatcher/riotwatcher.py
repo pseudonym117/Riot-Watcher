@@ -120,9 +120,13 @@ class RiotWatcher(object):
         """
         return self._static_data
 
-    # TODO docs
     @property
     def data_dragon(self):
+        """
+        Interface to the DataDragon Endpoint
+
+        :rtype: DataDragonApi
+        """
         return self._data_dragon
 
     @property

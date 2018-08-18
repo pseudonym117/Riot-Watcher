@@ -140,8 +140,8 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
     def test_static_data_api(self):
         champs = self._watcher.static_data.champions(self._region)
 
-        # for _, champ in champs['data'].items():
-        #     self._watcher.static_data.champion(self._region, champ['id'])
+        for _, champ in champs['data'].items():
+            self._watcher.static_data.champion(self._region, champ['id'])
 
         items = self._watcher.static_data.items(self._region)
 

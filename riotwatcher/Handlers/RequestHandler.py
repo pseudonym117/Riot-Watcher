@@ -29,9 +29,22 @@ class RequestHandler(object):
         pass
 
     def preview_static_request(self, version, locale, url):
-        # TODO docs
+        """
+        Called before a request to DataDragon is processed
+
+        :param string version: version of the data requested
+        :param locale: The locale for the data
+        :param url: The url that was requested
+        """
         pass
 
     def after_static_request(self, version, locale, url, response):
-        # TODO docs
+        """
+        Called after a response is received and before it is returned to the user.
+
+        :param string version: version of the data requested
+        :param locale: The locale for the data
+        :param url: The url that was requested
+        :param response: the response received. This is a response from the Requests library
+        """
         pass
