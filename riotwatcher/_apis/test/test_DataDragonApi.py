@@ -1,7 +1,10 @@
 import unittest
 import sys
 
-from unittest.mock import MagicMock
+if sys.version_info > (3, 0):
+    from unittest.mock import MagicMock
+else:
+    from mock import MagicMock
 from .. import DataDragonApi
 
 
