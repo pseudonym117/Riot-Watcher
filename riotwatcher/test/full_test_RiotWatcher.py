@@ -215,9 +215,9 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
         self.assertIsInstance(ret, dict)
 
     def test_dd_icons(self):
-        ret = self._watcher.data_dragon.profileIcons(self._versions['profileicon'])
+        ret = self._watcher.data_dragon.profile_icons(self._versions['profileicon'])
         self.assertIsInstance(ret, dict)
 
     def test_dd_summoners(self):
-        ret = self._watcher.data_dragon.summonerSpells(self._versions['summoner'])
+        ret = self._watcher.data_dragon.summoner_spells(self._versions['summoner'])
         self.assertIsInstance(ret, dict)

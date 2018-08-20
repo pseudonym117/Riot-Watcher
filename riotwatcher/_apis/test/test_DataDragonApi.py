@@ -117,7 +117,7 @@ class DataDragonApiTestCase(unittest.TestCase):
         version = '234'
         locale = 'sdfasdf'
 
-        ret = static_data.profileIcons(version, locale)
+        ret = static_data.profile_icons(version, locale)
 
         self._base_api_mock.request_static.assert_called_once_with(
             version,
@@ -149,7 +149,7 @@ class DataDragonApiTestCase(unittest.TestCase):
         version = '234'
         locale = 'sdfasdf'
 
-        ret = static_data.summonerSpells(version, locale)
+        ret = static_data.summoner_spells(version, locale)
 
         self._base_api_mock.request_static.assert_called_once_with(
             version,
