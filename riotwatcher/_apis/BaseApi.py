@@ -49,7 +49,7 @@ class BaseApi:
         return response
 
     def request_static(self, version, locale, url_ext):
-        url = 'http://ddragon.leagueoflegends.com/cdn/{version}/data/{loc}/{ext}.json'.format(version=version,
+        url = 'https://ddragon.leagueoflegends.com/cdn/{version}/data/{loc}/{ext}.json'.format(version=version,
                                                                                               loc=locale, ext=url_ext)
 
         response = None
