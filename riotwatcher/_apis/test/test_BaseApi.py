@@ -125,7 +125,7 @@ class BaseApiTestCase(unittest.TestCase):
         self._request_handler_mock.preview_static_request.assert_called_once_with(
             version,
             locale,
-            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext)
+            'https://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext)
         )
 
     def test_base_api_request_static_after_handler_with_preview_return(self):
@@ -139,7 +139,7 @@ class BaseApiTestCase(unittest.TestCase):
         self._request_handler_mock.after_static_request.assert_called_once_with(
             version,
             locale,
-            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
+            'https://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
             self._expected_preview_return
         )
 
@@ -159,12 +159,12 @@ class BaseApiTestCase(unittest.TestCase):
         self._request_handler_mock_no_return.after_static_request.assert_called_once_with(
             version,
             locale,
-            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
+            'https://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
             self._mock_api_response
         )
 
         mock_get.assert_called_once_with(
-            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
+            'https://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
         )
 
         self.assertEqual(ret, self._mock_api_response)
@@ -180,7 +180,7 @@ class BaseApiTestCase(unittest.TestCase):
         self._request_handler_mock.preview_static_request.assert_called_once_with(
             '',
             '',
-            'http://ddragon.leagueoflegends.com/realms/%s.json' % region
+            'https://ddragon.leagueoflegends.com/realms/%s.json' % region
         )
 
     def test_base_api_request_version_after_handler_with_preview_return(self):
@@ -192,7 +192,7 @@ class BaseApiTestCase(unittest.TestCase):
         self._request_handler_mock.after_static_request.assert_called_once_with(
             '',
             '',
-            'http://ddragon.leagueoflegends.com/realms/%s.json' % region,
+            'https://ddragon.leagueoflegends.com/realms/%s.json' % region,
             self._expected_preview_return
         )
 
@@ -210,12 +210,12 @@ class BaseApiTestCase(unittest.TestCase):
         self._request_handler_mock_no_return.after_static_request.assert_called_once_with(
             '',
             '',
-            'http://ddragon.leagueoflegends.com/realms/%s.json' % region,
+            'https://ddragon.leagueoflegends.com/realms/%s.json' % region,
             self._mock_api_response
         )
 
         mock_get.assert_called_once_with(
-            'http://ddragon.leagueoflegends.com/realms/%s.json' % region,
+            'https://ddragon.leagueoflegends.com/realms/%s.json' % region,
         )
 
         self.assertEqual(ret, self._mock_api_response)
