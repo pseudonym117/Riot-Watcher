@@ -43,6 +43,8 @@ class BaseApiTestCase(unittest.TestCase):
 
         self._mock_api_response = 'api_response_xx'
 
+    # BASE TESTS
+
     def test_base_api_request_preview_handler(self):
         base_api = BaseApi(self._api_key, [self._request_handler_mock])
         endpoint_name = 'endpoint_xx'
@@ -110,50 +112,110 @@ class BaseApiTestCase(unittest.TestCase):
 
         self.assertEqual(ret, self._mock_api_response)
 
+    # STATIC TESTS
 
+    def test_base_api_request_static_preview_handler(self):
+        base_api = BaseApi(self._api_key, [self._request_handler_mock])
+        version = 'version_xx'
+        locale = 'locale_xx'
+        url_ext = 'url_xx'
 
+        ret = base_api.request_static(version, locale, url_ext)
 
+        self._request_handler_mock.preview_static_request.assert_called_once_with(
+            version,
+            locale,
+            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext)
+        )
 
+    def test_base_api_request_static_after_handler_with_preview_return(self):
+        base_api = BaseApi(self._api_key, [self._request_handler_mock])
+        version = 'version_xx'
+        locale = 'locale_xx'
+        url_ext = 'url_xx'
 
+        ret = base_api.request_static(version, locale, url_ext)
 
+        self._request_handler_mock.after_static_request.assert_called_once_with(
+            version,
+            locale,
+            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
+            self._expected_preview_return
+        )
 
+        self.assertEqual(ret, self._expected_after_return)
 
-    # def test_base_api_static_request(self):
-    #     base_api = BaseApi(self._api_key, [self._request_handler_mock])
-    #     version = 'version_xx'
-    #     locale = 'locale_xx'
-    #     url_ext = 'url_xx'
-    #
-    #     base_api.request_static(version, locale, url_ext)
-    #
-    #     self._request_handler_mock.preview_static_request.assert_called_once_with(
-    #         version,
-    #         locale,
-    #         'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
-    #     )
-    #
-    #     self._request_handler_mock.after_static_request.assert_called_once_with(
-    #         version,
-    #         locale,
-    #         'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
-    #         self._expected_return
-    #     )
-    #
-    # def test_base_api_version_request(self):
-    #     base_api = BaseApi(self._api_key, [self._request_handler_mock])
-    #     region = 'region_xx'
-    #
-    #     base_api.request_version(region)
-    #
-    #     self._request_handler_mock.preview_static_request.assert_called_once_with(
-    #         '',
-    #         '',
-    #         'https://ddragon.leagueoflegends.com/realms/%s.json' % region
-    #     )
-    #
-    #     self._request_handler_mock.after_static_request.assert_called_once_with(
-    #         '',
-    #         '',
-    #         'https://ddragon.leagueoflegends.com/realms/%s.json' % region,
-    #         self._expected_return
-    #     )
+    @mock.patch('requests.get')
+    def test_base_api_request_static_after_handler_with_preview_no_return(self, mock_get):
+        mock_get.return_value = self._mock_api_response
+
+        base_api = BaseApi(self._api_key, [self._request_handler_mock_no_return])
+        version = 'version_xx'
+        locale = 'locale_xx'
+        url_ext = 'url_xx'
+
+        ret = base_api.request_static(version, locale, url_ext)
+
+        self._request_handler_mock_no_return.after_static_request.assert_called_once_with(
+            version,
+            locale,
+            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
+            self._mock_api_response
+        )
+
+        mock_get.assert_called_once_with(
+            'http://ddragon.leagueoflegends.com/cdn/%s/data/%s/%s.json' % (version, locale, url_ext),
+        )
+
+        self.assertEqual(ret, self._mock_api_response)
+
+    # VERSION TESTS
+
+    def test_base_api_request_version_preview_handler(self):
+        base_api = BaseApi(self._api_key, [self._request_handler_mock])
+        region = 'region_xx'
+
+        ret = base_api.request_version(region)
+
+        self._request_handler_mock.preview_static_request.assert_called_once_with(
+            '',
+            '',
+            'http://ddragon.leagueoflegends.com/realms/%s.json' % region
+        )
+
+    def test_base_api_request_version_after_handler_with_preview_return(self):
+        base_api = BaseApi(self._api_key, [self._request_handler_mock])
+        region = 'region_xx'
+
+        ret = base_api.request_version(region)
+
+        self._request_handler_mock.after_static_request.assert_called_once_with(
+            '',
+            '',
+            'http://ddragon.leagueoflegends.com/realms/%s.json' % region,
+            self._expected_preview_return
+        )
+
+        self.assertEqual(ret, self._expected_after_return)
+
+    @mock.patch('requests.get')
+    def test_base_api_request_version_after_handler_with_preview_no_return(self, mock_get):
+        mock_get.return_value = self._mock_api_response
+
+        base_api = BaseApi(self._api_key, [self._request_handler_mock_no_return])
+        region = 'region_xx'
+
+        ret = base_api.request_version(region)
+
+        self._request_handler_mock_no_return.after_static_request.assert_called_once_with(
+            '',
+            '',
+            'http://ddragon.leagueoflegends.com/realms/%s.json' % region,
+            self._mock_api_response
+        )
+
+        mock_get.assert_called_once_with(
+            'http://ddragon.leagueoflegends.com/realms/%s.json' % region,
+        )
+
+        self.assertEqual(ret, self._mock_api_response)
