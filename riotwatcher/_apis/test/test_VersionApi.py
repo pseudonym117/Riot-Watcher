@@ -24,10 +24,6 @@ class VersionApiTestCase(unittest.TestCase):
 
         ret = version_api.for_region(region)
 
-        self._base_api_mock.request_version.assert_called_once_with(
-            VersionApi.__name__,
-            VersionApi.for_region.__name__,
-            region
-        )
+        self._base_api_mock.request_version.assert_called_once_with(region)
 
         self.assertIs(self._expected_return, ret)
