@@ -32,7 +32,7 @@ class DataDragonApi:
 
         return self._request(version, url_ext, locale)
 
-    def profileIcons(self, version, locale=None):
+    def profile_icons(self, version, locale=None):
         url_ext = 'profileicon'
 
         return self._request(version, url_ext, locale)
@@ -42,7 +42,7 @@ class DataDragonApi:
 
         return self._request(version, url_ext, locale)
 
-    def summonerSpells(self, version, locale=None):
+    def summoner_spells(self, version, locale=None):
         url_ext = 'summoner'
 
         return self._request(version, url_ext, locale)

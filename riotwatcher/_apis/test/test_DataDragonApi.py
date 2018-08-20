@@ -31,7 +31,7 @@ class DataDragonApiTestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_all_champions_Full(self):
+    def test_all_champions_full(self):
         static_data = DataDragonApi(self._base_api_mock)
 
         version = '234'
@@ -111,7 +111,7 @@ class DataDragonApiTestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_profileIcons(self):
+    def test_profile_icons(self):
         static_data = DataDragonApi(self._base_api_mock)
 
         version = '234'
@@ -127,7 +127,7 @@ class DataDragonApiTestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_Runes(self):
+    def test_runes(self):
         static_data = DataDragonApi(self._base_api_mock)
 
         version = '234'
@@ -143,7 +143,7 @@ class DataDragonApiTestCase(unittest.TestCase):
 
         self.assertIs(self._expected_return, ret)
 
-    def test_SummonerSpells(self):
+    def test_summoner_spells(self):
         static_data = DataDragonApi(self._base_api_mock)
 
         version = '234'
