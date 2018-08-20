@@ -73,24 +73,19 @@ class BaseApiTestCase(unittest.TestCase):
 
     def test_base_api_version_request(self):
         base_api = BaseApi(self._api_key, [self._request_handler_mock])
-        endpoint_name = 'endpoint_xx'
-        method_name = 'method_xx'
         region = 'region_xx'
 
-        base_api.request_version(endpoint_name, method_name, region)
+        base_api.request_version(region)
 
-        self._request_handler_mock.preview_request.assert_called_once_with(
-            region,
-            endpoint_name,
-            method_name,
-            'https://ddragon.leagueoflegends.com/realms/%s.json' % region,
-            {}
+        self._request_handler_mock.preview_static_request.assert_called_once_with(
+            '',
+            '',
+            'https://ddragon.leagueoflegends.com/realms/%s.json' % region
         )
 
-        self._request_handler_mock.after_request.assert_called_once_with(
-            region,
-            endpoint_name,
-            method_name,
+        self._request_handler_mock.after_static_request.assert_called_once_with(
+            '',
+            '',
             'https://ddragon.leagueoflegends.com/realms/%s.json' % region,
             self._expected_return
         )

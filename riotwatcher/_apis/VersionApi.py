@@ -18,7 +18,4 @@ class VersionApi(NamedEndpoint):
         super(VersionApi, self).__init__(base_api, VersionApi.__name__)
 
     def for_region(self, region):
-        return self._base_api.request_version(
-            self._endpoint_name,
-            self.for_region.__name__,
-            region)
+        return self._base_api.request_version(region)
