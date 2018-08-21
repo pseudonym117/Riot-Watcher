@@ -10,11 +10,15 @@ from .. import DataDragonApi
 
 class DataDragonApiTestCase(unittest.TestCase):
     def setUp(self):
-        self._expected_return = object()
+        self._expected_return_static = object()
+        self._expected_return_version = object()
 
         self._base_api_mock = MagicMock(name='base_api')
         self._base_api_mock.request_static = MagicMock(name='request_static')
-        self._base_api_mock.request_static.return_value = self._expected_return
+        self._base_api_mock.request_static.return_value = self._expected_return_static
+
+        self._base_api_mock.request_version = MagicMock(name='request_version')
+        self._base_api_mock.request_version.return_value = self._expected_return_version
 
     def test_all_champions_default(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -29,7 +33,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'champion'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_all_champions_full(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -45,7 +49,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'championFull'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_items(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -61,7 +65,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'item'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_languages(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -77,7 +81,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'language'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_maps(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -93,7 +97,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'map'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_masteries(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -109,7 +113,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'mastery'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_profile_icons(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -125,7 +129,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'profileicon'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_runes(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -141,7 +145,7 @@ class DataDragonApiTestCase(unittest.TestCase):
             'rune'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
 
     def test_summoner_spells(self):
         static_data = DataDragonApi(self._base_api_mock)
@@ -157,4 +161,15 @@ class DataDragonApiTestCase(unittest.TestCase):
             'summoner'
         )
 
-        self.assertIs(self._expected_return, ret)
+        self.assertIs(self._expected_return_static, ret)
+
+    def test_version(self):
+        static_data = DataDragonApi(self._base_api_mock)
+
+        region = 'euw1'
+
+        ret = static_data.versions_for_region(region)
+
+        self._base_api_mock.request_version.assert_called_once_with(region)
+
+        self.assertIs(self._expected_return_version, ret)

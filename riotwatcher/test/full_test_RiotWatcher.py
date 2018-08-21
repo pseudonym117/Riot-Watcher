@@ -191,7 +191,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
             self._watcher.summoner.by_id(self._region, summoner['id'])
 
     def test_version_api(self):
-        versions = self._watcher.version.for_region(self._region)
+        versions = self._watcher.data_dragon.versions_for_region(self._region)
         self.assertIsInstance(versions, dict)
 
     def test_dd_champion(self):

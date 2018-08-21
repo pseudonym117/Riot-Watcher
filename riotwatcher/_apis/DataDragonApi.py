@@ -47,6 +47,9 @@ class DataDragonApi:
 
         return self._request(version, url_ext, locale)
 
+    def versions_for_region(self, region):
+        return self._base_api.request_version(region)
+
     def _request(self, version, url_ext, locale):
         if locale is None:
             locale = 'en_US'

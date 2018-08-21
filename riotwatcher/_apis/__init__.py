@@ -11,7 +11,6 @@ from .StaticDataApiV3 import StaticDataApiV3
 from .DataDragonApi import DataDragonApi
 from .SummonerApiV3 import SummonerApiV3
 from .ThirdPartyCodeApiV3 import ThirdPartyCodeApiV3
-from .VersionApi import VersionApi
 
 __all__ = [
     'BaseApi',
@@ -25,6 +24,5 @@ __all__ = [
     'StaticDataApiV3',
     'DataDragonApi',
     'SummonerApiV3',
-    'ThirdPartyCodeApiV3',
-    'VersionApi'
+    'ThirdPartyCodeApiV3'
 ]
