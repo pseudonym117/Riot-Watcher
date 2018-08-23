@@ -74,7 +74,7 @@ class BaseApi:
         return response
 
     def request_version(self, region):
-        region = re.sub('\d', '', region)
+        region = re.sub(r'\d', '', region)
         url = 'https://ddragon.leagueoflegends.com/realms/{region}.json'.format(region=region)
 
         response = None

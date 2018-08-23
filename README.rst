@@ -1,4 +1,4 @@
-RiotWatcher v2.3.0
+RiotWatcher v2.4.0
 ==================
 
 |pypi| |docs| |build| |coverage|
@@ -118,6 +118,11 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v2.4.0 - 8/23/2018
+~~~~~~~~~~~~~~~~~~
+
+Added DDragon API support
+
 v2.3.0 - 6/3/2018
 ~~~~~~~~~~~~~~~~~
 
