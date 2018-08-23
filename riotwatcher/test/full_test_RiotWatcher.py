@@ -22,6 +22,10 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
         self._test_accounts = ['pseudonym117', 'fakename117']
 
+        self._versions = {"item": "8.16.1", "rune": "7.23.1", "mastery": "7.23.1", "summoner": "8.16.1",
+                          "champion": "8.16.1", "profileicon": "8.16.1", "map": "8.16.1", "language": "8.16.1",
+                          "sticker": "8.16.1"}
+
     def test_champion_api(self):
         champion_list_dto = self._watcher.champion.all(self._region)
 
@@ -185,3 +189,35 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
             self._watcher.summoner.by_account(self._region, summoner['accountId'])
 
             self._watcher.summoner.by_id(self._region, summoner['id'])
+
+    def test_version_api(self):
+        versions = self._watcher.data_dragon.versions_for_region(self._region)
+        self.assertIsInstance(versions, dict)
+
+    def test_dd_champion(self):
+        champions = self._watcher.data_dragon.champions(self._versions['champion'])
+        self.assertIsInstance(champions, dict)
+
+    def test_dd_items(self):
+        ret = self._watcher.data_dragon.items(self._versions['item'])
+        self.assertIsInstance(ret, dict)
+
+    def test_dd_languages(self):
+        ret = self._watcher.data_dragon.languages(self._versions['language'])
+        self.assertIsInstance(ret, dict)
+
+    def test_dd_maps(self):
+        ret = self._watcher.data_dragon.maps(self._versions['map'])
+        self.assertIsInstance(ret, dict)
+
+    def test_dd_masteries(self):
+        ret = self._watcher.data_dragon.masteries(self._versions['mastery'])
+        self.assertIsInstance(ret, dict)
+
+    def test_dd_icons(self):
+        ret = self._watcher.data_dragon.profile_icons(self._versions['profileicon'])
+        self.assertIsInstance(ret, dict)
+
+    def test_dd_summoners(self):
+        ret = self._watcher.data_dragon.summoner_spells(self._versions['summoner'])
+        self.assertIsInstance(ret, dict)
