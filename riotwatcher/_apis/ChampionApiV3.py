@@ -46,3 +46,15 @@ class ChampionApiV3(NamedEndpoint):
             region,
             '/lol/platform/v3/champions/{id}'.format(id=champion_id)
         )
+
+    def rotations(self, region):
+        """
+        Returns champion rotations, including free-to-play and low-level free-to-play rotations.
+
+        :returns: ChampionInfo
+        """
+        return self._request(
+            self.rotations.__name__,
+            region,
+            '/lol/platform/v3/champion-rotations',
+        )

@@ -66,3 +66,18 @@ class ChampionApiV3TestCase(unittest.TestCase):
         )
 
         self.assertIs(self._expected_return, ret)
+
+    def test_rotations(self):
+        champ = ChampionApiV3(self._base_api_mock)
+        test_region = 'fhfds'
+
+        ret = champ.rotations(test_region)
+
+        self._base_api_mock.request.assert_called_once_with(
+            ChampionApiV3.__name__,
+            champ.rotations.__name__,
+            test_region,
+            '/lol/platform/v3/champion-rotations',
+        )
+
+        self.assertIs(self._expected_return, ret)
