@@ -89,21 +89,6 @@ class MatchApiV3(NamedEndpoint):
             champion=champion
         )
 
-    def matchlist_by_account_recent(self, region, account_id):
-        """
-        Get matchlist for last 20 matches played on given account ID and platform ID
-
-        :param string region:   The region to execute this request on
-        :param long account_id: The account ID.
-
-        :returns: MatchlistDto
-        """
-        return self._request(
-            self.matchlist_by_account_recent.__name__,
-            region,
-            '/lol/match/v3/matchlists/by-account/{accountId}/recent'.format(accountId=account_id)
-        )
-
     def timeline_by_match(self, region, match_id):
         """
         Get match timeline by match ID.

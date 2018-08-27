@@ -1,4 +1,4 @@
-RiotWatcher v2.2.2
+RiotWatcher v2.4.0
 ==================
 
 |pypi| |docs| |build| |coverage|
@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 4/2/2018 are supported in full.
+of 8/23/2018 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test environment
@@ -90,24 +90,6 @@ the Handlers.RequestHandler class. These are completely user configurable.
 
 TODO: add more info about this
 
-Backwards Compatibility
------------------------
-
-A wrapper has been made to make the API somewhat backwards compatible. If you
-REALLY dont want to change much of your code, you can use the following
-package to keep all the same method signatures (note that the schema of the data
-you receive may be completely different):
-
-::
-
-    from riotwatcher.legacy import RiotWatcher
-
-This legacy wrapper SEEMS to work ok, but I would HIGHLY encourage everyone
-to switch to the new API in the standard riotwatcher package.
-
-This wrapper is going to be removed from the library with the next version of
-Riot-Watcher. Please discontinue use, or freeze your version of Riot-Watcher.
-
 Testing
 -------
 
@@ -136,6 +118,20 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v2.4.0 - 8/23/2018
+~~~~~~~~~~~~~~~~~~
+
+Added DDragon API support
+
+Added support for champion rotaion API
+
+v2.3.0 - 6/3/2018
+~~~~~~~~~~~~~~~~~
+
+Fixed issue #88 (recent matchlist endpoint deprecated)
+
+Removed riotewatcher.legacy namespace and API. Please (finally) update to the v3 API.
+
 v2.2.2 - 4/2/2018
 ~~~~~~~~~~~~~~~~~
 
