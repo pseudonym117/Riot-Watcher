@@ -8,9 +8,9 @@ python:
 
 install:
   - pip install codecov
-  - pip install -r requirements2.txt
+  - pip install tox-travis
 
-script: coverage run -m unittest -v
+script: tox
 
 after_success:
   - codecov

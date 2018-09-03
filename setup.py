@@ -7,15 +7,15 @@ __version__ = '2.4.0'
 
 descr_file = os.path.join(os.path.dirname(__file__), 'README.rst')
 
-if sys.version_info > (3, 0):
-    requirements = [
-        'requests'
-    ]
-else:
-    requirements = [
-        'requests',
-        'mock'
-    ]
+dev_requirements = [
+    'coverage',
+    'pytest',
+    'pytest-cov',
+    'tox',
+]
+
+if sys.version_info < (3, 0):
+    dev_requirements.append('mock')
 
 setup(
     name='riotwatcher',
@@ -35,5 +35,10 @@ setup(
         'Topic :: Games/Entertainment :: Role-Playing'
     ],
     license='MIT',
-    install_requires=requirements,
+    install_requires=[
+        'requests'
+    ],
+    extras_require={
+        'dev': dev_requirements,
+    }
  )

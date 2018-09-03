@@ -23,11 +23,11 @@ To install RiotWatcher:
 
     pip install riotwatcher
 
-OR:
+OR for development/testing, clone and run:
 
 ::
 
-    python setup.py install
+    pip install -e .[dev]
 
 You also need to have an API key from Riot. Get that from
 `here <https://developer.riotgames.com/>`__.
