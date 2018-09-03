@@ -1,5 +1,4 @@
 
-import unittest
 import sys
 
 if sys.version_info > (3, 0):
@@ -10,59 +9,64 @@ else:
 from .. import ChampionMasteryApiV3
 
 
-class ChampionMasteryApiV3TestCase(unittest.TestCase):
-    def setUp(self):
-        self._expected_return = object()
-
-        self._base_api_mock = MagicMock(name='base_api')
-        self._base_api_mock.request = MagicMock(name='request')
-        self._base_api_mock.request.return_value = self._expected_return
-
+class TestChampionMasteryApiV3(object):
     def test_by_summoner(self):
-        mastery = ChampionMasteryApiV3(self._base_api_mock)
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.request.return_value = expected_return
+
+        mastery = ChampionMasteryApiV3(mock_base_api)
         region = 'afas'
         summoner_id = 15462
 
         ret = mastery.by_summoner(region, summoner_id)
 
-        self._base_api_mock.request.assert_called_once_with(
+        mock_base_api.request.assert_called_once_with(
             ChampionMasteryApiV3.__name__,
             mastery.by_summoner.__name__,
             region,
             '/lol/champion-mastery/v3/champion-masteries/by-summoner/15462'
         )
 
-        self.assertIs(self._expected_return, ret)
+        assert ret is expected_return
 
     def test_summoner_by_champion(self):
-        mastery = ChampionMasteryApiV3(self._base_api_mock)
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.request.return_value = expected_return
+
+        mastery = ChampionMasteryApiV3(mock_base_api)
         region = 'fsgs'
         summoner_id = 53526
         champion_id = 7
 
         ret = mastery.by_summoner_by_champion(region, summoner_id, champion_id)
 
-        self._base_api_mock.request.assert_called_once_with(
+        mock_base_api.request.assert_called_once_with(
             ChampionMasteryApiV3.__name__,
             mastery.by_summoner_by_champion.__name__,
             region,
             '/lol/champion-mastery/v3/champion-masteries/by-summoner/53526/by-champion/7'
         )
 
-        self.assertIs(self._expected_return, ret)
+        assert ret is expected_return
 
     def test_scored_by_summoner(self):
-        mastery = ChampionMasteryApiV3(self._base_api_mock)
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.request.return_value = expected_return
+
+        mastery = ChampionMasteryApiV3(mock_base_api)
         region = 'fsgs'
         summoner_id = 6243
 
         ret = mastery.scores_by_summoner(region, summoner_id)
 
-        self._base_api_mock.request.assert_called_once_with(
+        mock_base_api.request.assert_called_once_with(
             ChampionMasteryApiV3.__name__,
             mastery.scores_by_summoner.__name__,
             region,
             '/lol/champion-mastery/v3/scores/by-summoner/6243'
         )
 
-        self.assertIs(self._expected_return, ret)
+        assert ret is expected_return

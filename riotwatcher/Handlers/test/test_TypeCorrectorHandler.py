@@ -1,10 +1,8 @@
 
-import unittest
-
 from .. import TypeCorrectorHandler
 
 
-class TypeCorrectorHandlerTestCase(unittest.TestCase):
+class TestTypeCorrectorHandler(object):
     def test_bool_remapped_to_string(self):
         corrector = TypeCorrectorHandler()
 
@@ -21,11 +19,11 @@ class TypeCorrectorHandlerTestCase(unittest.TestCase):
 
         corrector.preview_request(None, None, None, None, query_params)
 
-        self.assertEqual('test', query_params['a'])
-        self.assertEqual(123, query_params['b'])
-        self.assertEqual('true', query_params['c'])
-        self.assertEqual('false', query_params['d'])
-        self.assertEqual(['first', 'test'], query_params['e'])
-        self.assertEqual([123, 456], query_params['f'])
-        self.assertEqual(['true', 'false'], query_params['g'])
-        self.assertEqual(['hard', 2, 'true', 'false'], query_params['h'])
+        assert 'test' == query_params['a']
+        assert 123 == query_params['b']
+        assert 'true' == query_params['c']
+        assert 'false' == query_params['d']
+        assert ['first', 'test'] == query_params['e']
+        assert [123, 456] == query_params['f']
+        assert ['true', 'false'] == query_params['g']
+        assert ['hard', 2, 'true', 'false'] == query_params['h']
