@@ -21,7 +21,8 @@ setup(
     name='riotwatcher',
     version=__version__,
 
-    packages=find_packages(exclude=['test']),
+    packages=find_packages('src', exclude=['test']),
+    package_dir={ '': 'src' },
 
     description='RiotWatcher is a thin wrapper on top of the Riot Games API for League of Legends.',
     long_description=open(descr_file).read(),

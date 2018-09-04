@@ -6,7 +6,7 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
 
-from .. import LeagueApiV3
+from riotwatcher._apis import LeagueApiV3
 
 
 class TestLeagueApiV3(object):

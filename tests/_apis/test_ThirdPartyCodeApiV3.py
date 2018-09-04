@@ -6,7 +6,7 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
 
-from .. import ThirdPartyCodeApiV3
+from riotwatcher._apis import ThirdPartyCodeApiV3
 
 
 class TestThirdPartyCodeApiV3(object):

@@ -1,5 +1,5 @@
 
-from .. import TypeCorrectorHandler
+from riotwatcher.Handlers import TypeCorrectorHandler
 
 
 class TestTypeCorrectorHandler(object):

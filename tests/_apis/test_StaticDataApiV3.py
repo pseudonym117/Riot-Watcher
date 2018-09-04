@@ -7,7 +7,7 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
 
-from .. import StaticDataApiV3
+from riotwatcher._apis import StaticDataApiV3
 
 
 class StaticDataApiV3TestCase(unittest.TestCase):

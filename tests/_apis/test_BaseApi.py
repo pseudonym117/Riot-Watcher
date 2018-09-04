@@ -7,7 +7,9 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
     import mock
-from .. import BaseApi
+
+    
+from riotwatcher._apis import BaseApi
 
 
 class BaseApiTestCase(unittest.TestCase):

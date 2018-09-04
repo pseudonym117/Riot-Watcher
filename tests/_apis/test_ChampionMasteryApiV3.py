@@ -6,7 +6,7 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
 
-from .. import ChampionMasteryApiV3
+from riotwatcher._apis import ChampionMasteryApiV3
 
 
 class TestChampionMasteryApiV3(object):
