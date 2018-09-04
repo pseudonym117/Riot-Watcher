@@ -2,7 +2,7 @@
 import datetime
 import sys
 
-from .. import Limit, RawLimit
+from riotwatcher.Handlers.RateLimit import Limit, RawLimit
 
 if sys.version_info > (3, 0):
     import unittest.mock as mock

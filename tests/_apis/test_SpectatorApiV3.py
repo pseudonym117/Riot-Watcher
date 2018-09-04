@@ -6,7 +6,7 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
 
-from .. import SpectatorApiV3
+from riotwatcher._apis import SpectatorApiV3
 
 
 class TestSpectatorApiV3TestCase(object):

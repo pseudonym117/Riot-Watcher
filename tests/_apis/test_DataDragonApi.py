@@ -7,7 +7,7 @@ else:
     from mock import MagicMock
 
     
-from .. import DataDragonApi
+from riotwatcher._apis import DataDragonApi
 
 
 class TestDataDragonApi(object):

@@ -7,7 +7,7 @@ else:
     from mock import MagicMock
 
 
-from .. import ChampionApiV3
+from riotwatcher._apis import ChampionApiV3
 
 
 class TestChampionApiV3(object):
