@@ -2,6 +2,8 @@
 import datetime
 import sys
 
+import pytest
+
 from riotwatcher.Handlers.RateLimit import Limit, RawLimit
 
 if sys.version_info > (3, 0):
@@ -27,93 +29,97 @@ class TestLimit(object):
         lim = Limit()
         assert 0 == lim.limit
 
+    @pytest.mark.usefixtures("mock_datetime")
     def test_set_raw_limit_first_set(self):
         initial_date = datetime.datetime(2013, 4, 30, 1, 1, 1)
 
-        with mock.patch(Limit.__module__ + '.datetime.datetime') as mock_datetime:
-            mock_datetime.now.return_value = initial_date
+        datetime.datetime.set_now(initial_date)
 
-            lim = Limit()
+        lim = Limit()
 
-            raw = RawLimit(50, 100, 10)
+        raw = RawLimit(50, 100, 10)
 
-            lim.set_raw_limit(raw)
+        lim.set_raw_limit(raw)
 
-            assert initial_date == lim.start_time
+        assert initial_date == lim.start_time
 
-            assert 50 == lim.count
-            assert 100 == lim.limit
-            assert 10 == lim.duration
+        assert 50 == lim.count
+        assert 100 == lim.limit
+        assert 10 == lim.duration
 
+    @pytest.mark.usefixtures("mock_datetime")
     def test_limit_duration_changed(self):
         initial_date = datetime.datetime(2013, 4, 30, 1, 1, 1)
         changed_date = datetime.datetime(2013, 6, 13, 1, 1, 1)
 
-        with mock.patch(Limit.__module__ + '.datetime.datetime') as mock_datetime:
-            mock_datetime.now.side_effect = [initial_date, changed_date]
+        datetime.datetime.set_now(initial_date)
 
-            lim = Limit()
+        lim = Limit()
 
-            initial = RawLimit(50, 100, 10)
-            changed = RawLimit(50, 100, 20)
+        initial = RawLimit(50, 100, 10)
+        changed = RawLimit(50, 100, 20)
 
-            lim.set_raw_limit(initial)
+        lim.set_raw_limit(initial)
 
-            initial_start_time = lim.start_time
+        initial_start_time = lim.start_time
 
-            lim.set_raw_limit(changed)
+        datetime.datetime.set_now(changed_date)
 
-            assert initial_start_time != lim.start_time
+        lim.set_raw_limit(changed)
 
-            assert 20 == lim.duration
+        assert initial_start_time != lim.start_time
 
+        assert 20 == lim.duration
+
+    @pytest.mark.usefixtures("mock_datetime")
     def test_resets_when_count_is_1(self):
         initial_date = datetime.datetime(2013, 4, 30, 1, 1, 1)
         changed_date = datetime.datetime(2013, 6, 13, 1, 1, 1)
 
-        with mock.patch(Limit.__module__ + '.datetime.datetime') as mock_datetime:
-            mock_datetime.now.side_effect = [initial_date, changed_date]
+        datetime.datetime.set_now(initial_date)
 
-            lim = Limit()
+        lim = Limit()
 
-            initial = RawLimit(50, 100, 10)
-            changed = RawLimit(1, 100, 10)
+        initial = RawLimit(50, 100, 10)
+        changed = RawLimit(1, 100, 10)
 
-            lim.set_raw_limit(initial)
+        lim.set_raw_limit(initial)
 
-            initial_start_time = lim.start_time
+        initial_start_time = lim.start_time
 
-            lim.set_raw_limit(changed)
+        datetime.datetime.set_now(changed_date)
 
-            assert initial_start_time != lim.start_time
+        lim.set_raw_limit(changed)
 
-            assert 1 == lim.count
+        assert initial_start_time != lim.start_time
 
+        assert 1 == lim.count
+    
+    @pytest.mark.usefixtures("mock_datetime")
     def test_start_time_stays_constant(self):
         initial_date = datetime.datetime(2013, 4, 30, 1, 1, 1)
         changed_date = datetime.datetime(2013, 6, 13, 1, 1, 1)
 
-        with mock.patch(Limit.__module__ + '.datetime.datetime') as mock_datetime:
-            mock_datetime.now.return_value = initial_date
+        datetime.datetime.set_now(initial_date)
 
-            lim = Limit()
+        lim = Limit()
 
-            initial = RawLimit(1, 100, 10)
+        initial = RawLimit(1, 100, 10)
 
-            lim.set_raw_limit(initial)
+        lim.set_raw_limit(initial)
 
-            mock_datetime.now.return_value = changed_date
+        datetime.datetime.set_now(changed_date)
 
-            for count in range(2, 200):
-                changed = RawLimit(count, 100, 10)
+        for count in range(2, 200):
+            changed = RawLimit(count, 100, 10)
 
-                lim.set_raw_limit(changed)
+            lim.set_raw_limit(changed)
 
-                assert initial_date == lim.start_time
+            assert initial_date == lim.start_time
 
-                assert count == lim.count
-                assert 100 == lim.limit
-                assert 10 == lim.duration
+            assert count == lim.count
+            assert 100 == lim.limit
+            assert 10 == lim.duration
 
     def test_setting_lower_count(self):
         lim = Limit()
@@ -135,19 +141,19 @@ class TestLimit(object):
 
         assert datetime.datetime(datetime.MINYEAR, 1, 1) == until
 
+    @pytest.mark.usefixtures("mock_datetime")
     def test_wait_time_over_limit(self):
         initial_date = datetime.datetime(2013, 4, 30, 1, 1, 1)
 
-        with mock.patch(Limit.__module__ + '.datetime.datetime') as mock_datetime:
-            limit_duration = 200
+        limit_duration = 200
 
-            mock_datetime.now.return_value = initial_date
+        datetime.datetime.set_now(initial_date)
 
-            lim = Limit()
+        lim = Limit()
 
-            lim.set_raw_limit(RawLimit(10, 10, limit_duration))
+        lim.set_raw_limit(RawLimit(10, 10, limit_duration))
 
-            expected_time = initial_date + datetime.timedelta(seconds=limit_duration)
-            actual_time = lim.wait_until()
+        expected_time = initial_date + datetime.timedelta(seconds=limit_duration)
+        actual_time = lim.wait_until()
 
-            assert expected_time == actual_time
+        assert expected_time == actual_time
