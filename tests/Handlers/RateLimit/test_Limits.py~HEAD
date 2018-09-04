@@ -62,7 +62,7 @@ class TestLimit(object):
         lim.set_raw_limit(initial)
 
         initial_start_time = lim.start_time
-        
+
         datetime.datetime.set_now(changed_date)
 
         lim.set_raw_limit(changed)
@@ -94,7 +94,7 @@ class TestLimit(object):
         assert initial_start_time != lim.start_time
 
         assert 1 == lim.count
-
+    
     @pytest.mark.usefixtures("mock_datetime")
     def test_start_time_stays_constant(self):
         initial_date = datetime.datetime(2013, 4, 30, 1, 1, 1)
