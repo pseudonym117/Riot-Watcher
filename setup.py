@@ -7,21 +7,22 @@ __version__ = '2.4.0'
 
 descr_file = os.path.join(os.path.dirname(__file__), 'README.rst')
 
-if sys.version_info > (3, 0):
-    requirements = [
-        'requests'
-    ]
-else:
-    requirements = [
-        'requests',
-        'mock'
-    ]
+dev_requirements = [
+    'coverage',
+    'pytest',
+    'pytest-cov',
+    'tox',
+]
+
+if sys.version_info < (3, 0):
+    dev_requirements.append('mock')
 
 setup(
     name='riotwatcher',
     version=__version__,
 
-    packages=find_packages(exclude=['test']),
+    packages=find_packages('src', exclude=['test']),
+    package_dir={ '': 'src' },
 
     description='RiotWatcher is a thin wrapper on top of the Riot Games API for League of Legends.',
     long_description=open(descr_file).read(),
@@ -35,5 +36,10 @@ setup(
         'Topic :: Games/Entertainment :: Role-Playing'
     ],
     license='MIT',
-    install_requires=requirements,
+    install_requires=[
+        'requests'
+    ],
+    extras_require={
+        'dev': dev_requirements,
+    }
  )

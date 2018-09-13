@@ -7,9 +7,9 @@ of Legends <https://developer.riotgames.com/>`__. All public methods as
 of 8/23/2018 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
-try to stop you from making too many requests, and in a single threaded test environment
-does this rather well. In a multithreaded environment, you may still get some
-429 errors. 429 errors are currently NOT retried for you.
+try to stop you from making too many requests, and in a single threaded test
+environment does this rather well. In a multithreaded environment, you may
+still get some 429 errors. 429 errors are currently NOT retried for you.
 
 To Start...
 -----------

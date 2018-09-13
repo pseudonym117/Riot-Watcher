@@ -3,14 +3,14 @@ python:
   - "2.7"
   - "3.5"
   - "3.6"
+  - "pypy3.5"
   - "3.7-dev"
-  - "pypy"
 
 install:
   - pip install codecov
-  - pip install -r requirements2.txt
+  - pip install tox-travis
 
-script: coverage run -m unittest -v
+script: tox
 
 after_success:
   - codecov

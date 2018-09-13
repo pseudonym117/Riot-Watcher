@@ -10,9 +10,9 @@ of Legends <https://developer.riotgames.com/>`__. All public methods as
 of 8/23/2018 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
-try to stop you from making too many requests, and in a single threaded test environment
-does this rather well. In a multithreaded environment, you may still get some
-429 errors. 429 errors are currently NOT retried for you.
+try to stop you from making too many requests, and in a single threaded test
+environment does this rather well. In a multithreaded environment, you may
+still get some 429 errors. 429 errors are currently NOT retried for you.
 
 To Start...
 -----------
@@ -23,11 +23,11 @@ To install RiotWatcher:
 
     pip install riotwatcher
 
-OR:
+OR for development/testing, clone and run:
 
 ::
 
-    python setup.py install
+    pip install -e .[dev]
 
 You also need to have an API key from Riot. Get that from
 `here <https://developer.riotgames.com/>`__.
@@ -85,8 +85,9 @@ raised as HTTPError exceptions from the Requests library.
 Advanced
 --------
 
-All rate limiting, caching, and data transformation is handled by objects extending
-the Handlers.RequestHandler class. These are completely user configurable.
+All rate limiting, caching, and data transformation is handled by objects
+extending the Handlers.RequestHandler class. These are completely user
+configurable.
 
 TODO: add more info about this
 
@@ -94,7 +95,8 @@ Testing
 -------
 
 There currently are 2 sets of tests. There are basic unit tests for API related
-functionality, and there is a full system test, which directly accesses the API.
+functionality, and there is a full system test, which directly accesses the
+API.
 
 Unit tests can be run with the following command from the RiotWatcher folder:
 
@@ -118,6 +120,16 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+vNext (unrelease)
+~~~~~~~~~~~~~~~~~
+
+Switched tests to use pytest + tox from unittest and remembering to run each
+python version supported.
+
+Added coverage measurements when running tests.
+
+Moved source into src folder.
+
 v2.4.0 - 8/23/2018
 ~~~~~~~~~~~~~~~~~~
 
@@ -130,7 +142,8 @@ v2.3.0 - 6/3/2018
 
 Fixed issue #88 (recent matchlist endpoint deprecated)
 
-Removed riotewatcher.legacy namespace and API. Please (finally) update to the v3 API.
+Removed riotewatcher.legacy namespace and API. Please (finally) update to the
+v3 API.
 
 v2.2.2 - 4/2/2018
 ~~~~~~~~~~~~~~~~~
@@ -202,13 +215,15 @@ Rate limiting added by default, can be removed/replaced.
 v1.3.2 - 11/16/2015
 ~~~~~~~~~~~~~~~~~~~
 
-fixed issue with special characters in names in get_summoners method (issue #28)
+fixed issue with special characters in names in get_summoners method
+(issue #28)
 
 fixed bug in matchlist API causing requests for past seasons to fail,
 added constants for each possible season. (issue #44)
 
 fixed bug introduced in pull request #35
-(method of checked for what exception is thrown changed from what was documented) - old method should work now. (issue #43)
+(method of checked for what exception is thrown changed from what was
+documented) - old method should work now. (issue #43)
 
 v1.3.1 - 10/24/2015
 ~~~~~~~~~~~~~~~~~~~
@@ -354,9 +369,11 @@ Initial release
 Attribution
 ~~~~~~~~~~~
 
-RiotWatcher isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially
-involved in producing or managing *League of Legends*. *League of Legends* and Riot Games are trademarks or registered
-trademarks of Riot Games, Inc. *League of Legends* (c) Riot Games, Inc.
+RiotWatcher isn't endorsed by Riot Games and doesn't reflect the views or
+opinions of Riot Games or anyone officially involved in producing or managing
+*League of Legends*. *League of Legends* and Riot Games are trademarks or
+registered trademarks ofRiot Games, Inc.
+*League of Legends* (c) Riot Games, Inc.
 
 
 .. |pypi| image:: https://img.shields.io/pypi/v/riotwatcher.svg
