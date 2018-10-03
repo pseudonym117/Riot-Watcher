@@ -1,6 +1,5 @@
 
 import json
-import random
 import sys
 
 import pytest
@@ -47,7 +46,7 @@ class TestChampionApi(object):
             headers={'X-Riot-Token': champion_api_ctx.api_key},
         )
 
-    @pytest.mark.parametrize('champion_id', range(50))
+    @pytest.mark.parametrize('champion_id', [0, 1, 9999999999, 150])
     def test_by_id(self, champion_api_ctx, region, champion_id):
         actual_response = champion_api_ctx.watcher.champion.by_id(region, champion_id)
 
