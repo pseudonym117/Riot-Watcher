@@ -1,5 +1,6 @@
 
 from . import NamedEndpoint
+from .urls import ChampionApiV3Urls
 
 
 class ChampionApiV3(NamedEndpoint):
@@ -25,12 +26,8 @@ class ChampionApiV3(NamedEndpoint):
 
         :returns: List[ChampionDto]: This object contains a collection of champion information.
         """
-        return self._request(
-            self.all.__name__,
-            region,
-            '/lol/platform/v3/champions',
-            freeToPlay=str(free_to_play).lower()
-        )
+        url, query = ChampionApiV3Urls.all(region=region, freeToPlay=free_to_play)
+        return self._raw_request(self.all.__name__, region, url, query)
 
     def by_id(self, region, champion_id):
         """
@@ -41,11 +38,8 @@ class ChampionApiV3(NamedEndpoint):
 
         :returns: ChampionDto: This object contains a collection of champion information.
         """
-        return self._request(
-            self.by_id.__name__,
-            region,
-            '/lol/platform/v3/champions/{id}'.format(id=champion_id)
-        )
+        url, query = ChampionApiV3Urls.by_id(region=region, champion_id=champion_id)
+        return self._raw_request(self.by_id.__name__, region, url, query)
 
     def rotations(self, region):
         """
@@ -53,8 +47,5 @@ class ChampionApiV3(NamedEndpoint):
 
         :returns: ChampionInfo
         """
-        return self._request(
-            self.rotations.__name__,
-            region,
-            '/lol/platform/v3/champion-rotations',
-        )
+        url, query = ChampionApiV3Urls.rotations(region=region)
+        return self._raw_request(self.rotations.__name__, region, url, query)
