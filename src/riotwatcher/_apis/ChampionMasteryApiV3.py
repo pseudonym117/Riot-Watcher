@@ -1,5 +1,6 @@
 
 from . import NamedEndpoint
+from .urls import ChampionMasteryApiV3Urls
 
 
 class ChampionMasteryApiV3(NamedEndpoint):
@@ -27,12 +28,15 @@ class ChampionMasteryApiV3(NamedEndpoint):
         :returns: List[ChampionMasteryDTO]: This object contains a list of Champion Mastery
                                             information for player and champion combination.
         """
-        return self._request(
+        url, query = ChampionMasteryApiV3Urls.by_summoner(
+            region=region,
+            summoner_id=summoner_id,
+        )
+        return self._raw_request(
             self.by_summoner.__name__,
             region,
-            '/lol/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}'.format(
-                summonerId=summoner_id
-            )
+            url,
+            query,
         )
 
     def by_summoner_by_champion(self, region, summoner_id, champion_id):
@@ -46,13 +50,16 @@ class ChampionMasteryApiV3(NamedEndpoint):
         :returns: ChampionMasteryDTO: This object contains single Champion Mastery information for
                                       player and champion combination.
         """
-        return self._request(
+        url, query = ChampionMasteryApiV3Urls.by_summoner_by_champion(
+            region=region,
+            summoner_id=summoner_id,
+            champion_id=champion_id,
+        )
+        return self._raw_request(
             self.by_summoner_by_champion.__name__,
             region,
-            '/lol/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}'.format(
-                summonerId=summoner_id,
-                championId=champion_id
-            )
+            url,
+            query,
         )
 
     def scores_by_summoner(self, region, summoner_id):
@@ -65,10 +72,13 @@ class ChampionMasteryApiV3(NamedEndpoint):
 
         :returns: int
         """
-        return self._request(
+        url, query = ChampionMasteryApiV3Urls.scored_by_summoner(
+            region=region,
+            summoner_id=summoner_id,
+        )
+        return self._raw_request(
             self.scores_by_summoner.__name__,
             region,
-            '/lol/champion-mastery/v3/scores/by-summoner/{summonerId}'.format(
-                summonerId=summoner_id
-            )
+            url,
+            query,
         )
