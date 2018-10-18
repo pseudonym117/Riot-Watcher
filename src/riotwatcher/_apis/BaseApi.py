@@ -12,10 +12,8 @@ class BaseApi:
     def api_key(self):
         return self._api_key
 
-    def request(self, endpoint_name, method_name, region, url_ext, **kwargs):
-        url = 'https://{region}.api.riotgames.com{ext}'.format(region=region, ext=url_ext)
-
-        query_params = {k: v for k, v in kwargs.items() if v is not None}
+    def raw_request(self, endpoint_name, method_name, region, url, query_params):
+        query_params = {k: v for k, v in query_params.items() if v is not None}
 
         response = None
         early_ret_idx = None
@@ -47,6 +45,11 @@ class BaseApi:
                     response = mod
 
         return response
+
+    def request(self, endpoint_name, method_name, region, url_ext, **kwargs):
+        url = 'https://{region}.api.riotgames.com{ext}'.format(region=region, ext=url_ext)
+
+        return self.raw_request(endpoint_name, method_name, region, url, kwargs)        
 
     def request_static(self, version, locale, url_ext):
         url = 'https://ddragon.leagueoflegends.com/cdn/{version}/data/{loc}/{ext}.json'.format(version=version,

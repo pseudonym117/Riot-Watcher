@@ -14,19 +14,19 @@ class TestChampionApiV3(object):
     def test_all_default(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         champ = ChampionApiV3(mock_base_api)
         region = 'na1'
 
         ret = champ.all(region)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             ChampionApiV3.__name__,
             champ.all.__name__,
             region,
-            '/lol/platform/v3/champions',
-            freeToPlay="false"
+            'https://na1.api.riotgames.com/lol/platform/v3/champions',
+            {'freeToPlay': False, }
         )
 
         assert ret is expected_return
@@ -34,19 +34,19 @@ class TestChampionApiV3(object):
     def test_champions_free_to_play(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         champ = ChampionApiV3(mock_base_api)
         test_region = 'fsfsf'
 
         ret = champ.all(test_region, free_to_play=True)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             ChampionApiV3.__name__,
             champ.all.__name__,
             test_region,
-            '/lol/platform/v3/champions',
-            freeToPlay="true"
+            'https://fsfsf.api.riotgames.com/lol/platform/v3/champions',
+            {'freeToPlay': True, }
         )
 
         assert ret is expected_return
@@ -54,7 +54,7 @@ class TestChampionApiV3(object):
     def test_champ_by_id(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         champ = ChampionApiV3(mock_base_api)
         test_region = 'fsfsf'
@@ -62,11 +62,12 @@ class TestChampionApiV3(object):
 
         ret = champ.by_id(test_region, champ_id)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             ChampionApiV3.__name__,
             champ.by_id.__name__,
             test_region,
-            '/lol/platform/v3/champions/75'
+            'https://fsfsf.api.riotgames.com/lol/platform/v3/champions/75',
+            {},
         )
 
         assert ret is expected_return
@@ -74,18 +75,19 @@ class TestChampionApiV3(object):
     def test_rotations(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         champ = ChampionApiV3(mock_base_api)
         test_region = 'fhfds'
 
         ret = champ.rotations(test_region)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             ChampionApiV3.__name__,
             champ.rotations.__name__,
             test_region,
-            '/lol/platform/v3/champion-rotations',
+            'https://fhfds.api.riotgames.com/lol/platform/v3/champion-rotations',
+            {},
         )
 
         assert ret is expected_return
