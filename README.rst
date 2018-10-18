@@ -130,6 +130,10 @@ Added coverage measurements when running tests.
 
 Moved source into src folder.
 
+Added integration tests.
+
+Moved URL writing into separate modules.
+
 Removed StaticData API (RIP)
 
 Removed champions.all and champions.by_id (RIP)
