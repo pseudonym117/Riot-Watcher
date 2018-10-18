@@ -130,6 +130,10 @@ Added coverage measurements when running tests.
 
 Moved source into src folder.
 
+Added integration tests.
+
+Moved URL writing into separate modules.
+
 v2.4.0 - 8/23/2018
 ~~~~~~~~~~~~~~~~~~
 
