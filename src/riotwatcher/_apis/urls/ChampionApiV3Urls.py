@@ -7,6 +7,4 @@ class ChampionEndpoint(RegionEndpoint):
         super(ChampionEndpoint, self).__init__(nurl, **kwargs)
 
 class ChampionApiV3Urls(object):
-    all = ChampionEndpoint('/champions', freeToPlay=bool)
-    by_id = ChampionEndpoint('/champions/{champion_id}')
     rotations = ChampionEndpoint('/champion-rotations')

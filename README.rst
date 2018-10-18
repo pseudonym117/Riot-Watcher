@@ -130,6 +130,10 @@ Added coverage measurements when running tests.
 
 Moved source into src folder.
 
+Removed StaticData API (RIP)
+
+Removed champions.all and champions.by_id (RIP)
+
 v2.4.0 - 8/23/2018
 ~~~~~~~~~~~~~~~~~~
 

@@ -7,7 +7,6 @@ from .LeagueApiV3 import LeagueApiV3
 from .LolStatusApiV3 import LolStatusApiV3
 from .MatchApiV3 import MatchApiV3
 from .SpectatorApiV3 import SpectatorApiV3
-from .StaticDataApiV3 import StaticDataApiV3
 from .DataDragonApi import DataDragonApi
 from .SummonerApiV3 import SummonerApiV3
 from .ThirdPartyCodeApiV3 import ThirdPartyCodeApiV3
@@ -21,7 +20,6 @@ __all__ = [
     'LolStatusApiV3',
     'MatchApiV3',
     'SpectatorApiV3',
-    'StaticDataApiV3',
     'DataDragonApi',
     'SummonerApiV3',
     'ThirdPartyCodeApiV3'

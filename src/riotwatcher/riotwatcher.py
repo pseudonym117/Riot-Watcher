@@ -1,5 +1,5 @@
 from ._apis import BaseApi, DataDragonApi, ChampionApiV3, ChampionMasteryApiV3, LeagueApiV3, LolStatusApiV3
-from ._apis import MatchApiV3, SpectatorApiV3, StaticDataApiV3, SummonerApiV3, ThirdPartyCodeApiV3
+from ._apis import MatchApiV3, SpectatorApiV3, SummonerApiV3, ThirdPartyCodeApiV3
 from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
 
 from .Handlers.RateLimit import RateLimitHandler
@@ -49,7 +49,6 @@ class RiotWatcher(object):
         self._lol_status = LolStatusApiV3(self._base_api)
         self._match = MatchApiV3(self._base_api)
         self._spectator = SpectatorApiV3(self._base_api)
-        self._static_data = StaticDataApiV3(self._base_api)
         self._data_dragon = DataDragonApi(self._base_api)
         self._summoner = SummonerApiV3(self._base_api)
         self._third_party_code = ThirdPartyCodeApiV3(self._base_api)
@@ -109,15 +108,6 @@ class RiotWatcher(object):
         :rtype: SpectatorApiV3
         """
         return self._spectator
-
-    @property
-    def static_data(self):
-        """
-        Interface to the LoL-Static-Data Endpoint
-
-        :rtype: StaticDataApiV3
-        """
-        return self._static_data
 
     @property
     def data_dragon(self):
