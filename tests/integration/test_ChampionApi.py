@@ -34,31 +34,6 @@ def champion_api_ctx(mock_context):
 @pytest.mark.integration
 @pytest.mark.parametrize('region', ['br1', 'eun1', 'euw1', 'jp1', 'kr', 'la1', 'la2', 'na', 'na1', 'oc1', 'tr1', 'ru', 'pbe1', ])
 class TestChampionApi(object):
-    @pytest.mark.parametrize('free_to_play', (True, False, ))
-    def test_all(self, champion_api_ctx, region, free_to_play):
-        actual_response = champion_api_ctx.watcher.champion.all(region, free_to_play=free_to_play)
-
-        assert champion_api_ctx.expected_response == actual_response
-        champion_api_ctx.get.assert_called_once_with(
-            'https://{region}.api.riotgames.com/lol/platform/v3/champions'.format(region=region),
-            params={'freeToPlay': 'true' if free_to_play else 'false'},
-            headers={'X-Riot-Token': champion_api_ctx.api_key},
-        )
-
-    @pytest.mark.parametrize('champion_id', [0, 1, 9999999999, 150])
-    def test_by_id(self, champion_api_ctx, region, champion_id):
-        actual_response = champion_api_ctx.watcher.champion.by_id(region, champion_id)
-
-        assert champion_api_ctx.expected_response == actual_response
-        champion_api_ctx.get.assert_called_once_with(
-            'https://{region}.api.riotgames.com/lol/platform/v3/champions/{id}'.format(
-                region=region,
-                id=champion_id,
-            ),
-            params={},
-            headers={'X-Riot-Token': champion_api_ctx.api_key},
-        )
-    
     def test_rotations(self, champion_api_ctx, region):
         actual_response = champion_api_ctx.watcher.champion.rotations(region)
 

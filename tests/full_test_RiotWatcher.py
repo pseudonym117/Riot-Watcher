@@ -26,14 +26,6 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
                           "champion": "8.16.1", "profileicon": "8.16.1", "map": "8.16.1", "language": "8.16.1",
                           "sticker": "8.16.1"}
 
-    def test_champion_api(self):
-        champion_list_dto = self._watcher.champion.all(self._region)
-
-        for champ in champion_list_dto['champions']:
-            self._watcher.champion.by_id(self._region, champ['id'])
-
-        self._watcher.champion.all(self._region, free_to_play=True)
-
     def test_champion_mastery_api(self):
         for account in self._test_accounts:
             summ = self._watcher.summoner.by_name(self._region, account)
@@ -140,47 +132,6 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
                 # was something like 'Summoner 1'
                 if err.response.status_code != 404:
                     raise
-
-    def test_static_data_api(self):
-        champs = self._watcher.static_data.champions(self._region)
-
-        for _, champ in champs['data'].items():
-            self._watcher.static_data.champion(self._region, champ['id'])
-
-        items = self._watcher.static_data.items(self._region)
-
-        for _, item in items['data'].items():
-            self._watcher.static_data.item(self._region, item['id'])
-
-        self._watcher.static_data.language_strings(self._region)
-
-        self._watcher.static_data.languages(self._region)
-
-        self._watcher.static_data.maps(self._region)
-
-        masteries = self._watcher.static_data.masteries(self._region)
-
-        for _, mastery in masteries['data'].items():
-            self._watcher.static_data.mastery(self._region, mastery['id'])
-
-        self._watcher.static_data.profile_icons(self._region)
-
-        self._watcher.static_data.realms(self._region)
-
-        runes = self._watcher.static_data.runes(self._region)
-
-        for _, rune in runes['data'].items():
-            self._watcher.static_data.rune(self._region, rune['id'])
-
-        summoner_spells = self._watcher.static_data.summoner_spells(self._region)
-
-        for _, summoner_spell in summoner_spells['data'].items():
-            self._watcher.static_data.summoner_spell(
-                self._region,
-                summoner_spell['id']
-            )
-
-        self._watcher.static_data.versions(self._region)
 
     def test_summoner_api(self):
         for summoner_name in self._test_accounts:

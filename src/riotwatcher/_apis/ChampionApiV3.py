@@ -17,30 +17,6 @@ class ChampionApiV3(NamedEndpoint):
         """
         super(ChampionApiV3, self).__init__(base_api, self.__class__.__name__)
 
-    def all(self, region, free_to_play=False):
-        """
-        Retrieve all champions.
-
-        :param string region: the region to execute this request on
-        :param bool free_to_play: Optional filter param to retrieve only free to play champions.
-
-        :returns: List[ChampionDto]: This object contains a collection of champion information.
-        """
-        url, query = ChampionApiV3Urls.all(region=region, freeToPlay=free_to_play)
-        return self._raw_request(self.all.__name__, region, url, query)
-
-    def by_id(self, region, champion_id):
-        """
-        Retrieve champion by ID
-
-        :param string region: the region to execute this request on
-        :param int champion_id: Champion ID
-
-        :returns: ChampionDto: This object contains a collection of champion information.
-        """
-        url, query = ChampionApiV3Urls.by_id(region=region, champion_id=champion_id)
-        return self._raw_request(self.by_id.__name__, region, url, query)
-
     def rotations(self, region):
         """
         Returns champion rotations, including free-to-play and low-level free-to-play rotations.
