@@ -1,5 +1,6 @@
 
 from . import NamedEndpoint
+from .urls import LolStatusApiV3Urls
 
 
 class LolStatusApiV3(NamedEndpoint):
@@ -26,8 +27,5 @@ class LolStatusApiV3(NamedEndpoint):
 
         :returns: ShardStatus
         """
-        return self._request(
-            self.shard_data.__name__,
-            region,
-            '/lol/status/v3/shard-data'
-        )
+        url, query = LolStatusApiV3Urls.shard_data(region=region)
+        return self._raw_request(self.shard_data.__name__, region,url, query)
