@@ -13,7 +13,7 @@ class TestLeagueApiV3(object):
     def test_challenger_by_queue(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
         region = 'afas'
@@ -21,11 +21,12 @@ class TestLeagueApiV3(object):
 
         ret = league.challenger_by_queue(region, queue)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             LeagueApiV3.__name__,
             league.challenger_by_queue.__name__,
             region,
-            '/lol/league/v3/challengerleagues/by-queue/{queue}'.format(queue=queue)
+            'https://afas.api.riotgames.com/lol/league/v3/challengerleagues/by-queue/{queue}'.format(queue=queue),
+            {},
         )
 
         assert ret is expected_return
@@ -33,7 +34,7 @@ class TestLeagueApiV3(object):
     def test_masters_by_queue(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
         region = 'afasf'
@@ -41,11 +42,12 @@ class TestLeagueApiV3(object):
 
         ret = league.masters_by_queue(region, queue)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             LeagueApiV3.__name__,
             league.masters_by_queue.__name__,
             region,
-            '/lol/league/v3/masterleagues/by-queue/{queue}'.format(queue=queue)
+            'https://afasf.api.riotgames.com/lol/league/v3/masterleagues/by-queue/{queue}'.format(queue=queue),
+            {},
         )
 
         assert ret is expected_return
@@ -53,7 +55,7 @@ class TestLeagueApiV3(object):
     def test_by_id(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
         region = 'afasf'
@@ -61,11 +63,12 @@ class TestLeagueApiV3(object):
 
         ret = league.by_id(region, league_id)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             LeagueApiV3.__name__,
             league.by_id.__name__,
             region,
-            '/lol/league/v3/leagues/{league_id}'.format(league_id=league_id)
+            'https://afasf.api.riotgames.com/lol/league/v3/leagues/{league_id}'.format(league_id=league_id),
+            {},
         )
 
         assert ret is expected_return
@@ -73,7 +76,7 @@ class TestLeagueApiV3(object):
     def test_positions_by_summoner(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
         region = 'afasf'
@@ -81,11 +84,12 @@ class TestLeagueApiV3(object):
 
         ret = league.positions_by_summoner(region, summoner_id)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             LeagueApiV3.__name__,
             league.positions_by_summoner.__name__,
             region,
-            '/lol/league/v3/positions/by-summoner/{summonerId}'.format(summonerId=summoner_id)
+            'https://afasf.api.riotgames.com/lol/league/v3/positions/by-summoner/{summonerId}'.format(summonerId=summoner_id),
+            {},
         )
 
         assert ret is expected_return
