@@ -62,7 +62,7 @@ class TestLimit(object):
         lim.set_raw_limit(initial)
 
         initial_start_time = lim.start_time
-        
+
         datetime.datetime.set_now(changed_date)
 
         lim.set_raw_limit(changed)
