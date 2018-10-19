@@ -1,5 +1,6 @@
 
 from . import NamedEndpoint
+from .urls import MatchApiV3Urls
 
 
 class MatchApiV3(NamedEndpoint):
@@ -25,11 +26,8 @@ class MatchApiV3(NamedEndpoint):
 
         :returns: MatchDto
         """
-        return self._request(
-            self.by_id.__name__,
-            region,
-            '/lol/match/v3/matches/{matchId}'.format(matchId=match_id)
-        )
+        url, query = MatchApiV3Urls.by_id(region=region, match_id=match_id)
+        return self._raw_request(self.by_id.__name__, region, url, query)
 
     def matchlist_by_account(
             self,
@@ -76,18 +74,18 @@ class MatchApiV3(NamedEndpoint):
 
         :returns: MatchlistDto
         """
-        return self._request(
-            self.matchlist_by_account.__name__,
-            region,
-            '/lol/match/v3/matchlists/by-account/{accountId}'.format(accountId=account_id),
+        url, query = MatchApiV3Urls.matchlist_by_account(
+            region=region,
+            account_id=account_id,
             queue=queue,
             beginTime=begin_time,
             endTime=end_time,
             beginIndex=begin_index,
             endIndex=end_index,
             season=season,
-            champion=champion
+            champion=champion,
         )
+        return self._raw_request(self.matchlist_by_account.__name__, region, url, query)
 
     def timeline_by_match(self, region, match_id):
         """
@@ -100,8 +98,5 @@ class MatchApiV3(NamedEndpoint):
 
         :returns: MatchTimelineDto
         """
-        return self._request(
-            self.timeline_by_match.__name__,
-            region,
-            '/lol/match/v3/timelines/by-match/{matchId}'.format(matchId=match_id)
-        )
+        url, query = MatchApiV3Urls.timeline_by_match(region=region, match_id=match_id)
+        return self._raw_request(self.timeline_by_match.__name__, region, url, query)
