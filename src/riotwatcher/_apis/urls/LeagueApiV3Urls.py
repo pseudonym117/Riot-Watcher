@@ -1,6 +1,7 @@
 
 from . import RegionEndpoint
 
+
 class LeagueEndpoint(RegionEndpoint):
     def __init__(self, url, **kwargs):
         nurl = '/league/v3' + url
