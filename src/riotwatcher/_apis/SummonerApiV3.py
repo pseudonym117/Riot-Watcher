@@ -1,5 +1,6 @@
 
 from . import NamedEndpoint
+from .urls import SummonerApiV3Urls
 
 
 class SummonerApiV3(NamedEndpoint):
@@ -25,11 +26,8 @@ class SummonerApiV3(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        return self._request(
-            self.by_account.__name__,
-            region,
-            '/lol/summoner/v3/summoners/by-account/{accountId}'.format(accountId=account_id)
-        )
+        url, query = SummonerApiV3Urls.by_account(region=region, account_id=account_id)
+        return self._raw_request(self.by_account.__name__, region, url, query)
 
     def by_name(self, region, summoner_name):
         """
@@ -40,11 +38,8 @@ class SummonerApiV3(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        return self._request(
-            self.by_name.__name__,
-            region,
-            '/lol/summoner/v3/summoners/by-name/{summonerName}'.format(summonerName=summoner_name)
-        )
+        url, query = SummonerApiV3Urls.by_name(region=region, summoner_name=summoner_name)
+        return self._raw_request(self.by_name.__name__, region, url, query)
 
     def by_id(self, region, summoner_id):
         """
@@ -55,8 +50,5 @@ class SummonerApiV3(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        return self._request(
-            self.by_id.__name__,
-            region,
-            '/lol/summoner/v3/summoners/{summonerId}'.format(summonerId=summoner_id)
-        )
+        url, query = SummonerApiV3Urls.by_id(region=region, summoner_id=summoner_id)
+        return self._raw_request(self.by_id.__name__, region, url, query)
