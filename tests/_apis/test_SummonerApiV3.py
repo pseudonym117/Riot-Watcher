@@ -13,7 +13,7 @@ class TestSummonerApiV3(object):
     def test_by_account(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         summoner = SummonerApiV3(mock_base_api)
         region = 'htr35ge'
@@ -21,11 +21,14 @@ class TestSummonerApiV3(object):
 
         ret = summoner.by_account(region, account_id)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             SummonerApiV3.__name__,
             summoner.by_account.__name__,
             region,
-            '/lol/summoner/v3/summoners/by-account/{accountId}'.format(accountId=account_id)
+            'https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/by-account/{accountId}'.format(
+                accountId=account_id,
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -33,7 +36,7 @@ class TestSummonerApiV3(object):
     def test_by_name(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         summoner = SummonerApiV3(mock_base_api)
         region = 'htr35ge'
@@ -41,11 +44,14 @@ class TestSummonerApiV3(object):
 
         ret = summoner.by_name(region, summoner_name)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             SummonerApiV3.__name__,
             summoner.by_name.__name__,
             region,
-            '/lol/summoner/v3/summoners/by-name/{summonerName}'.format(summonerName=summoner_name)
+            'https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/by-name/{summonerName}'.format(
+                summonerName=summoner_name,
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -53,7 +59,7 @@ class TestSummonerApiV3(object):
     def test_by_id(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         summoner = SummonerApiV3(mock_base_api)
         region = 'htr35ge'
@@ -61,11 +67,14 @@ class TestSummonerApiV3(object):
 
         ret = summoner.by_id(region, summoner_id)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             SummonerApiV3.__name__,
             summoner.by_id.__name__,
             region,
-            '/lol/summoner/v3/summoners/{summonerId}'.format(summonerId=summoner_id)
+            'https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/{summonerId}'.format(
+                summonerId=summoner_id,
+            ),
+            {},
         )
 
         assert ret is expected_return
