@@ -13,7 +13,7 @@ class TestSpectatorApiV3TestCase(object):
     def test_by_summoner(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         spectator = SpectatorApiV3(mock_base_api)
         region = 'agagd'
@@ -21,11 +21,14 @@ class TestSpectatorApiV3TestCase(object):
 
         ret = spectator.by_summoner(region, summoner_id)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             SpectatorApiV3.__name__,
             spectator.by_summoner.__name__,
             region,
-            '/lol/spectator/v3/active-games/by-summoner/{summonerId}'.format(summonerId=summoner_id)
+            'https://agagd.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/{summonerId}'.format(
+                summonerId=summoner_id,
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -33,18 +36,19 @@ class TestSpectatorApiV3TestCase(object):
     def test_featured_games(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request.return_value = expected_return
+        mock_base_api.raw_request.return_value = expected_return
 
         spectator = SpectatorApiV3(mock_base_api)
         region = 'hfh42'
 
         ret = spectator.featured_games(region)
 
-        mock_base_api.request.assert_called_once_with(
+        mock_base_api.raw_request.assert_called_once_with(
             SpectatorApiV3.__name__,
             spectator.featured_games.__name__,
             region,
-            '/lol/spectator/v3/featured-games'
+            'https://hfh42.api.riotgames.com/lol/spectator/v3/featured-games',
+            {},
         )
 
         assert ret is expected_return
