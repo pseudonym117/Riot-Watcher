@@ -1,5 +1,6 @@
 
 from . import NamedEndpoint
+from .urls import SpectatorApiV3Urls
 
 
 class SpectatorApiV3(NamedEndpoint):
@@ -25,11 +26,8 @@ class SpectatorApiV3(NamedEndpoint):
 
         :returns: CurrentGameInfo
         """
-        return self._request(
-            self.by_summoner.__name__,
-            region,
-            '/lol/spectator/v3/active-games/by-summoner/{summonerId}'.format(summonerId=summoner_id)
-        )
+        url, query = SpectatorApiV3Urls.by_summoner(region=region, summoner_id=summoner_id)
+        return self._raw_request(self.by_summoner.__name__, region, url, query)
 
     def featured_games(self, region):
         """
@@ -39,8 +37,5 @@ class SpectatorApiV3(NamedEndpoint):
 
         :returns: FeaturedGames
         """
-        return self._request(
-            self.featured_games.__name__,
-            region,
-            '/lol/spectator/v3/featured-games'
-        )
+        url, query = SpectatorApiV3Urls.featured_games(region=region)
+        return self._raw_request(self.featured_games.__name__, region, url, query)
