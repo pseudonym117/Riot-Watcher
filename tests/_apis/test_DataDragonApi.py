@@ -169,6 +169,26 @@ class TestDataDragonApi(object):
         )
 
         assert ret is expected_return
+        
+    def test_runes_reforged(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.request_static.return_value = expected_return
+
+        static_data = DataDragonApi(mock_base_api)
+
+        version = '234'
+        locale = 'sdfasdf'
+
+        ret = static_data.runes_reforged(version, locale)
+
+        mock_base_api.request_static.assert_called_once_with(
+            version,
+            locale,
+            'runesReforged'
+        )
+
+        assert ret is expected_return
 
     def test_summoner_spells(self):
         mock_base_api = MagicMock()
