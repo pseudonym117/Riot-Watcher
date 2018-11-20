@@ -41,6 +41,11 @@ class DataDragonApi:
         url_ext = 'rune'
 
         return self._request(version, url_ext, locale)
+    
+    def runes_reforged(self, version, locale=None):
+        url_ext = 'runesReforged'
+        
+        return self._request(version, url_ext, locale)
 
     def summoner_spells(self, version, locale=None):
         url_ext = 'summoner'
