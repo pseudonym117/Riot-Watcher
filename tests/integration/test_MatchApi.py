@@ -9,44 +9,21 @@ else:
     import mock
 
 
-class MatchApiContext(object):
-    def __init__(self, mock_context):
-        self._mock_context = mock_context
-        self._expected_response = {'has_value': 'yes', }
-
-        mock_response = mock.MagicMock()
-        mock_response.json.return_value = self._expected_response
-
-        mock_context.get.return_value = mock_response
-    
-    @property
-    def expected_response(self):
-        return self._expected_response
-    
-    def __getattr__(self, item):
-        return getattr(self._mock_context, item)
-
-
-@pytest.fixture
-def match_api_ctx(mock_context):
-    return MatchApiContext(mock_context)
-
-
 @pytest.mark.integration
 @pytest.mark.parametrize('region', ['br1', 'eun1', 'euw1', 'jp1', 'kr', 'la1', 'la2', 'na', 'na1', 'oc1', 'tr1', 'ru', 'pbe1', ])
 class TestMatchApi(object):
     @pytest.mark.parametrize('match_id', [12345, 54321, 2, 222222222222222222222])
-    def test_by_id(self, match_api_ctx, region, match_id):
-        actual_response = match_api_ctx.watcher.match.by_id(region, match_id)
+    def test_by_id(self, mock_context, region, match_id):
+        actual_response = mock_context.watcher.match.by_id(region, match_id)
 
-        assert match_api_ctx.expected_response == actual_response
-        match_api_ctx.get.assert_called_once_with(
+        assert mock_context.expected_response == actual_response
+        mock_context.get.assert_called_once_with(
             'https://{region}.api.riotgames.com/lol/match/v3/matches/{match_id}'.format(
                 region=region,
                 match_id=match_id,
             ),
             params={},
-            headers={'X-Riot-Token': match_api_ctx.api_key},
+            headers={'X-Riot-Token': mock_context.api_key},
         )
 
     @pytest.mark.parametrize('account_id', [12345, 3333333333333333333])
@@ -63,7 +40,7 @@ class TestMatchApi(object):
     @pytest.mark.parametrize('champion', [None, (90, 43, 12)])
     def test_matchlist_by_account(
         self,
-        match_api_ctx,
+        mock_context,
         region,
         account_id,
         queue,
@@ -75,7 +52,7 @@ class TestMatchApi(object):
         begin_time, end_time = begin_end_time
         begin_index, end_index = begin_end_index
 
-        actual_response = match_api_ctx.watcher.match.matchlist_by_account(
+        actual_response = mock_context.watcher.match.matchlist_by_account(
             region,
             account_id,
             queue=queue,
@@ -87,7 +64,7 @@ class TestMatchApi(object):
             champion=champion,
         )
 
-        assert match_api_ctx.expected_response == actual_response
+        assert mock_context.expected_response == actual_response
 
         expected_params = {}
         if queue is not None:
@@ -105,28 +82,28 @@ class TestMatchApi(object):
         if champion is not None:
             expected_params['champion'] = champion
 
-        match_api_ctx.get.assert_called_once_with(
+        mock_context.get.assert_called_once_with(
             'https://{region}.api.riotgames.com/lol/match/v3/matchlists/by-account/{account_id}'.format(
                 region=region,
                 account_id=account_id,
             ),
             params=expected_params,
-            headers={'X-Riot-Token': match_api_ctx.api_key},
+            headers={'X-Riot-Token': mock_context.api_key},
         )
     
     @pytest.mark.parametrize('match_id', [0, 54321, 3232323232323223])
-    def test_timeline_by_match(self, match_api_ctx, region, match_id):
-        actual_response = match_api_ctx.watcher.match.timeline_by_match(
+    def test_timeline_by_match(self, mock_context, region, match_id):
+        actual_response = mock_context.watcher.match.timeline_by_match(
             region,
             match_id,
         )
 
-        assert match_api_ctx.expected_response == actual_response
-        match_api_ctx.get.assert_called_once_with(
+        assert mock_context.expected_response == actual_response
+        mock_context.get.assert_called_once_with(
             'https://{region}.api.riotgames.com/lol/match/v3/timelines/by-match/{match_id}'.format(
                 region=region,
                 match_id=match_id,
             ),
             params={},
-            headers={'X-Riot-Token': match_api_ctx.api_key},
+            headers={'X-Riot-Token': mock_context.api_key},
         )
