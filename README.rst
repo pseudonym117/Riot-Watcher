@@ -1,7 +1,7 @@
 RiotWatcher v2.4.0
 ==================
 
-|pypi| |docs| |build| |coverage| |lgmt|
+|pypi| |docs| |build| |coverage| |lgmt| |black|
 
 Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
 
@@ -28,6 +28,7 @@ OR for development/testing, clone and run:
 ::
 
     pip install -e .[dev]
+    pre-commit install
 
 You also need to have an API key from Riot. Get that from
 `here <https://developer.riotgames.com/>`__.
@@ -401,5 +402,9 @@ registered trademarks ofRiot Games, Inc.
   :alt: Test coverage
 
 .. |lgmt| image:: https://img.shields.io/lgtm/grade/python/g/pseudonym117/Riot-Watcher.svg?logo=lgtm&logoWidth=18
-  :target: (https://lgtm.com/projects/g/pseudonym117/Riot-Watcher/context:python)
-  :alt: lgmt
+  :target: https://lgtm.com/projects/g/pseudonym117/Riot-Watcher/context:python
+  :alt: Code quality
+
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/ambv/black
+    :alt: Code style

@@ -1,4 +1,3 @@
-
 from . import NamedEndpoint
 from .urls import LeagueApiV3Urls
 
@@ -9,6 +8,7 @@ class LeagueApiV3(NamedEndpoint):
 
     See https://developer.riotgames.com/api-methods/#league-v3/ for more detailed information
     """
+
     def __init__(self, base_api):
         """
         Initialize a new LeagueApiV3 which uses the provided base_api
@@ -62,5 +62,9 @@ class LeagueApiV3(NamedEndpoint):
 
         :returns: Set[LeaguePositionDTO]
         """
-        url, query = LeagueApiV3Urls.positions_by_summoner(region=region, summoner_id=summoner_id)
-        return self._raw_request(self.positions_by_summoner.__name__, region, url, query)
+        url, query = LeagueApiV3Urls.positions_by_summoner(
+            region=region, summoner_id=summoner_id
+        )
+        return self._raw_request(
+            self.positions_by_summoner.__name__, region, url, query
+        )

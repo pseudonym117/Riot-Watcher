@@ -1,4 +1,3 @@
-
 import os
 import unittest
 
@@ -9,50 +8,54 @@ from riotwatcher import RiotWatcher
 
 class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
     def setUp(self):
-        if not os.path.isfile('api_key'):
+        if not os.path.isfile("api_key"):
             raise FileNotFoundError(
                 'API Key not found (should be in file "api_key" in same directory tests run)'
             )
 
-        with open('api_key', 'r') as key_file:
+        with open("api_key", "r") as key_file:
             key = key_file.read()
             self._watcher = RiotWatcher(key.strip())
 
-        self._region = 'na1'
+        self._region = "na1"
 
-        self._test_accounts = ['pseudonym117', 'fakename117']
+        self._test_accounts = ["pseudonym117", "fakename117"]
 
-        self._versions = {"item": "8.16.1", "rune": "7.23.1", "mastery": "7.23.1", "summoner": "8.16.1",
-                          "champion": "8.16.1", "profileicon": "8.16.1", "map": "8.16.1", "language": "8.16.1",
-                          "sticker": "8.16.1"}
+        self._versions = {
+            "item": "8.16.1",
+            "rune": "7.23.1",
+            "mastery": "7.23.1",
+            "summoner": "8.16.1",
+            "champion": "8.16.1",
+            "profileicon": "8.16.1",
+            "map": "8.16.1",
+            "language": "8.16.1",
+            "sticker": "8.16.1",
+        }
 
     def test_champion_mastery_api(self):
         for account in self._test_accounts:
             summ = self._watcher.summoner.by_name(self._region, account)
 
-            s_id = summ['id']
+            s_id = summ["id"]
 
-            mastery_list = self._watcher.champion_mastery.by_summoner(self._region, s_id)
+            mastery_list = self._watcher.champion_mastery.by_summoner(
+                self._region, s_id
+            )
 
             for mastery in mastery_list:
                 self._watcher.champion_mastery.by_summoner_by_champion(
-                    self._region,
-                    s_id,
-                    mastery['championId']
+                    self._region, s_id, mastery["championId"]
                 )
 
             self._watcher.champion_mastery.scores_by_summoner(self._region, s_id)
 
     def test_league_api(self):
-        queues = [
-            'RANKED_SOLO_5x5',
-            'RANKED_FLEX_SR',
-            'RANKED_FLEX_TT',
-        ]
+        queues = ["RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT"]
 
         league_ids = [
-            '091e46a0-fdb0-11e7-9e8c-c81f66cf135e',
-            '24c70240-fff2-11e7-919f-c81f66cf2333'
+            "091e46a0-fdb0-11e7-9e8c-c81f66cf135e",
+            "24c70240-fff2-11e7-919f-c81f66cf2333",
         ]
 
         for queue in queues:
@@ -66,7 +69,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
         for account in self._test_accounts:
             summ = self._watcher.summoner.by_name(self._region, account)
 
-            s_id = summ['id']
+            s_id = summ["id"]
 
             self._watcher.league.positions_by_summoner(self._region, s_id)
 
@@ -78,17 +81,14 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
             summ = self._watcher.summoner.by_name(self._region, name)
 
             recent = self._watcher.match.matchlist_by_account(
-                self._region,
-                summ['accountId'],
-                begin_index=0,
-                end_index=20
+                self._region, summ["accountId"], begin_index=0, end_index=20
             )
 
-            for match in recent['matches']:
-                mtch = self._watcher.match.by_id(self._region, match['gameId'])
+            for match in recent["matches"]:
+                mtch = self._watcher.match.by_id(self._region, match["gameId"])
 
                 try:
-                    self._watcher.match.timeline_by_match(self._region, mtch['gameId'])
+                    self._watcher.match.timeline_by_match(self._region, mtch["gameId"])
                 except HTTPError as err:
                     # 404 means game doesnt have timeline data, which is allowed
                     if err.response.status_code != 404:
@@ -96,8 +96,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
             try:
                 self._watcher.match.matchlist_by_account(
-                    self._region,
-                    summ['accountId']
+                    self._region, summ["accountId"]
                 )
             except HTTPError as err:
                 # 404 indicates account doesnt have recent enough matches.
@@ -110,7 +109,7 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
             summ = self._watcher.summoner.by_name(self._region, account)
 
             try:
-                self._watcher.spectator.by_summoner(self._region, summ['id'])
+                self._watcher.spectator.by_summoner(self._region, summ["id"])
             except HTTPError as err:
                 # one of these will 404, i dont think i am going to be playing
                 # a game on 2 accounts at once.
@@ -119,14 +118,16 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
 
         featured = self._watcher.spectator.featured_games(self._region)
 
-        for player in featured['gameList'][0]['participants']:
-            if player['bot']:
+        for player in featured["gameList"][0]["participants"]:
+            if player["bot"]:
                 continue
 
             try:
-                summoner = self._watcher.summoner.by_name(self._region, player['summonerName'])
+                summoner = self._watcher.summoner.by_name(
+                    self._region, player["summonerName"]
+                )
 
-                self._watcher.spectator.by_summoner(self._region, summoner['id'])
+                self._watcher.spectator.by_summoner(self._region, summoner["id"])
             except HTTPError as err:
                 # maybe they got out of the game, or maybe the summonerName
                 # was something like 'Summoner 1'
@@ -137,38 +138,38 @@ class RiotWatcherRealApiAccessTestCase(unittest.TestCase):
         for summoner_name in self._test_accounts:
             summoner = self._watcher.summoner.by_name(self._region, summoner_name)
 
-            self._watcher.summoner.by_account(self._region, summoner['accountId'])
+            self._watcher.summoner.by_account(self._region, summoner["accountId"])
 
-            self._watcher.summoner.by_id(self._region, summoner['id'])
+            self._watcher.summoner.by_id(self._region, summoner["id"])
 
     def test_version_api(self):
         versions = self._watcher.data_dragon.versions_for_region(self._region)
         self.assertIsInstance(versions, dict)
 
     def test_dd_champion(self):
-        champions = self._watcher.data_dragon.champions(self._versions['champion'])
+        champions = self._watcher.data_dragon.champions(self._versions["champion"])
         self.assertIsInstance(champions, dict)
 
     def test_dd_items(self):
-        ret = self._watcher.data_dragon.items(self._versions['item'])
+        ret = self._watcher.data_dragon.items(self._versions["item"])
         self.assertIsInstance(ret, dict)
 
     def test_dd_languages(self):
-        ret = self._watcher.data_dragon.languages(self._versions['language'])
+        ret = self._watcher.data_dragon.languages(self._versions["language"])
         self.assertIsInstance(ret, dict)
 
     def test_dd_maps(self):
-        ret = self._watcher.data_dragon.maps(self._versions['map'])
+        ret = self._watcher.data_dragon.maps(self._versions["map"])
         self.assertIsInstance(ret, dict)
 
     def test_dd_masteries(self):
-        ret = self._watcher.data_dragon.masteries(self._versions['mastery'])
+        ret = self._watcher.data_dragon.masteries(self._versions["mastery"])
         self.assertIsInstance(ret, dict)
 
     def test_dd_icons(self):
-        ret = self._watcher.data_dragon.profile_icons(self._versions['profileicon'])
+        ret = self._watcher.data_dragon.profile_icons(self._versions["profileicon"])
         self.assertIsInstance(ret, dict)
 
     def test_dd_summoners(self):
-        ret = self._watcher.data_dragon.summoner_spells(self._versions['summoner'])
+        ret = self._watcher.data_dragon.summoner_spells(self._versions["summoner"])
         self.assertIsInstance(ret, dict)

@@ -1,4 +1,3 @@
-
 from . import NamedEndpoint
 from .urls import MatchApiV3Urls
 
@@ -9,6 +8,7 @@ class MatchApiV3(NamedEndpoint):
 
     See https://developer.riotgames.com/api-methods/#match-v3 for more detailed information
     """
+
     def __init__(self, base_api):
         """
         Initialize a new MatchApiV3 which uses the provided base_api
@@ -30,16 +30,16 @@ class MatchApiV3(NamedEndpoint):
         return self._raw_request(self.by_id.__name__, region, url, query)
 
     def matchlist_by_account(
-            self,
-            region,
-            account_id,
-            queue=None,
-            begin_time=None,
-            end_time=None,
-            begin_index=None,
-            end_index=None,
-            season=None,
-            champion=None,
+        self,
+        region,
+        account_id,
+        queue=None,
+        begin_time=None,
+        end_time=None,
+        begin_index=None,
+        end_index=None,
+        season=None,
+        champion=None,
     ):
         """
         Get matchlist for ranked games played on given account ID and platform ID

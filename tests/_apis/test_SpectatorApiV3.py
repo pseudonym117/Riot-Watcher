@@ -1,4 +1,3 @@
-
 import sys
 
 if sys.version_info > (3, 0):
@@ -16,7 +15,7 @@ class TestSpectatorApiV3TestCase(object):
         mock_base_api.raw_request.return_value = expected_return
 
         spectator = SpectatorApiV3(mock_base_api)
-        region = 'agagd'
+        region = "agagd"
         summoner_id = 98532
 
         ret = spectator.by_summoner(region, summoner_id)
@@ -25,8 +24,8 @@ class TestSpectatorApiV3TestCase(object):
             SpectatorApiV3.__name__,
             spectator.by_summoner.__name__,
             region,
-            'https://agagd.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/{summonerId}'.format(
-                summonerId=summoner_id,
+            "https://agagd.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/{summonerId}".format(
+                summonerId=summoner_id
             ),
             {},
         )
@@ -39,7 +38,7 @@ class TestSpectatorApiV3TestCase(object):
         mock_base_api.raw_request.return_value = expected_return
 
         spectator = SpectatorApiV3(mock_base_api)
-        region = 'hfh42'
+        region = "hfh42"
 
         ret = spectator.featured_games(region)
 
@@ -47,7 +46,7 @@ class TestSpectatorApiV3TestCase(object):
             SpectatorApiV3.__name__,
             spectator.featured_games.__name__,
             region,
-            'https://hfh42.api.riotgames.com/lol/spectator/v3/featured-games',
+            "https://hfh42.api.riotgames.com/lol/spectator/v3/featured-games",
             {},
         )
 

@@ -1,4 +1,3 @@
-
 from . import NamedEndpoint
 from .urls import SummonerApiV3Urls
 
@@ -9,6 +8,7 @@ class SummonerApiV3(NamedEndpoint):
 
     See https://developer.riotgames.com/api-methods/#summoner-v3 for more detailed information
     """
+
     def __init__(self, base_api):
         """
         Initialize a new SummonerApiV3 which uses the provided base_api
@@ -38,7 +38,9 @@ class SummonerApiV3(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        url, query = SummonerApiV3Urls.by_name(region=region, summoner_name=summoner_name)
+        url, query = SummonerApiV3Urls.by_name(
+            region=region, summoner_name=summoner_name
+        )
         return self._raw_request(self.by_name.__name__, region, url, query)
 
     def by_id(self, region, summoner_id):

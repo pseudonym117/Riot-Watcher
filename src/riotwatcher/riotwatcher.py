@@ -1,4 +1,11 @@
-from ._apis import BaseApi, DataDragonApi, ChampionApiV3, ChampionMasteryApiV3, LeagueApiV3, LolStatusApiV3
+from ._apis import (
+    BaseApi,
+    DataDragonApi,
+    ChampionApiV3,
+    ChampionMasteryApiV3,
+    LeagueApiV3,
+    LolStatusApiV3,
+)
 from ._apis import MatchApiV3, SpectatorApiV3, SummonerApiV3, ThirdPartyCodeApiV3
 from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
 

@@ -1,4 +1,3 @@
-
 import logging
 import threading
 
@@ -59,7 +58,7 @@ class HeaderBasedLimiter(object):
             logging.warning(
                 'header "%s" and "%s" have different sizes!',
                 self._limit_header,
-                self._count_header
+                self._count_header,
             )
 
         combined_limits = list(zip(counts, limits))
@@ -67,14 +66,14 @@ class HeaderBasedLimiter(object):
         for limit in combined_limits:
             if limit[0][1] != limit[1][1]:
                 logging.warning(
-                    'seems that limits for headers "%s" and "%s" did not match up correctly! ' +
-                    'There may be issues in rate limiting. Headers were: "%s", "%s"' +
-                    'Limits from "%s" will be used.',
+                    'seems that limits for headers "%s" and "%s" did not match up correctly! '
+                    + 'There may be issues in rate limiting. Headers were: "%s", "%s"'
+                    + 'Limits from "%s" will be used.',
                     self._limit_header,
                     self._count_header,
                     response.headers.get(self._limit_header),
                     response.headers.get(self._count_header),
-                    self._limit_header
+                    self._limit_header,
                 )
 
         values = [
@@ -91,14 +90,8 @@ class HeaderBasedLimiter(object):
         if values is None:
             return None
 
-        values = values.split(',')
+        values = values.split(",")
 
-        values = [
-            [
-                int(val)
-                for val in value.split(':')
-            ]
-            for value in values
-        ]
+        values = [[int(val) for val in value.split(":")] for value in values]
 
         return values

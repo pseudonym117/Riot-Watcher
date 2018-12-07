@@ -1,4 +1,3 @@
-
 from . import NamedEndpoint
 from .urls import SpectatorApiV3Urls
 
@@ -9,6 +8,7 @@ class SpectatorApiV3(NamedEndpoint):
 
     See https://developer.riotgames.com/api-methods/#spectator-v3 for more detailed information
     """
+
     def __init__(self, base_api):
         """
         Initialize a new SpectatorApiV3 which uses the provided base_api
@@ -26,7 +26,9 @@ class SpectatorApiV3(NamedEndpoint):
 
         :returns: CurrentGameInfo
         """
-        url, query = SpectatorApiV3Urls.by_summoner(region=region, summoner_id=summoner_id)
+        url, query = SpectatorApiV3Urls.by_summoner(
+            region=region, summoner_id=summoner_id
+        )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
     def featured_games(self, region):
