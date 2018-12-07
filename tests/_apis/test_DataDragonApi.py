@@ -1,4 +1,3 @@
-
 import sys
 
 if sys.version_info > (3, 0):
@@ -6,7 +5,7 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
 
-    
+
 from riotwatcher._apis import DataDragonApi
 
 
@@ -18,14 +17,12 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
+        version = "234"
 
         ret = static_data.champions(version)
 
         mock_base_api.request_static.assert_called_once_with(
-            version,
-            'en_US',
-            'champion'
+            version, "en_US", "champion"
         )
 
         assert ret is expected_return
@@ -37,15 +34,13 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'asdf'
+        version = "234"
+        locale = "asdf"
 
         ret = static_data.champions(version, True, locale)
 
         mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'championFull'
+            version, locale, "championFull"
         )
 
         assert ret is expected_return
@@ -57,16 +52,12 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.items(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'item'
-        )
+        mock_base_api.request_static.assert_called_once_with(version, locale, "item")
 
         assert ret is expected_return
 
@@ -77,15 +68,13 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.languages(version, locale)
 
         mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'language'
+            version, locale, "language"
         )
 
         assert ret is expected_return
@@ -97,16 +86,12 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.maps(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'map'
-        )
+        mock_base_api.request_static.assert_called_once_with(version, locale, "map")
 
         assert ret is expected_return
 
@@ -117,16 +102,12 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.masteries(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'mastery'
-        )
+        mock_base_api.request_static.assert_called_once_with(version, locale, "mastery")
 
         assert ret is expected_return
 
@@ -137,15 +118,13 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.profile_icons(version, locale)
 
         mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'profileicon'
+            version, locale, "profileicon"
         )
 
         assert ret is expected_return
@@ -157,19 +136,15 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.runes(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'rune'
-        )
+        mock_base_api.request_static.assert_called_once_with(version, locale, "rune")
 
         assert ret is expected_return
-        
+
     def test_runes_reforged(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -177,15 +152,13 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.runes_reforged(version, locale)
 
         mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'runesReforged'
+            version, locale, "runesReforged"
         )
 
         assert ret is expected_return
@@ -197,15 +170,13 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        version = '234'
-        locale = 'sdfasdf'
+        version = "234"
+        locale = "sdfasdf"
 
         ret = static_data.summoner_spells(version, locale)
 
         mock_base_api.request_static.assert_called_once_with(
-            version,
-            locale,
-            'summoner'
+            version, locale, "summoner"
         )
 
         assert ret is expected_return
@@ -217,7 +188,7 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
-        region = 'euw1'
+        region = "euw1"
 
         ret = static_data.versions_for_region(region)
 

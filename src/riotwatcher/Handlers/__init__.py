@@ -1,4 +1,3 @@
-
 from .RequestHandler import RequestHandler
 
 from .JsonifyHandler import JsonifyHandler
@@ -7,10 +6,9 @@ from .ThrowOnErrorHandler import ThrowOnErrorHandler
 from .WaitingRateLimitHandler import WaitingRateLimitHandler
 
 __all__ = [
-    'RequestHandler',
-
-    'JsonifyHandler',
-    'ThrowOnErrorHandler',
-    'TypeCorrectorHandler',
-    'WaitingRateLimitHandler',
+    "RequestHandler",
+    "JsonifyHandler",
+    "ThrowOnErrorHandler",
+    "TypeCorrectorHandler",
+    "WaitingRateLimitHandler",
 ]

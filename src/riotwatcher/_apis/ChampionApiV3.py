@@ -1,4 +1,3 @@
-
 from . import NamedEndpoint
 from .urls import ChampionApiV3Urls
 
@@ -9,6 +8,7 @@ class ChampionApiV3(NamedEndpoint):
 
     See https://developer.riotgames.com/api-methods/#champion-v3 for more detailed information
     """
+
     def __init__(self, base_api):
         """
         Initialize a new ChampionApiV3 which uses the provided base_api

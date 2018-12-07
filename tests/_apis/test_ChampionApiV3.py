@@ -1,4 +1,3 @@
-
 import sys
 
 if sys.version_info > (3, 0):
@@ -17,7 +16,7 @@ class TestChampionApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         champ = ChampionApiV3(mock_base_api)
-        test_region = 'fhfds'
+        test_region = "fhfds"
 
         ret = champ.rotations(test_region)
 
@@ -25,7 +24,7 @@ class TestChampionApiV3(object):
             ChampionApiV3.__name__,
             champ.rotations.__name__,
             test_region,
-            'https://fhfds.api.riotgames.com/lol/platform/v3/champion-rotations',
+            "https://fhfds.api.riotgames.com/lol/platform/v3/champion-rotations",
             {},
         )
 

@@ -1,4 +1,3 @@
-
 import datetime
 import logging
 import time
@@ -33,24 +32,22 @@ class RateLimitHandler(RequestHandler):
             [
                 (
                     limiter.wait_until(region, endpoint_name, method_name),
-                    limiter.friendly_name
+                    limiter.friendly_name,
                 )
                 for limiter in self._limiters
             ],
-            key=lambda lim_pair: lim_pair[0] if lim_pair[0] else datetime.datetime(
-                datetime.MINYEAR,
-                1,
-                1
-            )
+            key=lambda lim_pair: lim_pair[0]
+            if lim_pair[0]
+            else datetime.datetime(datetime.MINYEAR, 1, 1),
         )
 
         if wait_until[0] is not None and wait_until[0] > datetime.datetime.now():
             to_wait = wait_until[0] - datetime.datetime.now()
 
             logging.info(
-                'waiting for %s seconds due to %s limit...',
+                "waiting for %s seconds due to %s limit...",
                 to_wait.total_seconds(),
-                wait_until[1]
+                wait_until[1],
             )
             time.sleep(to_wait.total_seconds())
 

@@ -1,4 +1,3 @@
-
 class NamedEndpoint(object):
     """
     Helper class to inject endpoint name into calls to a BaseApi instance without
@@ -26,4 +25,6 @@ class NamedEndpoint(object):
         :param string url:          The full URL to the method being requested.
         :param dict query_params:   Query parameters to be provided in the HTTP request
         """
-        return self._base_api.raw_request(self._endpoint_name, method_name, region, url, query_params)
+        return self._base_api.raw_request(
+            self._endpoint_name, method_name, region, url, query_params
+        )

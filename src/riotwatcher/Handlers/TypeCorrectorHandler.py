@@ -1,4 +1,3 @@
-
 from . import RequestHandler
 
 
@@ -27,9 +26,11 @@ class TypeCorrectorHandler(RequestHandler):
                     query_params[key] = str(value).lower()
 
                 # check to see if we have a list/tuple, but not a string
-                if (not hasattr(value, 'strip') and
-                        hasattr(value, '__getitem__') or
-                        hasattr(value, '__iter__')):
+                if (
+                    not hasattr(value, "strip")
+                    and hasattr(value, "__getitem__")
+                    or hasattr(value, "__iter__")
+                ):
                     for idx, val in enumerate(value):
                         if isinstance(val, bool):
                             value[idx] = str(val).lower()

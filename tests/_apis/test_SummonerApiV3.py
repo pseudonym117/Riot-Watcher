@@ -1,4 +1,3 @@
-
 import sys
 
 if sys.version_info > (3, 0):
@@ -16,7 +15,7 @@ class TestSummonerApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         summoner = SummonerApiV3(mock_base_api)
-        region = 'htr35ge'
+        region = "htr35ge"
         account_id = 98532
 
         ret = summoner.by_account(region, account_id)
@@ -25,8 +24,8 @@ class TestSummonerApiV3(object):
             SummonerApiV3.__name__,
             summoner.by_account.__name__,
             region,
-            'https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/by-account/{accountId}'.format(
-                accountId=account_id,
+            "https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/by-account/{accountId}".format(
+                accountId=account_id
             ),
             {},
         )
@@ -39,8 +38,8 @@ class TestSummonerApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         summoner = SummonerApiV3(mock_base_api)
-        region = 'htr35ge'
-        summoner_name = 'psesn886'
+        region = "htr35ge"
+        summoner_name = "psesn886"
 
         ret = summoner.by_name(region, summoner_name)
 
@@ -48,8 +47,8 @@ class TestSummonerApiV3(object):
             SummonerApiV3.__name__,
             summoner.by_name.__name__,
             region,
-            'https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/by-name/{summonerName}'.format(
-                summonerName=summoner_name,
+            "https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/by-name/{summonerName}".format(
+                summonerName=summoner_name
             ),
             {},
         )
@@ -62,7 +61,7 @@ class TestSummonerApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         summoner = SummonerApiV3(mock_base_api)
-        region = 'htr35ge'
+        region = "htr35ge"
         summoner_id = 25979
 
         ret = summoner.by_id(region, summoner_id)
@@ -71,8 +70,8 @@ class TestSummonerApiV3(object):
             SummonerApiV3.__name__,
             summoner.by_id.__name__,
             region,
-            'https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/{summonerId}'.format(
-                summonerId=summoner_id,
+            "https://htr35ge.api.riotgames.com/lol/summoner/v3/summoners/{summonerId}".format(
+                summonerId=summoner_id
             ),
             {},
         )

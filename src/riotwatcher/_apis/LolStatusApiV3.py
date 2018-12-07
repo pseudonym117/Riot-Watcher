@@ -1,4 +1,3 @@
-
 from . import NamedEndpoint
 from .urls import LolStatusApiV3Urls
 
@@ -9,6 +8,7 @@ class LolStatusApiV3(NamedEndpoint):
 
     See https://developer.riotgames.com/api-methods/#lol-status-v3 for more detailed information
     """
+
     def __init__(self, base_api):
         """
         Initialize a new LolStatusApiV3 which uses the provided base_api
@@ -28,4 +28,4 @@ class LolStatusApiV3(NamedEndpoint):
         :returns: ShardStatus
         """
         url, query = LolStatusApiV3Urls.shard_data(region=region)
-        return self._raw_request(self.shard_data.__name__, region,url, query)
+        return self._raw_request(self.shard_data.__name__, region, url, query)

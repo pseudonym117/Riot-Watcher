@@ -1,4 +1,3 @@
-
 import sys
 
 if sys.version_info > (3, 0):
@@ -16,7 +15,7 @@ class TestThirdPartyCodeApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         third_party_code = ThirdPartyCodeApiV3(mock_base_api)
-        region = 'afaaas'
+        region = "afaaas"
         summoner_id = 82357
 
         ret = third_party_code.by_summoner(region, summoner_id)
@@ -25,7 +24,7 @@ class TestThirdPartyCodeApiV3(object):
             ThirdPartyCodeApiV3.__name__,
             third_party_code.by_summoner.__name__,
             region,
-            'https://afaaas.api.riotgames.com/lol/platform/v3/third-party-code/by-summoner/82357',
+            "https://afaaas.api.riotgames.com/lol/platform/v3/third-party-code/by-summoner/82357",
             {},
         )
 

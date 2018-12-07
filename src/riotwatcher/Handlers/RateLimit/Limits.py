@@ -1,11 +1,10 @@
-
 import datetime
 import logging
 import threading
 
 from collections import namedtuple
 
-RawLimit = namedtuple('RawLimit', ['count', 'limit', 'time'])
+RawLimit = namedtuple("RawLimit", ["count", "limit", "time"])
 
 
 class LimitCollection(object):
@@ -17,10 +16,7 @@ class LimitCollection(object):
         # we dont really want to update the limits as we process them
         # may be able to move the max() call outside the lock though
         with self._limits_lock:
-            limits_waits = [
-                limit.wait_until()
-                for key, limit in self._limits.items()
-            ]
+            limits_waits = [limit.wait_until() for key, limit in self._limits.items()]
             return max(limits_waits) if len(limits_waits) > 0 else None
 
     def update_limits(self, raw_limits):
@@ -67,25 +63,25 @@ class Limit(object):
             # and should reset our timer
             if self._raw_limit.time != raw_limit.time:
                 reset_timer = True
-                if not(
-                        self._raw_limit.time == 0 and
-                        self._raw_limit.limit == 0 and
-                        self._raw_limit.count == 0
+                if not (
+                    self._raw_limit.time == 0
+                    and self._raw_limit.limit == 0
+                    and self._raw_limit.count == 0
                 ):
                     logging.warning(
-                        'overwriting time limit, previously %s, now %s. ' +
-                        'This may cause rate limitting issues.',
+                        "overwriting time limit, previously %s, now %s. "
+                        + "This may cause rate limitting issues.",
                         self._raw_limit.time,
-                        raw_limit.time
+                        raw_limit.time,
                     )
 
             if self._raw_limit.limit != raw_limit.limit:
                 logging.info(
-                    'rate limit changed from %s/%ss to %s/%ss',
+                    "rate limit changed from %s/%ss to %s/%ss",
                     self._raw_limit.limit,
                     self._raw_limit.time,
                     raw_limit.limit,
-                    raw_limit.time
+                    raw_limit.time,
                 )
 
             # if the count is 1, that means we should reset our timers
@@ -101,7 +97,9 @@ class Limit(object):
                 # as the rate limit is getting reset, but I dont think there
                 # is a more elegant solution.
                 if self._raw_limit.count > raw_limit.count:
-                    raw_limit = RawLimit(self._raw_limit.count, raw_limit.limit, raw_limit.time)
+                    raw_limit = RawLimit(
+                        self._raw_limit.count, raw_limit.limit, raw_limit.time
+                    )
                 self._raw_limit = raw_limit
 
     def wait_until(self):

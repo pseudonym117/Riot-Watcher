@@ -5,50 +5,50 @@ class DataDragonApi:
         self._base_api = base_api
 
     def champions(self, version, full=False, locale=None):
-        url_ext = 'champion'
+        url_ext = "champion"
 
         if full:
-            url_ext = 'championFull'
+            url_ext = "championFull"
 
         return self._request(version, url_ext, locale)
 
     def items(self, version, locale=None):
-        url_ext = 'item'
+        url_ext = "item"
 
         return self._request(version, url_ext, locale)
 
     def languages(self, version, locale=None):
-        url_ext = 'language'
+        url_ext = "language"
 
         return self._request(version, url_ext, locale)
 
     def maps(self, version, locale=None):
-        url_ext = 'map'
+        url_ext = "map"
 
         return self._request(version, url_ext, locale)
 
     def masteries(self, version, locale=None):
-        url_ext = 'mastery'
+        url_ext = "mastery"
 
         return self._request(version, url_ext, locale)
 
     def profile_icons(self, version, locale=None):
-        url_ext = 'profileicon'
+        url_ext = "profileicon"
 
         return self._request(version, url_ext, locale)
 
     def runes(self, version, locale=None):
-        url_ext = 'rune'
+        url_ext = "rune"
 
         return self._request(version, url_ext, locale)
-    
+
     def runes_reforged(self, version, locale=None):
-        url_ext = 'runesReforged'
-        
+        url_ext = "runesReforged"
+
         return self._request(version, url_ext, locale)
 
     def summoner_spells(self, version, locale=None):
-        url_ext = 'summoner'
+        url_ext = "summoner"
 
         return self._request(version, url_ext, locale)
 
@@ -57,6 +57,6 @@ class DataDragonApi:
 
     def _request(self, version, url_ext, locale):
         if locale is None:
-            locale = 'en_US'
+            locale = "en_US"
 
         return self._base_api.request_static(version, locale, url_ext)

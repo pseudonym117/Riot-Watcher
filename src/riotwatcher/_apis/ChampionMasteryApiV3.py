@@ -1,4 +1,3 @@
-
 from . import NamedEndpoint
 from .urls import ChampionMasteryApiV3Urls
 
@@ -10,6 +9,7 @@ class ChampionMasteryApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#champion-mastery-v3/ for more detailed
     information
     """
+
     def __init__(self, base_api):
         """
         Initialize a new ChampionMasteryApiV3 which uses the provided base_api
@@ -29,15 +29,9 @@ class ChampionMasteryApiV3(NamedEndpoint):
                                             information for player and champion combination.
         """
         url, query = ChampionMasteryApiV3Urls.by_summoner(
-            region=region,
-            summoner_id=summoner_id,
+            region=region, summoner_id=summoner_id
         )
-        return self._raw_request(
-            self.by_summoner.__name__,
-            region,
-            url,
-            query,
-        )
+        return self._raw_request(self.by_summoner.__name__, region, url, query)
 
     def by_summoner_by_champion(self, region, summoner_id, champion_id):
         """
@@ -51,15 +45,10 @@ class ChampionMasteryApiV3(NamedEndpoint):
                                       player and champion combination.
         """
         url, query = ChampionMasteryApiV3Urls.by_summoner_by_champion(
-            region=region,
-            summoner_id=summoner_id,
-            champion_id=champion_id,
+            region=region, summoner_id=summoner_id, champion_id=champion_id
         )
         return self._raw_request(
-            self.by_summoner_by_champion.__name__,
-            region,
-            url,
-            query,
+            self.by_summoner_by_champion.__name__, region, url, query
         )
 
     def scores_by_summoner(self, region, summoner_id):
@@ -73,12 +62,6 @@ class ChampionMasteryApiV3(NamedEndpoint):
         :returns: int
         """
         url, query = ChampionMasteryApiV3Urls.scored_by_summoner(
-            region=region,
-            summoner_id=summoner_id,
+            region=region, summoner_id=summoner_id
         )
-        return self._raw_request(
-            self.scores_by_summoner.__name__,
-            region,
-            url,
-            query,
-        )
+        return self._raw_request(self.scores_by_summoner.__name__, region, url, query)

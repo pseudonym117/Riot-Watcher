@@ -1,4 +1,3 @@
-
 import sys
 
 if sys.version_info > (3, 0):
@@ -16,7 +15,7 @@ class TestLolStatusApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         status = LolStatusApiV3(mock_base_api)
-        region = 'afaaas'
+        region = "afaaas"
 
         ret = status.shard_data(region)
 
@@ -24,8 +23,8 @@ class TestLolStatusApiV3(object):
             LolStatusApiV3.__name__,
             status.shard_data.__name__,
             region,
-            'https://afaaas.api.riotgames.com/lol/status/v3/shard-data',
-            {}
+            "https://afaaas.api.riotgames.com/lol/status/v3/shard-data",
+            {},
         )
 
         assert ret is expected_return

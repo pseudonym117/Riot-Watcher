@@ -1,4 +1,3 @@
-
 import sys
 
 if sys.version_info > (3, 0):
@@ -16,8 +15,8 @@ class TestLeagueApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
-        region = 'afas'
-        queue = 'yolo_q'
+        region = "afas"
+        queue = "yolo_q"
 
         ret = league.challenger_by_queue(region, queue)
 
@@ -25,7 +24,9 @@ class TestLeagueApiV3(object):
             LeagueApiV3.__name__,
             league.challenger_by_queue.__name__,
             region,
-            'https://afas.api.riotgames.com/lol/league/v3/challengerleagues/by-queue/{queue}'.format(queue=queue),
+            "https://afas.api.riotgames.com/lol/league/v3/challengerleagues/by-queue/{queue}".format(
+                queue=queue
+            ),
             {},
         )
 
@@ -37,8 +38,8 @@ class TestLeagueApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
-        region = 'afasf'
-        queue = 'yolo_q'
+        region = "afasf"
+        queue = "yolo_q"
 
         ret = league.masters_by_queue(region, queue)
 
@@ -46,7 +47,9 @@ class TestLeagueApiV3(object):
             LeagueApiV3.__name__,
             league.masters_by_queue.__name__,
             region,
-            'https://afasf.api.riotgames.com/lol/league/v3/masterleagues/by-queue/{queue}'.format(queue=queue),
+            "https://afasf.api.riotgames.com/lol/league/v3/masterleagues/by-queue/{queue}".format(
+                queue=queue
+            ),
             {},
         )
 
@@ -58,8 +61,8 @@ class TestLeagueApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
-        region = 'afasf'
-        league_id = 'aaa-bbb-ccc'
+        region = "afasf"
+        league_id = "aaa-bbb-ccc"
 
         ret = league.by_id(region, league_id)
 
@@ -67,7 +70,9 @@ class TestLeagueApiV3(object):
             LeagueApiV3.__name__,
             league.by_id.__name__,
             region,
-            'https://afasf.api.riotgames.com/lol/league/v3/leagues/{league_id}'.format(league_id=league_id),
+            "https://afasf.api.riotgames.com/lol/league/v3/leagues/{league_id}".format(
+                league_id=league_id
+            ),
             {},
         )
 
@@ -79,7 +84,7 @@ class TestLeagueApiV3(object):
         mock_base_api.raw_request.return_value = expected_return
 
         league = LeagueApiV3(mock_base_api)
-        region = 'afasf'
+        region = "afasf"
         summoner_id = 52343
 
         ret = league.positions_by_summoner(region, summoner_id)
@@ -88,7 +93,9 @@ class TestLeagueApiV3(object):
             LeagueApiV3.__name__,
             league.positions_by_summoner.__name__,
             region,
-            'https://afasf.api.riotgames.com/lol/league/v3/positions/by-summoner/{summonerId}'.format(summonerId=summoner_id),
+            "https://afasf.api.riotgames.com/lol/league/v3/positions/by-summoner/{summonerId}".format(
+                summonerId=summoner_id
+            ),
             {},
         )
 

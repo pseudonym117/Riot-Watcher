@@ -1,4 +1,3 @@
-
 from .BaseApi import BaseApi
 from .NamedEndpoint import NamedEndpoint
 from .ChampionApiV3 import ChampionApiV3
@@ -12,15 +11,15 @@ from .SummonerApiV3 import SummonerApiV3
 from .ThirdPartyCodeApiV3 import ThirdPartyCodeApiV3
 
 __all__ = [
-    'BaseApi',
-    'NamedEndpoint',
-    'ChampionApiV3',
-    'ChampionMasteryApiV3',
-    'LeagueApiV3',
-    'LolStatusApiV3',
-    'MatchApiV3',
-    'SpectatorApiV3',
-    'DataDragonApi',
-    'SummonerApiV3',
-    'ThirdPartyCodeApiV3'
+    "BaseApi",
+    "NamedEndpoint",
+    "ChampionApiV3",
+    "ChampionMasteryApiV3",
+    "LeagueApiV3",
+    "LolStatusApiV3",
+    "MatchApiV3",
+    "SpectatorApiV3",
+    "DataDragonApi",
+    "SummonerApiV3",
+    "ThirdPartyCodeApiV3",
 ]
