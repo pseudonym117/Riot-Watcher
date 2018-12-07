@@ -1,5 +1,6 @@
 
 from . import NamedEndpoint
+from .urls import ThirdPartyCodeApiV3Urls
 
 
 class ThirdPartyCodeApiV3(NamedEndpoint):
@@ -26,10 +27,6 @@ class ThirdPartyCodeApiV3(NamedEndpoint):
 
         :returns: string
         """
-        return self._request(
-            self.by_summoner.__name__,
-            region,
-            '/lol/platform/v3/third-party-code/by-summoner/{summonerId}'.format(
-                summonerId=summoner_id
-            )
-        )
+        url, query = ThirdPartyCodeApiV3Urls.by_summoner(region=region, summoner_id=summoner_id)
+
+        return self._raw_request(self.by_summoner.__name__, region, url, query)
