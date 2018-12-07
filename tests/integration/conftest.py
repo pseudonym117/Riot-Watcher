@@ -19,12 +19,22 @@ def mock_get(monkeypatch):
 class MockContext(object):
     def __init__(self, api_key, mock_get, watcher):
         self._api_key = api_key
+        self._expected_response = {'has_value': 'yes', }
         self._get = mock_get
         self._watcher = watcher
+
+        mock_response = mock.MagicMock()
+        mock_response.json.return_value = self._expected_response
+
+        self.get.return_value = mock_response
     
     @property
     def api_key(self):
         return self._api_key
+
+    @property
+    def expected_response(self):
+        return self._expected_response
 
     @property
     def get(self):

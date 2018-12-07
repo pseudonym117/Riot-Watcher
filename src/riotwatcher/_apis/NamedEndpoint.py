@@ -16,18 +16,6 @@ class NamedEndpoint(object):
         self._base_api = base_api
         self._endpoint_name = endpoint_name
 
-    def _request(self, method_name, region, url_ext, **kwargs):
-        """
-        Sends a request through the BaseApi instance provided, injecting the provided endpoint_name
-        into the method call, so the caller doesn't have to.
-
-        :param string method_name:  The name of the calling method
-        :param string region:   The region to execute this request on
-        :param string url_ext:  the URL of the request, after the domain. This means the part after
-                                the .com extension.
-        """
-        return self._base_api.request(self._endpoint_name, method_name, region, url_ext, **kwargs)
-
     def _raw_request(self, method_name, region, url, query_params):
         """
         Sends a request through the BaseApi instance provided, injecting the provided endpoint_name
