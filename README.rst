@@ -28,6 +28,7 @@ OR for development/testing, clone and run:
 ::
 
     pip install -e .[dev]
+    pre-commit install
 
 You also need to have an API key from Riot. Get that from
 `here <https://developer.riotgames.com/>`__.

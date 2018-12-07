@@ -7,7 +7,7 @@ __version__ = "2.4.0"
 
 descr_file = os.path.join(os.path.dirname(__file__), "README.rst")
 
-dev_requirements = ["coverage", "pytest", "pytest-cov", "tox"]
+dev_requirements = ["coverage", "pre-commit", "pytest", "pytest-cov", "tox"]
 
 if sys.version_info < (3, 0):
     dev_requirements.append("mock")
