@@ -400,6 +400,6 @@ registered trademarks ofRiot Games, Inc.
   :target: https://codecov.io/gh/pseudonym117/Riot-Watcher
   :alt: Test coverage
 
-.. |lgmt| image::https://img.shields.io/lgtm/grade/python/g/pseudonym117/Riot-Watcher.svg?logo=lgtm&logoWidth=18
+.. |lgmt| image:: https://img.shields.io/lgtm/grade/python/g/pseudonym117/Riot-Watcher.svg?logo=lgtm&logoWidth=18
   :target: (https://lgtm.com/projects/g/pseudonym117/Riot-Watcher/context:python)
   :alt: lgmt
