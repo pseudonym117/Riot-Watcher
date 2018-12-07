@@ -3,7 +3,7 @@ import re
 import requests
 
 
-class BaseApi:
+class BaseApi(object):
     def __init__(self, api_key, request_handlers=None):
         self._api_key = api_key
         self._request_handlers = request_handlers
