@@ -124,6 +124,12 @@ Changelog
 vNext (unrelease)
 ~~~~~~~~~~~~~~~~~
 
+BREAKING:
+
+RequestHandler.preview_static_request and RequestHandler.after_static_request no longer recieve
+version and locale directly as parameters. Should instead use URL. This API is undocumented,
+but technically broken by some ddragon related changes.
+
 Switched tests to use pytest + tox from unittest and remembering to run each
 python version supported.
 

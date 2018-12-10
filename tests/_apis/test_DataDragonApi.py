@@ -13,7 +13,7 @@ class TestDataDragonApi(object):
     def test_all_champions_default(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -21,8 +21,11 @@ class TestDataDragonApi(object):
 
         ret = static_data.champions(version)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version, "en_US", "champion"
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/champion.json".format(
+                version=version, locale="en_US"
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -30,7 +33,7 @@ class TestDataDragonApi(object):
     def test_all_champions_full(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -39,8 +42,11 @@ class TestDataDragonApi(object):
 
         ret = static_data.champions(version, True, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version, locale, "championFull"
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/championFull.json".format(
+                version=version, locale=locale
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -48,7 +54,7 @@ class TestDataDragonApi(object):
     def test_items(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -57,14 +63,19 @@ class TestDataDragonApi(object):
 
         ret = static_data.items(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(version, locale, "item")
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/item.json".format(
+                version=version, locale=locale
+            ),
+            {},
+        )
 
         assert ret is expected_return
 
     def test_languages(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -73,8 +84,11 @@ class TestDataDragonApi(object):
 
         ret = static_data.languages(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version, locale, "language"
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/language.json".format(
+                version=version, locale=locale
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -82,7 +96,7 @@ class TestDataDragonApi(object):
     def test_maps(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -91,14 +105,19 @@ class TestDataDragonApi(object):
 
         ret = static_data.maps(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(version, locale, "map")
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/map.json".format(
+                version=version, locale=locale
+            ),
+            {},
+        )
 
         assert ret is expected_return
 
     def test_masteries(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -107,14 +126,19 @@ class TestDataDragonApi(object):
 
         ret = static_data.masteries(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(version, locale, "mastery")
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/mastery.json".format(
+                version=version, locale=locale
+            ),
+            {},
+        )
 
         assert ret is expected_return
 
     def test_profile_icons(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -123,8 +147,11 @@ class TestDataDragonApi(object):
 
         ret = static_data.profile_icons(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version, locale, "profileicon"
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/profileicon.json".format(
+                version=version, locale=locale
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -132,7 +159,7 @@ class TestDataDragonApi(object):
     def test_runes(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -141,14 +168,19 @@ class TestDataDragonApi(object):
 
         ret = static_data.runes(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(version, locale, "rune")
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/rune.json".format(
+                version=version, locale=locale
+            ),
+            {},
+        )
 
         assert ret is expected_return
 
     def test_runes_reforged(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -157,8 +189,11 @@ class TestDataDragonApi(object):
 
         ret = static_data.runes_reforged(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version, locale, "runesReforged"
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/runesReforged.json".format(
+                version=version, locale=locale
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -166,7 +201,7 @@ class TestDataDragonApi(object):
     def test_summoner_spells(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_static.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -175,8 +210,11 @@ class TestDataDragonApi(object):
 
         ret = static_data.summoner_spells(version, locale)
 
-        mock_base_api.request_static.assert_called_once_with(
-            version, locale, "summoner"
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/summoner.json".format(
+                version=version, locale=locale
+            ),
+            {},
         )
 
         assert ret is expected_return
@@ -184,7 +222,7 @@ class TestDataDragonApi(object):
     def test_version(self):
         mock_base_api = MagicMock()
         expected_return = object()
-        mock_base_api.request_version.return_value = expected_return
+        mock_base_api.raw_request_static.return_value = expected_return
 
         static_data = DataDragonApi(mock_base_api)
 
@@ -192,6 +230,11 @@ class TestDataDragonApi(object):
 
         ret = static_data.versions_for_region(region)
 
-        mock_base_api.request_version.assert_called_once_with(region)
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/realms/{region}.json".format(
+                region="euw"
+            ),
+            {},
+        )
 
         assert ret is expected_return
