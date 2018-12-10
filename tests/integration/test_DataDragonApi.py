@@ -1,3 +1,4 @@
+import re
 import sys
 
 import pytest
@@ -147,12 +148,12 @@ class TestDataDragonVersionsApi(object):
             "pbe1",
         ],
     )
-    def versions_for_region(self, mock_context, region):
+    def test_versions_for_region(self, mock_context, region):
         actual_response = mock_context.watcher.data_dragon.versions_for_region(region)
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/realms/{region}.json".format(
-                region=region
+                region=re.sub(r"\d", "", region)
             )
         )
