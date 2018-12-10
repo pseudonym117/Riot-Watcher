@@ -3,9 +3,7 @@ import re
 from .urls import DataDragonUrls
 
 
-class DataDragonApi:
-    # TODO support the NamedEndpoint?
-
+class DataDragonApi(object):
     def __init__(self, base_api):
         self._base_api = base_api
 
