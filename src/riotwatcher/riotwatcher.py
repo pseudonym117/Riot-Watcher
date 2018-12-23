@@ -24,19 +24,19 @@ class RiotWatcher:
         early_handlers = self.default_early_handlers if not early_handlers else early_handlers
         late_handlers = self.default_late_handlers if not late_handlers else late_handlers
 
-        self.__base_api = BaseApi(
+        self._base_api = BaseApi(
             api_key, connector=connector, loop=self.loop,
             early_handlers=early_handlers, late_handlers=late_handlers
         )
-        self._champion = ChampionApiV3(self.__base_api)
-        self._champion_mastery = ChampionMasteryApiV3(self.__base_api)
-        self._league = LeagueApiV3(self.__base_api)
-        self._lol_status = LolStatusApiV3(self.__base_api)
-        self._match = MatchApiV3(self.__base_api)
-        self._spectator = SpectatorApiV3(self.__base_api)
-        self._data_dragon = DataDragonApi(self.__base_api)
-        self._summoner = SummonerApiV3(self.__base_api)
-        self._third_party_code = ThirdPartyCodeApiV3(self.__base_api)
+        self._champion = ChampionApiV3(self._base_api)
+        self._champion_mastery = ChampionMasteryApiV3(self._base_api)
+        self._league = LeagueApiV3(self._base_api)
+        self._lol_status = LolStatusApiV3(self._base_api)
+        self._match = MatchApiV3(self._base_api)
+        self._spectator = SpectatorApiV3(self._base_api)
+        self._data_dragon = DataDragonApi(self._base_api)
+        self._summoner = SummonerApiV3(self._base_api)
+        self._third_party_code = ThirdPartyCodeApiV3(self._base_api)
         # TODO: tournament-stub
         # TODO: tournament
 
