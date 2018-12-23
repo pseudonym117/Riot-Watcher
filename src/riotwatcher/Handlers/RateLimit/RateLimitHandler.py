@@ -1,23 +1,24 @@
+import asyncio
 import datetime
 import logging
-import time
 
 from .. import RequestHandler
 
-from . import ApplicationRateLimiter, MethodRateLimiter, OopsRateLimiter
+from . import LimitCollection, RawLimit
+
+from . import ApplicationRateLimiter, MethodRateLimiter, ServiceRateLimiter
 
 
 class RateLimitHandler(RequestHandler):
-    def __init__(self):
-        super(RateLimitHandler, self).__init__()
+    def __init__(self, loop=None):
+        super().__init__(loop=loop)
+        self._limiters = [
+            ApplicationRateLimiter(loop=self.loop),
+            MethodRateLimiter(loop=self.loop),
+            ServiceRateLimiter(loop=self.loop)
+        ]
 
-        self._limiters = (
-            ApplicationRateLimiter(),
-            MethodRateLimiter(),
-            OopsRateLimiter(),
-        )
-
-    def preview_request(self, region, endpoint_name, method_name, url, query_params):
+    async def before_request(self, region, endpoint_name, method_name, url, query_params):
         """
         called before a request is processed.
 
@@ -31,8 +32,8 @@ class RateLimitHandler(RequestHandler):
         wait_until = max(
             [
                 (
-                    limiter.wait_until(region, endpoint_name, method_name),
-                    limiter.friendly_name,
+                    await limiter.wait_until(region, endpoint_name, method_name),
+                    limiter.name,
                 )
                 for limiter in self._limiters
             ],
@@ -49,9 +50,9 @@ class RateLimitHandler(RequestHandler):
                 to_wait.total_seconds(),
                 wait_until[1],
             )
-            time.sleep(to_wait.total_seconds())
+            await asyncio.sleep(to_wait.total_seconds())
 
-    def after_request(self, region, endpoint_name, method_name, url, response):
+    async def after_request(self, region, endpoint_name, method_name, url, response):
         """
         Called after a response is received and before it is returned to the user.
 
@@ -62,6 +63,6 @@ class RateLimitHandler(RequestHandler):
         :param response: the response received. This is a response from the Requests library
         """
         for limiter in self._limiters:
-            limiter.update_limiter(region, endpoint_name, method_name, response)
+            await limiter.update_limiter(region, endpoint_name, method_name, response)
 
         return response

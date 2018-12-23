@@ -10,17 +10,17 @@ class ThirdPartyCodeApiV3(NamedEndpoint):
     information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, http_client):
         """
-        Initialize a new ThirdPartyCodeApiV3 which uses the provided base_api
+        Initialize a new ThirdPartyCodeApiV3 which uses the provided http_client
 
-        :param BaseApi base_api: the root API object to use for making all requests.
+        :param HTTPClient http_client: the root API object to use for making all requests.
         """
         super(ThirdPartyCodeApiV3, self).__init__(
-            base_api, ThirdPartyCodeApiV3.__name__
+            http_client, ThirdPartyCodeApiV3.__name__
         )
 
-    def by_summoner(self, region, summoner_id):
+    async def by_summoner(self, region, summoner_id):
         """
         FOR KR SUMMONERS, A 404 WILL ALWAYS BE RETURNED.
 
@@ -33,4 +33,4 @@ class ThirdPartyCodeApiV3(NamedEndpoint):
             region=region, summoner_id=summoner_id
         )
 
-        return self._raw_request(self.by_summoner.__name__, region, url, query)
+        return await self._raw_request(self.by_summoner.__name__, region, url, query)

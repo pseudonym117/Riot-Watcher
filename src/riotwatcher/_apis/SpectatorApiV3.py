@@ -9,15 +9,15 @@ class SpectatorApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#spectator-v3 for more detailed information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, http_client):
         """
-        Initialize a new SpectatorApiV3 which uses the provided base_api
+        Initialize a new SpectatorApiV3 which uses the provided http_client
 
-        :param BaseApi base_api: the root API object to use for making all requests.
+        :param HTTPClient http_client: the root API object to use for making all requests.
         """
-        super(SpectatorApiV3, self).__init__(base_api, SpectatorApiV3.__name__)
+        super(SpectatorApiV3, self).__init__(http_client, SpectatorApiV3.__name__)
 
-    def by_summoner(self, region, summoner_id):
+    async def by_summoner(self, region, summoner_id):
         """
         Get current game information for the given summoner ID
 
@@ -29,9 +29,9 @@ class SpectatorApiV3(NamedEndpoint):
         url, query = SpectatorApiV3Urls.by_summoner(
             region=region, summoner_id=summoner_id
         )
-        return self._raw_request(self.by_summoner.__name__, region, url, query)
+        return await self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def featured_games(self, region):
+    async def featured_games(self, region):
         """
         Get list of featured games.
 
@@ -40,4 +40,4 @@ class SpectatorApiV3(NamedEndpoint):
         :returns: FeaturedGames
         """
         url, query = SpectatorApiV3Urls.featured_games(region=region)
-        return self._raw_request(self.featured_games.__name__, region, url, query)
+        return await self._raw_request(self.featured_games.__name__, region, url, query)

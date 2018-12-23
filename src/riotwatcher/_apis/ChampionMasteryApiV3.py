@@ -10,15 +10,15 @@ class ChampionMasteryApiV3(NamedEndpoint):
     information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, http_client):
         """
-        Initialize a new ChampionMasteryApiV3 which uses the provided base_api
+        Initialize a new ChampionMasteryApiV3 which uses the provided http_client
 
-        :param BaseApi base_api: the root API object to use for making all requests.
+        :param HTTPClient http_client: the root API object to use for making all requests.
         """
-        super(ChampionMasteryApiV3, self).__init__(base_api, self.__class__.__name__)
+        super(ChampionMasteryApiV3, self).__init__(http_client, self.__class__.__name__)
 
-    def by_summoner(self, region, summoner_id):
+    async def by_summoner(self, region, summoner_id):
         """
         Get all champion mastery entries sorted by number of champion points descending.
 
@@ -31,9 +31,9 @@ class ChampionMasteryApiV3(NamedEndpoint):
         url, query = ChampionMasteryApiV3Urls.by_summoner(
             region=region, summoner_id=summoner_id
         )
-        return self._raw_request(self.by_summoner.__name__, region, url, query)
+        return await self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def by_summoner_by_champion(self, region, summoner_id, champion_id):
+    async def by_summoner_by_champion(self, region, summoner_id, champion_id):
         """
         Get a champion mastery by player ID and champion ID.
 
@@ -47,11 +47,11 @@ class ChampionMasteryApiV3(NamedEndpoint):
         url, query = ChampionMasteryApiV3Urls.by_summoner_by_champion(
             region=region, summoner_id=summoner_id, champion_id=champion_id
         )
-        return self._raw_request(
+        return await self._raw_request(
             self.by_summoner_by_champion.__name__, region, url, query
         )
 
-    def scores_by_summoner(self, region, summoner_id):
+    async def scores_by_summoner(self, region, summoner_id):
         """
         Get a player's total champion mastery score, which is the sum of individual champion
         mastery levels
@@ -64,4 +64,4 @@ class ChampionMasteryApiV3(NamedEndpoint):
         url, query = ChampionMasteryApiV3Urls.scored_by_summoner(
             region=region, summoner_id=summoner_id
         )
-        return self._raw_request(self.scores_by_summoner.__name__, region, url, query)
+        return await self._raw_request(self.scores_by_summoner.__name__, region, url, query)

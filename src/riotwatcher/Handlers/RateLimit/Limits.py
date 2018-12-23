@@ -1,6 +1,6 @@
 import datetime
+import asyncio
 import logging
-import threading
 
 from collections import namedtuple
 
@@ -8,33 +8,34 @@ RawLimit = namedtuple("RawLimit", ["count", "limit", "time"])
 
 
 class LimitCollection(object):
-    def __init__(self):
+    def __init__(self, loop=None):
+        self.loop = asyncio.get_event_loop() if loop is None else loop
         self._limits = {}
-        self._limits_lock = threading.Lock()
+        self._limits_lock = asyncio.Lock(loop=loop)
 
-    def wait_until(self):
+    async def wait_until(self):
         # we dont really want to update the limits as we process them
         # may be able to move the max() call outside the lock though
-        with self._limits_lock:
+        async with self._limits_lock:
             limits_waits = [limit.wait_until() for key, limit in self._limits.items()]
             return max(limits_waits) if len(limits_waits) > 0 else None
 
-    def update_limits(self, raw_limits):
+    async def update_limits(self, raw_limits):
         for raw_limit in raw_limits:
             if raw_limit.time not in self._limits:
-                with self._limits_lock:
+                async with self._limits_lock:
                     # check again in case it has already been added
                     if raw_limit.time not in self._limits:
-                        self._limits[raw_limit.time] = Limit()
-            self._limits[raw_limit.time].set_raw_limit(raw_limit)
+                        self._limits[raw_limit.time] = Limit(loop=self.loop)
+            await self._limits[raw_limit.time].set_raw_limit(raw_limit)
 
 
 class Limit(object):
-    def __init__(self):
+    def __init__(self, loop=None):
         self._start_time = None
         self._raw_limit = RawLimit(0, 0, 0)
 
-        self._lock = threading.Lock()
+        self._lock = asyncio.Lock(loop=loop)
 
     @property
     def start_time(self):
@@ -52,11 +53,11 @@ class Limit(object):
     def limit(self):
         return self._raw_limit.limit
 
-    def set_raw_limit(self, raw_limit):
+    async def set_raw_limit(self, raw_limit):
         enter_time = datetime.datetime.now()
 
         # try to ensure some thread safety
-        with self._lock:
+        async with self._lock:
             reset_timer = False
 
             # if the time increment changed, we dont really know anything anymore

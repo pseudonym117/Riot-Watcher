@@ -1,17 +1,17 @@
-from .HeaderBasedLimiter import HeaderBasedLimiter
+from .HeaderBasedRateLimiter import HeaderBasedRateLimiter
 from .ApplicationRateLimiter import ApplicationRateLimiter
-from .Limits import Limit, LimitCollection, RawLimit
 from .MethodRateLimiter import MethodRateLimiter
-from .OopsRateLimiter import OopsRateLimiter
+from .ServiceRateLimiter import ServiceRateLimiter
+from .Limits import Limit, LimitCollection, RawLimit
 from .RateLimitHandler import RateLimitHandler
 
 __all__ = [
-    "HeaderBasedLimiter",
-    "ApplicationRateLimiter",
+    "RateLimitHandler",
+    "HeaderBasedRateLimiter",
     "Limit",
     "LimitCollection",
     "RawLimit",
+    "ApplicationRateLimiter",
     "MethodRateLimiter",
-    "OopsRateLimiter",
-    "RateLimitHandler",
+    "ServiceRateLimiter"
 ]
