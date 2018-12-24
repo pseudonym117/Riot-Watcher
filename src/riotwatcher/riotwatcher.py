@@ -1,5 +1,4 @@
 import asyncio
-import aiohttp
 
 from ._apis import (
     BaseApi,
