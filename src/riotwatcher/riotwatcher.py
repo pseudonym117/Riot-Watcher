@@ -14,7 +14,7 @@ from .Handlers import TypeCorrectorHandler, ThrowOnErrorHandler, JsonifyHandler
 from .Handlers.RateLimit import RateLimitHandler
 
 
-class RiotWatcher:
+class RiotWatcher(object):
     def __init__(self, api_key, connector=None, loop=None,
                  early_handlers=None, late_handlers=None):
         self.api_key = api_key
