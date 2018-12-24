@@ -9,13 +9,13 @@ class LolStatusApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#lol-status-v3 for more detailed information
     """
 
-    def __init__(self, http_client):
+    def __init__(self, base_api):
         """
-        Initialize a new LolStatusApiV3 which uses the provided http_client
+        Initialize a new LolStatusApiV3 which uses the provided base_api
 
-        :param HTTPClient http_client: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(LolStatusApiV3, self).__init__(http_client, LolStatusApiV3.__name__)
+        super(LolStatusApiV3, self).__init__(base_api, LolStatusApiV3.__name__)
 
     async def shard_data(self, region):
         """

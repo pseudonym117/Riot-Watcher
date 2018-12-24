@@ -9,13 +9,13 @@ class SummonerApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#summoner-v3 for more detailed information
     """
 
-    def __init__(self, http_client):
+    def __init__(self, base_api):
         """
-        Initialize a new SummonerApiV3 which uses the provided http_client
+        Initialize a new SummonerApiV3 which uses the provided base_api
 
-        :param HTTPClient http_client: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(SummonerApiV3, self).__init__(http_client, SummonerApiV3.__name__)
+        super(SummonerApiV3, self).__init__(base_api, SummonerApiV3.__name__)
 
     async def by_account(self, region, account_id):
         """

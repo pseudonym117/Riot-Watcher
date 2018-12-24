@@ -10,14 +10,14 @@ class ThirdPartyCodeApiV3(NamedEndpoint):
     information
     """
 
-    def __init__(self, http_client):
+    def __init__(self, base_api):
         """
-        Initialize a new ThirdPartyCodeApiV3 which uses the provided http_client
+        Initialize a new ThirdPartyCodeApiV3 which uses the provided base_api
 
-        :param HTTPClient http_client: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
         super(ThirdPartyCodeApiV3, self).__init__(
-            http_client, ThirdPartyCodeApiV3.__name__
+            base_api, ThirdPartyCodeApiV3.__name__
         )
 
     async def by_summoner(self, region, summoner_id):

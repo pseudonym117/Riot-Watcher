@@ -4,8 +4,8 @@ from .urls import DataDragonUrls
 
 
 class DataDragonApi(object):
-    def __init__(self, http_client):
-        self._http_client = http_client
+    def __init__(self, base_api):
+        self._base_api = base_api
 
     async def champions(self, version, full=False, locale=None):
         return await self._request(
@@ -41,8 +41,8 @@ class DataDragonApi(object):
     async def versions_for_region(self, region):
         region = re.sub(r"\d", "", region)
         url, query = DataDragonUrls.versions(region=region)
-        return await self._http_client._request_static(url, query)
+        return await self._base_api._request_static(url, query)
 
     async def _request(self, endpoint, version, locale):
         url, query = endpoint(version=version, locale=locale if locale else "en_US")
-        return await self._http_client._request_static(url, query)
+        return await self._base_api._request_static(url, query)

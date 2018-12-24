@@ -9,13 +9,13 @@ class LeagueApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#league-v3/ for more detailed information
     """
 
-    def __init__(self, http_client):
+    def __init__(self, base_api):
         """
-        Initialize a new LeagueApiV3 which uses the provided http_client
+        Initialize a new LeagueApiV3 which uses the provided base_api
 
-        :param HTTPClient http_client: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(LeagueApiV3, self).__init__(http_client, self.__class__.__name__)
+        super(LeagueApiV3, self).__init__(base_api, self.__class__.__name__)
 
     async def challenger_by_queue(self, region, queue):
         """

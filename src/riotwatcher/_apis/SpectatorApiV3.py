@@ -9,13 +9,13 @@ class SpectatorApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#spectator-v3 for more detailed information
     """
 
-    def __init__(self, http_client):
+    def __init__(self, base_api):
         """
-        Initialize a new SpectatorApiV3 which uses the provided http_client
+        Initialize a new SpectatorApiV3 which uses the provided base_api
 
-        :param HTTPClient http_client: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(SpectatorApiV3, self).__init__(http_client, SpectatorApiV3.__name__)
+        super(SpectatorApiV3, self).__init__(base_api, SpectatorApiV3.__name__)
 
     async def by_summoner(self, region, summoner_id):
         """

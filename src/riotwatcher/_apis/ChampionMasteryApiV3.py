@@ -10,13 +10,13 @@ class ChampionMasteryApiV3(NamedEndpoint):
     information
     """
 
-    def __init__(self, http_client):
+    def __init__(self, base_api):
         """
-        Initialize a new ChampionMasteryApiV3 which uses the provided http_client
+        Initialize a new ChampionMasteryApiV3 which uses the provided base_api
 
-        :param HTTPClient http_client: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(ChampionMasteryApiV3, self).__init__(http_client, self.__class__.__name__)
+        super(ChampionMasteryApiV3, self).__init__(base_api, self.__class__.__name__)
 
     async def by_summoner(self, region, summoner_id):
         """

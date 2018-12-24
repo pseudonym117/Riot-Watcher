@@ -9,13 +9,13 @@ class ChampionApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#champion-v3 for more detailed information
     """
 
-    def __init__(self, http_client):
+    def __init__(self, base_api):
         """
-        Initialize a new ChampionApiV3 which uses the provided http_client
+        Initialize a new ChampionApiV3 which uses the provided base_api
 
-        :param HTTPClient http_client: the root API object to use for making all requests.
+        :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(ChampionApiV3, self).__init__(http_client, self.__class__.__name__)
+        super(ChampionApiV3, self).__init__(base_api, self.__class__.__name__)
 
     async def rotations(self, region):
         """
