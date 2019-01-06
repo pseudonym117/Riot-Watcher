@@ -1,5 +1,7 @@
 import sys
 
+import pytest
+
 if sys.version_info > (3, 0):
     from unittest.mock import MagicMock
 else:
@@ -9,6 +11,7 @@ else:
 from riotwatcher._apis import ChampionApiV3
 
 
+@pytest.mark.unit
 class TestChampionApiV3(object):
     def test_rotations(self):
         mock_base_api = MagicMock()

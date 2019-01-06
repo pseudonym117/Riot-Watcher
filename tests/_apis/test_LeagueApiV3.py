@@ -1,5 +1,7 @@
 import sys
 
+import pytest
+
 if sys.version_info > (3, 0):
     from unittest.mock import MagicMock
 else:
@@ -8,6 +10,7 @@ else:
 from riotwatcher._apis import LeagueApiV3
 
 
+@pytest.mark.unit
 class TestLeagueApiV3(object):
     def test_challenger_by_queue(self):
         mock_base_api = MagicMock()

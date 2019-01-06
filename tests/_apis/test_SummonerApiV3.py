@@ -1,5 +1,7 @@
 import sys
 
+import pytest
+
 if sys.version_info > (3, 0):
     from unittest.mock import MagicMock
 else:
@@ -8,6 +10,7 @@ else:
 from riotwatcher._apis import SummonerApiV3
 
 
+@pytest.mark.unit
 class TestSummonerApiV3(object):
     def test_by_account(self):
         mock_base_api = MagicMock()
