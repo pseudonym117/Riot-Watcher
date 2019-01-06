@@ -6,6 +6,6 @@ from .DataDragonUrls import DataDragonUrls
 from .LeagueApiUrls import LeagueApiV3Urls, LeagueApiV4Urls
 from .LolStatusApiV3Urls import LolStatusApiV3Urls
 from .MatchApiUrls import MatchApiV3Urls, MatchApiV4Urls
-from .SpectatorApiV3Urls import SpectatorApiV3Urls
+from .SpectatorApiUrls import SpectatorApiV3Urls, SpectatorApiV4Urls
 from .SummonerApiV3Urls import SummonerApiV3Urls
 from .ThirdPartyCodeApiV3Urls import ThirdPartyCodeApiV3Urls

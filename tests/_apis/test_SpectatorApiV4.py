@@ -7,28 +7,28 @@ if sys.version_info > (3, 0):
 else:
     from mock import MagicMock
 
-from riotwatcher._apis import SpectatorApiV3
+from riotwatcher._apis import SpectatorApiV4
 
 
 @pytest.mark.unit
-class TestSpectatorApiV3(object):
+class TestSpectatorApiV4(object):
     def test_by_summoner(self):
         mock_base_api = MagicMock()
         expected_return = object()
         mock_base_api.raw_request.return_value = expected_return
 
-        spectator = SpectatorApiV3(mock_base_api)
+        spectator = SpectatorApiV4(mock_base_api)
         region = "agagd"
-        summoner_id = 98532
+        encrypted_summoner_id = 98532
 
-        ret = spectator.by_summoner(region, summoner_id)
+        ret = spectator.by_summoner(region, encrypted_summoner_id)
 
         mock_base_api.raw_request.assert_called_once_with(
-            SpectatorApiV3.__name__,
+            SpectatorApiV4.__name__,
             spectator.by_summoner.__name__,
             region,
-            "https://agagd.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/{summonerId}".format(
-                summonerId=summoner_id
+            "https://agagd.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}".format(
+                encrypted_summoner_id=encrypted_summoner_id
             ),
             {},
         )
@@ -40,16 +40,16 @@ class TestSpectatorApiV3(object):
         expected_return = object()
         mock_base_api.raw_request.return_value = expected_return
 
-        spectator = SpectatorApiV3(mock_base_api)
+        spectator = SpectatorApiV4(mock_base_api)
         region = "hfh42"
 
         ret = spectator.featured_games(region)
 
         mock_base_api.raw_request.assert_called_once_with(
-            SpectatorApiV3.__name__,
+            SpectatorApiV4.__name__,
             spectator.featured_games.__name__,
             region,
-            "https://hfh42.api.riotgames.com/lol/spectator/v3/featured-games",
+            "https://hfh42.api.riotgames.com/lol/spectator/v4/featured-games",
             {},
         )
 
