@@ -12,6 +12,7 @@ from .ThirdPartyCodeApiV3 import ThirdPartyCodeApiV3
 
 from .ChampionMasteryApiV4 import ChampionMasteryApiV4
 from .LeagueApiV4 import LeagueApiV4
+from .MatchApiV4 import MatchApiV4
 
 __all__ = [
     "BaseApi",
@@ -27,4 +28,5 @@ __all__ = [
     "ThirdPartyCodeApiV3",
     "ChampionMasteryApiV4",
     "LeagueApiV4",
+    "MatchApiV4",
 ]

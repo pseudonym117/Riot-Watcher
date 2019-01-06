@@ -5,7 +5,7 @@ from .ChampionMasteryApiUrls import ChampionMasteryApiV3Urls, ChampionMasteryApi
 from .DataDragonUrls import DataDragonUrls
 from .LeagueApiUrls import LeagueApiV3Urls, LeagueApiV4Urls
 from .LolStatusApiV3Urls import LolStatusApiV3Urls
-from .MatchApiV3Urls import MatchApiV3Urls
+from .MatchApiUrls import MatchApiV3Urls, MatchApiV4Urls
 from .SpectatorApiV3Urls import SpectatorApiV3Urls
 from .SummonerApiV3Urls import SummonerApiV3Urls
 from .ThirdPartyCodeApiV3Urls import ThirdPartyCodeApiV3Urls
