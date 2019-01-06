@@ -11,6 +11,7 @@ else:
     import mock
 
 
+@pytest.mark.unit
 class TestLimit(object):
     def test_initial_start_time_correct(self):
         lim = Limit()
