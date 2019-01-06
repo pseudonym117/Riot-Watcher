@@ -1,6 +1,9 @@
+import pytest
+
 from riotwatcher.Handlers import TypeCorrectorHandler
 
 
+@pytest.mark.unit
 class TestTypeCorrectorHandler(object):
     def test_bool_remapped_to_string(self):
         corrector = TypeCorrectorHandler()
