@@ -14,6 +14,7 @@ from .ChampionMasteryApiV4 import ChampionMasteryApiV4
 from .LeagueApiV4 import LeagueApiV4
 from .MatchApiV4 import MatchApiV4
 from .SpectatorApiV4 import SpectatorApiV4
+from .SummonerApiV4 import SummonerApiV4
 
 __all__ = [
     "BaseApi",
@@ -31,4 +32,5 @@ __all__ = [
     "LeagueApiV4",
     "MatchApiV4",
     "SpectatorApiV4",
+    "SummonerApiV4",
 ]

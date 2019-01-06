@@ -21,8 +21,8 @@ class SpectatorApiV4(NamedEndpoint):
         """
         Get current game information for the given summoner ID
 
-        :param string region:       The region to execute this request on
-        :param long encrypted_summoner_id:    The ID of the summoner.
+        :param string region:                   The region to execute this request on
+        :param string encrypted_summoner_id:    The ID of the summoner.
 
         :returns: CurrentGameInfo
         """

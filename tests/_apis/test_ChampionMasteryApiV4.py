@@ -18,7 +18,7 @@ class TestChampionMasteryApiV4(object):
 
         mastery = ChampionMasteryApiV4(mock_base_api)
         region = "afas"
-        encrypted_summoner_id = 15462
+        encrypted_summoner_id = "15462"
 
         ret = mastery.by_summoner(region, encrypted_summoner_id)
 
@@ -39,7 +39,7 @@ class TestChampionMasteryApiV4(object):
 
         mastery = ChampionMasteryApiV4(mock_base_api)
         region = "fsgs"
-        encrypted_summoner_id = 53526
+        encrypted_summoner_id = "53526"
         champion_id = 7
 
         ret = mastery.by_summoner_by_champion(
@@ -63,7 +63,7 @@ class TestChampionMasteryApiV4(object):
 
         mastery = ChampionMasteryApiV4(mock_base_api)
         region = "fsgs"
-        encrypted_summoner_id = 6243
+        encrypted_summoner_id = "6243"
 
         ret = mastery.scores_by_summoner(region, encrypted_summoner_id)
 

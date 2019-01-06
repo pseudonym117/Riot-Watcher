@@ -60,17 +60,17 @@ class MatchApiV4(NamedEndpoint):
         Note that endTime should be greater than beginTime if both are specified, although there is
         no maximum limit on their range.
 
-        :param string region:       The region to execute this request on
-        :param long encrypted_account_id:     The account ID.
-        :param Set[int] queue:      Set of queue IDs for which to filtering matchlist.
-        :param long begin_time:     The begin time to use for filtering matchlist specified as
-                                    epoch milliseconds.
-        :param long end_time:       The end time to use for filtering matchlist specified as epoch
-                                    milliseconds.
-        :param int begin_index:     The begin index to use for filtering matchlist.
-        :param int end_index:       The end index to use for filtering matchlist.
-        :param Set[int] season:     Set of season IDs for which to filtering matchlist.
-        :param Set[int] champion:   Set of champion IDs for which to filtering matchlist.
+        :param string region:               The region to execute this request on
+        :param string encrypted_account_id: The account ID.
+        :param Set[int] queue:              Set of queue IDs for which to filtering matchlist.
+        :param long begin_time:             The begin time to use for filtering matchlist specified as
+                                            epoch milliseconds.
+        :param long end_time:               The end time to use for filtering matchlist specified as epoch
+                                            milliseconds.
+        :param int begin_index:             The begin index to use for filtering matchlist.
+        :param int end_index:               The end index to use for filtering matchlist.
+        :param Set[int] season:             Set of season IDs for which to filtering matchlist.
+        :param Set[int] champion:           Set of champion IDs for which to filtering matchlist.
 
         :returns: MatchlistDto
         """

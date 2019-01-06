@@ -21,8 +21,8 @@ class LeagueApiV4(NamedEndpoint):
         """
         Get the challenger league for a given queue.
 
-        :param string region: the region to execute this request on
-        :param string queue: the queue to get the challenger players for
+        :param string region:   the region to execute this request on
+        :param string queue:    the queue to get the challenger players for
 
         :returns: LeagueListDTO
         """
@@ -33,8 +33,8 @@ class LeagueApiV4(NamedEndpoint):
         """
         Get the grandmaster league for a given queue.
 
-        :param string region: the region to execute this request on
-        :param string queue: the queue to get the grandmaster players for
+        :param string region:   the region to execute this request on
+        :param string queue:    the queue to get the grandmaster players for
 
         :returns: LeagueListDTO
         """
@@ -45,8 +45,8 @@ class LeagueApiV4(NamedEndpoint):
         """
         Get the master league for a given queue.
 
-        :param string region: the region to execute this request on
-        :param string queue: the queue to get the master players for
+        :param string region:   the region to execute this request on
+        :param string queue:    the queue to get the master players for
 
         :returns: LeagueListDTO
         """
@@ -57,8 +57,8 @@ class LeagueApiV4(NamedEndpoint):
         """
         Get league with given ID, including inactive entries
 
-        :param string region: the region to execute this request on
-        :param string league_id: the league ID to query
+        :param string region:       the region to execute this request on
+        :param string league_id:    the league ID to query
 
         :returns: LeagueListDTO
         """
@@ -69,8 +69,8 @@ class LeagueApiV4(NamedEndpoint):
         """
         Get league positions in all queues for a given summoner ID
 
-        :param string region: the region to execute this request on
-        :param long encrypted_summoner_id: the summoner ID to query
+        :param string region:                   the region to execute this request on
+        :param string encrypted_summoner_id:    the summoner ID to query
 
         :returns: Set[LeaguePositionDTO]
         """

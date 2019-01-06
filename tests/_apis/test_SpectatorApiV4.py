@@ -19,7 +19,7 @@ class TestSpectatorApiV4(object):
 
         spectator = SpectatorApiV4(mock_base_api)
         region = "agagd"
-        encrypted_summoner_id = 98532
+        encrypted_summoner_id = "98532"
 
         ret = spectator.by_summoner(region, encrypted_summoner_id)
 

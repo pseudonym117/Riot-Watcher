@@ -22,8 +22,8 @@ class ChampionMasteryApiV4(NamedEndpoint):
         """
         Get all champion mastery entries.
 
-        :param string region: the region to execute this request on
-        :param long encrypted_summoner_id: Summoner ID associated with the player
+        :param string region:                   the region to execute this request on
+        :param string encrypted_summoner_id:    Summoner ID associated with the player
 
         :returns: List[ChampionMasteryDTO]: This object contains a list of Champion Mastery
                                             information for player and champion combination.
@@ -37,9 +37,9 @@ class ChampionMasteryApiV4(NamedEndpoint):
         """
         Get a champion mastery by player ID and champion ID.
 
-        :param string region: the region to execute this request on
-        :param long encrypted_summoner_id: Summoner ID associated with the player
-        :param long champion_id: Champion ID to retrieve Champion Mastery for
+        :param string                           region: the region to execute this request on
+        :param string encrypted_summoner_id:    Summoner ID associated with the player
+        :param long champion_id:                Champion ID to retrieve Champion Mastery for
 
         :returns: ChampionMasteryDTO: This object contains single Champion Mastery information for
                                       player and champion combination.
@@ -58,8 +58,8 @@ class ChampionMasteryApiV4(NamedEndpoint):
         Get a player's total champion mastery score, which is the sum of individual champion
         mastery levels
 
-        :param string region: the region to execute this request on
-        :param long encrypted_summoner_id: Summoner ID associated with the player
+        :param string region:                   the region to execute this request on
+        :param string encrypted_summoner_id:    Summoner ID associated with the player
 
         :returns: int
         """

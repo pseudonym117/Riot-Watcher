@@ -111,7 +111,7 @@ class TestLeagueApiV4(object):
 
         league = LeagueApiV4(mock_base_api)
         region = "afasf"
-        encrypted_summoner_id = 52343
+        encrypted_summoner_id = "52343"
 
         ret = league.positions_by_summoner(region, encrypted_summoner_id)
 

@@ -7,5 +7,5 @@ from .LeagueApiUrls import LeagueApiV3Urls, LeagueApiV4Urls
 from .LolStatusApiV3Urls import LolStatusApiV3Urls
 from .MatchApiUrls import MatchApiV3Urls, MatchApiV4Urls
 from .SpectatorApiUrls import SpectatorApiV3Urls, SpectatorApiV4Urls
-from .SummonerApiV3Urls import SummonerApiV3Urls
+from .SummonerApiUrls import SummonerApiV3Urls, SummonerApiV4Urls
 from .ThirdPartyCodeApiV3Urls import ThirdPartyCodeApiV3Urls

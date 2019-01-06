@@ -42,7 +42,7 @@ class TestMatchApiV4(object):
 
         match = MatchApiV4(mock_base_api)
         region = "sfsfa"
-        encrypted_account_id = 15357
+        encrypted_account_id = "15357"
 
         ret = match.matchlist_by_account(region, encrypted_account_id)
 
@@ -73,7 +73,7 @@ class TestMatchApiV4(object):
 
         match = MatchApiV4(mock_base_api)
         region = "sfsfa"
-        encrypted_account_id = 15357
+        encrypted_account_id = "15357"
 
         queue = "dfdfdaaa"
         begin_time, end_time = "sgshrhr", "sfsfsjjrj"
