@@ -1,5 +1,7 @@
 import sys
 
+import pytest
+
 if sys.version_info > (3, 0):
     from unittest.mock import MagicMock
 else:
@@ -9,6 +11,7 @@ else:
 from riotwatcher._apis import DataDragonApi
 
 
+@pytest.mark.unit
 class TestDataDragonApi(object):
     def test_all_champions_default(self):
         mock_base_api = MagicMock()
