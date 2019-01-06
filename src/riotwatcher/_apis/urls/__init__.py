@@ -8,4 +8,4 @@ from .LolStatusApiV3Urls import LolStatusApiV3Urls
 from .MatchApiUrls import MatchApiV3Urls, MatchApiV4Urls
 from .SpectatorApiUrls import SpectatorApiV3Urls, SpectatorApiV4Urls
 from .SummonerApiUrls import SummonerApiV3Urls, SummonerApiV4Urls
-from .ThirdPartyCodeApiV3Urls import ThirdPartyCodeApiV3Urls
+from .ThirdPartyCodeApiUrls import ThirdPartyCodeApiV3Urls, ThirdPartyCodeApiV4Urls
