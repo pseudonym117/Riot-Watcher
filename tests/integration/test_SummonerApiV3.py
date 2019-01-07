@@ -27,7 +27,7 @@ else:
         "pbe1",
     ],
 )
-class TestSummonerApi(object):
+class TestSummonerApiV3(object):
     @pytest.mark.parametrize("account_id", [12345, 99999999999999999999])
     def test_by_account(self, mock_context, region, account_id):
         actual_response = mock_context.watcher.summoner.by_account(region, account_id)

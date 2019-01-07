@@ -30,7 +30,7 @@ else:
 @pytest.mark.parametrize(
     "summoner_id", [1, 50, 424299938281, 9999999999999999999999, "rtbf12345"]
 )
-class TestChampionMasteryApi(object):
+class TestChampionMasteryApiV3(object):
     def test_by_summoner(self, mock_context, region, summoner_id):
         actual_response = mock_context.watcher.champion_mastery.by_summoner(
             region, summoner_id

@@ -27,7 +27,7 @@ else:
         "pbe1",
     ],
 )
-class TestLeagueApi(object):
+class TestLeagueApiV3(object):
     @pytest.mark.parametrize(
         "queue", ["RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT"]
     )

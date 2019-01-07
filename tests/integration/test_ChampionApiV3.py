@@ -27,7 +27,7 @@ else:
         "pbe1",
     ],
 )
-class TestChampionApi(object):
+class TestChampionApiV3(object):
     def test_rotations(self, mock_context, region):
         actual_response = mock_context.watcher.champion.rotations(region)
 
