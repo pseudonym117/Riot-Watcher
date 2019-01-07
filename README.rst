@@ -43,6 +43,7 @@ raised as HTTPError exceptions from the Requests library.
 .. code:: python
 
     from riotwatcher import RiotWatcher
+    from requests import HTTPError # Error checking requires importing HTTPError from requests
 
     watcher = RiotWatcher('<your-api-key>')
 
@@ -52,17 +53,13 @@ raised as HTTPError exceptions from the Requests library.
     print(me)
 
     # all objects are returned (by default) as a dict
-    # lets see if i got diamond yet (i probably didnt)
+    # lets see if I got diamond yet (I probably didn't)
     my_ranked_stats = watcher.league.positions_by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
-    # Lets some champions
+    # Lets get some champions
     static_champ_list = watcher.static_data.champions(my_region)
     print(static_champ_list)
-
-    # Error checking requires importing HTTPError from requests
-
-    from requests import HTTPError
 
     # For Riot's API, the 404 status code indicates that the requested data wasn't found and
     # should be expected to occur in normal operation, as in the case of a an
