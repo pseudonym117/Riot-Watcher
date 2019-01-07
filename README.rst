@@ -1,4 +1,4 @@
-RiotWatcher v2.4.0
+RiotWatcher v2.5.0
 ==================
 
 |pypi| |docs| |build| |coverage| |lgmt| |black|
@@ -7,12 +7,32 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 8/23/2018 are supported in full.
+of 1/6/2019 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
 environment does this rather well. In a multithreaded environment, you may
 still get some 429 errors. 429 errors are currently NOT retried for you.
+
+v3 / v4
+-------
+
+Until the deprecation date of 1/28/2019, RiotWatcher will default to using API v3 calls.
+After the deprecation date, v4 will be the default. 
+
+To enable v4 earlier, the following arguments can be supplied to the RiotWatcher constructor:
+
+====================    =======================================================
+Argument                explanation
+--------------------    -------------------------------------------------------
+v4                      use v4 for all endpoints (overrides all other options)
+v4_champion_mastery     use v4 for champion mastery endpoint
+v4_league               use v4 for league endpoint
+v4_match                use v4 for match endpoint
+v4_spectator            use v4 for spectator endpoint
+v4_summoner             use v4 for summoner endpoint
+v4_third_party_code     use v4 for third party code endpoint
+====================    =======================================================
 
 To Start...
 -----------
@@ -45,7 +65,7 @@ raised as HTTPError exceptions from the Requests library.
     from riotwatcher import RiotWatcher
     from requests import HTTPError # Error checking requires importing HTTPError from requests
 
-    watcher = RiotWatcher('<your-api-key>')
+    watcher = RiotWatcher('<your-api-key>', v4=True)
 
     my_region = 'na1'
 
@@ -118,8 +138,10 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
-vNext (unrelease)
+v2.5.0 - 1/6/2019
 ~~~~~~~~~~~~~~~~~
+
+Added v4 API support
 
 BREAKING:
 
