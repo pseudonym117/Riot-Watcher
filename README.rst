@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 1/6/2019 are supported in full.
+of 1/7/2019 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -62,8 +62,7 @@ raised as HTTPError exceptions from the Requests library.
 
 .. code:: python
 
-    from riotwatcher import RiotWatcher
-    from requests import HTTPError # Error checking requires importing HTTPError from requests
+    from riotwatcher import RiotWatcher, ApiError
 
     watcher = RiotWatcher('<your-api-key>', v4=True)
 
@@ -90,7 +89,7 @@ raised as HTTPError exceptions from the Requests library.
 
     try:
         response = watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
-    except HTTPError as err:
+    except ApiError as err:
         if err.response.status_code == 429:
             print('We should retry in {} seconds.'.format(e.headers['Retry-After']))
             print('this retry-after is handled by default by the RiotWatcher library')
@@ -138,10 +137,14 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
-v2.5.0 - 1/6/2019
+v2.5.0 - 1/7/2019
 ~~~~~~~~~~~~~~~~~
 
 Added v4 API support
+
+Changed exceptions to custom exception (ApiError) from requests exception.
+Change is backwards compatible until at least version v2.6. After that,
+catching HTTPError will no loger be supported.
 
 BREAKING:
 
