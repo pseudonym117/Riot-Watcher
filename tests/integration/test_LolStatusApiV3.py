@@ -27,7 +27,7 @@ else:
         "pbe1",
     ],
 )
-class TestStatusApi(object):
+class TestStatusApiV3(object):
     def test_shard_data(self, mock_context, region):
         actual_response = mock_context.watcher.lol_status.shard_data(region)
 

@@ -27,7 +27,7 @@ else:
         "pbe1",
     ],
 )
-class TestMatchApi(object):
+class TestMatchApiV3(object):
     @pytest.mark.parametrize("match_id", [12345, 54321, 2, 222222222222222222222])
     def test_by_id(self, mock_context, region, match_id):
         actual_response = mock_context.watcher.match.by_id(region, match_id)

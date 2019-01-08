@@ -27,7 +27,7 @@ else:
         "pbe1",
     ],
 )
-class TestSpectatorApi(object):
+class TestSpectatorApiV3(object):
     @pytest.mark.parametrize("summoner_id", [12345, 99999999999999999, -1])
     def test_by_summoner(self, mock_context, region, summoner_id):
         actual_response = mock_context.watcher.spectator.by_summoner(

@@ -4,12 +4,32 @@ Welcome to RiotWatcher's documentation!
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 8/23/2018 are supported in full.
+of 1/7/2019 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
 environment does this rather well. In a multithreaded environment, you may
 still get some 429 errors. 429 errors are currently NOT retried for you.
+
+v3 / v4
+-------
+
+Until the deprecation date of 1/28/2019, RiotWatcher will default to using API v3 calls.
+After the deprecation date, v4 will be the default. 
+
+To enable v4 earlier, the following arguments can be supplied to the RiotWatcher constructor:
+
+====================    =======================================================
+Argument                explanation
+--------------------    -------------------------------------------------------
+v4                      use v4 for all endpoints (overrides all other options)
+v4_champion_mastery     use v4 for champion mastery endpoint
+v4_league               use v4 for league endpoint
+v4_match                use v4 for match endpoint
+v4_spectator            use v4 for spectator endpoint
+v4_summoner             use v4 for summoner endpoint
+v4_third_party_code     use v4 for third party code endpoint
+====================    =======================================================
 
 To Start...
 -----------
@@ -38,9 +58,9 @@ raised as HTTPError exceptions from the Requests library.
 
 .. code:: python
 
-    from riotwatcher import RiotWatcher
+    from riotwatcher import RiotWatcher, ApiError
 
-    watcher = RiotWatcher('<your-api-key>')
+    watcher = RiotWatcher('<your-api-key>', v4=True)
 
     my_region = 'na1'
 
@@ -56,10 +76,6 @@ raised as HTTPError exceptions from the Requests library.
     static_champ_list = watcher.static_data.champions(my_region)
     print(static_champ_list)
 
-    # Error checking requires importing HTTPError from requests
-
-    from requests import HTTPError
-
     # For Riot's API, the 404 status code indicates that the requested data wasn't found and
     # should be expected to occur in normal operation, as in the case of a an
     # invalid summoner name, match ID, etc.
@@ -69,9 +85,9 @@ raised as HTTPError exceptions from the Requests library.
 
     try:
         response = watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
-    except HTTPError as err:
+    except ApiError as err:
         if err.response.status_code == 429:
-            print('We should retry in {} seconds.'.format(e.headers['Retry-After']))
+            print('We should retry in {} seconds.'.format(err.headers['Retry-After']))
             print('this retry-after is handled by default by the RiotWatcher library')
             print('future requests wait until the retry-after time passes')
         elif err.response.status_code == 404:

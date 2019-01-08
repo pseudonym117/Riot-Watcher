@@ -61,7 +61,7 @@ class ChampionMasteryApiV3(NamedEndpoint):
 
         :returns: int
         """
-        url, query = ChampionMasteryApiV3Urls.scored_by_summoner(
+        url, query = ChampionMasteryApiV3Urls.scores_by_summoner(
             region=region, summoner_id=summoner_id
         )
         return self._raw_request(self.scores_by_summoner.__name__, region, url, query)

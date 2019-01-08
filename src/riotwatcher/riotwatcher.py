@@ -1,15 +1,26 @@
+from ._apis import BaseApi, DataDragonApi, ChampionApiV3, LolStatusApiV3
 from ._apis import (
-    BaseApi,
-    DataDragonApi,
-    ChampionApiV3,
     ChampionMasteryApiV3,
     LeagueApiV3,
-    LolStatusApiV3,
+    MatchApiV3,
+    SpectatorApiV3,
+    SummonerApiV3,
+    ThirdPartyCodeApiV3,
 )
-from ._apis import MatchApiV3, SpectatorApiV3, SummonerApiV3, ThirdPartyCodeApiV3
+from ._apis import (
+    ChampionMasteryApiV4,
+    LeagueApiV4,
+    MatchApiV4,
+    SpectatorApiV4,
+    SummonerApiV4,
+    ThirdPartyCodeApiV4,
+)
 from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
 
 from .Handlers.RateLimit import RateLimitHandler
+
+
+from datetime import date
 
 
 class RiotWatcher(object):
@@ -17,7 +28,7 @@ class RiotWatcher(object):
     RiotWatcher class is intended to be the main interaction point with the RiotAPI.
     """
 
-    def __init__(self, api_key, custom_handler_chain=None):
+    def __init__(self, api_key, custom_handler_chain=None, **kwargs):
         """
         Initialize a new instance of the RiotWatcher class.
 
@@ -51,14 +62,44 @@ class RiotWatcher(object):
         self._base_api = BaseApi(api_key, custom_handler_chain)
 
         self._champion = ChampionApiV3(self._base_api)
-        self._champion_mastery = ChampionMasteryApiV3(self._base_api)
-        self._league = LeagueApiV3(self._base_api)
         self._lol_status = LolStatusApiV3(self._base_api)
-        self._match = MatchApiV3(self._base_api)
-        self._spectator = SpectatorApiV3(self._base_api)
         self._data_dragon = DataDragonApi(self._base_api)
-        self._summoner = SummonerApiV3(self._base_api)
-        self._third_party_code = ThirdPartyCodeApiV3(self._base_api)
+
+        force_v4 = kwargs.get("v4", False) or date.today() >= date(2019, 1, 28)
+
+        ChampionMasteryApi = (
+            ChampionMasteryApiV4
+            if force_v4 or kwargs.get("v4_champion_mastery", False)
+            else ChampionMasteryApiV3
+        )
+        LeagueApi = (
+            LeagueApiV4 if force_v4 or kwargs.get("v4_league", False) else LeagueApiV3
+        )
+        MatchApi = (
+            MatchApiV4 if force_v4 or kwargs.get("v4_match", False) else MatchApiV3
+        )
+        SpectatorApi = (
+            SpectatorApiV4
+            if force_v4 or kwargs.get("v4_spectator", False)
+            else SpectatorApiV3
+        )
+        SummonerApi = (
+            SummonerApiV4
+            if force_v4 or kwargs.get("v4_summoner", False)
+            else SummonerApiV3
+        )
+        ThirdPartyCodeApi = (
+            ThirdPartyCodeApiV4
+            if force_v4 or kwargs.get("v4_third_party_code", False)
+            else ThirdPartyCodeApiV3
+        )
+
+        self._champion_mastery = ChampionMasteryApi(self._base_api)
+        self._league = LeagueApi(self._base_api)
+        self._match = MatchApi(self._base_api)
+        self._spectator = SpectatorApi(self._base_api)
+        self._summoner = SummonerApi(self._base_api)
+        self._third_party_code = ThirdPartyCodeApi(self._base_api)
         # todo: tournament-stub
         # todo: tournament
 
@@ -67,7 +108,7 @@ class RiotWatcher(object):
         """
         Interface to the ChampionMastery Endpoint
 
-        :rtype: ChampionMasteryApiV3
+        :rtype: Union[ChampionMasteryApiV3, ChampionMasteryApiV4]
         """
         return self._champion_mastery
 
@@ -85,7 +126,7 @@ class RiotWatcher(object):
         """
         Interface to the League Endpoint
 
-        :rtype: LeagueApiV3
+        :rtype: Union[LeagueApiV3, LeagueApiV4]
         """
         return self._league
 
@@ -103,7 +144,7 @@ class RiotWatcher(object):
         """
         Interface to the Match Endpoint
 
-        :rtype: MatchApiV3
+        :rtype: Union[MatchApiV3, MatchApiV4]
         """
         return self._match
 
@@ -112,7 +153,7 @@ class RiotWatcher(object):
         """
         Interface to the Spectator Endpoint
 
-        :rtype: SpectatorApiV3
+        :rtype: Union[SpectatorApiV3, SpectatorApiV4]
         """
         return self._spectator
 
@@ -130,7 +171,7 @@ class RiotWatcher(object):
         """
         Interface to the Summoner Endpoint
 
-        :rtype: SummonerApiV3
+        :rtype: Union[SummonerApiV3, SummonerApiV4]
         """
         return self._summoner
 
@@ -139,6 +180,6 @@ class RiotWatcher(object):
         """
         Interface to the Third Party Code Endpoint
 
-        :rtype: ThirdPartyCodeApiV3
+        :rtype: Union[ThirdPartyCodeApiV3, ThirdPartyCodeApiV4]
         """
         return self._third_party_code
