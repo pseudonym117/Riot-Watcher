@@ -12,9 +12,6 @@ from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
 from .Handlers.RateLimit import RateLimitHandler
 
 
-from datetime import date
-
-
 class RiotWatcher(object):
     """
     RiotWatcher class is intended to be the main interaction point with the RiotAPI.
