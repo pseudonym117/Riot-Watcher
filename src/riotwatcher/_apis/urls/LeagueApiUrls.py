@@ -1,19 +1,6 @@
 from . import RegionEndpoint
 
 
-class LeagueV3Endpoint(RegionEndpoint):
-    def __init__(self, url, **kwargs):
-        nurl = "/league/v3" + url
-        super(LeagueV3Endpoint, self).__init__(nurl, **kwargs)
-
-
-class LeagueApiV3Urls(object):
-    challenger_by_queue = LeagueV3Endpoint("/challengerleagues/by-queue/{queue}")
-    master_by_queue = LeagueV3Endpoint("/masterleagues/by-queue/{queue}")
-    by_id = LeagueV3Endpoint("/leagues/{league_id}")
-    positions_by_summoner = LeagueV3Endpoint("/positions/by-summoner/{summoner_id}")
-
-
 class LeagueV4Endpoint(RegionEndpoint):
     def __init__(self, url, **kwargs):
         nurl = "/league/v4" + url
