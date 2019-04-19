@@ -104,6 +104,54 @@ class TestLeagueApiV4(object):
 
         assert ret is expected_return
 
+    def test_by_summoner(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        league = LeagueApiV4(mock_base_api)
+        region = "fdsga"
+        encrypted_summoner_id = "enc_summoner_1"
+
+        ret = league.by_summoner(region, encrypted_summoner_id)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            LeagueApiV4.__name__,
+            league.by_summoner.__name__,
+            region,
+            "https://{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/{encrypted_summonerI_id}".format(
+                region=region, encrypted_summonerI_id=encrypted_summoner_id
+            ),
+            {},
+        )
+
+        assert ret is expected_return
+
+    def test_entries(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        league = LeagueApiV4(mock_base_api)
+        region = "hfhafg"
+        queue = "yolo_q"
+        tier = "wood"
+        division = "VI"
+
+        ret = league.entries(region, queue, tier, division)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            LeagueApiV4.__name__,
+            league.entries.__name__,
+            region,
+            "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}".format(
+                region=region, queue=queue, tier=tier, division=division
+            ),
+            {},
+        )
+
+        assert ret is expected_return
+
     def test_positions_by_summoner(self):
         mock_base_api = MagicMock()
         expected_return = object()

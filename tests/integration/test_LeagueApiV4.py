@@ -94,6 +94,43 @@ class TestLeagueApiV4(object):
         "encrypted_summoner_id",
         ["50", "424299938281", "9999999999999999999999", "rtbf12345"],
     )
+    def test_by_summoner(self, mock_context_v4, region, encrypted_summoner_id):
+        actual_response = mock_context_v4.watcher.league.by_summoner(
+            region, encrypted_summoner_id
+        )
+
+        assert mock_context_v4.expected_response == actual_response
+        mock_context_v4.get.assert_called_once_with(
+            "https://{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/{encrypted_summoner_id}".format(
+                region=region, encrypted_summoner_id=encrypted_summoner_id
+            ),
+            params={},
+            headers={"X-Riot-Token": mock_context_v4.api_key},
+        )
+
+    @pytest.mark.parametrize(
+        "queue", ["RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT"]
+    )
+    @pytest.mark.parametrize("tier", ["IRON", "SILVER", "DIAMOND"])
+    @pytest.mark.parametrize("division", ["I", "IV"])
+    def test_entries(self, mock_context_v4, region, queue, tier, division):
+        actual_response = mock_context_v4.watcher.league.entries(
+            region, queue, tier, division
+        )
+
+        assert mock_context_v4.expected_response == actual_response
+        mock_context_v4.get.assert_called_once_with(
+            "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}".format(
+                region=region, queue=queue, tier=tier, division=division
+            ),
+            params={},
+            headers={"X-Riot-Token": mock_context_v4.api_key},
+        )
+
+    @pytest.mark.parametrize(
+        "encrypted_summoner_id",
+        ["50", "424299938281", "9999999999999999999999", "rtbf12345"],
+    )
     def test_positions_by_summoner(
         self, mock_context_v4, region, encrypted_summoner_id
     ):

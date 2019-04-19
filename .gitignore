@@ -63,3 +63,4 @@ target/
 .vscode/
 
 api_key
+.venv
