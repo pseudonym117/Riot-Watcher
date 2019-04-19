@@ -65,8 +65,40 @@ class LeagueApiV4(NamedEndpoint):
         url, query = LeagueApiV4Urls.by_id(region=region, league_id=league_id)
         return self._raw_request(self.by_id.__name__, region, url, query)
 
+    def by_summoner(self, region, encrypted_summoner_id):
+        """
+        Get league entries in all queues for a given summoner ID
+
+        :param string region:                   the region to execute this request on
+        :param string encrypted_summoner_id:    the summoner ID to query
+
+        :returns: Set[LeagueEntryDTO]
+        """
+        url, query = LeagueApiV4Urls.by_summoner(
+            region=region, encrypted_summoner_id=encrypted_summoner_id
+        )
+        return self._raw_request(self.by_summoner.__name__, region, url, query)
+
+    def entries(self, region, queue, tier, division):
+        """
+        Get all the league entries
+
+        :param string region:   the region to execute this request on
+        :param string queue:    the queue to query, i.e. RANKED_SOLO_5x5
+        :param string tier:     the tier to query, i.e. DIAMOND
+        :param string division: the division to query, i.e. III
+
+        :returns: Set[LeagueEntryDTO]
+        """
+        url, query = LeagueApiV4Urls.entries(
+            region=region, queue=queue, tier=tier, division=division
+        )
+        return self._raw_request(self.entries.__name__, region, url, query)
+
     def positions_by_summoner(self, region, encrypted_summoner_id):
         """
+        DEPRECATED
+
         Get league positions in all queues for a given summoner ID
 
         :param string region:                   the region to execute this request on
