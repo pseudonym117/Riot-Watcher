@@ -79,7 +79,7 @@ class LeagueApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def entries(self, region, queue, tier, division):
+    def entries(self, region, queue, tier, division, page=None):
         """
         Get all the league entries
 
