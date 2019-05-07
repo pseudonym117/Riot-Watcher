@@ -79,7 +79,7 @@ class LeagueApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def entries(self, region, queue, tier, division, page=None):
+    def entries(self, region, queue, tier, division, page=1):
         """
         Get all the league entries
 
@@ -87,7 +87,7 @@ class LeagueApiV4(NamedEndpoint):
         :param string queue:    the queue to query, i.e. RANKED_SOLO_5x5
         :param string tier:     the tier to query, i.e. DIAMOND
         :param string division: the division to query, i.e. III
-        :param int page:        the page for the query to paginate to (optional)
+        :param int page:        the page for the query to paginate to. Starts at 1.
         
         :returns: Set[LeagueEntryDTO]
         """
