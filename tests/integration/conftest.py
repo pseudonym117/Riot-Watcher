@@ -52,11 +52,3 @@ def mock_context(mock_get):
 
     api_key = "abcdefg"
     return MockContext(api_key, mock_get, riotwatcher.RiotWatcher(api_key))
-
-
-@pytest.fixture
-def mock_context_v4(mock_get):
-    import riotwatcher
-
-    api_key = "abcdefg"
-    return MockContext(api_key, mock_get, riotwatcher.RiotWatcher(api_key, v4=True))
