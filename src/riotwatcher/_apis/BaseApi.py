@@ -40,13 +40,6 @@ class BaseApi(object):
 
         return response
 
-    def request(self, endpoint_name, method_name, region, url_ext, **kwargs):
-        url = "https://{region}.api.riotgames.com{ext}".format(
-            region=region, ext=url_ext
-        )
-
-        return self.raw_request(endpoint_name, method_name, region, url, kwargs)
-
     def raw_request_static(self, url, query_params):
         response = None
         early_ret_idx = None
