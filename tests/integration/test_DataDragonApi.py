@@ -22,7 +22,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/champion.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_champion_full(self, mock_context, version, locale):
@@ -34,7 +35,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/championFull.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_items(self, mock_context, version, locale):
@@ -44,7 +46,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/item.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_languages(self, mock_context, version, locale):
@@ -56,7 +59,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/language.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_maps(self, mock_context, version, locale):
@@ -66,7 +70,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/map.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_masteries(self, mock_context, version, locale):
@@ -78,7 +83,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/mastery.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_profile_icons(self, mock_context, version, locale):
@@ -90,7 +96,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/profileicon.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_runes(self, mock_context, version, locale):
@@ -100,7 +107,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/rune.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_runes_reforged(self, mock_context, version, locale):
@@ -112,7 +120,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/runesReforged.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
     def test_summoner_spells(self, mock_context, version, locale):
@@ -124,7 +133,8 @@ class TestDataDragonApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/summoner.json".format(
                 version=version, locale=locale if locale else "en_US"
-            )
+            ),
+            params={},
         )
 
 
@@ -155,5 +165,6 @@ class TestDataDragonVersionsApi(object):
         mock_context.get.assert_called_once_with(
             "https://ddragon.leagueoflegends.com/realms/{region}.json".format(
                 region=re.sub(r"\d", "", region)
-            )
+            ),
+            params={},
         )
