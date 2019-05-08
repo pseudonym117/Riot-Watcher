@@ -29,16 +29,16 @@ else:
 )
 class TestMatchApiV4(object):
     @pytest.mark.parametrize("match_id", [12345, 54321, 2, 222222222222222222222])
-    def test_by_id(self, mock_context_v4, region, match_id):
-        actual_response = mock_context_v4.watcher.match.by_id(region, match_id)
+    def test_by_id(self, mock_context, region, match_id):
+        actual_response = mock_context.watcher.match.by_id(region, match_id)
 
-        assert mock_context_v4.expected_response == actual_response
-        mock_context_v4.get.assert_called_once_with(
+        assert mock_context.expected_response == actual_response
+        mock_context.get.assert_called_once_with(
             "https://{region}.api.riotgames.com/lol/match/v4/matches/{match_id}".format(
                 region=region, match_id=match_id
             ),
             params={},
-            headers={"X-Riot-Token": mock_context_v4.api_key},
+            headers={"X-Riot-Token": mock_context.api_key},
         )
 
     @pytest.mark.parametrize("encrypted_account_id", ["12345", "3333333333333333333"])
@@ -55,7 +55,7 @@ class TestMatchApiV4(object):
     @pytest.mark.parametrize("champion", [None, (90, 43, 12)])
     def test_matchlist_by_account(
         self,
-        mock_context_v4,
+        mock_context,
         region,
         encrypted_account_id,
         queue,
@@ -67,7 +67,7 @@ class TestMatchApiV4(object):
         begin_time, end_time = begin_end_time
         begin_index, end_index = begin_end_index
 
-        actual_response = mock_context_v4.watcher.match.matchlist_by_account(
+        actual_response = mock_context.watcher.match.matchlist_by_account(
             region,
             encrypted_account_id,
             queue=queue,
@@ -79,7 +79,7 @@ class TestMatchApiV4(object):
             champion=champion,
         )
 
-        assert mock_context_v4.expected_response == actual_response
+        assert mock_context.expected_response == actual_response
 
         expected_params = {}
         if queue is not None:
@@ -97,25 +97,23 @@ class TestMatchApiV4(object):
         if champion is not None:
             expected_params["champion"] = champion
 
-        mock_context_v4.get.assert_called_once_with(
+        mock_context.get.assert_called_once_with(
             "https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{encrypted_account_id}".format(
                 region=region, encrypted_account_id=encrypted_account_id
             ),
             params=expected_params,
-            headers={"X-Riot-Token": mock_context_v4.api_key},
+            headers={"X-Riot-Token": mock_context.api_key},
         )
 
     @pytest.mark.parametrize("match_id", [0, 54321, 3232323232323223])
-    def test_timeline_by_match(self, mock_context_v4, region, match_id):
-        actual_response = mock_context_v4.watcher.match.timeline_by_match(
-            region, match_id
-        )
+    def test_timeline_by_match(self, mock_context, region, match_id):
+        actual_response = mock_context.watcher.match.timeline_by_match(region, match_id)
 
-        assert mock_context_v4.expected_response == actual_response
-        mock_context_v4.get.assert_called_once_with(
+        assert mock_context.expected_response == actual_response
+        mock_context.get.assert_called_once_with(
             "https://{region}.api.riotgames.com/lol/match/v4/timelines/by-match/{match_id}".format(
                 region=region, match_id=match_id
             ),
             params={},
-            headers={"X-Riot-Token": mock_context_v4.api_key},
+            headers={"X-Riot-Token": mock_context.api_key},
         )
