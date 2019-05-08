@@ -7,7 +7,12 @@ from ._apis import (
     SummonerApiV4,
     ThirdPartyCodeApiV4,
 )
-from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
+from .Handlers import (
+    DeprecationHandler,
+    JsonifyHandler,
+    ThrowOnErrorHandler,
+    TypeCorrectorHandler,
+)
 
 from .Handlers.RateLimit import RateLimitHandler
 
@@ -37,7 +42,8 @@ class RiotWatcher(object):
                             JsonifyHandler,
                             ThrowOnErrorHandler,
                             TypeCorrector,
-                            RateLimitHandler
+                            RateLimitHandler,
+                            DeprecationHandler
                         ]
         :param int timeout: Time to wait for a response before timing out a connection to the Riot API
         """
@@ -47,6 +53,7 @@ class RiotWatcher(object):
                 ThrowOnErrorHandler(),
                 TypeCorrectorHandler(),
                 RateLimitHandler(),
+                DeprecationHandler(),
             ]
 
         self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
