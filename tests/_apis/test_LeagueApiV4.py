@@ -137,6 +137,32 @@ class TestLeagueApiV4(object):
         queue = "yolo_q"
         tier = "wood"
         division = "VI"
+        page = 420
+
+        ret = league.entries(region, queue, tier, division, page=page)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            LeagueApiV4.__name__,
+            league.entries.__name__,
+            region,
+            "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}".format(
+                region=region, queue=queue, tier=tier, division=division
+            ),
+            {"page": page},
+        )
+
+        assert ret is expected_return
+
+    def test_entries_defaults(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        league = LeagueApiV4(mock_base_api)
+        region = "fsgqqq"
+        queue = "yolo_q"
+        tier = "wood"
+        division = "III"
 
         ret = league.entries(region, queue, tier, division)
 
@@ -147,7 +173,7 @@ class TestLeagueApiV4(object):
             "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}".format(
                 region=region, queue=queue, tier=tier, division=division
             ),
-            {},
+            {"page": 1},
         )
 
         assert ret is expected_return

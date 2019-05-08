@@ -113,9 +113,10 @@ class TestLeagueApiV4(object):
     )
     @pytest.mark.parametrize("tier", ["IRON", "SILVER", "DIAMOND"])
     @pytest.mark.parametrize("division", ["I", "IV"])
-    def test_entries(self, mock_context_v4, region, queue, tier, division):
+    @pytest.mark.parametrize("page", [2, 420])
+    def test_entries(self, mock_context_v4, region, queue, tier, division, page):
         actual_response = mock_context_v4.watcher.league.entries(
-            region, queue, tier, division
+            region, queue, tier, division, page=page
         )
 
         assert mock_context_v4.expected_response == actual_response
@@ -123,7 +124,7 @@ class TestLeagueApiV4(object):
             "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}".format(
                 region=region, queue=queue, tier=tier, division=division
             ),
-            params={},
+            params={"page": page},
             headers={"X-Riot-Token": mock_context_v4.api_key},
         )
 
