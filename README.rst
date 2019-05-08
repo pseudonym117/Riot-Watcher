@@ -116,7 +116,20 @@ Removed deprecated v3 endpoints
 
 Add support for league v4 entry/by-summoner and entry/queue/tier/division endpoints
 
+
 Added warning log when deprecated endpoint is used
+
+Added support for timeout parameter. Example:
+
+.. code:: python
+
+    from riotwatcher import RiotWatcher, TimeoutError
+    
+    watcher = RiotWatcher('<your-api-key>', timeout=2.5) # timeout is in seconds
+    try:
+      watcher.summoner.by_name('na1', 'pseudonym117')
+    except TimeoutError:
+      print('timed out getting summoner')
 
 v2.5.0 - 1/7/2019
 ~~~~~~~~~~~~~~~~~

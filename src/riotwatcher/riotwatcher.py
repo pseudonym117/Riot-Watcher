@@ -22,7 +22,7 @@ class RiotWatcher(object):
     RiotWatcher class is intended to be the main interaction point with the RiotAPI.
     """
 
-    def __init__(self, api_key, custom_handler_chain=None, **kwargs):
+    def __init__(self, api_key, custom_handler_chain=None, timeout=None, **kwargs):
         """
         Initialize a new instance of the RiotWatcher class.
 
@@ -45,6 +45,7 @@ class RiotWatcher(object):
                             RateLimitHandler,
                             DeprecationHandler
                         ]
+        :param int timeout: Time to wait for a response before timing out a connection to the Riot API
         """
         if custom_handler_chain is None:
             custom_handler_chain = [
@@ -55,7 +56,7 @@ class RiotWatcher(object):
                 DeprecationHandler(),
             ]
 
-        self._base_api = BaseApi(api_key, custom_handler_chain)
+        self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
 
         self._champion = ChampionApiV3(self._base_api)
         self._lol_status = LolStatusApiV3(self._base_api)
