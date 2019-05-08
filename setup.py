@@ -3,7 +3,7 @@ import os.path
 
 import sys
 
-__version__ = "2.5.0"
+__version__ = "2.6.0"
 
 descr_file = os.path.join(os.path.dirname(__file__), "README.rst")
 

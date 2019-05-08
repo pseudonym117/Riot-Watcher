@@ -1,4 +1,4 @@
-RiotWatcher v2.5.0
+RiotWatcher v2.6.0
 ==================
 
 |pypi| |docs| |build| |coverage| |lgmt| |black|
@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 4/19/2019 are supported in full.
+of 5/7/2019 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -109,8 +109,8 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
-vNext - Unlreleased
-~~~~~~~~~~~~~~~~~~~
+v2.6.0 - 5/7/2019
+~~~~~~~~~~~~~~~~~
 
 Removed deprecated v3 endpoints
 
@@ -127,9 +127,9 @@ Added support for timeout parameter. Example:
     
     watcher = RiotWatcher('<your-api-key>', timeout=2.5) # timeout is in seconds
     try:
-      watcher.summoner.by_name('na1', 'pseudonym117')
+        watcher.summoner.by_name('na1', 'pseudonym117')
     except TimeoutError:
-      print('timed out getting summoner')
+        print('timed out getting summoner')
 
 v2.5.0 - 1/7/2019
 ~~~~~~~~~~~~~~~~~
