@@ -29,16 +29,16 @@ else:
 )
 class TestThirdPartyCodeApiV4(object):
     @pytest.mark.parametrize("encrypted_summoner_id", ["12345", "99999999999999999"])
-    def test_by_summoner(self, mock_context_v4, region, encrypted_summoner_id):
-        actual_response = mock_context_v4.watcher.third_party_code.by_summoner(
+    def test_by_summoner(self, mock_context, region, encrypted_summoner_id):
+        actual_response = mock_context.watcher.third_party_code.by_summoner(
             region, encrypted_summoner_id
         )
 
-        assert mock_context_v4.expected_response == actual_response
-        mock_context_v4.get.assert_called_once_with(
+        assert mock_context.expected_response == actual_response
+        mock_context.get.assert_called_once_with(
             "https://{region}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/{encrypted_summoner_id}".format(
                 region=region, encrypted_summoner_id=encrypted_summoner_id
             ),
             params={},
-            headers={"X-Riot-Token": mock_context_v4.api_key},
+            headers={"X-Riot-Token": mock_context.api_key},
         )
