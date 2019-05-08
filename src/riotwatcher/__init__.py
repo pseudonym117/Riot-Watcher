@@ -1,4 +1,4 @@
-from .exceptions import ApiError
+from .exceptions import ApiError, TimeoutError
 from .riotwatcher import RiotWatcher
 
-__all__ = ["RiotWatcher", "Handlers", "ApiError"]
+__all__ = ["RiotWatcher", "Handlers", "ApiError", "TimeoutError"]

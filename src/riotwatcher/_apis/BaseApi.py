@@ -1,10 +1,13 @@
 import requests
 
+from requests.exceptions import Timeout
+
 
 class BaseApi(object):
-    def __init__(self, api_key, request_handlers=None):
+    def __init__(self, api_key, request_handlers=None, timeout=None):
         self._api_key = api_key
         self._request_handlers = request_handlers
+        self._timeout = timeout
 
     @property
     def api_key(self):
@@ -26,8 +29,15 @@ class BaseApi(object):
                     break
 
         if response is None:
+            extra = {}
+            if self._timeout is not None:
+                extra["timeout"] = self._timeout
+
             response = requests.get(
-                url, params=query_params, headers={"X-Riot-Token": self.api_key}
+                url,
+                params=query_params,
+                headers={"X-Riot-Token": self.api_key},
+                **extra,
             )
 
         if self._request_handlers is not None:

@@ -1,5 +1,7 @@
-import unittest
 import sys
+import unittest
+
+import pytest
 
 if sys.version_info > (3, 0):
     from unittest import mock
@@ -191,3 +193,9 @@ class BaseApiTestCase(unittest.TestCase):
         )
 
         self.assertEqual(ret, self._mock_api_response)
+
+
+@pytest.mark.unit
+class TestBaseApi(object):
+    def test_default_no_timeout(self):
+        pass
