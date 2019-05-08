@@ -116,6 +116,8 @@ Removed deprecated v3 endpoints
 
 Add support for league v4 entry/by-summoner and entry/queue/tier/division endpoints
 
+Added warning log when deprecated endpoint is used
+
 v2.5.0 - 1/7/2019
 ~~~~~~~~~~~~~~~~~
 
