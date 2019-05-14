@@ -10,7 +10,7 @@ class TypeCorrectorHandler(RequestHandler):
     as the API only accepts lower case booleans for some reason.
     """
 
-    def preview_request(self, region, endpoint_name, method_name, url, query_params):
+    async def before_request(self, region, endpoint_name, method_name, url, query_params):
         """
         called before a request is processed.
 

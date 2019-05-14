@@ -17,11 +17,11 @@ class ChampionApiV3(NamedEndpoint):
         """
         super(ChampionApiV3, self).__init__(base_api, self.__class__.__name__)
 
-    def rotations(self, region):
+    async def rotations(self, region):
         """
         Returns champion rotations, including free-to-play and low-level free-to-play rotations.
 
         :returns: ChampionInfo
         """
         url, query = ChampionApiV3Urls.rotations(region=region)
-        return self._raw_request(self.rotations.__name__, region, url, query)
+        return await self._raw_request(self.rotations.__name__, region, url, query)

@@ -17,7 +17,7 @@ class LolStatusApiV3(NamedEndpoint):
         """
         super(LolStatusApiV3, self).__init__(base_api, LolStatusApiV3.__name__)
 
-    def shard_data(self, region):
+    async def shard_data(self, region):
         """
         Get League of Legends status for the given shard.
 
@@ -28,4 +28,4 @@ class LolStatusApiV3(NamedEndpoint):
         :returns: ShardStatus
         """
         url, query = LolStatusApiV3Urls.shard_data(region=region)
-        return self._raw_request(self.shard_data.__name__, region, url, query)
+        return await self._raw_request(self.shard_data.__name__, region, url, query)

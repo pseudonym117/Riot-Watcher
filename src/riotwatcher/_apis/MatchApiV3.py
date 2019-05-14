@@ -17,7 +17,7 @@ class MatchApiV3(NamedEndpoint):
         """
         super(MatchApiV3, self).__init__(base_api, MatchApiV3.__name__)
 
-    def by_id(self, region, match_id):
+    async def by_id(self, region, match_id):
         """
         Get match by match ID
 
@@ -27,9 +27,9 @@ class MatchApiV3(NamedEndpoint):
         :returns: MatchDto
         """
         url, query = MatchApiV3Urls.by_id(region=region, match_id=match_id)
-        return self._raw_request(self.by_id.__name__, region, url, query)
+        return await self._raw_request(self.by_id.__name__, region, url, query)
 
-    def matchlist_by_account(
+    async def matchlist_by_account(
         self,
         region,
         account_id,
@@ -85,9 +85,9 @@ class MatchApiV3(NamedEndpoint):
             season=season,
             champion=champion,
         )
-        return self._raw_request(self.matchlist_by_account.__name__, region, url, query)
+        return await self._raw_request(self.matchlist_by_account.__name__, region, url, query)
 
-    def timeline_by_match(self, region, match_id):
+    async def timeline_by_match(self, region, match_id):
         """
         Get match timeline by match ID.
 
@@ -99,4 +99,4 @@ class MatchApiV3(NamedEndpoint):
         :returns: MatchTimelineDto
         """
         url, query = MatchApiV3Urls.timeline_by_match(region=region, match_id=match_id)
-        return self._raw_request(self.timeline_by_match.__name__, region, url, query)
+        return await self._raw_request(self.timeline_by_match.__name__, region, url, query)

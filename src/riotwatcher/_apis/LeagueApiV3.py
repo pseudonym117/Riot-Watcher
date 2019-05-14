@@ -17,7 +17,7 @@ class LeagueApiV3(NamedEndpoint):
         """
         super(LeagueApiV3, self).__init__(base_api, self.__class__.__name__)
 
-    def challenger_by_queue(self, region, queue):
+    async def challenger_by_queue(self, region, queue):
         """
         Get the challenger league for a given queue.
 
@@ -27,9 +27,9 @@ class LeagueApiV3(NamedEndpoint):
         :returns: LeagueListDTO
         """
         url, query = LeagueApiV3Urls.challenger_by_queue(region=region, queue=queue)
-        return self._raw_request(self.challenger_by_queue.__name__, region, url, query)
+        return await self._raw_request(self.challenger_by_queue.__name__, region, url, query)
 
-    def masters_by_queue(self, region, queue):
+    async def masters_by_queue(self, region, queue):
         """
         Get the master league for a given queue.
 
@@ -39,9 +39,9 @@ class LeagueApiV3(NamedEndpoint):
         :returns: LeagueListDTO
         """
         url, query = LeagueApiV3Urls.master_by_queue(region=region, queue=queue)
-        return self._raw_request(self.masters_by_queue.__name__, region, url, query)
+        return await self._raw_request(self.masters_by_queue.__name__, region, url, query)
 
-    def by_id(self, region, league_id):
+    async def by_id(self, region, league_id):
         """
         Get league with given ID, including inactive entries
 
@@ -51,9 +51,9 @@ class LeagueApiV3(NamedEndpoint):
         :returns: LeagueListDTO
         """
         url, query = LeagueApiV3Urls.by_id(region=region, league_id=league_id)
-        return self._raw_request(self.by_id.__name__, region, url, query)
+        return await self._raw_request(self.by_id.__name__, region, url, query)
 
-    def positions_by_summoner(self, region, summoner_id):
+    async def positions_by_summoner(self, region, summoner_id):
         """
         Get league positions in all queues for a given summoner ID
 
@@ -65,6 +65,6 @@ class LeagueApiV3(NamedEndpoint):
         url, query = LeagueApiV3Urls.positions_by_summoner(
             region=region, summoner_id=summoner_id
         )
-        return self._raw_request(
+        return await self._raw_request(
             self.positions_by_summoner.__name__, region, url, query
         )

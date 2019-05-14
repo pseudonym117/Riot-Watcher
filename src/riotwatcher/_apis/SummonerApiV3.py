@@ -17,7 +17,7 @@ class SummonerApiV3(NamedEndpoint):
         """
         super(SummonerApiV3, self).__init__(base_api, SummonerApiV3.__name__)
 
-    def by_account(self, region, account_id):
+    async def by_account(self, region, account_id):
         """
         Get a summoner by account ID.
 
@@ -27,9 +27,9 @@ class SummonerApiV3(NamedEndpoint):
         :returns: SummonerDTO: represents a summoner
         """
         url, query = SummonerApiV3Urls.by_account(region=region, account_id=account_id)
-        return self._raw_request(self.by_account.__name__, region, url, query)
+        return await self._raw_request(self.by_account.__name__, region, url, query)
 
-    def by_name(self, region, summoner_name):
+    async def by_name(self, region, summoner_name):
         """
         Get a summoner by summoner name
 
@@ -41,9 +41,9 @@ class SummonerApiV3(NamedEndpoint):
         url, query = SummonerApiV3Urls.by_name(
             region=region, summoner_name=summoner_name
         )
-        return self._raw_request(self.by_name.__name__, region, url, query)
+        return await self._raw_request(self.by_name.__name__, region, url, query)
 
-    def by_id(self, region, summoner_id):
+    async def by_id(self, region, summoner_id):
         """
         Get a summoner by summoner ID.
 
@@ -53,4 +53,4 @@ class SummonerApiV3(NamedEndpoint):
         :returns: SummonerDTO: represents a summoner
         """
         url, query = SummonerApiV3Urls.by_id(region=region, summoner_id=summoner_id)
-        return self._raw_request(self.by_id.__name__, region, url, query)
+        return await self._raw_request(self.by_id.__name__, region, url, query)

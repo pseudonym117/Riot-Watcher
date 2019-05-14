@@ -20,7 +20,7 @@ class ThirdPartyCodeApiV3(NamedEndpoint):
             base_api, ThirdPartyCodeApiV3.__name__
         )
 
-    def by_summoner(self, region, summoner_id):
+    async def by_summoner(self, region, summoner_id):
         """
         FOR KR SUMMONERS, A 404 WILL ALWAYS BE RETURNED.
 
@@ -33,4 +33,4 @@ class ThirdPartyCodeApiV3(NamedEndpoint):
             region=region, summoner_id=summoner_id
         )
 
-        return self._raw_request(self.by_summoner.__name__, region, url, query)
+        return await self._raw_request(self.by_summoner.__name__, region, url, query)

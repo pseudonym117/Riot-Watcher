@@ -1,8 +1,11 @@
-class RequestHandler(object):
-    def __init__(self):
-        pass
+import asyncio
 
-    def preview_request(self, region, endpoint_name, method_name, url, query_params):
+
+class RequestHandler(object):
+    def __init__(self, loop=None):
+        self.loop = asyncio.get_event_loop if loop is None else loop
+
+    async def before_request(self, region, endpoint_name, method_name, url, query_params):
         """
         called before a request is processed.
 
@@ -15,7 +18,7 @@ class RequestHandler(object):
         """
         pass
 
-    def after_request(self, region, endpoint_name, method_name, url, response):
+    async def after_request(self, region, endpoint_name, method_name, url, response):
         """
         Called after a response is received and before it is returned to the user.
 
@@ -27,18 +30,16 @@ class RequestHandler(object):
         """
         pass
 
-    def preview_static_request(self, url, query_params):
+    async def before_static_request(self, url, query_params):
         """
         Called before a request to DataDragon is processed
-
         :param url: The url that was requested
         """
         pass
 
-    def after_static_request(self, url, response):
+    async def after_static_request(self, url, response):
         """
         Called after a response is received and before it is returned to the user.
-
         :param url: The url that was requested
         :param response: the response received. This is a response from the Requests library
         """

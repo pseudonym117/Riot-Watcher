@@ -1,3 +1,5 @@
+import asyncio
+
 from ._apis import (
     BaseApi,
     DataDragonApi,
@@ -7,49 +9,24 @@ from ._apis import (
     LolStatusApiV3,
 )
 from ._apis import MatchApiV3, SpectatorApiV3, SummonerApiV3, ThirdPartyCodeApiV3
-from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
-
+from .Handlers import TypeCorrectorHandler, ThrowOnErrorHandler, JsonifyHandler
 from .Handlers.RateLimit import RateLimitHandler
 
 
 class RiotWatcher(object):
-    """
-    RiotWatcher class is intended to be the main interaction point with the RiotAPI.
-    """
+    def __init__(self, api_key, connector=None, loop=None,
+                 early_handlers=None, late_handlers=None):
+        self.api_key = api_key
+        self.loop = asyncio.get_event_loop() if loop is None else loop
 
-    def __init__(self, api_key, custom_handler_chain=None):
-        """
-        Initialize a new instance of the RiotWatcher class.
+        self._rate_limiter = RateLimitHandler(loop=self.loop)
+        early_handlers = self.default_early_handlers if not early_handlers else early_handlers
+        late_handlers = self.default_late_handlers if not late_handlers else late_handlers
 
-        :param string api_key: the API key to use for this instance
-        :param List[RequestHandler] custom_handler_chain:
-                    RequestHandler chain to pass to the created BaseApi object.
-                    This chain is called in order before any calls to the API, and called in
-                    reverse order after any calls to the API.
-                    If preview_request returns data, the rest of the call short circuits,
-                    preventing any call to the real API and calling any handlers that have already
-                    been run in reverse order.
-                    This should allow for dynamic tiered caching of data.
-                    If after_request returns data, that is the data that is fed to the next handler
-                    in the chain.
-                    Default chain is:
-                        [
-                            JsonifyHandler,
-                            ThrowOnErrorHandler,
-                            TypeCorrector,
-                            RateLimitHandler
-                        ]
-        """
-        if custom_handler_chain is None:
-            custom_handler_chain = [
-                JsonifyHandler(),
-                ThrowOnErrorHandler(),
-                TypeCorrectorHandler(),
-                RateLimitHandler(),
-            ]
-
-        self._base_api = BaseApi(api_key, custom_handler_chain)
-
+        self._base_api = BaseApi(
+            api_key, connector=connector, loop=self.loop,
+            early_handlers=early_handlers, late_handlers=late_handlers
+        )
         self._champion = ChampionApiV3(self._base_api)
         self._champion_mastery = ChampionMasteryApiV3(self._base_api)
         self._league = LeagueApiV3(self._base_api)
@@ -59,14 +36,28 @@ class RiotWatcher(object):
         self._data_dragon = DataDragonApi(self._base_api)
         self._summoner = SummonerApiV3(self._base_api)
         self._third_party_code = ThirdPartyCodeApiV3(self._base_api)
-        # todo: tournament-stub
-        # todo: tournament
+        # TODO: tournament-stub
+        # TODO: tournament
+
+    @property
+    def default_early_handlers(self):
+        return [
+            TypeCorrectorHandler(loop=self.loop),
+            self._rate_limiter
+        ]
+    
+    @property
+    def default_late_handlers(self):
+        return [
+            self._rate_limiter,
+            ThrowOnErrorHandler(loop=self.loop),
+            JsonifyHandler(loop=self.loop)
+        ]
 
     @property
     def champion_mastery(self):
         """
         Interface to the ChampionMastery Endpoint
-
         :rtype: ChampionMasteryApiV3
         """
         return self._champion_mastery
@@ -75,7 +66,6 @@ class RiotWatcher(object):
     def champion(self):
         """
         Interface to the Champion Endpoint
-
         :rtype: ChampionApiV3
         """
         return self._champion
@@ -84,7 +74,6 @@ class RiotWatcher(object):
     def league(self):
         """
         Interface to the League Endpoint
-
         :rtype: LeagueApiV3
         """
         return self._league
@@ -93,7 +82,6 @@ class RiotWatcher(object):
     def lol_status(self):
         """
         Interface to the LoLStatus Endpoint
-
         :rtype: LolStatusApiV3
         """
         return self._lol_status
@@ -102,7 +90,6 @@ class RiotWatcher(object):
     def match(self):
         """
         Interface to the Match Endpoint
-
         :rtype: MatchApiV3
         """
         return self._match
@@ -111,7 +98,6 @@ class RiotWatcher(object):
     def spectator(self):
         """
         Interface to the Spectator Endpoint
-
         :rtype: SpectatorApiV3
         """
         return self._spectator
@@ -120,7 +106,6 @@ class RiotWatcher(object):
     def data_dragon(self):
         """
         Interface to the DataDragon Endpoint
-
         :rtype: DataDragonApi
         """
         return self._data_dragon
@@ -129,7 +114,6 @@ class RiotWatcher(object):
     def summoner(self):
         """
         Interface to the Summoner Endpoint
-
         :rtype: SummonerApiV3
         """
         return self._summoner
@@ -138,7 +122,6 @@ class RiotWatcher(object):
     def third_party_code(self):
         """
         Interface to the Third Party Code Endpoint
-
         :rtype: ThirdPartyCodeApiV3
         """
         return self._third_party_code
