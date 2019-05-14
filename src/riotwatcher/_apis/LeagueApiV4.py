@@ -88,7 +88,7 @@ class LeagueApiV4(NamedEndpoint):
         :param string tier:     the tier to query, i.e. DIAMOND
         :param string division: the division to query, i.e. III
         :param int page:        the page for the query to paginate to. Starts at 1.
-        
+
         :returns: Set[LeagueEntryDTO]
         """
         url, query = LeagueApiV4Urls.entries(

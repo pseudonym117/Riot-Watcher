@@ -1,4 +1,5 @@
 import requests
 
-ApiError = requests.HTTPError
+from .Handlers import ApiError
+
 TimeoutError = requests.exceptions.Timeout

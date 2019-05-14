@@ -17,7 +17,7 @@ class LimitCollection(object):
         # may be able to move the max() call outside the lock though
         with self._limits_lock:
             limits_waits = [limit.wait_until() for key, limit in self._limits.items()]
-            return max(limits_waits) if len(limits_waits) > 0 else None
+            return max(limits_waits) if limits_waits else None
 
     def update_limits(self, raw_limits):
         for raw_limit in raw_limits:
@@ -69,8 +69,7 @@ class Limit(object):
                     and self._raw_limit.count == 0
                 ):
                     logging.warning(
-                        "overwriting time limit, previously %s, now %s. "
-                        + "This may cause rate limitting issues.",
+                        "overwriting time limit, previously %s, now %s. This may cause rate limitting issues.",
                         self._raw_limit.time,
                         raw_limit.time,
                     )

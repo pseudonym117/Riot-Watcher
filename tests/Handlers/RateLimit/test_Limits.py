@@ -5,11 +5,6 @@ import pytest
 
 from riotwatcher.Handlers.RateLimit import Limit, RawLimit
 
-if sys.version_info > (3, 0):
-    import unittest.mock as mock
-else:
-    import mock
-
 
 @pytest.mark.unit
 class TestLimit(object):

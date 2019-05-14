@@ -15,8 +15,7 @@ class OopsRateLimiter(object):
         if self._retry_at is not None:
             if self._retry_at > datetime.datetime.now():
                 return self._retry_at
-            else:
-                self._retry_at = None
+            self._retry_at = None
         return datetime.datetime(datetime.MINYEAR, 1, 1)
 
     def update_limiter(self, region, endpoint_name, method_name, response):

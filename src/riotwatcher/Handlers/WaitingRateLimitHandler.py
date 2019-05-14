@@ -7,5 +7,6 @@ class WaitingRateLimitHandler(RateLimitHandler):
     def __init__(self):
         super(WaitingRateLimitHandler, self).__init__()
         logging.warning(
-            "class WaitingRateLimitHandler is deprecated! please use riotwatcher.Handlers.RateLimit.RateLimitHandler."
+            "class WaitingRateLimitHandler is deprecated! "
+            + "please use riotwatcher.Handlers.RateLimit.RateLimitHandler."
         )

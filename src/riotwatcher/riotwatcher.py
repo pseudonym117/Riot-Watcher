@@ -45,7 +45,8 @@ class RiotWatcher(object):
                             RateLimitHandler,
                             DeprecationHandler
                         ]
-        :param int timeout: Time to wait for a response before timing out a connection to the Riot API
+        :param int timeout: Time to wait for a response before timing out a connection to
+                            the Riot API
         """
         if custom_handler_chain is None:
             custom_handler_chain = [
