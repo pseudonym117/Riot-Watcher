@@ -1,4 +1,4 @@
-from . import RegionEndpoint
+from .Endpoint import RegionEndpoint
 
 
 class ChampionMasteryV4Endpoint(RegionEndpoint):

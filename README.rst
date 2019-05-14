@@ -109,6 +109,11 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+vNext - Unreleased
+~~~~~~~~~~~~~~~~~~
+
+General cleanup
+
 v2.6.0 - 5/7/2019
 ~~~~~~~~~~~~~~~~~
 

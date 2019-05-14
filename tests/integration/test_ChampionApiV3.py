@@ -1,11 +1,4 @@
-import sys
-
 import pytest
-
-if sys.version_info > (3, 0):
-    import unittest.mock as mock
-else:
-    import mock
 
 
 @pytest.mark.integration
