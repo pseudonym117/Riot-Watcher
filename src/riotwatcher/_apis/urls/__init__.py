@@ -1,3 +1,4 @@
+from .UrlConfig import UrlConfig
 from .Endpoint import Endpoint, RegionEndpoint
 
 from .ChampionApiUrls import ChampionApiV3Urls

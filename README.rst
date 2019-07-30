@@ -112,6 +112,8 @@ Changelog
 vNext - Unreleased
 ~~~~~~~~~~~~~~~~~~
 
+Add support for connecting to `kernel <https://github.com/meraki-analytics/kernel/>`__.
+
 General cleanup
 
 v2.6.0 - 5/7/2019

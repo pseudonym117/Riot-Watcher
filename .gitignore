@@ -64,3 +64,4 @@ target/
 
 api_key
 .venv
+.vs
