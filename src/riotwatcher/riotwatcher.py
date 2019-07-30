@@ -16,6 +16,8 @@ from .Handlers import (
 
 from .Handlers.RateLimit import RateLimitHandler
 
+from ._apis.urls import UrlConfig
+
 
 class RiotWatcher(object):
     """
@@ -48,14 +50,27 @@ class RiotWatcher(object):
         :param int timeout: Time to wait for a response before timing out a connection to
                             the Riot API
         """
+        kernel_url = kwargs.get("kernel_url")
+
         if custom_handler_chain is None:
-            custom_handler_chain = [
-                JsonifyHandler(),
-                ThrowOnErrorHandler(),
-                TypeCorrectorHandler(),
-                RateLimitHandler(),
-                DeprecationHandler(),
-            ]
+            if kernel_url:
+                custom_handler_chain = [
+                    JsonifyHandler(),
+                    ThrowOnErrorHandler(),
+                    TypeCorrectorHandler(),
+                    DeprecationHandler(),
+                ]
+            else:
+                custom_handler_chain = [
+                    JsonifyHandler(),
+                    ThrowOnErrorHandler(),
+                    TypeCorrectorHandler(),
+                    RateLimitHandler(),
+                    DeprecationHandler(),
+                ]
+
+        if kernel_url:
+            UrlConfig.root_url = kernel_url
 
         self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
 

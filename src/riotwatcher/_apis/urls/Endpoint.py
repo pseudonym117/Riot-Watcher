@@ -1,5 +1,7 @@
 import re
 
+from .UrlConfig import UrlConfig
+
 
 class Endpoint(object):
     def __init__(self, url, **kwargs):
@@ -10,7 +12,7 @@ class Endpoint(object):
         if "" in url_params:
             raise ValueError("nameless format parameters not supported!")
         self._url_params = url_params
-        self._query_params = kwargs.keys()
+        self._query_params = [key for key in kwargs.keys() if key not in url_params]
 
     def __call__(self, **kwargs):
         for req_param in self._url_params:
@@ -24,7 +26,12 @@ class Endpoint(object):
         return (self._url.format(**kwargs), query_params)
 
 
-class RegionEndpoint(Endpoint):
+class RegionEndpoint(object):
     def __init__(self, url, **kwargs):
-        nurl = "https://{region}.api.riotgames.com/lol" + url
-        super(RegionEndpoint, self).__init__(nurl, **kwargs)
+        self._url = url
+
+    def __call__(self, **kwargs):
+        final_url = UrlConfig.root_url + self._url
+
+        endpoint = Endpoint(final_url, **kwargs)
+        return endpoint(**kwargs)
