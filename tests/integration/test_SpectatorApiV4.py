@@ -27,23 +27,18 @@ class TestSpectatorApiV4(object):
             region, encrypted_summoner_id
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}".format(
-                region=region, encrypted_summoner_id=encrypted_summoner_id
+        mock_context.verify_api_call(
+            region,
+            "/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}".format(
+                encrypted_summoner_id=encrypted_summoner_id
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )
 
     def test_featured_games(self, mock_context, region):
         actual_response = mock_context.watcher.spectator.featured_games(region)
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/spectator/v4/featured-games".format(
-                region=region
-            ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+        mock_context.verify_api_call(
+            region, "/lol/spectator/v4/featured-games", {}, actual_response
         )

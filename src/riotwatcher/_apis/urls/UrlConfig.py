@@ -1,2 +1,2 @@
 class UrlConfig(object):
-    root_url = "https://{region}.api.riotgames.com/lol"
+    root_url = "https://{region}.api.riotgames.com"

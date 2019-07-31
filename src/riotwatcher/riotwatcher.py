@@ -24,7 +24,9 @@ class RiotWatcher(object):
     RiotWatcher class is intended to be the main interaction point with the RiotAPI.
     """
 
-    def __init__(self, api_key, custom_handler_chain=None, timeout=None, **kwargs):
+    def __init__(
+        self, api_key=None, custom_handler_chain=None, timeout=None, kernel_url=None
+    ):
         """
         Initialize a new instance of the RiotWatcher class.
 
@@ -49,8 +51,11 @@ class RiotWatcher(object):
                         ]
         :param int timeout: Time to wait for a response before timing out a connection to
                             the Riot API
+        :param string kernel_url: URL for the kernel instance to connect to, instead of the API.
+                                  See https://github.com/meraki-analytics/kernel for details.
         """
-        kernel_url = kwargs.get("kernel_url")
+        if not kernel_url and not api_key:
+            raise ValueError("Either api_key or kernel_url must be set!")
 
         if custom_handler_chain is None:
             if kernel_url:
@@ -71,6 +76,8 @@ class RiotWatcher(object):
 
         if kernel_url:
             UrlConfig.root_url = kernel_url
+        else:
+            UrlConfig.root_url = "https://{region}.api.riotgames.com"
 
         self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
 

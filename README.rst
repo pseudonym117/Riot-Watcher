@@ -1,4 +1,4 @@
-RiotWatcher v2.6.0
+RiotWatcher v2.7.0
 ==================
 
 |pypi| |docs| |build| |coverage| |lgmt| |black|
@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 5/7/2019 are supported in full.
+of 7/30/2019 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -80,6 +80,20 @@ raised as HTTPError exceptions from the Requests library.
         else:
             raise
 
+Use with kernel
+---------------
+
+RiotWatcher can integrate with the API proxy/caching server `kernel <https://github.com/meraki-analytics/kernel/>`__.
+This can be done by providing the ``kernel_url`` parameter to the ``RiotWatcher`` constructor.
+
+.. code:: python
+
+    from riotwatcher import RiotWatcher, ApiError
+
+    watcher = RiotWatcher(kernel_url="https://your-kernel-instance") # should not contain trailing slash
+    # use watcher as normal
+    
+
 Advanced
 --------
 
@@ -109,7 +123,7 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
-vNext - Unreleased
+v2.7.0 - 7/30/2019
 ~~~~~~~~~~~~~~~~~~
 
 Add support for connecting to `kernel <https://github.com/meraki-analytics/kernel/>`__.

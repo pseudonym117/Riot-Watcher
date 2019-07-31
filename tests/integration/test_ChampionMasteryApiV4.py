@@ -27,13 +27,13 @@ class TestChampionMasteryApiV4(object):
             region, encrypted_summoner_id
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}".format(
-                region=region, encrypted_summoner_id=encrypted_summoner_id
+        mock_context.verify_api_call(
+            region,
+            "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}".format(
+                encrypted_summoner_id=encrypted_summoner_id
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )
 
     @pytest.mark.parametrize("champion_id", [0, 1, 9999999999, 150])
@@ -44,15 +44,13 @@ class TestChampionMasteryApiV4(object):
             region, encrypted_summoner_id, champion_id
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}".format(
-                region=region,
-                encrypted_summoner_id=encrypted_summoner_id,
-                champion_id=champion_id,
+        mock_context.verify_api_call(
+            region,
+            "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}".format(
+                encrypted_summoner_id=encrypted_summoner_id, champion_id=champion_id
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )
 
     def test_scores_by_summoner(self, mock_context, region, encrypted_summoner_id):
@@ -60,11 +58,11 @@ class TestChampionMasteryApiV4(object):
             region, encrypted_summoner_id
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}".format(
-                region=region, encrypted_summoner_id=encrypted_summoner_id
+        mock_context.verify_api_call(
+            region,
+            "/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}".format(
+                encrypted_summoner_id=encrypted_summoner_id
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )

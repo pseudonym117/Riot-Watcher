@@ -52,12 +52,22 @@ def mock_get(monkeypatch):
         yield mock_req
 
 
+@pytest.fixture
+def reset_globals():
+    from riotwatcher._apis.urls import UrlConfig
+
+    initial = UrlConfig.root_url
+    yield
+    UrlConfig.root_url = initial
+
+
 class MockContext(object):
-    def __init__(self, api_key, mock_get, watcher):
+    def __init__(self, api_key, mock_get, watcher, kernel_url):
         self._api_key = api_key
         self._expected_response = {"has_value": "yes"}
         self._get = mock_get
         self._watcher = watcher
+        self._kernel_url = kernel_url
 
         mock_response = mock.MagicMock()
         mock_response.json.return_value = self._expected_response
@@ -80,10 +90,31 @@ class MockContext(object):
     def watcher(self):
         return self._watcher
 
+    def verify_api_call(self, region, endpoint, query_params, actual_response):
+        assert self.expected_response == actual_response
 
-@pytest.fixture
-def mock_context(mock_get):
+        if self._kernel_url:
+            base_url = self._kernel_url
+            query_params["region"] = region
+        else:
+            base_url = "https://{region}.api.riotgames.com".format(region=region)
+
+        self.get.assert_called_once_with(
+            "{base_url}{endpoint}".format(base_url=base_url, endpoint=endpoint),
+            params=query_params,
+            headers={"X-Riot-Token": self.api_key},
+        )
+
+
+@pytest.fixture(params=(None, "https://kernel-proxy:8080"))
+@pytest.mark.usefixtures("reset_globals")
+def mock_context(mock_get, request):
     import riotwatcher
 
     api_key = "abcdefg"
-    return MockContext(api_key, mock_get, riotwatcher.RiotWatcher(api_key))
+    yield MockContext(
+        api_key,
+        mock_get,
+        riotwatcher.RiotWatcher(api_key, kernel_url=request.param),
+        request.param,
+    )
