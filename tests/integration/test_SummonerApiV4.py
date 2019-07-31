@@ -27,26 +27,26 @@ class TestSummonerApiV4(object):
             region, encrypted_account_id
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/{encrypted_account_id}".format(
-                region=region, encrypted_account_id=encrypted_account_id
+        mock_context.verify_api_call(
+            region,
+            "/summoner/v4/summoners/by-account/{encrypted_account_id}".format(
+                encrypted_account_id=encrypted_account_id
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )
 
     @pytest.mark.parametrize("summoner_name", ["pseudonym117", "Riot Tuxedo"])
     def test_by_name(self, mock_context, region, summoner_name):
         actual_response = mock_context.watcher.summoner.by_name(region, summoner_name)
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}".format(
-                region=region, summoner_name=summoner_name
+        mock_context.verify_api_call(
+            region,
+            "/summoner/v4/summoners/by-name/{summoner_name}".format(
+                summoner_name=summoner_name
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )
 
     @pytest.mark.parametrize("encrypted_puuid", ["12345", "99999999999999999999"])
@@ -55,13 +55,13 @@ class TestSummonerApiV4(object):
             region, encrypted_puuid
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{encrypted_puuid}".format(
-                region=region, encrypted_puuid=encrypted_puuid
+        mock_context.verify_api_call(
+            region,
+            "/summoner/v4/summoners/by-puuid/{encrypted_puuid}".format(
+                encrypted_puuid=encrypted_puuid
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )
 
     @pytest.mark.parametrize("encrypted_summoner_id", ["12345", "99999999999999999999"])
@@ -70,11 +70,11 @@ class TestSummonerApiV4(object):
             region, encrypted_summoner_id
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/summoner/v4/summoners/{encrypted_summoner_id}".format(
-                region=region, encrypted_summoner_id=encrypted_summoner_id
+        mock_context.verify_api_call(
+            region,
+            "/summoner/v4/summoners/{encrypted_summoner_id}".format(
+                encrypted_summoner_id=encrypted_summoner_id
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )

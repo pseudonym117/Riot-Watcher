@@ -24,11 +24,6 @@ class TestStatusApiV3(object):
     def test_shard_data(self, mock_context, region):
         actual_response = mock_context.watcher.lol_status.shard_data(region)
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/status/v3/shard-data".format(
-                region=region
-            ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+        mock_context.verify_api_call(
+            region, "/status/v3/shard-data", {}, actual_response
         )

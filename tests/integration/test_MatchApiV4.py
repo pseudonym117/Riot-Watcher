@@ -25,13 +25,11 @@ class TestMatchApiV4(object):
     def test_by_id(self, mock_context, region, match_id):
         actual_response = mock_context.watcher.match.by_id(region, match_id)
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/match/v4/matches/{match_id}".format(
-                region=region, match_id=match_id
-            ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+        mock_context.verify_api_call(
+            region,
+            "/match/v4/matches/{match_id}".format(match_id=match_id),
+            {},
+            actual_response,
         )
 
     @pytest.mark.parametrize("encrypted_account_id", ["12345", "3333333333333333333"])
@@ -72,8 +70,6 @@ class TestMatchApiV4(object):
             champion=champion,
         )
 
-        assert mock_context.expected_response == actual_response
-
         expected_params = {}
         if queue is not None:
             expected_params["queue"] = queue
@@ -90,23 +86,22 @@ class TestMatchApiV4(object):
         if champion is not None:
             expected_params["champion"] = champion
 
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{encrypted_account_id}".format(
-                region=region, encrypted_account_id=encrypted_account_id
+        mock_context.verify_api_call(
+            region,
+            "/match/v4/matchlists/by-account/{encrypted_account_id}".format(
+                encrypted_account_id=encrypted_account_id
             ),
-            params=expected_params,
-            headers={"X-Riot-Token": mock_context.api_key},
+            expected_params,
+            actual_response,
         )
 
     @pytest.mark.parametrize("match_id", [0, 54321, 3232323232323223])
     def test_timeline_by_match(self, mock_context, region, match_id):
         actual_response = mock_context.watcher.match.timeline_by_match(region, match_id)
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/match/v4/timelines/by-match/{match_id}".format(
-                region=region, match_id=match_id
-            ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+        mock_context.verify_api_call(
+            region,
+            "/match/v4/timelines/by-match/{match_id}".format(match_id=match_id),
+            {},
+            actual_response,
         )

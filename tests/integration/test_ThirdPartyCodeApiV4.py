@@ -27,11 +27,11 @@ class TestThirdPartyCodeApiV4(object):
             region, encrypted_summoner_id
         )
 
-        assert mock_context.expected_response == actual_response
-        mock_context.get.assert_called_once_with(
-            "https://{region}.api.riotgames.com/lol/platform/v4/third-party-code/by-summoner/{encrypted_summoner_id}".format(
-                region=region, encrypted_summoner_id=encrypted_summoner_id
+        mock_context.verify_api_call(
+            region,
+            "/platform/v4/third-party-code/by-summoner/{encrypted_summoner_id}".format(
+                encrypted_summoner_id=encrypted_summoner_id
             ),
-            params={},
-            headers={"X-Riot-Token": mock_context.api_key},
+            {},
+            actual_response,
         )
