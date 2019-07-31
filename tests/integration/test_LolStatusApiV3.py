@@ -25,5 +25,5 @@ class TestStatusApiV3(object):
         actual_response = mock_context.watcher.lol_status.shard_data(region)
 
         mock_context.verify_api_call(
-            region, "/status/v3/shard-data", {}, actual_response
+            region, "/lol/status/v3/shard-data", {}, actual_response
         )

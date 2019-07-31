@@ -29,7 +29,7 @@ class TestThirdPartyCodeApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/platform/v4/third-party-code/by-summoner/{encrypted_summoner_id}".format(
+            "/lol/platform/v4/third-party-code/by-summoner/{encrypted_summoner_id}".format(
                 encrypted_summoner_id=encrypted_summoner_id
             ),
             {},

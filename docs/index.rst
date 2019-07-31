@@ -4,7 +4,7 @@ Welcome to RiotWatcher's documentation!
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 5/7/2019 are supported in full.
+of 7/30/2019 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -75,6 +75,20 @@ raised as HTTPError exceptions from the Requests library.
             print('Summoner with that ridiculous name not found.')
         else:
             raise
+
+
+Use with kernel
+---------------
+
+RiotWatcher can integrate with the API proxy/caching server `kernel <https://github.com/meraki-analytics/kernel/>`__.
+This can be done by providing the ``kernel_url`` parameter to the ``RiotWatcher`` constructor.
+
+.. code:: python
+
+    from riotwatcher import RiotWatcher, ApiError
+
+    watcher = RiotWatcher(kernel_url="https://your-kernel-instance") # should not contain trailing slash
+    # use watcher as normal
 
 
 Main API and other topics

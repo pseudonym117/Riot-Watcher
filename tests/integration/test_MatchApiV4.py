@@ -27,7 +27,7 @@ class TestMatchApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/match/v4/matches/{match_id}".format(match_id=match_id),
+            "/lol/match/v4/matches/{match_id}".format(match_id=match_id),
             {},
             actual_response,
         )
@@ -88,7 +88,7 @@ class TestMatchApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/match/v4/matchlists/by-account/{encrypted_account_id}".format(
+            "/lol/match/v4/matchlists/by-account/{encrypted_account_id}".format(
                 encrypted_account_id=encrypted_account_id
             ),
             expected_params,
@@ -101,7 +101,7 @@ class TestMatchApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/match/v4/timelines/by-match/{match_id}".format(match_id=match_id),
+            "/lol/match/v4/timelines/by-match/{match_id}".format(match_id=match_id),
             {},
             actual_response,
         )

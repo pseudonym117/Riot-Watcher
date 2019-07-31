@@ -29,7 +29,7 @@ class TestSummonerApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/summoner/v4/summoners/by-account/{encrypted_account_id}".format(
+            "/lol/summoner/v4/summoners/by-account/{encrypted_account_id}".format(
                 encrypted_account_id=encrypted_account_id
             ),
             {},
@@ -42,7 +42,7 @@ class TestSummonerApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/summoner/v4/summoners/by-name/{summoner_name}".format(
+            "/lol/summoner/v4/summoners/by-name/{summoner_name}".format(
                 summoner_name=summoner_name
             ),
             {},
@@ -57,7 +57,7 @@ class TestSummonerApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/summoner/v4/summoners/by-puuid/{encrypted_puuid}".format(
+            "/lol/summoner/v4/summoners/by-puuid/{encrypted_puuid}".format(
                 encrypted_puuid=encrypted_puuid
             ),
             {},
@@ -72,7 +72,7 @@ class TestSummonerApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/summoner/v4/summoners/{encrypted_summoner_id}".format(
+            "/lol/summoner/v4/summoners/{encrypted_summoner_id}".format(
                 encrypted_summoner_id=encrypted_summoner_id
             ),
             {},

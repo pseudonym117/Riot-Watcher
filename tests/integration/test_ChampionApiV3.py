@@ -25,5 +25,5 @@ class TestChampionApiV3(object):
         actual_response = mock_context.watcher.champion.rotations(region)
 
         mock_context.verify_api_call(
-            region, "/platform/v3/champion-rotations", {}, actual_response
+            region, "/lol/platform/v3/champion-rotations", {}, actual_response
         )

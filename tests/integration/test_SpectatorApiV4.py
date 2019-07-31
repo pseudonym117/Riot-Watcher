@@ -29,7 +29,7 @@ class TestSpectatorApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}".format(
+            "/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}".format(
                 encrypted_summoner_id=encrypted_summoner_id
             ),
             {},
@@ -40,5 +40,5 @@ class TestSpectatorApiV4(object):
         actual_response = mock_context.watcher.spectator.featured_games(region)
 
         mock_context.verify_api_call(
-            region, "/spectator/v4/featured-games", {}, actual_response
+            region, "/lol/spectator/v4/featured-games", {}, actual_response
         )

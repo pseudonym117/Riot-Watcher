@@ -28,7 +28,7 @@ class Endpoint(object):
 
 class RegionEndpoint(object):
     def __init__(self, url, **kwargs):
-        self._url = url
+        self._url = "/lol" + url
 
     def __call__(self, **kwargs):
         final_url = UrlConfig.root_url + self._url

@@ -30,7 +30,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/league/v4/challengerleagues/by-queue/{queue}".format(queue=queue),
+            "/lol/league/v4/challengerleagues/by-queue/{queue}".format(queue=queue),
             {},
             actual_response,
         )
@@ -43,7 +43,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/league/v4/grandmasterleagues/by-queue/{queue}".format(queue=queue),
+            "/lol/league/v4/grandmasterleagues/by-queue/{queue}".format(queue=queue),
             {},
             actual_response,
         )
@@ -54,7 +54,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/league/v4/masterleagues/by-queue/{queue}".format(queue=queue),
+            "/lol/league/v4/masterleagues/by-queue/{queue}".format(queue=queue),
             {},
             actual_response,
         )
@@ -65,7 +65,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/league/v4/leagues/{league_id}".format(league_id=league_id),
+            "/lol/league/v4/leagues/{league_id}".format(league_id=league_id),
             {},
             actual_response,
         )
@@ -81,7 +81,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/league/v4/entries/by-summoner/{encrypted_summoner_id}".format(
+            "/lol/league/v4/entries/by-summoner/{encrypted_summoner_id}".format(
                 encrypted_summoner_id=encrypted_summoner_id
             ),
             {},
@@ -99,7 +99,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/league/v4/entries/{queue}/{tier}/{division}".format(
+            "/lol/league/v4/entries/{queue}/{tier}/{division}".format(
                 queue=queue, tier=tier, division=division
             ),
             {"page": page},
@@ -117,7 +117,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/league/v4/positions/by-summoner/{encrypted_summoner_id}".format(
+            "/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}".format(
                 encrypted_summoner_id=encrypted_summoner_id
             ),
             {},
