@@ -27,7 +27,7 @@ class SpectatorApiV4(NamedEndpoint):
         :returns: CurrentGameInfo
         """
         url, query = SpectatorApiV4Urls.by_summoner(
-            region=region, encrypted_summoner_id=encrypted_summoner_id
+            platform=region, encrypted_summoner_id=encrypted_summoner_id
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
@@ -39,5 +39,5 @@ class SpectatorApiV4(NamedEndpoint):
 
         :returns: FeaturedGames
         """
-        url, query = SpectatorApiV4Urls.featured_games(region=region)
+        url, query = SpectatorApiV4Urls.featured_games(platform=region)
         return self._raw_request(self.featured_games.__name__, region, url, query)

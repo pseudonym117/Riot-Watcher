@@ -29,7 +29,7 @@ class ChampionMasteryApiV4(NamedEndpoint):
                                             information for player and champion combination.
         """
         url, query = ChampionMasteryApiV4Urls.by_summoner(
-            region=region, encrypted_summoner_id=encrypted_summoner_id
+            platform=region, encrypted_summoner_id=encrypted_summoner_id
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
@@ -45,7 +45,7 @@ class ChampionMasteryApiV4(NamedEndpoint):
                                       player and champion combination.
         """
         url, query = ChampionMasteryApiV4Urls.by_summoner_by_champion(
-            region=region,
+            platform=region,
             encrypted_summoner_id=encrypted_summoner_id,
             champion_id=champion_id,
         )
@@ -64,6 +64,6 @@ class ChampionMasteryApiV4(NamedEndpoint):
         :returns: int
         """
         url, query = ChampionMasteryApiV4Urls.scores_by_summoner(
-            region=region, encrypted_summoner_id=encrypted_summoner_id
+            platform=region, encrypted_summoner_id=encrypted_summoner_id
         )
         return self._raw_request(self.scores_by_summoner.__name__, region, url, query)

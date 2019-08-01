@@ -1,4 +1,4 @@
-RiotWatcher v2.7.0
+RiotWatcher v2.7.1
 ==================
 
 |pypi| |docs| |build| |coverage| |lgmt| |black|
@@ -123,6 +123,11 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v2.7.1 - 7/31/2019
+~~~~~~~~~~~~~~~~~~
+
+Fixed issue with using kernel on regions other than NA.
+
 v2.7.0 - 7/30/2019
 ~~~~~~~~~~~~~~~~~~
 

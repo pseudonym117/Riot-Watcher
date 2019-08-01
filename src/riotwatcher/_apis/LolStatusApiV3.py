@@ -27,5 +27,5 @@ class LolStatusApiV3(NamedEndpoint):
 
         :returns: ShardStatus
         """
-        url, query = LolStatusApiV3Urls.shard_data(region=region)
+        url, query = LolStatusApiV3Urls.shard_data(platform=region)
         return self._raw_request(self.shard_data.__name__, region, url, query)

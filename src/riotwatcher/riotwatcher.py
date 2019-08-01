@@ -77,7 +77,7 @@ class RiotWatcher(object):
         if kernel_url:
             UrlConfig.root_url = kernel_url
         else:
-            UrlConfig.root_url = "https://{region}.api.riotgames.com"
+            UrlConfig.root_url = "https://{platform}.api.riotgames.com"
 
         self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
 
