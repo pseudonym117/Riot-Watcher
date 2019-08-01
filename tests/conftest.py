@@ -95,7 +95,7 @@ class MockContext(object):
 
         if self._kernel_url:
             base_url = self._kernel_url
-            query_params["region"] = region
+            query_params["platform"] = region
         else:
             base_url = "https://{region}.api.riotgames.com".format(region=region)
 

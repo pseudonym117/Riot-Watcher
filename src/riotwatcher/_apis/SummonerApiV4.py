@@ -27,7 +27,7 @@ class SummonerApiV4(NamedEndpoint):
         :returns: SummonerDTO: represents a summoner
         """
         url, query = SummonerApiV4Urls.by_account(
-            region=region, encrypted_account_id=encrypted_account_id
+            platform=region, encrypted_account_id=encrypted_account_id
         )
         return self._raw_request(self.by_account.__name__, region, url, query)
 
@@ -41,7 +41,7 @@ class SummonerApiV4(NamedEndpoint):
         :returns: SummonerDTO: represents a summoner
         """
         url, query = SummonerApiV4Urls.by_name(
-            region=region, summoner_name=summoner_name
+            platform=region, summoner_name=summoner_name
         )
         return self._raw_request(self.by_name.__name__, region, url, query)
 
@@ -55,7 +55,7 @@ class SummonerApiV4(NamedEndpoint):
         :returns: SummonerDTO: represents a summoner
         """
         url, query = SummonerApiV4Urls.by_puuid(
-            region=region, encrypted_puuid=encrypted_puuid
+            platform=region, encrypted_puuid=encrypted_puuid
         )
         return self._raw_request(self.by_puuid.__name__, region, url, query)
 
@@ -69,6 +69,6 @@ class SummonerApiV4(NamedEndpoint):
         :returns: SummonerDTO: represents a summoner
         """
         url, query = SummonerApiV4Urls.by_id(
-            region=region, encrypted_summoner_id=encrypted_summoner_id
+            platform=region, encrypted_summoner_id=encrypted_summoner_id
         )
         return self._raw_request(self.by_id.__name__, region, url, query)

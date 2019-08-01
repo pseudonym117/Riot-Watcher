@@ -23,5 +23,5 @@ class ChampionApiV3(NamedEndpoint):
 
         :returns: ChampionInfo
         """
-        url, query = ChampionApiV3Urls.rotations(region=region)
+        url, query = ChampionApiV3Urls.rotations(platform=region)
         return self._raw_request(self.rotations.__name__, region, url, query)

@@ -26,7 +26,7 @@ class MatchApiV4(NamedEndpoint):
 
         :returns: MatchDto
         """
-        url, query = MatchApiV4Urls.by_id(region=region, match_id=match_id)
+        url, query = MatchApiV4Urls.by_id(platform=region, match_id=match_id)
         return self._raw_request(self.by_id.__name__, region, url, query)
 
     def matchlist_by_account(
@@ -75,7 +75,7 @@ class MatchApiV4(NamedEndpoint):
         :returns: MatchlistDto
         """
         url, query = MatchApiV4Urls.matchlist_by_account(
-            region=region,
+            platform=region,
             encrypted_account_id=encrypted_account_id,
             queue=queue,
             beginTime=begin_time,
@@ -98,5 +98,7 @@ class MatchApiV4(NamedEndpoint):
 
         :returns: MatchTimelineDto
         """
-        url, query = MatchApiV4Urls.timeline_by_match(region=region, match_id=match_id)
+        url, query = MatchApiV4Urls.timeline_by_match(
+            platform=region, match_id=match_id
+        )
         return self._raw_request(self.timeline_by_match.__name__, region, url, query)
