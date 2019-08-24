@@ -54,7 +54,7 @@ raised as HTTPError exceptions from the Requests library.
 
     # all objects are returned (by default) as a dict
     # lets see if I got diamond yet (I probably didn't)
-    my_ranked_stats = watcher.league.positions_by_summoner(my_region, me['id'])
+    my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
     # Lets get some champions
