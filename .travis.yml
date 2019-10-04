@@ -1,6 +1,6 @@
 language: python
 matrix:
-  invluce:
+  include:
     - name: "Python 2.7 Linux"
       python: 2.7
     - name: "Python 3.5 Linux"
