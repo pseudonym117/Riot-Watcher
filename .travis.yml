@@ -1,10 +1,30 @@
 language: python
-python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-  - "pypy3.5"
-  - "3.7-dev"
+matrix:
+  invluce:
+    - name: "Python 2.7 Linux"
+      python: 2.7
+    - name: "Python 3.5 Linux"
+      python: 3.5
+    - name: "Python 3.6 Linux"
+      python: 3.6
+    - name: "Python 3.7 Linux"
+      python: 3.7
+    - name: "Python 3.8-dev Linux"
+      python: 3.8-dev
+    - name: "Python 2 Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python2
+        - python -m pip install --upgrade pip
+      env: PATH=/C/Python27:/C/Python27/Scripts:$PATH
+    - name: "Python 3 Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python
+        - python -m pip install --upgrade pip
+      env: PATH=/C/Python37:/C/Python37/Scripts:$PATH
 
 install:
   - pip install codecov
