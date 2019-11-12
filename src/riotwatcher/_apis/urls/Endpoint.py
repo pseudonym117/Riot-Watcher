@@ -26,9 +26,20 @@ class Endpoint(object):
         return (self._url.format(**kwargs), query_params)
 
 
-class RegionEndpoint(object):
+class LeagueEndpoint(object):
     def __init__(self, url, **kwargs):
         self._url = "/lol" + url
+
+    def __call__(self, **kwargs):
+        final_url = UrlConfig.root_url + self._url
+
+        endpoint = Endpoint(final_url, **kwargs)
+        return endpoint(**kwargs)
+
+
+class TftEndpoint(object):
+    def __init__(self, url, **kwargs):
+        self._url = "/tft" + url
 
     def __call__(self, **kwargs):
         final_url = UrlConfig.root_url + self._url

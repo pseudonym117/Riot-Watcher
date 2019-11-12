@@ -1,7 +1,7 @@
-from .Endpoint import RegionEndpoint
+from .Endpoint import LeagueEndpoint
 
 
-class MatchV4Endpoint(RegionEndpoint):
+class MatchV4Endpoint(LeagueEndpoint):
     def __init__(self, url, **kwargs):
         nurl = "/match/v4" + url
         super(MatchV4Endpoint, self).__init__(nurl, **kwargs)

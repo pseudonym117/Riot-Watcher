@@ -1,7 +1,7 @@
-from .Endpoint import RegionEndpoint
+from .Endpoint import LeagueEndpoint
 
 
-class SpecatorV4Endpoint(RegionEndpoint):
+class SpecatorV4Endpoint(LeagueEndpoint):
     def __init__(self, url, **kwargs):
         nurl = "/spectator/v4" + url
         super(SpecatorV4Endpoint, self).__init__(nurl, **kwargs)
