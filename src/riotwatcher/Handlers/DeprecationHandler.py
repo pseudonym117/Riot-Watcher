@@ -1,4 +1,5 @@
 import logging
+log = logging.getLogger(__name__)
 
 from datetime import datetime
 
@@ -22,7 +23,7 @@ class DeprecationHandler(RequestHandler):
             if key not in self._warned:
                 # technically race condition here, but worst case is we double log a warning
                 self._warned.add(key)
-                logging.warning(
+                log.warning(
                     "Method %s has been deprecated by Riot! It will no longer work after %s",
                     key,
                     deprecation,

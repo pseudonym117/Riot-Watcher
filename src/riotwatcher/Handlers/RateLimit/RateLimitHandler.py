@@ -1,5 +1,7 @@
 import datetime
 import logging
+log = logging.getLogger(__name__)
+
 import time
 
 from .. import RequestHandler
@@ -44,7 +46,7 @@ class RateLimitHandler(RequestHandler):
         if wait_until[0] is not None and wait_until[0] > datetime.datetime.now():
             to_wait = wait_until[0] - datetime.datetime.now()
 
-            logging.info(
+            log.info(
                 "waiting for %s seconds due to %s limit...",
                 to_wait.total_seconds(),
                 wait_until[1],
