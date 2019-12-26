@@ -1,5 +1,8 @@
 import datetime
 import logging
+
+log = logging.getLogger(__name__)
+
 import threading
 
 from collections import namedtuple
@@ -68,14 +71,14 @@ class Limit(object):
                     and self._raw_limit.limit == 0
                     and self._raw_limit.count == 0
                 ):
-                    logging.warning(
+                    log.warning(
                         "overwriting time limit, previously %s, now %s. This may cause rate limitting issues.",
                         self._raw_limit.time,
                         raw_limit.time,
                     )
 
             if self._raw_limit.limit != raw_limit.limit:
-                logging.info(
+                log.info(
                     "rate limit changed from %s/%ss to %s/%ss",
                     self._raw_limit.limit,
                     self._raw_limit.time,

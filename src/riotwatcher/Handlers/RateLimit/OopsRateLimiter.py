@@ -1,6 +1,8 @@
 import datetime
 import logging
 
+log = logging.getLogger(__name__)
+
 
 class OopsRateLimiter(object):
     def __init__(self):
@@ -24,7 +26,7 @@ class OopsRateLimiter(object):
             limit_type = response.headers.get("X-Rate-Limit-Type")
 
             if retry_after is not None:
-                logging.info(
+                log.info(
                     'hit 429 from "%s" limit! retrying after %s seconds',
                     limit_type,
                     retry_after,
@@ -33,6 +35,6 @@ class OopsRateLimiter(object):
                     seconds=int(retry_after)
                 )
             else:
-                logging.info(
+                log.info(
                     'hit 429 from "%s" limit! no retry after header...', limit_type
                 )

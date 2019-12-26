@@ -1,4 +1,7 @@
 import logging
+
+log = logging.getLogger(__name__)
+
 import threading
 
 from .Limits import LimitCollection, RawLimit
@@ -55,7 +58,7 @@ class HeaderBasedLimiter(object):
             return None
 
         if len(limits) != len(counts):
-            logging.warning(
+            log.warning(
                 'header "%s" and "%s" have different sizes!',
                 self._limit_header,
                 self._count_header,
@@ -65,7 +68,7 @@ class HeaderBasedLimiter(object):
 
         for limit in combined_limits:
             if limit[0][1] != limit[1][1]:
-                logging.warning(
+                log.warning(
                     'seems that limits for headers "%s" and "%s" did not match up correctly! '
                     + 'There may be issues in rate limiting. Headers were: "%s", "%s"'
                     + 'Limits from "%s" will be used.',
