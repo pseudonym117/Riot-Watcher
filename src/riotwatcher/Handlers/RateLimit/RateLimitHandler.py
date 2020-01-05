@@ -1,18 +1,19 @@
 import datetime
 import logging
-
-log = logging.getLogger(__name__)
-
 import time
+
+from requests import Response
 
 from .. import RequestHandler
 
 from . import ApplicationRateLimiter, MethodRateLimiter, OopsRateLimiter
 
+log = logging.getLogger(__name__)
+
 
 class RateLimitHandler(RequestHandler):
     def __init__(self):
-        super(RateLimitHandler, self).__init__()
+        super().__init__()
 
         self._limiters = (
             ApplicationRateLimiter(),
@@ -20,7 +21,14 @@ class RateLimitHandler(RequestHandler):
             OopsRateLimiter(),
         )
 
-    def preview_request(self, region, endpoint_name, method_name, url, query_params):
+    def preview_request(
+        self,
+        region: str,
+        endpoint_name: str,
+        method_name: str,
+        url: str,
+        query_params: dict,
+    ):
         """
         called before a request is processed.
 
@@ -54,7 +62,14 @@ class RateLimitHandler(RequestHandler):
             )
             time.sleep(to_wait.total_seconds())
 
-    def after_request(self, region, endpoint_name, method_name, url, response):
+    def after_request(
+        self,
+        region: str,
+        endpoint_name: str,
+        method_name: str,
+        url: str,
+        response: Response,
+    ) -> Response:
         """
         Called after a response is received and before it is returned to the user.
 

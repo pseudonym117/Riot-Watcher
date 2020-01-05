@@ -3,7 +3,7 @@ import re
 from .UrlConfig import UrlConfig
 
 
-class Endpoint(object):
+class Endpoint:
     def __init__(self, url, **kwargs):
         self._url = url
 
@@ -26,7 +26,7 @@ class Endpoint(object):
         return (self._url.format(**kwargs), query_params)
 
 
-class RegionEndpoint(object):
+class RegionEndpoint:
     def __init__(self, url, **kwargs):
         self._url = "/lol" + url
 

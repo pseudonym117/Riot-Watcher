@@ -3,14 +3,11 @@ import os.path
 
 import sys
 
-__version__ = "2.7.1"
+__version__ = "3.0.0"
 
 descr_file = os.path.join(os.path.dirname(__file__), "README.rst")
 
 dev_requirements = ["coverage", "pre-commit", "pytest", "pytest-cov", "tox"]
-
-if sys.version_info < (3, 0):
-    dev_requirements.append("mock")
 
 setup(
     name="riotwatcher",
