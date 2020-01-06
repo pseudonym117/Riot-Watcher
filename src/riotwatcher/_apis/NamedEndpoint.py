@@ -1,10 +1,13 @@
-class NamedEndpoint(object):
+from . import BaseApi
+
+
+class NamedEndpoint:
     """
     Helper class to inject endpoint name into calls to a BaseApi instance without
     the child class explicitly adding the name every time.
     """
 
-    def __init__(self, base_api, endpoint_name):
+    def __init__(self, base_api: BaseApi, endpoint_name: str):
         """
         Initialize a new NamedEndpoint which uses the provided base_api and
         injects the provided endpoint_name into calls to _request
@@ -15,7 +18,7 @@ class NamedEndpoint(object):
         self._base_api = base_api
         self._endpoint_name = endpoint_name
 
-    def _raw_request(self, method_name, region, url, query_params):
+    def _raw_request(self, method_name: str, region: str, url: str, query_params: dict):
         """
         Sends a request through the BaseApi instance provided, injecting the provided endpoint_name
         into the method call, so the caller doesn't have to.

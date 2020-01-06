@@ -1,4 +1,4 @@
-from . import NamedEndpoint
+from . import BaseApi, NamedEndpoint
 from .urls import LeagueApiV4Urls
 
 
@@ -9,15 +9,15 @@ class LeagueApiV4(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#league-v4/ for more detailed information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new LeagueApiV4 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(LeagueApiV4, self).__init__(base_api, self.__class__.__name__)
+        super().__init__(base_api, self.__class__.__name__)
 
-    def challenger_by_queue(self, region, queue):
+    def challenger_by_queue(self, region: str, queue: str):
         """
         Get the challenger league for a given queue.
 
@@ -29,7 +29,7 @@ class LeagueApiV4(NamedEndpoint):
         url, query = LeagueApiV4Urls.challenger_by_queue(platform=region, queue=queue)
         return self._raw_request(self.challenger_by_queue.__name__, region, url, query)
 
-    def grandmaster_by_queue(self, region, queue):
+    def grandmaster_by_queue(self, region: str, queue: str):
         """
         Get the grandmaster league for a given queue.
 
@@ -41,7 +41,7 @@ class LeagueApiV4(NamedEndpoint):
         url, query = LeagueApiV4Urls.grandmaster_by_queue(platform=region, queue=queue)
         return self._raw_request(self.grandmaster_by_queue.__name__, region, url, query)
 
-    def masters_by_queue(self, region, queue):
+    def masters_by_queue(self, region: str, queue: str):
         """
         Get the master league for a given queue.
 
@@ -53,7 +53,7 @@ class LeagueApiV4(NamedEndpoint):
         url, query = LeagueApiV4Urls.master_by_queue(platform=region, queue=queue)
         return self._raw_request(self.masters_by_queue.__name__, region, url, query)
 
-    def by_id(self, region, league_id):
+    def by_id(self, region: str, league_id: str):
         """
         Get league with given ID, including inactive entries
 
@@ -65,7 +65,7 @@ class LeagueApiV4(NamedEndpoint):
         url, query = LeagueApiV4Urls.by_id(platform=region, league_id=league_id)
         return self._raw_request(self.by_id.__name__, region, url, query)
 
-    def by_summoner(self, region, encrypted_summoner_id):
+    def by_summoner(self, region: str, encrypted_summoner_id: str):
         """
         Get league entries in all queues for a given summoner ID
 
@@ -79,7 +79,7 @@ class LeagueApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def entries(self, region, queue, tier, division, page=1):
+    def entries(self, region: str, queue: str, tier: str, division: str, page: int = 1):
         """
         Get all the league entries
 
@@ -96,7 +96,7 @@ class LeagueApiV4(NamedEndpoint):
         )
         return self._raw_request(self.entries.__name__, region, url, query)
 
-    def positions_by_summoner(self, region, encrypted_summoner_id):
+    def positions_by_summoner(self, region: str, encrypted_summoner_id: str):
         """
         DEPRECATED
 

@@ -1,4 +1,4 @@
-from . import NamedEndpoint
+from . import BaseApi, NamedEndpoint
 from .urls import SummonerApiV4Urls
 
 
@@ -9,15 +9,15 @@ class SummonerApiV4(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#summoner-v4 for more detailed information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new SummonerApiV4 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(SummonerApiV4, self).__init__(base_api, self.__class__.__name__)
+        super().__init__(base_api, self.__class__.__name__)
 
-    def by_account(self, region, encrypted_account_id):
+    def by_account(self, region: str, encrypted_account_id: str):
         """
         Get a summoner by account ID.
 
@@ -31,7 +31,7 @@ class SummonerApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_account.__name__, region, url, query)
 
-    def by_name(self, region, summoner_name):
+    def by_name(self, region: str, summoner_name: str):
         """
         Get a summoner by summoner name
 
@@ -45,7 +45,7 @@ class SummonerApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_name.__name__, region, url, query)
 
-    def by_puuid(self, region, encrypted_puuid):
+    def by_puuid(self, region: str, encrypted_puuid: str):
         """
         Get a summoner by PUUID.
 
@@ -59,7 +59,7 @@ class SummonerApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_puuid.__name__, region, url, query)
 
-    def by_id(self, region, encrypted_summoner_id):
+    def by_id(self, region: str, encrypted_summoner_id: str):
         """
         Get a summoner by summoner ID.
 

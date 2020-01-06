@@ -1,4 +1,4 @@
-from . import NamedEndpoint
+from . import BaseApi, NamedEndpoint
 from .urls import ThirdPartyCodeApiV4Urls
 
 
@@ -10,15 +10,15 @@ class ThirdPartyCodeApiV4(NamedEndpoint):
     information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new ThirdPartyCodeApiV4 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(ThirdPartyCodeApiV4, self).__init__(base_api, self.__class__.__name__)
+        super().__init__(base_api, self.__class__.__name__)
 
-    def by_summoner(self, region, encrypted_summoner_id):
+    def by_summoner(self, region: str, encrypted_summoner_id: str):
         """
         FOR KR SUMMONERS, A 404 WILL ALWAYS BE RETURNED.
 
