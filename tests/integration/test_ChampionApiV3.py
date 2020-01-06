@@ -20,7 +20,7 @@ import pytest
         "pbe1",
     ],
 )
-class TestChampionApiV3(object):
+class TestChampionApiV3:
     def test_rotations(self, mock_context, region):
         actual_response = mock_context.watcher.champion.rotations(region)
 

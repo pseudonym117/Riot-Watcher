@@ -1,17 +1,13 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
 
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
 
 from riotwatcher._apis import SummonerApiV4
 
 
 @pytest.mark.unit
-class TestSummonerApiV4(object):
+class TestSummonerApiV4:
     def test_by_account(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -27,9 +23,7 @@ class TestSummonerApiV4(object):
             SummonerApiV4.__name__,
             summoner.by_account.__name__,
             region,
-            "https://htr35ge.api.riotgames.com/lol/summoner/v4/summoners/by-account/{encrypted_account_id}".format(
-                encrypted_account_id=encrypted_account_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-account/{encrypted_account_id}",
             {},
         )
 
@@ -50,9 +44,7 @@ class TestSummonerApiV4(object):
             SummonerApiV4.__name__,
             summoner.by_name.__name__,
             region,
-            "https://htr35ge.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}".format(
-                summoner_name=summoner_name
-            ),
+            f"https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}",
             {},
         )
 
@@ -73,9 +65,7 @@ class TestSummonerApiV4(object):
             SummonerApiV4.__name__,
             summoner.by_puuid.__name__,
             region,
-            "https://htr35ge.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{encrypted_puuid}".format(
-                encrypted_puuid=encrypted_puuid
-            ),
+            f"https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{encrypted_puuid}",
             {},
         )
 
@@ -96,9 +86,7 @@ class TestSummonerApiV4(object):
             SummonerApiV4.__name__,
             summoner.by_id.__name__,
             region,
-            "https://htr35ge.api.riotgames.com/lol/summoner/v4/summoners/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/summoner/v4/summoners/{encrypted_summoner_id}",
             {},
         )
 

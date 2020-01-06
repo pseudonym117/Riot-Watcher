@@ -1,17 +1,13 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
 
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
 
 from riotwatcher._apis import SpectatorApiV4
 
 
 @pytest.mark.unit
-class TestSpectatorApiV4(object):
+class TestSpectatorApiV4:
     def test_by_summoner(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -27,9 +23,7 @@ class TestSpectatorApiV4(object):
             SpectatorApiV4.__name__,
             spectator.by_summoner.__name__,
             region,
-            "https://agagd.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}",
             {},
         )
 
@@ -49,7 +43,7 @@ class TestSpectatorApiV4(object):
             SpectatorApiV4.__name__,
             spectator.featured_games.__name__,
             region,
-            "https://hfh42.api.riotgames.com/lol/spectator/v4/featured-games",
+            f"https://{region}.api.riotgames.com/lol/spectator/v4/featured-games",
             {},
         )
 

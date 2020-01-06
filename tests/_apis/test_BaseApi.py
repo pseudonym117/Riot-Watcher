@@ -4,7 +4,7 @@ from riotwatcher._apis import BaseApi
 
 
 @pytest.mark.unit
-class TestBaseApi(object):
+class TestBaseApi:
     def test_raw_request_default_timeout(self, mock_get):
         expected_url, expected_query_params = "url", {}
         expected_api_key = "12345"

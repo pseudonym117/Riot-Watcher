@@ -23,14 +23,14 @@ queues = ("RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT", "RANKED_TFT")
         "pbe1",
     ],
 )
-class TestLeagueApiV4(object):
+class TestLeagueApiV4:
     @pytest.mark.parametrize("queue", queues)
     def test_challenger_by_queue(self, mock_context, region, queue):
         actual_response = mock_context.watcher.league.challenger_by_queue(region, queue)
 
         mock_context.verify_api_call(
             region,
-            "/lol/league/v4/challengerleagues/by-queue/{queue}".format(queue=queue),
+            f"/lol/league/v4/challengerleagues/by-queue/{queue}",
             {},
             actual_response,
         )
@@ -43,7 +43,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/league/v4/grandmasterleagues/by-queue/{queue}".format(queue=queue),
+            f"/lol/league/v4/grandmasterleagues/by-queue/{queue}",
             {},
             actual_response,
         )
@@ -54,7 +54,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/league/v4/masterleagues/by-queue/{queue}".format(queue=queue),
+            f"/lol/league/v4/masterleagues/by-queue/{queue}",
             {},
             actual_response,
         )
@@ -64,10 +64,7 @@ class TestLeagueApiV4(object):
         actual_response = mock_context.watcher.league.by_id(region, league_id)
 
         mock_context.verify_api_call(
-            region,
-            "/lol/league/v4/leagues/{league_id}".format(league_id=league_id),
-            {},
-            actual_response,
+            region, f"/lol/league/v4/leagues/{league_id}", {}, actual_response,
         )
 
     @pytest.mark.parametrize(
@@ -81,9 +78,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/league/v4/entries/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"/lol/league/v4/entries/by-summoner/{encrypted_summoner_id}",
             {},
             actual_response,
         )
@@ -99,9 +94,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/league/v4/entries/{queue}/{tier}/{division}".format(
-                queue=queue, tier=tier, division=division
-            ),
+            f"/lol/league/v4/entries/{queue}/{tier}/{division}",
             {"page": page},
             actual_response,
         )
@@ -117,9 +110,7 @@ class TestLeagueApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}",
             {},
             actual_response,
         )

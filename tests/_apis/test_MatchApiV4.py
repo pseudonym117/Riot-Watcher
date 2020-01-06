@@ -1,17 +1,13 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
 
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
 
 from riotwatcher._apis import MatchApiV4
 
 
 @pytest.mark.unit
-class TestMatchApiV4(object):
+class TestMatchApiV4:
     def test_by_id(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -27,9 +23,7 @@ class TestMatchApiV4(object):
             MatchApiV4.__name__,
             match.by_id.__name__,
             region,
-            "https://afaaas.api.riotgames.com/lol/match/v4/matches/{match_id}".format(
-                match_id=match_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/match/v4/matches/{match_id}",
             {},
         )
 
@@ -50,9 +44,7 @@ class TestMatchApiV4(object):
             MatchApiV4.__name__,
             match.matchlist_by_account.__name__,
             region,
-            "https://sfsfa.api.riotgames.com/lol/match/v4/matchlists/by-account/{encrypted_account_id}".format(
-                encrypted_account_id=encrypted_account_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{encrypted_account_id}",
             {
                 "queue": None,
                 "beginTime": None,
@@ -97,9 +89,7 @@ class TestMatchApiV4(object):
             MatchApiV4.__name__,
             match.matchlist_by_account.__name__,
             region,
-            "https://sfsfa.api.riotgames.com/lol/match/v4/matchlists/by-account/{encrypted_account_id}".format(
-                encrypted_account_id=encrypted_account_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{encrypted_account_id}",
             {
                 "queue": queue,
                 "beginTime": begin_time,
@@ -128,9 +118,7 @@ class TestMatchApiV4(object):
             MatchApiV4.__name__,
             match.timeline_by_match.__name__,
             region,
-            "https://afaaas.api.riotgames.com/lol/match/v4/timelines/by-match/{match_id}".format(
-                match_id=match_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/match/v4/timelines/by-match/{match_id}",
             {},
         )
 

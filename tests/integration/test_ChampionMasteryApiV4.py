@@ -29,9 +29,7 @@ class TestChampionMasteryApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}",
             {},
             actual_response,
         )
@@ -46,9 +44,7 @@ class TestChampionMasteryApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id, champion_id=champion_id
-            ),
+            f"/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}",
             {},
             actual_response,
         )
@@ -60,9 +56,7 @@ class TestChampionMasteryApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}",
             {},
             actual_response,
         )

@@ -20,16 +20,13 @@ import pytest
         "pbe1",
     ],
 )
-class TestMatchApiV4(object):
+class TestMatchApiV4:
     @pytest.mark.parametrize("match_id", [12345, 54321, 2, 222222222222222222222])
     def test_by_id(self, mock_context, region, match_id):
         actual_response = mock_context.watcher.match.by_id(region, match_id)
 
         mock_context.verify_api_call(
-            region,
-            "/lol/match/v4/matches/{match_id}".format(match_id=match_id),
-            {},
-            actual_response,
+            region, f"/lol/match/v4/matches/{match_id}", {}, actual_response,
         )
 
     @pytest.mark.parametrize("encrypted_account_id", ["12345", "3333333333333333333"])
@@ -88,9 +85,7 @@ class TestMatchApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/match/v4/matchlists/by-account/{encrypted_account_id}".format(
-                encrypted_account_id=encrypted_account_id
-            ),
+            f"/lol/match/v4/matchlists/by-account/{encrypted_account_id}",
             expected_params,
             actual_response,
         )
@@ -100,8 +95,5 @@ class TestMatchApiV4(object):
         actual_response = mock_context.watcher.match.timeline_by_match(region, match_id)
 
         mock_context.verify_api_call(
-            region,
-            "/lol/match/v4/timelines/by-match/{match_id}".format(match_id=match_id),
-            {},
-            actual_response,
+            region, f"/lol/match/v4/timelines/by-match/{match_id}", {}, actual_response,
         )

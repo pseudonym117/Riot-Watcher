@@ -1,17 +1,13 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
 
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
 
 from riotwatcher._apis import LeagueApiV4
 
 
 @pytest.mark.unit
-class TestLeagueApiV4(object):
+class TestLeagueApiV4:
     def test_challenger_by_queue(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -27,9 +23,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.challenger_by_queue.__name__,
             region,
-            "https://afas.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/{queue}".format(
-                queue=queue
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/{queue}",
             {},
         )
 
@@ -50,9 +44,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.grandmaster_by_queue.__name__,
             region,
-            "https://afasf.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/{queue}".format(
-                queue=queue
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/{queue}",
             {},
         )
 
@@ -73,9 +65,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.masters_by_queue.__name__,
             region,
-            "https://afasf.api.riotgames.com/lol/league/v4/masterleagues/by-queue/{queue}".format(
-                queue=queue
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/masterleagues/by-queue/{queue}",
             {},
         )
 
@@ -96,9 +86,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.by_id.__name__,
             region,
-            "https://afasf.api.riotgames.com/lol/league/v4/leagues/{league_id}".format(
-                league_id=league_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/leagues/{league_id}",
             {},
         )
 
@@ -119,9 +107,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.by_summoner.__name__,
             region,
-            "https://{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/{encrypted_summonerI_id}".format(
-                region=region, encrypted_summonerI_id=encrypted_summoner_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/entries/by-summoner/{encrypted_summoner_id}",
             {},
         )
 
@@ -145,9 +131,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.entries.__name__,
             region,
-            "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}".format(
-                region=region, queue=queue, tier=tier, division=division
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}",
             {"page": page},
         )
 
@@ -170,9 +154,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.entries.__name__,
             region,
-            "https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}".format(
-                region=region, queue=queue, tier=tier, division=division
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/entries/{queue}/{tier}/{division}",
             {"page": 1},
         )
 
@@ -193,9 +175,7 @@ class TestLeagueApiV4(object):
             LeagueApiV4.__name__,
             league.positions_by_summoner.__name__,
             region,
-            "https://afasf.api.riotgames.com/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"https://{region}.api.riotgames.com/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}",
             {},
         )
 

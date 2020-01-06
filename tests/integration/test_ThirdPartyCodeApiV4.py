@@ -20,7 +20,7 @@ import pytest
         "pbe1",
     ],
 )
-class TestThirdPartyCodeApiV4(object):
+class TestThirdPartyCodeApiV4:
     @pytest.mark.parametrize("encrypted_summoner_id", ["12345", "99999999999999999"])
     def test_by_summoner(self, mock_context, region, encrypted_summoner_id):
         actual_response = mock_context.watcher.third_party_code.by_summoner(
@@ -29,9 +29,7 @@ class TestThirdPartyCodeApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/platform/v4/third-party-code/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"/lol/platform/v4/third-party-code/by-summoner/{encrypted_summoner_id}",
             {},
             actual_response,
         )

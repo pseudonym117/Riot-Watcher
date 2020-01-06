@@ -1,18 +1,13 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
-
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
 
 
 from riotwatcher._apis import DataDragonApi
 
 
 @pytest.mark.unit
-class TestDataDragonApi(object):
+class TestDataDragonApi:
     def test_all_champions_default(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -20,14 +15,13 @@ class TestDataDragonApi(object):
 
         static_data = DataDragonApi(mock_base_api)
 
+        default_locale = "en_US"
         version = "234"
 
         ret = static_data.champions(version)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/champion.json".format(
-                version=version, locale="en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{default_locale}/champion.json",
             {},
         )
 
@@ -46,9 +40,7 @@ class TestDataDragonApi(object):
         ret = static_data.champions(version, True, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/championFull.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/championFull.json",
             {},
         )
 
@@ -67,9 +59,7 @@ class TestDataDragonApi(object):
         ret = static_data.items(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/item.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/item.json",
             {},
         )
 
@@ -88,9 +78,7 @@ class TestDataDragonApi(object):
         ret = static_data.languages(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/language.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/language.json",
             {},
         )
 
@@ -109,9 +97,7 @@ class TestDataDragonApi(object):
         ret = static_data.maps(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/map.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/map.json",
             {},
         )
 
@@ -130,9 +116,7 @@ class TestDataDragonApi(object):
         ret = static_data.masteries(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/mastery.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/mastery.json",
             {},
         )
 
@@ -151,9 +135,7 @@ class TestDataDragonApi(object):
         ret = static_data.profile_icons(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/profileicon.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/profileicon.json",
             {},
         )
 
@@ -172,9 +154,7 @@ class TestDataDragonApi(object):
         ret = static_data.runes(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/rune.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/rune.json",
             {},
         )
 
@@ -193,9 +173,7 @@ class TestDataDragonApi(object):
         ret = static_data.runes_reforged(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/runesReforged.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/runesReforged.json",
             {},
         )
 
@@ -214,9 +192,7 @@ class TestDataDragonApi(object):
         ret = static_data.summoner_spells(version, locale)
 
         mock_base_api.raw_request_static.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/summoner.json".format(
-                version=version, locale=locale
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/summoner.json",
             {},
         )
 
