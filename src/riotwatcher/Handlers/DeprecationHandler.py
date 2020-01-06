@@ -28,7 +28,7 @@ class DeprecationHandler(RequestHandler):
             except (OSError, ValueError):
                 # API returned unexected value in header, so just do nothing
                 return response
-            key = "{}.{}".format(endpoint_name, method_name)
+            key = f"{endpoint_name}.{method_name}"
             if key not in self._warned:
                 # technically race condition here, but worst case is we double log a warning
                 self._warned.add(key)

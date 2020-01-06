@@ -3,7 +3,7 @@ from .Endpoint import RegionEndpoint
 
 class SpecatorV4Endpoint(RegionEndpoint):
     def __init__(self, url, **kwargs):
-        nurl = "/spectator/v4" + url
+        nurl = f"/spectator/v4{url}"
         super().__init__(nurl, **kwargs)
 
 

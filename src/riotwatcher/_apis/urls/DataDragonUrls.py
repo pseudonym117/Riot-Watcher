@@ -3,13 +3,13 @@ from . import Endpoint
 
 class DataDragonEndpoint(Endpoint):
     def __init__(self, url, **kwargs):
-        nurl = "https://ddragon.leagueoflegends.com" + url
+        nurl = f"https://ddragon.leagueoflegends.com{url}"
         super().__init__(nurl, **kwargs)
 
 
 class DDragonVersionLocaleEndpoint(DataDragonEndpoint):
     def __init__(self, url, **kwargs):
-        nurl = "/cdn/{version}/data/{locale}" + url
+        nurl = f"/cdn/{{version}}/data/{{locale}}{url}"
         super().__init__(nurl, **kwargs)
 
 

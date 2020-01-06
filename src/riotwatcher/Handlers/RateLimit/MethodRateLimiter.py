@@ -8,4 +8,4 @@ class MethodRateLimiter(HeaderBasedLimiter):
     def _get_limit_scope(
         self, region: str, endpoint_name: str, method_name: str
     ) -> str:
-        return "{}/{}/{}".format(region, endpoint_name, method_name)
+        return f"{region}/{endpoint_name}/{method_name}"

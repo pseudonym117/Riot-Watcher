@@ -3,7 +3,7 @@ from .Endpoint import RegionEndpoint
 
 class LeagueV4Endpoint(RegionEndpoint):
     def __init__(self, url, **kwargs):
-        nurl = "/league/v4" + url
+        nurl = f"/league/v4{url}"
         super().__init__(nurl, **kwargs)
 
 

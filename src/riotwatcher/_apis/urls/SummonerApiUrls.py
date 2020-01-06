@@ -3,7 +3,7 @@ from .Endpoint import RegionEndpoint
 
 class SummonerV4Endpoint(RegionEndpoint):
     def __init__(self, url, **kwargs):
-        nurl = "/summoner/v4/summoners" + url
+        nurl = f"/summoner/v4/summoners{url}"
         super().__init__(nurl, **kwargs)
 
 
