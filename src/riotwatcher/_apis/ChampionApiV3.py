@@ -1,4 +1,4 @@
-from . import NamedEndpoint
+from . import BaseApi, NamedEndpoint
 from .urls import ChampionApiV3Urls
 
 
@@ -9,15 +9,15 @@ class ChampionApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#champion-v3 for more detailed information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new ChampionApiV3 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(ChampionApiV3, self).__init__(base_api, self.__class__.__name__)
+        super().__init__(base_api, self.__class__.__name__)
 
-    def rotations(self, region):
+    def rotations(self, region: str):
         """
         Returns champion rotations, including free-to-play and low-level free-to-play rotations.
 

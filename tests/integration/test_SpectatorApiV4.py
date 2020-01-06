@@ -20,7 +20,7 @@ import pytest
         "pbe1",
     ],
 )
-class TestSpectatorApiV4(object):
+class TestSpectatorApiV4:
     @pytest.mark.parametrize("encrypted_summoner_id", ["12345", "99999999999999999"])
     def test_by_summoner(self, mock_context, region, encrypted_summoner_id):
         actual_response = mock_context.watcher.spectator.by_summoner(
@@ -29,9 +29,7 @@ class TestSpectatorApiV4(object):
 
         mock_context.verify_api_call(
             region,
-            "/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}".format(
-                encrypted_summoner_id=encrypted_summoner_id
-            ),
+            f"/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}",
             {},
             actual_response,
         )

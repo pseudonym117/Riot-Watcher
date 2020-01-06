@@ -1,3 +1,5 @@
+from typing import List
+
 from ._apis import BaseApi, DataDragonApi, ChampionApiV3, LolStatusApiV3
 from ._apis import (
     ChampionMasteryApiV4,
@@ -10,6 +12,7 @@ from ._apis import (
 from .Handlers import (
     DeprecationHandler,
     JsonifyHandler,
+    RequestHandler,
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
@@ -19,13 +22,17 @@ from .Handlers.RateLimit import RateLimitHandler
 from ._apis.urls import UrlConfig
 
 
-class RiotWatcher(object):
+class RiotWatcher:
     """
     RiotWatcher class is intended to be the main interaction point with the RiotAPI.
     """
 
     def __init__(
-        self, api_key=None, custom_handler_chain=None, timeout=None, kernel_url=None
+        self,
+        api_key: str = None,
+        custom_handler_chain: List[RequestHandler] = None,
+        timeout: int = None,
+        kernel_url: str = None,
     ):
         """
         Initialize a new instance of the RiotWatcher class.
@@ -94,7 +101,7 @@ class RiotWatcher(object):
         # todo: tournament
 
     @property
-    def champion_mastery(self):
+    def champion_mastery(self) -> ChampionMasteryApiV4:
         """
         Interface to the ChampionMastery Endpoint
 
@@ -103,7 +110,7 @@ class RiotWatcher(object):
         return self._champion_mastery
 
     @property
-    def champion(self):
+    def champion(self) -> ChampionApiV3:
         """
         Interface to the Champion Endpoint
 
@@ -112,7 +119,7 @@ class RiotWatcher(object):
         return self._champion
 
     @property
-    def league(self):
+    def league(self) -> LeagueApiV4:
         """
         Interface to the League Endpoint
 
@@ -121,7 +128,7 @@ class RiotWatcher(object):
         return self._league
 
     @property
-    def lol_status(self):
+    def lol_status(self) -> LolStatusApiV3:
         """
         Interface to the LoLStatus Endpoint
 
@@ -130,7 +137,7 @@ class RiotWatcher(object):
         return self._lol_status
 
     @property
-    def match(self):
+    def match(self) -> MatchApiV4:
         """
         Interface to the Match Endpoint
 
@@ -139,7 +146,7 @@ class RiotWatcher(object):
         return self._match
 
     @property
-    def spectator(self):
+    def spectator(self) -> SpectatorApiV4:
         """
         Interface to the Spectator Endpoint
 
@@ -148,7 +155,7 @@ class RiotWatcher(object):
         return self._spectator
 
     @property
-    def data_dragon(self):
+    def data_dragon(self) -> DataDragonApi:
         """
         Interface to the DataDragon Endpoint
 
@@ -157,7 +164,7 @@ class RiotWatcher(object):
         return self._data_dragon
 
     @property
-    def summoner(self):
+    def summoner(self) -> SummonerApiV4:
         """
         Interface to the Summoner Endpoint
 
@@ -166,7 +173,7 @@ class RiotWatcher(object):
         return self._summoner
 
     @property
-    def third_party_code(self):
+    def third_party_code(self) -> ThirdPartyCodeApiV4:
         """
         Interface to the Third Party Code Endpoint
 

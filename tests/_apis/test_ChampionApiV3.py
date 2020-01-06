@@ -1,18 +1,12 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
-
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
-
 
 from riotwatcher._apis import ChampionApiV3
 
 
 @pytest.mark.unit
-class TestChampionApiV3(object):
+class TestChampionApiV3:
     def test_rotations(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -27,7 +21,7 @@ class TestChampionApiV3(object):
             ChampionApiV3.__name__,
             champ.rotations.__name__,
             test_region,
-            "https://fhfds.api.riotgames.com/lol/platform/v3/champion-rotations",
+            f"https://{test_region}.api.riotgames.com/lol/platform/v3/champion-rotations",
             {},
         )
 

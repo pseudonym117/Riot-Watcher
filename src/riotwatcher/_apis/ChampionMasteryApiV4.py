@@ -1,4 +1,4 @@
-from . import NamedEndpoint
+from . import BaseApi, NamedEndpoint
 from .urls import ChampionMasteryApiV4Urls
 
 
@@ -10,15 +10,15 @@ class ChampionMasteryApiV4(NamedEndpoint):
     information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new ChampionMasteryApiV4 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(ChampionMasteryApiV4, self).__init__(base_api, self.__class__.__name__)
+        super().__init__(base_api, self.__class__.__name__)
 
-    def by_summoner(self, region, encrypted_summoner_id):
+    def by_summoner(self, region: str, encrypted_summoner_id: str):
         """
         Get all champion mastery entries.
 
@@ -33,7 +33,9 @@ class ChampionMasteryApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def by_summoner_by_champion(self, region, encrypted_summoner_id, champion_id):
+    def by_summoner_by_champion(
+        self, region: str, encrypted_summoner_id: str, champion_id: int
+    ):
         """
         Get a champion mastery by player ID and champion ID.
 
@@ -53,7 +55,7 @@ class ChampionMasteryApiV4(NamedEndpoint):
             self.by_summoner_by_champion.__name__, region, url, query
         )
 
-    def scores_by_summoner(self, region, encrypted_summoner_id):
+    def scores_by_summoner(self, region: str, encrypted_summoner_id: str):
         """
         Get a player's total champion mastery score, which is the sum of individual champion
         mastery levels

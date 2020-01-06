@@ -1,16 +1,12 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
 
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
 
 from riotwatcher._apis import ChampionMasteryApiV4
 
 
-class TestChampionMasteryApiV4(object):
+class TestChampionMasteryApiV4:
     def test_by_summoner(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -26,7 +22,7 @@ class TestChampionMasteryApiV4(object):
             ChampionMasteryApiV4.__name__,
             mastery.by_summoner.__name__,
             region,
-            "https://afas.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/15462",
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}",
             {},
         )
 
@@ -50,7 +46,7 @@ class TestChampionMasteryApiV4(object):
             ChampionMasteryApiV4.__name__,
             mastery.by_summoner_by_champion.__name__,
             region,
-            "https://fsgs.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/53526/by-champion/7",
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}",
             {},
         )
 
@@ -71,7 +67,7 @@ class TestChampionMasteryApiV4(object):
             ChampionMasteryApiV4.__name__,
             mastery.scores_by_summoner.__name__,
             region,
-            "https://fsgs.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/6243",
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}",
             {},
         )
 

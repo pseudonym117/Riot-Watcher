@@ -3,7 +3,7 @@ import re
 from .UrlConfig import UrlConfig
 
 
-class Endpoint(object):
+class Endpoint:
     def __init__(self, url, **kwargs):
         self._url = url
 
@@ -17,7 +17,7 @@ class Endpoint(object):
     def __call__(self, **kwargs):
         for req_param in self._url_params:
             if req_param not in kwargs:
-                raise ValueError('parameter "{}" is required!'.format(req_param))
+                raise ValueError(f'parameter "{req_param}" is required!')
 
         query_params = {
             key: value for key, value in kwargs.items() if key in self._query_params
@@ -26,12 +26,12 @@ class Endpoint(object):
         return (self._url.format(**kwargs), query_params)
 
 
-class RegionEndpoint(object):
+class RegionEndpoint:
     def __init__(self, url, **kwargs):
-        self._url = "/lol" + url
+        self._url = f"/lol{url}"
 
     def __call__(self, **kwargs):
-        final_url = UrlConfig.root_url + self._url
+        final_url = f"{UrlConfig.root_url}{self._url}"
 
         endpoint = Endpoint(final_url, **kwargs)
         return endpoint(**kwargs)

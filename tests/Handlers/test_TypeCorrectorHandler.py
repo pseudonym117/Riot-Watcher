@@ -4,7 +4,7 @@ from riotwatcher.Handlers import TypeCorrectorHandler
 
 
 @pytest.mark.unit
-class TestTypeCorrectorHandler(object):
+class TestTypeCorrectorHandler:
     def test_bool_remapped_to_string(self):
         corrector = TypeCorrectorHandler()
 

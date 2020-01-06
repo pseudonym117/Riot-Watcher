@@ -1,17 +1,13 @@
-import sys
+from unittest.mock import MagicMock
 
 import pytest
 
-if sys.version_info > (3, 0):
-    from unittest.mock import MagicMock
-else:
-    from mock import MagicMock
 
 from riotwatcher._apis import LolStatusApiV3
 
 
 @pytest.mark.unit
-class TestLolStatusApiV3(object):
+class TestLolStatusApiV3:
     def test_shard_data(self):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -26,7 +22,7 @@ class TestLolStatusApiV3(object):
             LolStatusApiV3.__name__,
             status.shard_data.__name__,
             region,
-            "https://afaaas.api.riotgames.com/lol/status/v3/shard-data",
+            f"https://{region}.api.riotgames.com/lol/status/v3/shard-data",
             {},
         )
 

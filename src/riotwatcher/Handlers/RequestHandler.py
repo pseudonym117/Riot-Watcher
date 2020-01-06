@@ -1,8 +1,15 @@
-class RequestHandler(object):
+class RequestHandler:
     def __init__(self):
         pass
 
-    def preview_request(self, region, endpoint_name, method_name, url, query_params):
+    def preview_request(
+        self,
+        region: str,
+        endpoint_name: str,
+        method_name: str,
+        url: str,
+        query_params: dict,
+    ):
         """
         called before a request is processed.
 
@@ -14,7 +21,9 @@ class RequestHandler(object):
                                    e.g. ?key1=val&key2=val2
         """
 
-    def after_request(self, region, endpoint_name, method_name, url, response):
+    def after_request(
+        self, region: str, endpoint_name: str, method_name: str, url: str, response
+    ):
         """
         Called after a response is received and before it is returned to the user.
 
@@ -25,14 +34,14 @@ class RequestHandler(object):
         :param response: the response received. This is a response from the Requests library
         """
 
-    def preview_static_request(self, url, query_params):
+    def preview_static_request(self, url: str, query_params: dict):
         """
         Called before a request to DataDragon is processed
 
         :param url: The url that was requested
         """
 
-    def after_static_request(self, url, response):
+    def after_static_request(self, url: str, response):
         """
         Called after a response is received and before it is returned to the user.
 

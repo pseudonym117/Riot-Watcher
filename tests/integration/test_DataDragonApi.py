@@ -6,7 +6,7 @@ import pytest
 @pytest.mark.integration
 @pytest.mark.parametrize("version", ("6.24.1", "8.24.1"))
 @pytest.mark.parametrize("locale", (None, "en_US", "zh_CN"))
-class TestDataDragonApi(object):
+class TestDataDragonApi:
     def test_champion(self, mock_context, version, locale):
         actual_response = mock_context.watcher.data_dragon.champions(
             version, locale=locale
@@ -14,9 +14,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/champion.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/champion.json",
             params={},
         )
 
@@ -27,9 +25,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/championFull.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/championFull.json",
             params={},
         )
 
@@ -38,9 +34,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/item.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/item.json",
             params={},
         )
 
@@ -51,9 +45,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/language.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/language.json",
             params={},
         )
 
@@ -62,9 +54,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/map.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/map.json",
             params={},
         )
 
@@ -75,9 +65,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/mastery.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/mastery.json",
             params={},
         )
 
@@ -88,9 +76,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/profileicon.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/profileicon.json",
             params={},
         )
 
@@ -99,9 +85,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/rune.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/rune.json",
             params={},
         )
 
@@ -112,9 +96,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/runesReforged.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/runesReforged.json",
             params={},
         )
 
@@ -125,9 +107,7 @@ class TestDataDragonApi(object):
 
         assert mock_context.expected_response == actual_response
         mock_context.get.assert_called_once_with(
-            "https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale}/summoner.json".format(
-                version=version, locale=locale if locale else "en_US"
-            ),
+            f"https://ddragon.leagueoflegends.com/cdn/{version}/data/{locale if locale else 'en_US'}/summoner.json",
             params={},
         )
 

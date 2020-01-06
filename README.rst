@@ -1,4 +1,4 @@
-RiotWatcher v2.7.1
+RiotWatcher v3.0.0
 ==================
 
 |pypi| |docs| |build| |coverage| |lgmt| |black|
@@ -123,6 +123,14 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v3.0.0 - TBD
+~~~~~~~~~~~~
+
+No more python 2 support. Finally. If you need support for python 2, please use v2.7.1.
+Also Python 3.5 is no longer supported. Please use 3.6 or newer.
+
+Removed long-deprecated classes.
+
 v2.7.1 - 7/31/2019
 ~~~~~~~~~~~~~~~~~~
 
