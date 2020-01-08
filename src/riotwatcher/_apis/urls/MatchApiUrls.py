@@ -3,11 +3,11 @@ from .Endpoint import LeagueEndpoint
 
 class MatchV4Endpoint(LeagueEndpoint):
     def __init__(self, url, **kwargs):
-        nurl = "/match/v4" + url
-        super(MatchV4Endpoint, self).__init__(nurl, **kwargs)
+        nurl = f"/match/v4{url}"
+        super().__init__(nurl, **kwargs)
 
 
-class MatchApiV4Urls(object):
+class MatchApiV4Urls:
     by_id = MatchV4Endpoint("/matches/{match_id}")
     matchlist_by_account = MatchV4Endpoint(
         "/matchlists/by-account/{encrypted_account_id}",

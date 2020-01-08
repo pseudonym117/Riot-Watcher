@@ -1,4 +1,4 @@
-from . import NamedEndpoint
+from . import BaseApi, NamedEndpoint
 from .urls import LolStatusApiV3Urls
 
 
@@ -9,15 +9,15 @@ class LolStatusApiV3(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#lol-status-v3 for more detailed information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new LolStatusApiV3 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(LolStatusApiV3, self).__init__(base_api, LolStatusApiV3.__name__)
+        super().__init__(base_api, LolStatusApiV3.__name__)
 
-    def shard_data(self, region):
+    def shard_data(self, region: str):
         """
         Get League of Legends status for the given shard.
 

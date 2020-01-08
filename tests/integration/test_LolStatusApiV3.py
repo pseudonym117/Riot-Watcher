@@ -20,7 +20,7 @@ import pytest
         "pbe1",
     ],
 )
-class TestStatusApiV3(object):
+class TestStatusApiV3:
     def test_shard_data(self, mock_context, region):
         actual_response = mock_context.watcher.lol_status.shard_data(region)
 

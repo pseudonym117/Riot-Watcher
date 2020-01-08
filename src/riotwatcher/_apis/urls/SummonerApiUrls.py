@@ -3,11 +3,11 @@ from .Endpoint import LeagueEndpoint
 
 class SummonerV4Endpoint(LeagueEndpoint):
     def __init__(self, url, **kwargs):
-        nurl = "/summoner/v4/summoners" + url
-        super(SummonerV4Endpoint, self).__init__(nurl, **kwargs)
+        nurl = f"/summoner/v4/summoners{url}"
+        super().__init__(nurl, **kwargs)
 
 
-class SummonerApiV4Urls(object):
+class SummonerApiV4Urls:
     by_account = SummonerV4Endpoint("/by-account/{encrypted_account_id}")
     by_name = SummonerV4Endpoint("/by-name/{summoner_name}")
     by_puuid = SummonerV4Endpoint("/by-puuid/{encrypted_puuid}")

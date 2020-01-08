@@ -1,5 +1,5 @@
 from .Endpoint import LeagueEndpoint
 
 
-class ChampionApiV3Urls(object):
+class ChampionApiV3Urls:
     rotations = LeagueEndpoint("/platform/v3/champion-rotations")

@@ -1,26 +1,37 @@
+import datetime
 import logging
 import threading
 
+from typing import Dict, List, Optional
+
+from requests import Response
+
 from .Limits import LimitCollection, RawLimit
 
+log = logging.getLogger(__name__)
 
-class HeaderBasedLimiter(object):
-    def __init__(self, limit_header, count_header, friendly_name=None):
+
+class HeaderBasedLimiter:
+    def __init__(self, limit_header: str, count_header: str, friendly_name: str = None):
         self._limit_header = limit_header
         self._count_header = count_header
         self._friendly_name = friendly_name
 
-        self._limits = {}
+        self._limits: Dict[str, LimitCollection] = {}
         self._limits_lock = threading.Lock()
 
     @property
-    def friendly_name(self):
+    def friendly_name(self) -> str:
         return self._friendly_name
 
-    def _get_limit_scope(self, region, endpoint_name, method_name):
+    def _get_limit_scope(
+        self, region: str, endpoint_name: str, method_name: str
+    ) -> str:
         return ""
 
-    def __get_limit(self, region, endpoint_name, method_name):
+    def __get_limit(
+        self, region: str, endpoint_name: str, method_name: str
+    ) -> LimitCollection:
         scope = self._get_limit_scope(region, endpoint_name, method_name)
 
         if scope not in self._limits:
@@ -32,12 +43,16 @@ class HeaderBasedLimiter(object):
 
         return self._limits[scope]
 
-    def wait_until(self, region, endpoint_name, method_name):
+    def wait_until(
+        self, region: str, endpoint_name: str, method_name: str
+    ) -> datetime.datetime:
         scoped_limit = self.__get_limit(region, endpoint_name, method_name)
 
         return scoped_limit.wait_until()
 
-    def update_limiter(self, region, endpoint_name, method_name, response):
+    def update_limiter(
+        self, region: str, endpoint_name: str, method_name: str, response: Response
+    ):
         raw_limits = self._extract_headers(response)
 
         if raw_limits is None:
@@ -47,7 +62,7 @@ class HeaderBasedLimiter(object):
 
         scoped_limit.update_limits(raw_limits)
 
-    def _extract_headers(self, response):
+    def _extract_headers(self, response: Response) -> Optional[List[RawLimit]]:
         limits = HeaderBasedLimiter._extract_single_header(self._limit_header, response)
         counts = HeaderBasedLimiter._extract_single_header(self._count_header, response)
 
@@ -55,7 +70,7 @@ class HeaderBasedLimiter(object):
             return None
 
         if len(limits) != len(counts):
-            logging.warning(
+            log.warning(
                 'header "%s" and "%s" have different sizes!',
                 self._limit_header,
                 self._count_header,
@@ -65,7 +80,7 @@ class HeaderBasedLimiter(object):
 
         for limit in combined_limits:
             if limit[0][1] != limit[1][1]:
-                logging.warning(
+                log.warning(
                     'seems that limits for headers "%s" and "%s" did not match up correctly! '
                     + 'There may be issues in rate limiting. Headers were: "%s", "%s"'
                     + 'Limits from "%s" will be used.',
@@ -84,7 +99,9 @@ class HeaderBasedLimiter(object):
         return values
 
     @staticmethod
-    def _extract_single_header(header, response):
+    def _extract_single_header(
+        header: str, response: Response
+    ) -> Optional[List[List[int]]]:
         values = response.headers.get(header)
 
         if values is None:

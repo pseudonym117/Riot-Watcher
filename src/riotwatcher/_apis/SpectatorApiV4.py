@@ -1,4 +1,4 @@
-from . import NamedEndpoint
+from . import BaseApi, NamedEndpoint
 from .urls import SpectatorApiV4Urls
 
 
@@ -9,15 +9,15 @@ class SpectatorApiV4(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#spectator-v4 for more detailed information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new SpectatorApiV3 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(SpectatorApiV4, self).__init__(base_api, self.__class__.__name__)
+        super().__init__(base_api, self.__class__.__name__)
 
-    def by_summoner(self, region, encrypted_summoner_id):
+    def by_summoner(self, region: str, encrypted_summoner_id: str):
         """
         Get current game information for the given summoner ID
 
@@ -31,7 +31,7 @@ class SpectatorApiV4(NamedEndpoint):
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def featured_games(self, region):
+    def featured_games(self, region: str):
         """
         Get list of featured games.
 

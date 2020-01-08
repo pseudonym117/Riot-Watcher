@@ -4,7 +4,7 @@ from riotwatcher import RiotWatcher
 
 
 @pytest.mark.usefixtures("reset_globals")
-class TestRiotWatcher(object):
+class TestRiotWatcher:
     def test_require_api_key_or_kernel(self):
         with pytest.raises(ValueError):
             RiotWatcher()

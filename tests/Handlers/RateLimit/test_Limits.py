@@ -7,7 +7,7 @@ from riotwatcher.Handlers.RateLimit import Limit, RawLimit
 
 
 @pytest.mark.unit
-class TestLimit(object):
+class TestLimit:
     def test_initial_start_time_correct(self):
         lim = Limit()
         assert lim.start_time is None

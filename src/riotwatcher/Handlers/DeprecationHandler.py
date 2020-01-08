@@ -1,16 +1,26 @@
 import logging
-
 from datetime import datetime
 
+from requests import Response
+
 from . import RequestHandler
+
+log = logging.getLogger(__name__)
 
 
 class DeprecationHandler(RequestHandler):
     def __init__(self):
-        super(DeprecationHandler, self).__init__()
+        super().__init__()
         self._warned = set()
 
-    def after_request(self, region, endpoint_name, method_name, url, response):
+    def after_request(
+        self,
+        region: str,
+        endpoint_name: str,
+        method_name: str,
+        url: str,
+        response: Response,
+    ) -> Response:
         deprecation = response.headers.get("X-Riot-Deprecated")
         if deprecation is not None:
             try:
@@ -18,11 +28,11 @@ class DeprecationHandler(RequestHandler):
             except (OSError, ValueError):
                 # API returned unexected value in header, so just do nothing
                 return response
-            key = "{}.{}".format(endpoint_name, method_name)
+            key = f"{endpoint_name}.{method_name}"
             if key not in self._warned:
                 # technically race condition here, but worst case is we double log a warning
                 self._warned.add(key)
-                logging.warning(
+                log.warning(
                     "Method %s has been deprecated by Riot! It will no longer work after %s",
                     key,
                     deprecation,

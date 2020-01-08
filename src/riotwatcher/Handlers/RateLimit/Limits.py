@@ -3,23 +3,27 @@ import logging
 import threading
 
 from collections import namedtuple
+from typing import Iterable, Optional
+
+
+log = logging.getLogger(__name__)
 
 RawLimit = namedtuple("RawLimit", ["count", "limit", "time"])
 
 
-class LimitCollection(object):
+class LimitCollection:
     def __init__(self):
         self._limits = {}
         self._limits_lock = threading.Lock()
 
-    def wait_until(self):
+    def wait_until(self) -> datetime.datetime:
         # we dont really want to update the limits as we process them
         # may be able to move the max() call outside the lock though
         with self._limits_lock:
             limits_waits = [limit.wait_until() for key, limit in self._limits.items()]
             return max(limits_waits) if limits_waits else None
 
-    def update_limits(self, raw_limits):
+    def update_limits(self, raw_limits: Iterable[RawLimit]):
         for raw_limit in raw_limits:
             if raw_limit.time not in self._limits:
                 with self._limits_lock:
@@ -29,7 +33,7 @@ class LimitCollection(object):
             self._limits[raw_limit.time].set_raw_limit(raw_limit)
 
 
-class Limit(object):
+class Limit:
     def __init__(self):
         self._start_time = None
         self._raw_limit = RawLimit(0, 0, 0)
@@ -37,22 +41,22 @@ class Limit(object):
         self._lock = threading.Lock()
 
     @property
-    def start_time(self):
+    def start_time(self) -> Optional[datetime.datetime]:
         return self._start_time
 
     @property
-    def duration(self):
+    def duration(self) -> int:
         return self._raw_limit.time
 
     @property
-    def count(self):
+    def count(self) -> int:
         return self._raw_limit.count
 
     @property
-    def limit(self):
+    def limit(self) -> int:
         return self._raw_limit.limit
 
-    def set_raw_limit(self, raw_limit):
+    def set_raw_limit(self, raw_limit: RawLimit):
         enter_time = datetime.datetime.now()
 
         # try to ensure some thread safety
@@ -68,14 +72,14 @@ class Limit(object):
                     and self._raw_limit.limit == 0
                     and self._raw_limit.count == 0
                 ):
-                    logging.warning(
+                    log.warning(
                         "overwriting time limit, previously %s, now %s. This may cause rate limitting issues.",
                         self._raw_limit.time,
                         raw_limit.time,
                     )
 
             if self._raw_limit.limit != raw_limit.limit:
-                logging.info(
+                log.info(
                     "rate limit changed from %s/%ss to %s/%ss",
                     self._raw_limit.limit,
                     self._raw_limit.time,
@@ -101,7 +105,7 @@ class Limit(object):
                     )
                 self._raw_limit = raw_limit
 
-    def wait_until(self):
+    def wait_until(self) -> datetime.datetime:
         if self.count >= self.limit:
             return self._start_time + datetime.timedelta(seconds=self.duration)
         return datetime.datetime(datetime.MINYEAR, 1, 1)

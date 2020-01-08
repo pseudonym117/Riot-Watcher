@@ -3,31 +3,29 @@ import sys
 
 import pytest
 
-if sys.version_info > (3, 0):
-    import unittest.mock as mock
-else:
-    import mock
+import unittest.mock as mock
 
+from typing import T
 
 real_datetime_class = datetime.datetime
 
 
 class DatetimeSubclassMeta(type):
     @classmethod
-    def __instancecheck__(mcs, obj):
+    def __instancecheck__(mcs, obj) -> bool:
         return isinstance(obj, real_datetime_class)
 
 
 class BaseMockDatetime(real_datetime_class):
     @classmethod
-    def now(cls):
+    def now(cls) -> datetime.datetime:
         if hasattr(cls, "_now") and cls._now is not None:
             return cls._now
         else:
             return real_datetime_class.now()
 
     @classmethod
-    def set_now(cls, datetime_value):
+    def set_now(cls, datetime_value: datetime.datetime):
         cls._now = datetime_value
 
 
@@ -44,7 +42,7 @@ def mock_datetime(monkeypatch):
 
 
 @pytest.fixture
-def mock_get(monkeypatch):
+def mock_get(monkeypatch) -> mock.MagicMock:
     with monkeypatch.context() as m:
         mock_req = mock.MagicMock()
         m.setattr("requests.get", mock_req)
@@ -61,8 +59,10 @@ def reset_globals():
     UrlConfig.root_url = initial
 
 
-class MockContext(object):
-    def __init__(self, api_key, mock_get, watcher, kernel_url):
+class MockContext:
+    def __init__(
+        self, api_key: str, mock_get: mock.MagicMock, watcher, kernel_url: str
+    ):
         self._api_key = api_key
         self._expected_response = {"has_value": "yes"}
         self._get = mock_get
@@ -75,32 +75,34 @@ class MockContext(object):
         self.get.return_value = mock_response
 
     @property
-    def api_key(self):
+    def api_key(self) -> str:
         return self._api_key
 
     @property
-    def expected_response(self):
+    def expected_response(self) -> dict:
         return self._expected_response
 
     @property
-    def get(self):
+    def get(self) -> mock.MagicMock:
         return self._get
 
     @property
     def watcher(self):
         return self._watcher
 
-    def verify_api_call(self, region, endpoint, query_params, actual_response):
+    def verify_api_call(
+        self, region: str, endpoint: str, query_params: dict, actual_response: T
+    ):
         assert self.expected_response == actual_response
 
         if self._kernel_url:
             base_url = self._kernel_url
             query_params["platform"] = region
         else:
-            base_url = "https://{region}.api.riotgames.com".format(region=region)
+            base_url = f"https://{region}.api.riotgames.com"
 
         self.get.assert_called_once_with(
-            "{base_url}{endpoint}".format(base_url=base_url, endpoint=endpoint),
+            f"{base_url}{endpoint}",
             params=query_params,
             headers={"X-Riot-Token": self.api_key},
         )
@@ -108,7 +110,7 @@ class MockContext(object):
 
 @pytest.fixture(params=(None, "https://kernel-proxy:8080"))
 @pytest.mark.usefixtures("reset_globals")
-def mock_context(mock_get, request):
+def mock_context(mock_get: mock.MagicMock, request) -> MockContext:
     import riotwatcher
 
     api_key = "abcdefg"

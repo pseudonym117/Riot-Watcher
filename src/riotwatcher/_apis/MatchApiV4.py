@@ -1,4 +1,6 @@
-from . import NamedEndpoint
+from typing import Set
+
+from . import BaseApi, NamedEndpoint
 from .urls import MatchApiV4Urls
 
 
@@ -9,15 +11,15 @@ class MatchApiV4(NamedEndpoint):
     See https://developer.riotgames.com/api-methods/#match-v4 for more detailed information
     """
 
-    def __init__(self, base_api):
+    def __init__(self, base_api: BaseApi):
         """
         Initialize a new MatchApiV4 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
-        super(MatchApiV4, self).__init__(base_api, self.__class__.__name__)
+        super().__init__(base_api, self.__class__.__name__)
 
-    def by_id(self, region, match_id):
+    def by_id(self, region: str, match_id: int):
         """
         Get match by match ID
 
@@ -31,15 +33,15 @@ class MatchApiV4(NamedEndpoint):
 
     def matchlist_by_account(
         self,
-        region,
-        encrypted_account_id,
-        queue=None,
-        begin_time=None,
-        end_time=None,
-        begin_index=None,
-        end_index=None,
-        season=None,
-        champion=None,
+        region: str,
+        encrypted_account_id: str,
+        queue: Set[str] = None,
+        begin_time: int = None,
+        end_time: int = None,
+        begin_index: int = None,
+        end_index: int = None,
+        season: Set[int] = None,
+        champion: Set[int] = None,
     ):
         """
         Get matchlist for ranked games played on given account ID and platform ID
@@ -87,7 +89,7 @@ class MatchApiV4(NamedEndpoint):
         )
         return self._raw_request(self.matchlist_by_account.__name__, region, url, query)
 
-    def timeline_by_match(self, region, match_id):
+    def timeline_by_match(self, region: str, match_id: int):
         """
         Get match timeline by match ID.
 
