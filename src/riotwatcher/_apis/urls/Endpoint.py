@@ -4,7 +4,7 @@ from .UrlConfig import UrlConfig
 
 
 class Endpoint:
-    def __init__(self, url, **kwargs):
+    def __init__(self, url: str, **kwargs):
         self._url = url
 
         url_params = re.findall(r"{(\w*)}", self._url)
@@ -27,7 +27,7 @@ class Endpoint:
 
 
 class LeagueEndpoint:
-    def __init__(self, url, **kwargs):
+    def __init__(self, url: str, **kwargs):
         self._url = f"/lol{url}"
 
     def __call__(self, **kwargs):
@@ -38,11 +38,11 @@ class LeagueEndpoint:
 
 
 class TftEndpoint:
-    def __init__(self, url, **kwargs):
+    def __init__(self, url: str, **kwargs):
         self._url = f"/tft{url}"
 
     def __call__(self, **kwargs):
-        final_url = f"{UrlConfig.root_url}{self._url}"
+        final_url = f"{UrlConfig.tft_url}{self._url}"
 
         endpoint = Endpoint(final_url, **kwargs)
         return endpoint(**kwargs)

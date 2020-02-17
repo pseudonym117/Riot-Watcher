@@ -63,7 +63,7 @@ class TestTftLeagueApi:
             league.entries.__name__,
             region,
             f"https://{region}.api.riotgames.com/tft/league/v1/entries/{tier}/{division}",
-            {},
+            {"page": 1},
         )
 
         assert ret is expected_return

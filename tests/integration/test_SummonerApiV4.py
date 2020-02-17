@@ -22,12 +22,12 @@ import pytest
 )
 class TestSummonerApiV4:
     @pytest.mark.parametrize("encrypted_account_id", ["12345", "99999999999999999999"])
-    def test_by_account(self, mock_context, region, encrypted_account_id):
-        actual_response = mock_context.watcher.summoner.by_account(
+    def test_by_account(self, lol_context, region, encrypted_account_id):
+        actual_response = lol_context.watcher.summoner.by_account(
             region, encrypted_account_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/summoner/v4/summoners/by-account/{encrypted_account_id}",
             {},
@@ -35,10 +35,10 @@ class TestSummonerApiV4:
         )
 
     @pytest.mark.parametrize("summoner_name", ["pseudonym117", "Riot Tuxedo"])
-    def test_by_name(self, mock_context, region, summoner_name):
-        actual_response = mock_context.watcher.summoner.by_name(region, summoner_name)
+    def test_by_name(self, lol_context, region, summoner_name):
+        actual_response = lol_context.watcher.summoner.by_name(region, summoner_name)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/summoner/v4/summoners/by-name/{summoner_name}",
             {},
@@ -46,12 +46,10 @@ class TestSummonerApiV4:
         )
 
     @pytest.mark.parametrize("encrypted_puuid", ["12345", "99999999999999999999"])
-    def test_by_puuid(self, mock_context, region, encrypted_puuid):
-        actual_response = mock_context.watcher.summoner.by_puuid(
-            region, encrypted_puuid
-        )
+    def test_by_puuid(self, lol_context, region, encrypted_puuid):
+        actual_response = lol_context.watcher.summoner.by_puuid(region, encrypted_puuid)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/summoner/v4/summoners/by-puuid/{encrypted_puuid}",
             {},
@@ -59,12 +57,12 @@ class TestSummonerApiV4:
         )
 
     @pytest.mark.parametrize("encrypted_summoner_id", ["12345", "99999999999999999999"])
-    def test_by_id(self, mock_context, region, encrypted_summoner_id):
-        actual_response = mock_context.watcher.summoner.by_id(
+    def test_by_id(self, lol_context, region, encrypted_summoner_id):
+        actual_response = lol_context.watcher.summoner.by_id(
             region, encrypted_summoner_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/summoner/v4/summoners/{encrypted_summoner_id}",
             {},

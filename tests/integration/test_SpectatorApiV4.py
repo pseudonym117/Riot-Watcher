@@ -22,21 +22,21 @@ import pytest
 )
 class TestSpectatorApiV4:
     @pytest.mark.parametrize("encrypted_summoner_id", ["12345", "99999999999999999"])
-    def test_by_summoner(self, mock_context, region, encrypted_summoner_id):
-        actual_response = mock_context.watcher.spectator.by_summoner(
+    def test_by_summoner(self, lol_context, region, encrypted_summoner_id):
+        actual_response = lol_context.watcher.spectator.by_summoner(
             region, encrypted_summoner_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}",
             {},
             actual_response,
         )
 
-    def test_featured_games(self, mock_context, region):
-        actual_response = mock_context.watcher.spectator.featured_games(region)
+    def test_featured_games(self, lol_context, region):
+        actual_response = lol_context.watcher.spectator.featured_games(region)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region, "/lol/spectator/v4/featured-games", {}, actual_response
         )

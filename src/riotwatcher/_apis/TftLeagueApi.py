@@ -27,9 +27,9 @@ class TftLeagueApi(NamedEndpoint):
         )
         return self._raw_request(self.by_summoner.__name__, region, url, query)
 
-    def entries(self, region: str, tier: str, division: str):
+    def entries(self, region: str, tier: str, division: str, page: int = 1):
         url, query = TftLeagueApiUrls.entries(
-            platform=region, tier=tier, division=division
+            platform=region, tier=tier, division=division, page=page
         )
         return self._raw_request(self.entries.__name__, region, url, query)
 

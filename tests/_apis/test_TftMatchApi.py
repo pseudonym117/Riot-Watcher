@@ -23,7 +23,7 @@ class TestTftMatchApi:
             match.by_puuid.__name__,
             region,
             f"https://{region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids",
-            {},
+            {"count": 20},
         )
 
         assert ret is expected_return

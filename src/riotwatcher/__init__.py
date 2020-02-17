@@ -1,4 +1,14 @@
 from .exceptions import ApiError, TimeoutError
-from .riotwatcher import RiotWatcher
+from .LolWatcher import LolWatcher
+from .TftWatcher import TftWatcher
 
-__all__ = ["RiotWatcher", "Handlers", "ApiError", "TimeoutError"]
+from .RiotWatcher import RiotWatcher
+
+__all__ = [
+    "RiotWatcher",
+    "LolWatcher",
+    "TftWatcher",
+    "Handlers",
+    "ApiError",
+    "TimeoutError",
+]

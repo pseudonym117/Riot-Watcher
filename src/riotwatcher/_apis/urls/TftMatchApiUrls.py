@@ -2,11 +2,11 @@ from .Endpoint import TftEndpoint
 
 
 class TftMatchEndpoint(TftEndpoint):
-    def __init__(self, url, **kwargs):
+    def __init__(self, url: str, **kwargs):
         nurl = "/match/v1/matches" + url
-        super(TftMatchEndpoint, self).__init__(nurl, **kwargs)
+        super().__init__(nurl, **kwargs)
 
 
-class TftMatchApiUrls(object):
+class TftMatchApiUrls:
     by_puuid = TftMatchEndpoint("/by-puuid/{puuid}/ids")
     by_id = TftMatchEndpoint("/{match_id}")

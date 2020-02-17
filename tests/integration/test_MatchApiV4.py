@@ -22,10 +22,10 @@ import pytest
 )
 class TestMatchApiV4:
     @pytest.mark.parametrize("match_id", [12345, 54321, 2, 222222222222222222222])
-    def test_by_id(self, mock_context, region, match_id):
-        actual_response = mock_context.watcher.match.by_id(region, match_id)
+    def test_by_id(self, lol_context, region, match_id):
+        actual_response = lol_context.watcher.match.by_id(region, match_id)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region, f"/lol/match/v4/matches/{match_id}", {}, actual_response,
         )
 
@@ -43,7 +43,7 @@ class TestMatchApiV4:
     @pytest.mark.parametrize("champion", [None, (90, 43, 12)])
     def test_matchlist_by_account(
         self,
-        mock_context,
+        lol_context,
         region,
         encrypted_account_id,
         queue,
@@ -55,7 +55,7 @@ class TestMatchApiV4:
         begin_time, end_time = begin_end_time
         begin_index, end_index = begin_end_index
 
-        actual_response = mock_context.watcher.match.matchlist_by_account(
+        actual_response = lol_context.watcher.match.matchlist_by_account(
             region,
             encrypted_account_id,
             queue=queue,
@@ -83,7 +83,7 @@ class TestMatchApiV4:
         if champion is not None:
             expected_params["champion"] = champion
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/match/v4/matchlists/by-account/{encrypted_account_id}",
             expected_params,
@@ -91,9 +91,9 @@ class TestMatchApiV4:
         )
 
     @pytest.mark.parametrize("match_id", [0, 54321, 3232323232323223])
-    def test_timeline_by_match(self, mock_context, region, match_id):
-        actual_response = mock_context.watcher.match.timeline_by_match(region, match_id)
+    def test_timeline_by_match(self, lol_context, region, match_id):
+        actual_response = lol_context.watcher.match.timeline_by_match(region, match_id)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region, f"/lol/match/v4/timelines/by-match/{match_id}", {}, actual_response,
         )

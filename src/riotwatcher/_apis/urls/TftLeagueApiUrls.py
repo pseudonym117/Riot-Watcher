@@ -2,12 +2,12 @@ from .Endpoint import TftEndpoint
 
 
 class TftLeagueEndpoint(TftEndpoint):
-    def __init__(self, url, **kwargs):
+    def __init__(self, url: str, **kwargs):
         nurl = "/league/v1" + url
-        super(TftLeagueEndpoint, self).__init__(nurl, **kwargs)
+        super().__init__(nurl, **kwargs)
 
 
-class TftLeagueApiUrls(object):
+class TftLeagueApiUrls:
     challenger = TftLeagueEndpoint("/challenger")
     by_summoner = TftLeagueEndpoint("/entries/by-summoner/{encrypted_summoner_id}")
     entries = TftLeagueEndpoint("/entries/{tier}/{division}")

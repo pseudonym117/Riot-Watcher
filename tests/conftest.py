@@ -110,7 +110,7 @@ class MockContext:
 
 @pytest.fixture(params=(None, "https://kernel-proxy:8080"))
 @pytest.mark.usefixtures("reset_globals")
-def mock_context(mock_get: mock.MagicMock, request) -> MockContext:
+def lol_context(mock_get: mock.MagicMock, request) -> MockContext:
     import riotwatcher
 
     api_key = "abcdefg"
@@ -119,4 +119,15 @@ def mock_context(mock_get: mock.MagicMock, request) -> MockContext:
         mock_get,
         riotwatcher.RiotWatcher(api_key, kernel_url=request.param),
         request.param,
+    )
+
+
+@pytest.fixture
+@pytest.mark.usefixtures("reset_globals")
+def tft_context(mock_get: mock.MagicMock, request) -> MockContext:
+    import riotwatcher
+
+    api_key = "abcdefg"
+    yield MockContext(
+        api_key, mock_get, riotwatcher.TftWatcher(api_key), None,
     )
