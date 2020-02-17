@@ -126,7 +126,9 @@ Changelog
 v3.0.0 - TBD
 ~~~~~~~~~~~~
 
-TFT APIs added, through riotwatcher.TftWatcher class.
+TFT APIs added through riotwatcher.TftWatcher class.
+
+Added support for LoR APIs through riotwatcher.LorWatcher class.
 
 No more python 2 support. Finally. If you need support for python 2, please use v2.7.1.
 Also Python 3.5 is no longer supported. Please use 3.6 or newer.

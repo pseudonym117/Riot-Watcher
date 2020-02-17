@@ -11,6 +11,10 @@ riotwatcher package
     :members:
     :undoc-members:
 
+.. autoclass:: LorWatcher
+    :members:
+    :undoc-members:
+
 Subpackages
 -----------
 
