@@ -1,5 +1,5 @@
-from .Endpoint import RegionEndpoint
+from .Endpoint import LeagueEndpoint
 
 
 class LolStatusApiV3Urls:
-    shard_data = RegionEndpoint("/status/v3/shard-data")
+    shard_data = LeagueEndpoint("/status/v3/shard-data")

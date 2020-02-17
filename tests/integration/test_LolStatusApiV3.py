@@ -21,9 +21,9 @@ import pytest
     ],
 )
 class TestStatusApiV3:
-    def test_shard_data(self, mock_context, region):
-        actual_response = mock_context.watcher.lol_status.shard_data(region)
+    def test_shard_data(self, lol_context, region):
+        actual_response = lol_context.watcher.lol_status.shard_data(region)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region, "/lol/status/v3/shard-data", {}, actual_response
         )

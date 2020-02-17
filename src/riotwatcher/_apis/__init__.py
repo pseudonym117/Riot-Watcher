@@ -9,6 +9,9 @@ from .LeagueApiV4 import LeagueApiV4
 from .MatchApiV4 import MatchApiV4
 from .SpectatorApiV4 import SpectatorApiV4
 from .SummonerApiV4 import SummonerApiV4
+from .TftLeagueApi import TftLeagueApi
+from .TftMatchApi import TftMatchApi
+from .TftSummonerApi import TftSummonerApi
 from .ThirdPartyCodeApiV4 import ThirdPartyCodeApiV4
 
 __all__ = [
@@ -22,5 +25,8 @@ __all__ = [
     "MatchApiV4",
     "SpectatorApiV4",
     "SummonerApiV4",
+    "TftLeagueApi",
+    "TftMatchApi",
+    "TftSummonerApi",
     "ThirdPartyCodeApiV4",
 ]

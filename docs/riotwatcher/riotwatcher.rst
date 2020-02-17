@@ -3,7 +3,11 @@ riotwatcher package
 
 .. py:currentmodule:: riotwatcher
 
-.. autoclass:: RiotWatcher
+.. autoclass:: LolWatcher
+    :members:
+    :undoc-members:
+
+.. autoclass:: TftWatcher
     :members:
     :undoc-members:
 

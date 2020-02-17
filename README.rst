@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 7/30/2019 are supported in full.
+of 2/17/2020 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -43,22 +43,22 @@ raised as HTTPError exceptions from the Requests library.
 
 .. code:: python
 
-    from riotwatcher import RiotWatcher, ApiError
+    from riotwatcher import LolWatcher, ApiError
 
-    watcher = RiotWatcher('<your-api-key>')
+    lol_watcher = LolWatcher('<your-api-key>')
 
     my_region = 'na1'
 
-    me = watcher.summoner.by_name(my_region, 'pseudonym117')
+    me = lol_watcher.summoner.by_name(my_region, 'pseudonym117')
     print(me)
 
     # all objects are returned (by default) as a dict
     # lets see if I got diamond yet (I probably didn't)
-    my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+    my_ranked_stats = lol_watcher.league.by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
     # Lets get some champions
-    static_champ_list = watcher.static_data.champions(my_region)
+    static_champ_list = lol_watcher.static_data.champions(my_region)
     print(static_champ_list)
 
     # For Riot's API, the 404 status code indicates that the requested data wasn't found and
@@ -69,7 +69,7 @@ raised as HTTPError exceptions from the Requests library.
     # in a given amount of time ("rate limiting").
 
     try:
-        response = watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
+        response = lol_watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
     except ApiError as err:
         if err.response.status_code == 429:
             print('We should retry in {} seconds.'.format(err.response.headers['Retry-After']))
@@ -84,13 +84,13 @@ Use with kernel
 ---------------
 
 RiotWatcher can integrate with the API proxy/caching server `kernel <https://github.com/meraki-analytics/kernel/>`__.
-This can be done by providing the ``kernel_url`` parameter to the ``RiotWatcher`` constructor.
+This can be done by providing the ``kernel_url`` parameter to the ``LolWatcher`` constructor.
 
 .. code:: python
 
-    from riotwatcher import RiotWatcher, ApiError
+    from riotwatcher import LolWatcher, ApiError
 
-    watcher = RiotWatcher(kernel_url="https://your-kernel-instance") # should not contain trailing slash
+    lol_watcher = LolWatcher(kernel_url="https://your-kernel-instance") # should not contain trailing slash
     # use watcher as normal
     
 
@@ -126,8 +126,14 @@ Changelog
 v3.0.0 - TBD
 ~~~~~~~~~~~~
 
+TFT APIs added, through riotwatcher.TftWatcher class.
+
 No more python 2 support. Finally. If you need support for python 2, please use v2.7.1.
 Also Python 3.5 is no longer supported. Please use 3.6 or newer.
+
+riotwatcher.RiotWatcher class has been deprecated - It has been renamed to LolWatcher.
+The riotwatcher.RiotWatcher class has been maintained for backwards compatibility, but
+will not exist forever.
 
 Removed long-deprecated classes.
 

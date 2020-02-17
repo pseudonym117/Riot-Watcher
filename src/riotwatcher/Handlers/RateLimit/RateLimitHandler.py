@@ -12,11 +12,13 @@ log = logging.getLogger(__name__)
 
 
 class RateLimitHandler(RequestHandler):
+    __application_rate_limiter = ApplicationRateLimiter()
+
     def __init__(self):
         super().__init__()
 
         self._limiters = (
-            ApplicationRateLimiter(),
+            RateLimitHandler.__application_rate_limiter,
             MethodRateLimiter(),
             OopsRateLimiter(),
         )

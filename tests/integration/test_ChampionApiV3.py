@@ -21,9 +21,9 @@ import pytest
     ],
 )
 class TestChampionApiV3:
-    def test_rotations(self, mock_context, region):
-        actual_response = mock_context.watcher.champion.rotations(region)
+    def test_rotations(self, lol_context, region):
+        actual_response = lol_context.watcher.champion.rotations(region)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region, "/lol/platform/v3/champion-rotations", {}, actual_response
         )

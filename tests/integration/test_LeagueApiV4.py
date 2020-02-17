@@ -25,10 +25,10 @@ queues = ("RANKED_SOLO_5x5", "RANKED_FLEX_SR", "RANKED_FLEX_TT", "RANKED_TFT")
 )
 class TestLeagueApiV4:
     @pytest.mark.parametrize("queue", queues)
-    def test_challenger_by_queue(self, mock_context, region, queue):
-        actual_response = mock_context.watcher.league.challenger_by_queue(region, queue)
+    def test_challenger_by_queue(self, lol_context, region, queue):
+        actual_response = lol_context.watcher.league.challenger_by_queue(region, queue)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/league/v4/challengerleagues/by-queue/{queue}",
             {},
@@ -36,12 +36,10 @@ class TestLeagueApiV4:
         )
 
     @pytest.mark.parametrize("queue", queues)
-    def test_grandmaster_by_queue(self, mock_context, region, queue):
-        actual_response = mock_context.watcher.league.grandmaster_by_queue(
-            region, queue
-        )
+    def test_grandmaster_by_queue(self, lol_context, region, queue):
+        actual_response = lol_context.watcher.league.grandmaster_by_queue(region, queue)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/league/v4/grandmasterleagues/by-queue/{queue}",
             {},
@@ -49,10 +47,10 @@ class TestLeagueApiV4:
         )
 
     @pytest.mark.parametrize("queue", queues)
-    def test_masters_by_queue(self, mock_context, region, queue):
-        actual_response = mock_context.watcher.league.masters_by_queue(region, queue)
+    def test_masters_by_queue(self, lol_context, region, queue):
+        actual_response = lol_context.watcher.league.masters_by_queue(region, queue)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/league/v4/masterleagues/by-queue/{queue}",
             {},
@@ -60,10 +58,10 @@ class TestLeagueApiV4:
         )
 
     @pytest.mark.parametrize("league_id", [1, 500, 99999999999999])
-    def test_by_id(self, mock_context, region, league_id):
-        actual_response = mock_context.watcher.league.by_id(region, league_id)
+    def test_by_id(self, lol_context, region, league_id):
+        actual_response = lol_context.watcher.league.by_id(region, league_id)
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region, f"/lol/league/v4/leagues/{league_id}", {}, actual_response,
         )
 
@@ -71,12 +69,12 @@ class TestLeagueApiV4:
         "encrypted_summoner_id",
         ["50", "424299938281", "9999999999999999999999", "rtbf12345"],
     )
-    def test_by_summoner(self, mock_context, region, encrypted_summoner_id):
-        actual_response = mock_context.watcher.league.by_summoner(
+    def test_by_summoner(self, lol_context, region, encrypted_summoner_id):
+        actual_response = lol_context.watcher.league.by_summoner(
             region, encrypted_summoner_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/league/v4/entries/by-summoner/{encrypted_summoner_id}",
             {},
@@ -87,12 +85,12 @@ class TestLeagueApiV4:
     @pytest.mark.parametrize("tier", ["IRON", "SILVER", "DIAMOND"])
     @pytest.mark.parametrize("division", ["I", "IV"])
     @pytest.mark.parametrize("page", [2, 420])
-    def test_entries(self, mock_context, region, queue, tier, division, page):
-        actual_response = mock_context.watcher.league.entries(
+    def test_entries(self, lol_context, region, queue, tier, division, page):
+        actual_response = lol_context.watcher.league.entries(
             region, queue, tier, division, page=page
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/league/v4/entries/{queue}/{tier}/{division}",
             {"page": page},
@@ -103,12 +101,12 @@ class TestLeagueApiV4:
         "encrypted_summoner_id",
         ["50", "424299938281", "9999999999999999999999", "rtbf12345"],
     )
-    def test_positions_by_summoner(self, mock_context, region, encrypted_summoner_id):
-        actual_response = mock_context.watcher.league.positions_by_summoner(
+    def test_positions_by_summoner(self, lol_context, region, encrypted_summoner_id):
+        actual_response = lol_context.watcher.league.positions_by_summoner(
             region, encrypted_summoner_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}",
             {},

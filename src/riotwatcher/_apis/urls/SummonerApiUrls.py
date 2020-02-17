@@ -1,7 +1,7 @@
-from .Endpoint import RegionEndpoint
+from .Endpoint import LeagueEndpoint
 
 
-class SummonerV4Endpoint(RegionEndpoint):
+class SummonerV4Endpoint(LeagueEndpoint):
     def __init__(self, url, **kwargs):
         nurl = f"/summoner/v4/summoners{url}"
         super().__init__(nurl, **kwargs)

@@ -1,5 +1,5 @@
-from .Endpoint import RegionEndpoint
+from .Endpoint import LeagueEndpoint
 
 
 class ChampionApiV3Urls:
-    rotations = RegionEndpoint("/platform/v3/champion-rotations")
+    rotations = LeagueEndpoint("/platform/v3/champion-rotations")

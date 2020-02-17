@@ -22,12 +22,12 @@ import pytest
 )
 @pytest.mark.parametrize("encrypted_summoner_id", ["50", "424299938281", "rtbf12345"])
 class TestChampionMasteryApiV4(object):
-    def test_by_summoner(self, mock_context, region, encrypted_summoner_id):
-        actual_response = mock_context.watcher.champion_mastery.by_summoner(
+    def test_by_summoner(self, lol_context, region, encrypted_summoner_id):
+        actual_response = lol_context.watcher.champion_mastery.by_summoner(
             region, encrypted_summoner_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}",
             {},
@@ -36,25 +36,25 @@ class TestChampionMasteryApiV4(object):
 
     @pytest.mark.parametrize("champion_id", [0, 1, 9999999999, 150])
     def test_by_summoner_by_champion(
-        self, mock_context, region, encrypted_summoner_id, champion_id
+        self, lol_context, region, encrypted_summoner_id, champion_id
     ):
-        actual_response = mock_context.watcher.champion_mastery.by_summoner_by_champion(
+        actual_response = lol_context.watcher.champion_mastery.by_summoner_by_champion(
             region, encrypted_summoner_id, champion_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}",
             {},
             actual_response,
         )
 
-    def test_scores_by_summoner(self, mock_context, region, encrypted_summoner_id):
-        actual_response = mock_context.watcher.champion_mastery.scores_by_summoner(
+    def test_scores_by_summoner(self, lol_context, region, encrypted_summoner_id):
+        actual_response = lol_context.watcher.champion_mastery.scores_by_summoner(
             region, encrypted_summoner_id
         )
 
-        mock_context.verify_api_call(
+        lol_context.verify_api_call(
             region,
             f"/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}",
             {},
