@@ -14,6 +14,8 @@ from .TftMatchApi import TftMatchApi
 from .TftSummonerApi import TftSummonerApi
 from .ThirdPartyCodeApiV4 import ThirdPartyCodeApiV4
 
+from .LorRankedApi import LorRankedApi
+
 __all__ = [
     "BaseApi",
     "NamedEndpoint",
@@ -29,4 +31,5 @@ __all__ = [
     "TftMatchApi",
     "TftSummonerApi",
     "ThirdPartyCodeApiV4",
+    "LorRankedApi",
 ]
