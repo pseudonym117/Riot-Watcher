@@ -10,5 +10,5 @@ class TftSummonerEndpoint(TftEndpoint):
 class TftSummonerApiUrls(object):
     by_account = TftSummonerEndpoint("/by-account/{encrypted_account_id}")
     by_name = TftSummonerEndpoint("/by-name/{summoner_name}")
-    by_puuid = TftSummonerEndpoint("/by-puuid/{encrypted_puuid}")
+    by_puuid = TftSummonerEndpoint("/by-puuid/{puuid}")
     by_id = TftSummonerEndpoint("/{encrypted_summoner_id}")

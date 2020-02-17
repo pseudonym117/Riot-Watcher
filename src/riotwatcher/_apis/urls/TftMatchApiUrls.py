@@ -8,5 +8,5 @@ class TftMatchEndpoint(TftEndpoint):
 
 
 class TftMatchApiUrls(object):
-    by_puuid = TftMatchEndpoint("/by-puuid/{encrypted_puuid}/ids")
+    by_puuid = TftMatchEndpoint("/by-puuid/{puuid}/ids")
     by_id = TftMatchEndpoint("/{match_id}")
