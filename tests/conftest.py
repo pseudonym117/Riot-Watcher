@@ -124,10 +124,21 @@ def lol_context(mock_get: mock.MagicMock, request) -> MockContext:
 
 @pytest.fixture
 @pytest.mark.usefixtures("reset_globals")
-def tft_context(mock_get: mock.MagicMock, request) -> MockContext:
+def tft_context(mock_get: mock.MagicMock) -> MockContext:
     import riotwatcher
 
     api_key = "abcdefg"
     yield MockContext(
         api_key, mock_get, riotwatcher.TftWatcher(api_key), None,
+    )
+
+
+@pytest.fixture
+@pytest.mark.usefixtures("reset_globals")
+def lor_context(mock_get: mock.MagicMock) -> MockContext:
+    import riotwatcher
+
+    api_key = "abcdefg"
+    yield MockContext(
+        api_key, mock_get, riotwatcher.LorWatcher(api_key), None,
     )
