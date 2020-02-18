@@ -1,6 +1,6 @@
 from . import BaseApi
 
-from .urls import Endpoint
+from .Endpoint import Endpoint
 
 
 class NamedEndpoint:

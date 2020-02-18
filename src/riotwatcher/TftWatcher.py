@@ -1,7 +1,5 @@
 from typing import List
 
-from ._apis import BaseApi, TftLeagueApi, TftMatchApi, TftSummonerApi
-
 from .Handlers import (
     DeprecationHandler,
     JsonifyHandler,
@@ -11,6 +9,9 @@ from .Handlers import (
 )
 
 from .Handlers.RateLimit import RateLimitHandler
+
+from ._apis import BaseApi
+from ._apis.team_fight_tactics import TftLeagueApi, TftMatchApi, TftSummonerApi
 
 
 class TftWatcher:

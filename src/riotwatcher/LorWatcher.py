@@ -1,6 +1,5 @@
 from typing import List
 
-from ._apis import BaseApi, LorRankedApi
 from .Handlers import (
     DeprecationHandler,
     JsonifyHandler,
@@ -8,8 +7,10 @@ from .Handlers import (
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
-
 from .Handlers.RateLimit import RateLimitHandler
+
+from ._apis import BaseApi
+from ._apis.legends_of_runeterra import LorRankedApi
 
 
 class LorWatcher:
