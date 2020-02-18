@@ -3,6 +3,6 @@ ChampionMasteryApiV4
 
 .. py:currentmodule:: riotwatcher
 
-.. autoclass:: riotwatcher._apis.ChampionMasteryApiV4
+.. autoclass:: riotwatcher._apis.league_of_legends.ChampionMasteryApiV4
     :members:
     :undoc-members:
