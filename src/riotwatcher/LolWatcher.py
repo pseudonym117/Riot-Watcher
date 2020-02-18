@@ -1,14 +1,5 @@
 from typing import List
 
-from ._apis import BaseApi, DataDragonApi, ChampionApiV3, LolStatusApiV3
-from ._apis import (
-    ChampionMasteryApiV4,
-    LeagueApiV4,
-    MatchApiV4,
-    SpectatorApiV4,
-    SummonerApiV4,
-    ThirdPartyCodeApiV4,
-)
 from .Handlers import (
     DeprecationHandler,
     JsonifyHandler,
@@ -19,7 +10,18 @@ from .Handlers import (
 
 from .Handlers.RateLimit import RateLimitHandler
 
-from ._apis.urls import UrlConfig
+from ._apis import BaseApi, UrlConfig
+from ._apis.league_of_legends import (
+    ChampionApiV3,
+    ChampionMasteryApiV4,
+    DataDragonApi,
+    LeagueApiV4,
+    LolStatusApiV3,
+    MatchApiV4,
+    SpectatorApiV4,
+    SummonerApiV4,
+    ThirdPartyCodeApiV4,
+)
 
 
 class LolWatcher:

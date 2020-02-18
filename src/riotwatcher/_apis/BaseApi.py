@@ -1,7 +1,7 @@
 import requests
 
 
-class BaseApi(object):
+class BaseApi:
     def __init__(self, api_key, request_handlers=None, timeout=None):
         self._api_key = api_key
         self._request_handlers = request_handlers
@@ -11,7 +11,14 @@ class BaseApi(object):
     def api_key(self):
         return self._api_key
 
-    def raw_request(self, endpoint_name, method_name, region, url, query_params):
+    def raw_request(
+        self,
+        endpoint_name: str,
+        method_name: str,
+        region: str,
+        url: str,
+        query_params: dict,
+    ):
         query_params = {k: v for k, v in query_params.items() if v is not None}
 
         response = None

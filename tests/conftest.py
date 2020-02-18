@@ -52,7 +52,7 @@ def mock_get(monkeypatch) -> mock.MagicMock:
 
 @pytest.fixture
 def reset_globals():
-    from riotwatcher._apis.urls import UrlConfig
+    from riotwatcher._apis import UrlConfig
 
     initial = UrlConfig.root_url
     yield
