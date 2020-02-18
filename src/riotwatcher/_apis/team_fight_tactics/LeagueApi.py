@@ -1,8 +1,8 @@
 from .. import BaseApi, NamedEndpoint
-from .urls import TftLeagueApiUrls
+from .urls import LeagueApiUrls
 
 
-class TftLeagueApi(NamedEndpoint):
+class LeagueApi(NamedEndpoint):
     """
     This class wraps the League-v4 Api calls provided by the Riot API.
 
@@ -19,14 +19,14 @@ class TftLeagueApi(NamedEndpoint):
 
     def challenger(self, region: str):
         return self._request_endpoint(
-            self.challenger.__name__, region, TftLeagueApiUrls.challenger
+            self.challenger.__name__, region, LeagueApiUrls.challenger
         )
 
     def by_summoner(self, region: str, encrypted_summoner_id: str):
         return self._request_endpoint(
             self.by_summoner.__name__,
             region,
-            TftLeagueApiUrls.by_summoner,
+            LeagueApiUrls.by_summoner,
             encrypted_summoner_id=encrypted_summoner_id,
         )
 
@@ -34,7 +34,7 @@ class TftLeagueApi(NamedEndpoint):
         return self._request_endpoint(
             self.entries.__name__,
             region,
-            TftLeagueApiUrls.entries,
+            LeagueApiUrls.entries,
             tier=tier,
             division=division,
             page=page,
@@ -42,15 +42,15 @@ class TftLeagueApi(NamedEndpoint):
 
     def grandmaster(self, region: str):
         return self._request_endpoint(
-            self.grandmaster.__name__, region, TftLeagueApiUrls.grandmaster
+            self.grandmaster.__name__, region, LeagueApiUrls.grandmaster
         )
 
     def by_id(self, region: str, league_id: str):
         return self._request_endpoint(
-            self.by_id.__name__, region, TftLeagueApiUrls.by_id, league_id=league_id
+            self.by_id.__name__, region, LeagueApiUrls.by_id, league_id=league_id
         )
 
     def master(self, region: str):
         return self._request_endpoint(
-            self.master.__name__, region, TftLeagueApiUrls.master
+            self.master.__name__, region, LeagueApiUrls.master
         )

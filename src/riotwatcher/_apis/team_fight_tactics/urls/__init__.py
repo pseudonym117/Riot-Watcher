@@ -1,3 +1,3 @@
-from .TftLeagueApiUrls import TftLeagueApiUrls
-from .TftMatchApiUrls import TftMatchApiUrls
-from .TftSummonerApiUrls import TftSummonerApiUrls
+from .LeagueApiUrls import LeagueApiUrls
+from .MatchApiUrls import MatchApiUrls
+from .SummonerApiUrls import SummonerApiUrls

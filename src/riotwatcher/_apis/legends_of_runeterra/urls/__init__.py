@@ -1,1 +1,1 @@
-from .LorRankedApiUrls import LorRankedApiUrls
+from .RankedApiUrls import RankedApiUrls

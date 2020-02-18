@@ -1,5 +1,5 @@
 from .LorEndpoint import LorEndpoint
 
 
-class LorRankedApiUrls:
+class RankedApiUrls:
     leaderboards = LorEndpoint("/ranked/v1/leaderboards")

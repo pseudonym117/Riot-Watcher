@@ -1,1 +1,1 @@
-from .LorRankedApi import LorRankedApi
+from .RankedApi import RankedApi

@@ -5,7 +5,7 @@ import pytest
 @pytest.mark.parametrize(
     "region", ["EUROPE", "ASIA", "AMERICAS",],
 )
-class TestLorRankedApi:
+class TestRankedApi:
     def test_leaderboards(self, lor_context, region):
         actual_response = lor_context.watcher.ranked.leaderboards(region)
 

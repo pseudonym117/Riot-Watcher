@@ -20,7 +20,7 @@ import pytest
         "pbe1",
     ],
 )
-class TestTftLeagueApi:
+class TestLeagueApi:
     def test_challenger(self, tft_context, region):
         actual_response = tft_context.watcher.league.challenger(region)
 

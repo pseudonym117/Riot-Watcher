@@ -20,7 +20,7 @@ import pytest
         "pbe1",
     ],
 )
-class TestTftSummonerApi:
+class TestSummonerApi:
     @pytest.mark.parametrize("encrypted_account_id", ["12345", "99999999999999999999"])
     def test_by_account(self, tft_context, region, encrypted_account_id):
         actual_response = tft_context.watcher.summoner.by_account(

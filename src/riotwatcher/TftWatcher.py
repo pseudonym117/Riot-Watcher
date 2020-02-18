@@ -11,7 +11,7 @@ from .Handlers import (
 from .Handlers.RateLimit import RateLimitHandler
 
 from ._apis import BaseApi
-from ._apis.team_fight_tactics import TftLeagueApi, TftMatchApi, TftSummonerApi
+from ._apis.team_fight_tactics import LeagueApi, MatchApi, SummonerApi
 
 
 class TftWatcher:
@@ -64,33 +64,33 @@ class TftWatcher:
 
         self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
 
-        self._league = TftLeagueApi(self._base_api)
-        self._match = TftMatchApi(self._base_api)
-        self._summoner = TftSummonerApi(self._base_api)
+        self._league = LeagueApi(self._base_api)
+        self._match = MatchApi(self._base_api)
+        self._summoner = SummonerApi(self._base_api)
 
     @property
-    def league(self) -> TftLeagueApi:
+    def league(self) -> LeagueApi:
         """
         Interface to the League Endpoint
 
-        :rtype: TftLeagueApi
+        :rtype: LeagueApi
         """
         return self._league
 
     @property
-    def match(self) -> TftMatchApi:
+    def match(self) -> MatchApi:
         """
         Interface to the Match Endpoint
 
-        :rtype: TftMatchApi
+        :rtype: MatchApi
         """
         return self._match
 
     @property
-    def summoner(self) -> TftSummonerApi:
+    def summoner(self) -> SummonerApi:
         """
         Interface to the Summoner Endpoint
 
-        :rtype: TftSummonerApi
+        :rtype: SummonerApi
         """
         return self._summoner

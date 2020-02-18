@@ -1,8 +1,8 @@
 from .. import BaseApi, NamedEndpoint
-from .urls import LorRankedApiUrls
+from .urls import RankedApiUrls
 
 
-class LorRankedApi(NamedEndpoint):
+class RankedApi(NamedEndpoint):
     """
     This class wraps the LOR-RANKED-V1 Api calls provided by the Riot API.
 
@@ -12,7 +12,7 @@ class LorRankedApi(NamedEndpoint):
 
     def __init__(self, base_api: BaseApi):
         """
-        Initialize a new LorRankedApi which uses the provided base_api
+        Initialize a new RankedApi which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
@@ -20,5 +20,5 @@ class LorRankedApi(NamedEndpoint):
 
     def leaderboards(self, region: str):
         return self._request_endpoint(
-            self.leaderboards.__name__, region, LorRankedApiUrls.leaderboards
+            self.leaderboards.__name__, region, RankedApiUrls.leaderboards
         )

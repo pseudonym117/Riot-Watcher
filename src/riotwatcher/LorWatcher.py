@@ -10,7 +10,7 @@ from .Handlers import (
 from .Handlers.RateLimit import RateLimitHandler
 
 from ._apis import BaseApi
-from ._apis.legends_of_runeterra import LorRankedApi
+from ._apis.legends_of_runeterra import RankedApi
 
 
 class LorWatcher:
@@ -63,13 +63,13 @@ class LorWatcher:
 
         self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
 
-        self._ranked = LorRankedApi(self._base_api)
+        self._ranked = RankedApi(self._base_api)
 
     @property
-    def ranked(self) -> LorRankedApi:
+    def ranked(self) -> RankedApi:
         """
         Interface to the Ranked Endpoint
 
-        :rtype: LorRankedApi
+        :rtype: RankedApi
         """
         return self._ranked

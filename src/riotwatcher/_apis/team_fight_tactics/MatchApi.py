@@ -1,8 +1,8 @@
 from .. import BaseApi, NamedEndpoint
-from .urls import TftMatchApiUrls
+from .urls import MatchApiUrls
 
 
-class TftMatchApi(NamedEndpoint):
+class MatchApi(NamedEndpoint):
     """
     This class wraps the TFT Match Api calls provided by the Riot API.
 
@@ -11,7 +11,7 @@ class TftMatchApi(NamedEndpoint):
 
     def __init__(self, base_api: BaseApi):
         """
-        Initializes a new TftMatchApi which uses the provided base_api
+        Initializes a new MatchApi which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
@@ -21,12 +21,12 @@ class TftMatchApi(NamedEndpoint):
         return self._request_endpoint(
             self.by_puuid.__name__,
             region,
-            TftMatchApiUrls.by_puuid,
+            MatchApiUrls.by_puuid,
             puuid=puuid,
             count=count,
         )
 
     def by_id(self, region: str, match_id: str):
         return self._request_endpoint(
-            self.by_id.__name__, region, TftMatchApiUrls.by_id, match_id=match_id
+            self.by_id.__name__, region, MatchApiUrls.by_id, match_id=match_id
         )

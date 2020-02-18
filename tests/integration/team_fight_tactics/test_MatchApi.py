@@ -5,7 +5,7 @@ import pytest
 @pytest.mark.parametrize(
     "region", ["EUROPE", "ASIA", "AMERICAS",],
 )
-class TestTftMatchApi:
+class TestMatchApi:
     @pytest.mark.parametrize("puuid", ["12345", "99999999999999999999"])
     @pytest.mark.parametrize("count", [5, 50, 200])
     def test_by_puuid(self, tft_context, region, puuid, count):

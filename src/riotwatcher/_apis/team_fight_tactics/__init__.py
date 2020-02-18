@@ -1,3 +1,3 @@
-from .TftLeagueApi import TftLeagueApi
-from .TftMatchApi import TftMatchApi
-from .TftSummonerApi import TftSummonerApi
+from .LeagueApi import LeagueApi
+from .MatchApi import MatchApi
+from .SummonerApi import SummonerApi

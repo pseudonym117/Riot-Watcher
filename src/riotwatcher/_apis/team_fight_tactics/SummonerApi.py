@@ -1,8 +1,8 @@
 from .. import BaseApi, NamedEndpoint
-from .urls import TftSummonerApiUrls
+from .urls import SummonerApiUrls
 
 
-class TftSummonerApi(NamedEndpoint):
+class SummonerApi(NamedEndpoint):
     """
     This class wraps the TFT Summoner Api calls provided by the Riot API.
 
@@ -11,7 +11,7 @@ class TftSummonerApi(NamedEndpoint):
 
     def __init__(self, base_api: BaseApi):
         """
-        Initializes a new TftSummonerApi which uses the provided base_api
+        Initializes a new SummonerApi which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
@@ -21,7 +21,7 @@ class TftSummonerApi(NamedEndpoint):
         return self._request_endpoint(
             self.by_account.__name__,
             region,
-            TftSummonerApiUrls.by_account,
+            SummonerApiUrls.by_account,
             encrypted_account_id=encrypted_account_id,
         )
 
@@ -29,19 +29,19 @@ class TftSummonerApi(NamedEndpoint):
         return self._request_endpoint(
             self.by_name.__name__,
             region,
-            TftSummonerApiUrls.by_name,
+            SummonerApiUrls.by_name,
             summoner_name=summoner_name,
         )
 
     def by_puuid(self, region: str, puuid: str):
         return self._request_endpoint(
-            self.by_puuid.__name__, region, TftSummonerApiUrls.by_puuid, puuid=puuid
+            self.by_puuid.__name__, region, SummonerApiUrls.by_puuid, puuid=puuid
         )
 
     def by_id(self, region: str, encrypted_summoner_id: str):
         return self._request_endpoint(
             self.by_id.__name__,
             region,
-            TftSummonerApiUrls.by_id,
+            SummonerApiUrls.by_id,
             encrypted_summoner_id=encrypted_summoner_id,
         )
