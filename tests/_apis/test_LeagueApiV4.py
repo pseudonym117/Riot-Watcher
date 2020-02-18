@@ -159,24 +159,3 @@ class TestLeagueApiV4:
         )
 
         assert ret is expected_return
-
-    def test_positions_by_summoner(self):
-        mock_base_api = MagicMock()
-        expected_return = object()
-        mock_base_api.raw_request.return_value = expected_return
-
-        league = LeagueApiV4(mock_base_api)
-        region = "afasf"
-        encrypted_summoner_id = "52343"
-
-        ret = league.positions_by_summoner(region, encrypted_summoner_id)
-
-        mock_base_api.raw_request.assert_called_once_with(
-            LeagueApiV4.__name__,
-            league.positions_by_summoner.__name__,
-            region,
-            f"https://{region}.api.riotgames.com/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}",
-            {},
-        )
-
-        assert ret is expected_return

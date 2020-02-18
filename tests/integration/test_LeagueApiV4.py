@@ -96,19 +96,3 @@ class TestLeagueApiV4:
             {"page": page},
             actual_response,
         )
-
-    @pytest.mark.parametrize(
-        "encrypted_summoner_id",
-        ["50", "424299938281", "9999999999999999999999", "rtbf12345"],
-    )
-    def test_positions_by_summoner(self, lol_context, region, encrypted_summoner_id):
-        actual_response = lol_context.watcher.league.positions_by_summoner(
-            region, encrypted_summoner_id
-        )
-
-        lol_context.verify_api_call(
-            region,
-            f"/lol/league/v4/positions/by-summoner/{encrypted_summoner_id}",
-            {},
-            actual_response,
-        )

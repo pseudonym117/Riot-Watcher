@@ -115,21 +115,3 @@ class LeagueApiV4(NamedEndpoint):
             division=division,
             page=page,
         )
-
-    def positions_by_summoner(self, region: str, encrypted_summoner_id: str):
-        """
-        DEPRECATED
-
-        Get league positions in all queues for a given summoner ID
-
-        :param string region:                   the region to execute this request on
-        :param string encrypted_summoner_id:    the summoner ID to query
-
-        :returns: Set[LeaguePositionDTO]
-        """
-        return self._request_endpoint(
-            self.positions_by_summoner.__name__,
-            region,
-            LeagueApiV4Urls.positions_by_summoner,
-            encrypted_summoner_id=encrypted_summoner_id,
-        )

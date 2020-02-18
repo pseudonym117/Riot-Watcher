@@ -14,8 +14,3 @@ class LeagueApiV4Urls:
     master_by_queue = LeagueV4Endpoint("/masterleagues/by-queue/{queue}")
     by_summoner = LeagueV4Endpoint("/entries/by-summoner/{encrypted_summoner_id}")
     entries = LeagueV4Endpoint("/entries/{queue}/{tier}/{division}", page=int)
-
-    # deprecated
-    positions_by_summoner = LeagueV4Endpoint(
-        "/positions/by-summoner/{encrypted_summoner_id}"
-    )
