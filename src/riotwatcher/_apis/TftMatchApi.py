@@ -18,9 +18,15 @@ class TftMatchApi(NamedEndpoint):
         super().__init__(base_api, self.__class__.__name__)
 
     def by_puuid(self, region: str, puuid: str, count: int = 20):
-        url, query = TftMatchApiUrls.by_puuid(platform=region, puuid=puuid, count=count)
-        return self._raw_request(self.by_puuid.__name__, region, url, query)
+        return self._request_endpoint(
+            self.by_puuid.__name__,
+            region,
+            TftMatchApiUrls.by_puuid,
+            puuid=puuid,
+            count=count,
+        )
 
     def by_id(self, region: str, match_id: str):
-        url, query = TftMatchApiUrls.by_id(platform=region, match_id=match_id)
-        return self._raw_request(self.by_id.__name__, region, url, query)
+        return self._request_endpoint(
+            self.by_id.__name__, region, TftMatchApiUrls.by_id, match_id=match_id
+        )

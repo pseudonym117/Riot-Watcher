@@ -26,10 +26,12 @@ class SummonerApiV4(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        url, query = SummonerApiV4Urls.by_account(
-            platform=region, encrypted_account_id=encrypted_account_id
+        return self._request_endpoint(
+            self.by_account.__name__,
+            region,
+            SummonerApiV4Urls.by_account,
+            encrypted_account_id=encrypted_account_id,
         )
-        return self._raw_request(self.by_account.__name__, region, url, query)
 
     def by_name(self, region: str, summoner_name: str):
         """
@@ -40,10 +42,12 @@ class SummonerApiV4(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        url, query = SummonerApiV4Urls.by_name(
-            platform=region, summoner_name=summoner_name
+        return self._request_endpoint(
+            self.by_name.__name__,
+            region,
+            SummonerApiV4Urls.by_name,
+            summoner_name=summoner_name,
         )
-        return self._raw_request(self.by_name.__name__, region, url, query)
 
     def by_puuid(self, region: str, encrypted_puuid: str):
         """
@@ -54,10 +58,12 @@ class SummonerApiV4(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        url, query = SummonerApiV4Urls.by_puuid(
-            platform=region, encrypted_puuid=encrypted_puuid
+        return self._request_endpoint(
+            self.by_puuid.__name__,
+            region,
+            SummonerApiV4Urls.by_puuid,
+            encrypted_puuid=encrypted_puuid,
         )
-        return self._raw_request(self.by_puuid.__name__, region, url, query)
 
     def by_id(self, region: str, encrypted_summoner_id: str):
         """
@@ -68,7 +74,9 @@ class SummonerApiV4(NamedEndpoint):
 
         :returns: SummonerDTO: represents a summoner
         """
-        url, query = SummonerApiV4Urls.by_id(
-            platform=region, encrypted_summoner_id=encrypted_summoner_id
+        return self._request_endpoint(
+            self.by_id.__name__,
+            region,
+            SummonerApiV4Urls.by_id,
+            encrypted_summoner_id=encrypted_summoner_id,
         )
-        return self._raw_request(self.by_id.__name__, region, url, query)

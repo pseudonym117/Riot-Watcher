@@ -30,8 +30,9 @@ class ThirdPartyCodeApiV4(NamedEndpoint):
 
         :returns: string
         """
-        url, query = ThirdPartyCodeApiV4Urls.by_summoner(
-            platform=region, encrypted_summoner_id=encrypted_summoner_id
+        return self._request_endpoint(
+            self.by_summoner.__name__,
+            region,
+            ThirdPartyCodeApiV4Urls.by_summoner,
+            encrypted_summoner_id=encrypted_summoner_id,
         )
-
-        return self._raw_request(self.by_summoner.__name__, region, url, query)

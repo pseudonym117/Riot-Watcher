@@ -28,8 +28,9 @@ class MatchApiV4(NamedEndpoint):
 
         :returns: MatchDto
         """
-        url, query = MatchApiV4Urls.by_id(platform=region, match_id=match_id)
-        return self._raw_request(self.by_id.__name__, region, url, query)
+        return self._request_endpoint(
+            self.by_id.__name__, region, MatchApiV4Urls.by_id, match_id=match_id
+        )
 
     def matchlist_by_account(
         self,
@@ -76,8 +77,10 @@ class MatchApiV4(NamedEndpoint):
 
         :returns: MatchlistDto
         """
-        url, query = MatchApiV4Urls.matchlist_by_account(
-            platform=region,
+        return self._request_endpoint(
+            self.matchlist_by_account.__name__,
+            region,
+            MatchApiV4Urls.matchlist_by_account,
             encrypted_account_id=encrypted_account_id,
             queue=queue,
             beginTime=begin_time,
@@ -87,7 +90,6 @@ class MatchApiV4(NamedEndpoint):
             season=season,
             champion=champion,
         )
-        return self._raw_request(self.matchlist_by_account.__name__, region, url, query)
 
     def timeline_by_match(self, region: str, match_id: int):
         """
@@ -100,7 +102,9 @@ class MatchApiV4(NamedEndpoint):
 
         :returns: MatchTimelineDto
         """
-        url, query = MatchApiV4Urls.timeline_by_match(
-            platform=region, match_id=match_id
+        return self._request_endpoint(
+            self.timeline_by_match.__name__,
+            region,
+            MatchApiV4Urls.timeline_by_match,
+            match_id=match_id,
         )
-        return self._raw_request(self.timeline_by_match.__name__, region, url, query)

@@ -28,10 +28,12 @@ class ChampionMasteryApiV4(NamedEndpoint):
         :returns: List[ChampionMasteryDTO]: This object contains a list of Champion Mastery
                                             information for player and champion combination.
         """
-        url, query = ChampionMasteryApiV4Urls.by_summoner(
-            platform=region, encrypted_summoner_id=encrypted_summoner_id
+        return self._request_endpoint(
+            self.by_summoner.__name__,
+            region,
+            ChampionMasteryApiV4Urls.by_summoner,
+            encrypted_summoner_id=encrypted_summoner_id,
         )
-        return self._raw_request(self.by_summoner.__name__, region, url, query)
 
     def by_summoner_by_champion(
         self, region: str, encrypted_summoner_id: str, champion_id: int
@@ -46,13 +48,12 @@ class ChampionMasteryApiV4(NamedEndpoint):
         :returns: ChampionMasteryDTO: This object contains single Champion Mastery information for
                                       player and champion combination.
         """
-        url, query = ChampionMasteryApiV4Urls.by_summoner_by_champion(
-            platform=region,
+        return self._request_endpoint(
+            self.by_summoner_by_champion.__name__,
+            region,
+            ChampionMasteryApiV4Urls.by_summoner_by_champion,
             encrypted_summoner_id=encrypted_summoner_id,
             champion_id=champion_id,
-        )
-        return self._raw_request(
-            self.by_summoner_by_champion.__name__, region, url, query
         )
 
     def scores_by_summoner(self, region: str, encrypted_summoner_id: str):
@@ -65,7 +66,9 @@ class ChampionMasteryApiV4(NamedEndpoint):
 
         :returns: int
         """
-        url, query = ChampionMasteryApiV4Urls.scores_by_summoner(
-            platform=region, encrypted_summoner_id=encrypted_summoner_id
+        return self._request_endpoint(
+            self.scores_by_summoner.__name__,
+            region,
+            ChampionMasteryApiV4Urls.scores_by_summoner,
+            encrypted_summoner_id=encrypted_summoner_id,
         )
-        return self._raw_request(self.scores_by_summoner.__name__, region, url, query)

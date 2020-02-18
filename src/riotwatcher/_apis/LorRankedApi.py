@@ -19,6 +19,6 @@ class LorRankedApi(NamedEndpoint):
         super().__init__(base_api, self.__class__.__name__)
 
     def leaderboards(self, region: str):
-        url, query = LorRankedApiUrls.leaderboards(platform=region)
-
-        return self._raw_request(self.leaderboards.__name__, region, url, query)
+        return self._request_endpoint(
+            self.leaderboards.__name__, region, LorRankedApiUrls.leaderboards
+        )

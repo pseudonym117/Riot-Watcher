@@ -26,8 +26,12 @@ class LeagueApiV4(NamedEndpoint):
 
         :returns: LeagueListDTO
         """
-        url, query = LeagueApiV4Urls.challenger_by_queue(platform=region, queue=queue)
-        return self._raw_request(self.challenger_by_queue.__name__, region, url, query)
+        return self._request_endpoint(
+            self.challenger_by_queue.__name__,
+            region,
+            LeagueApiV4Urls.challenger_by_queue,
+            queue=queue,
+        )
 
     def grandmaster_by_queue(self, region: str, queue: str):
         """
@@ -38,8 +42,12 @@ class LeagueApiV4(NamedEndpoint):
 
         :returns: LeagueListDTO
         """
-        url, query = LeagueApiV4Urls.grandmaster_by_queue(platform=region, queue=queue)
-        return self._raw_request(self.grandmaster_by_queue.__name__, region, url, query)
+        return self._request_endpoint(
+            self.grandmaster_by_queue.__name__,
+            region,
+            LeagueApiV4Urls.grandmaster_by_queue,
+            queue=queue,
+        )
 
     def masters_by_queue(self, region: str, queue: str):
         """
@@ -50,8 +58,12 @@ class LeagueApiV4(NamedEndpoint):
 
         :returns: LeagueListDTO
         """
-        url, query = LeagueApiV4Urls.master_by_queue(platform=region, queue=queue)
-        return self._raw_request(self.masters_by_queue.__name__, region, url, query)
+        return self._request_endpoint(
+            self.masters_by_queue.__name__,
+            region,
+            LeagueApiV4Urls.master_by_queue,
+            queue=queue,
+        )
 
     def by_id(self, region: str, league_id: str):
         """
@@ -62,8 +74,9 @@ class LeagueApiV4(NamedEndpoint):
 
         :returns: LeagueListDTO
         """
-        url, query = LeagueApiV4Urls.by_id(platform=region, league_id=league_id)
-        return self._raw_request(self.by_id.__name__, region, url, query)
+        return self._request_endpoint(
+            self.by_id.__name__, region, LeagueApiV4Urls.by_id, league_id=league_id
+        )
 
     def by_summoner(self, region: str, encrypted_summoner_id: str):
         """
@@ -74,10 +87,12 @@ class LeagueApiV4(NamedEndpoint):
 
         :returns: Set[LeagueEntryDTO]
         """
-        url, query = LeagueApiV4Urls.by_summoner(
-            platform=region, encrypted_summoner_id=encrypted_summoner_id
+        return self._request_endpoint(
+            self.by_summoner.__name__,
+            region,
+            LeagueApiV4Urls.by_summoner,
+            encrypted_summoner_id=encrypted_summoner_id,
         )
-        return self._raw_request(self.by_summoner.__name__, region, url, query)
 
     def entries(self, region: str, queue: str, tier: str, division: str, page: int = 1):
         """
@@ -91,10 +106,15 @@ class LeagueApiV4(NamedEndpoint):
 
         :returns: Set[LeagueEntryDTO]
         """
-        url, query = LeagueApiV4Urls.entries(
-            platform=region, queue=queue, tier=tier, division=division, page=page
+        return self._request_endpoint(
+            self.entries.__name__,
+            region,
+            LeagueApiV4Urls.entries,
+            queue=queue,
+            tier=tier,
+            division=division,
+            page=page,
         )
-        return self._raw_request(self.entries.__name__, region, url, query)
 
     def positions_by_summoner(self, region: str, encrypted_summoner_id: str):
         """
@@ -107,9 +127,9 @@ class LeagueApiV4(NamedEndpoint):
 
         :returns: Set[LeaguePositionDTO]
         """
-        url, query = LeagueApiV4Urls.positions_by_summoner(
-            platform=region, encrypted_summoner_id=encrypted_summoner_id
-        )
-        return self._raw_request(
-            self.positions_by_summoner.__name__, region, url, query
+        return self._request_endpoint(
+            self.positions_by_summoner.__name__,
+            region,
+            LeagueApiV4Urls.positions_by_summoner,
+            encrypted_summoner_id=encrypted_summoner_id,
         )
