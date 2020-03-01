@@ -117,7 +117,7 @@ def lol_context(mock_get: mock.MagicMock, request) -> MockContext:
     yield MockContext(
         api_key,
         mock_get,
-        riotwatcher.RiotWatcher(api_key, kernel_url=request.param),
+        riotwatcher.LolWatcher(api_key, kernel_url=request.param),
         request.param,
     )
 

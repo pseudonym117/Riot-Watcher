@@ -3,12 +3,14 @@ from typing import List
 from .Handlers import (
     DeprecationHandler,
     JsonifyHandler,
+    RateLimiter,
+    RateLimiterAdapter,
     RequestHandler,
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
 
-from .Handlers.RateLimit import RateLimitHandler
+from .Handlers.RateLimit import BasicRateLimiter
 
 from ._apis import BaseApi, UrlConfig
 from ._apis.league_of_legends import (
@@ -32,63 +34,55 @@ class LolWatcher:
     def __init__(
         self,
         api_key: str = None,
-        custom_handler_chain: List[RequestHandler] = None,
         timeout: int = None,
         kernel_url: str = None,
+        rate_limiter: RateLimiter = BasicRateLimiter(),
+        deserializer: RequestHandler = JsonifyHandler(),
+        error_handler: RequestHandler = ThrowOnErrorHandler(),
     ):
         """
         Initialize a new instance of the RiotWatcher class.
 
         :param string api_key: the API key to use for this instance
-        :param List[RequestHandler] custom_handler_chain:
-                    RequestHandler chain to pass to the created BaseApi object.
-                    This chain is called in order before any calls to the API, and called in
-                    reverse order after any calls to the API.
-                    If preview_request returns data, the rest of the call short circuits,
-                    preventing any call to the real API and calling any handlers that have already
-                    been run in reverse order.
-                    This should allow for dynamic tiered caching of data.
-                    If after_request returns data, that is the data that is fed to the next handler
-                    in the chain.
-                    Default chain is:
-                        [
-                            JsonifyHandler,
-                            ThrowOnErrorHandler,
-                            TypeCorrector,
-                            RateLimitHandler,
-                            DeprecationHandler
-                        ]
         :param int timeout: Time to wait for a response before timing out a connection to
                             the Riot API
         :param string kernel_url: URL for the kernel instance to connect to, instead of the API.
                                   See https://github.com/meraki-analytics/kernel for details.
+        :param RateLimiter rate_limiter: RequestHandler instance to be used as a rate
+                                         limiter. This defaults to Handlers.RateLimit.BasicRateLimiter.
+                                         This parameter is not used when connecting to a
+                                         kernel instance.
+        :param RequestHandler deserializer: RequestHandler to be used to deserialize responses
+                                            from the Riot Api. Default is Handlers.JsonifyHandler.
+        :param RequsetHandler error_handler: RequestHandler instance to be used to handle any
+                                             HTTP errors encountered by the API. Default is
+                                             handlers.ThrowOnErrorHandler.
         """
         if not kernel_url and not api_key:
             raise ValueError("Either api_key or kernel_url must be set!")
 
-        if custom_handler_chain is None:
-            if kernel_url:
-                custom_handler_chain = [
-                    JsonifyHandler(),
-                    ThrowOnErrorHandler(),
-                    TypeCorrectorHandler(),
-                    DeprecationHandler(),
-                ]
-            else:
-                custom_handler_chain = [
-                    JsonifyHandler(),
-                    ThrowOnErrorHandler(),
-                    TypeCorrectorHandler(),
-                    RateLimitHandler(),
-                    DeprecationHandler(),
-                ]
+        if kernel_url:
+            handler_chain = [
+                deserializer,
+                error_handler,
+                TypeCorrectorHandler(),
+                DeprecationHandler(),
+            ]
+        else:
+            handler_chain = [
+                deserializer,
+                error_handler,
+                TypeCorrectorHandler(),
+                RateLimiterAdapter(rate_limiter),
+                DeprecationHandler(),
+            ]
 
         if kernel_url:
             UrlConfig.root_url = kernel_url
         else:
             UrlConfig.root_url = "https://{platform}.api.riotgames.com"
 
-        self._base_api = BaseApi(api_key, custom_handler_chain, timeout=timeout)
+        self._base_api = BaseApi(api_key, handler_chain, timeout=timeout)
 
         self._champion = ChampionApiV3(self._base_api)
         self._lol_status = LolStatusApiV3(self._base_api)

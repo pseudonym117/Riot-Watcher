@@ -3,7 +3,7 @@ from .ApplicationRateLimiter import ApplicationRateLimiter
 from .Limits import Limit, LimitCollection, RawLimit
 from .MethodRateLimiter import MethodRateLimiter
 from .OopsRateLimiter import OopsRateLimiter
-from .RateLimitHandler import RateLimitHandler
+from .BasicRateLimiter import BasicRateLimiter
 
 __all__ = [
     "HeaderBasedLimiter",
@@ -13,5 +13,5 @@ __all__ = [
     "RawLimit",
     "MethodRateLimiter",
     "OopsRateLimiter",
-    "RateLimitHandler",
+    "BasicRateLimiter",
 ]

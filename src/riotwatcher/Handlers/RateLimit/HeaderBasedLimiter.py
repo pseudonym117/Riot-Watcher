@@ -4,8 +4,6 @@ import threading
 
 from typing import Dict, List, Optional
 
-from requests import Response
-
 from .Limits import LimitCollection, RawLimit
 
 log = logging.getLogger(__name__)
@@ -51,9 +49,14 @@ class HeaderBasedLimiter:
         return scoped_limit.wait_until()
 
     def update_limiter(
-        self, region: str, endpoint_name: str, method_name: str, response: Response
+        self,
+        region: str,
+        endpoint_name: str,
+        method_name: str,
+        status: int,
+        headers: Dict[str, str],
     ):
-        raw_limits = self._extract_headers(response)
+        raw_limits = self._extract_headers(headers)
 
         if raw_limits is None:
             return
@@ -62,9 +65,9 @@ class HeaderBasedLimiter:
 
         scoped_limit.update_limits(raw_limits)
 
-    def _extract_headers(self, response: Response) -> Optional[List[RawLimit]]:
-        limits = HeaderBasedLimiter._extract_single_header(self._limit_header, response)
-        counts = HeaderBasedLimiter._extract_single_header(self._count_header, response)
+    def _extract_headers(self, headers: Dict[str, str]) -> Optional[List[RawLimit]]:
+        limits = HeaderBasedLimiter._extract_single_header(self._limit_header, headers)
+        counts = HeaderBasedLimiter._extract_single_header(self._count_header, headers)
 
         if limits is None or counts is None:
             return None
@@ -86,8 +89,8 @@ class HeaderBasedLimiter:
                     + 'Limits from "%s" will be used.',
                     self._limit_header,
                     self._count_header,
-                    response.headers.get(self._limit_header),
-                    response.headers.get(self._count_header),
+                    headers.get(self._limit_header),
+                    headers.get(self._count_header),
                     self._limit_header,
                 )
 
@@ -100,9 +103,9 @@ class HeaderBasedLimiter:
 
     @staticmethod
     def _extract_single_header(
-        header: str, response: Response
+        header: str, headers: Dict[str, str]
     ) -> Optional[List[List[int]]]:
-        values = response.headers.get(header)
+        values = headers.get(header)
 
         if values is None:
             return None
