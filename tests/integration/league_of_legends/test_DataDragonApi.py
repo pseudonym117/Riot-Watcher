@@ -3,6 +3,7 @@ import re
 import pytest
 
 
+@pytest.mark.lol
 @pytest.mark.integration
 @pytest.mark.parametrize("version", ("6.24.1", "8.24.1"))
 @pytest.mark.parametrize("locale", (None, "en_US", "zh_CN"))

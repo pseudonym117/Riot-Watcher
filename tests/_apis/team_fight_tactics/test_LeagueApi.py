@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.team_fight_tactics import LeagueApi
 
 
+@pytest.mark.tft
 @pytest.mark.unit
 class TestLeagueApi:
     def test_challenger(self):

@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.lor
 @pytest.mark.integration
 @pytest.mark.parametrize(
     "region", ["EUROPE", "ASIA", "AMERICAS",],

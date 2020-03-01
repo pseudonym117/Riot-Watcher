@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.league_of_legends import LolStatusApiV3
 
 
+@pytest.mark.lol
 @pytest.mark.unit
 class TestLolStatusApiV3:
     def test_shard_data(self):

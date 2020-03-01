@@ -3,6 +3,7 @@ import pytest
 from riotwatcher.Handlers import TypeCorrectorHandler
 
 
+@pytest.mark.common
 @pytest.mark.unit
 class TestTypeCorrectorHandler:
     def test_bool_remapped_to_string(self):

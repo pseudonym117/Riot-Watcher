@@ -5,6 +5,8 @@ import pytest
 from riotwatcher._apis.league_of_legends import ChampionMasteryApiV4
 
 
+@pytest.mark.lol
+@pytest.mark.unit
 class TestChampionMasteryApiV4:
     def test_by_summoner(self):
         mock_base_api = MagicMock()

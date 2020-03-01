@@ -3,6 +3,7 @@ import pytest
 from riotwatcher._apis import BaseApi
 
 
+@pytest.mark.common
 @pytest.mark.unit
 class TestBaseApi:
     def test_raw_request_default_timeout(self, mock_get):

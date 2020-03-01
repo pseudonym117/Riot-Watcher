@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.league_of_legends import SpectatorApiV4
 
 
+@pytest.mark.lol
 @pytest.mark.unit
 class TestSpectatorApiV4:
     def test_by_summoner(self):

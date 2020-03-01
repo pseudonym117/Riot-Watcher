@@ -6,6 +6,7 @@ import pytest
 from riotwatcher.Handlers.RateLimit import Limit, RawLimit
 
 
+@pytest.mark.common
 @pytest.mark.unit
 class TestLimit:
     def test_initial_start_time_correct(self):

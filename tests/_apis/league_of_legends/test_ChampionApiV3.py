@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.league_of_legends import ChampionApiV3
 
 
+@pytest.mark.lol
 @pytest.mark.unit
 class TestChampionApiV3:
     def test_rotations(self):

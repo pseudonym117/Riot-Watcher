@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.league_of_legends import LeagueApiV4
 
 
+@pytest.mark.lol
 @pytest.mark.unit
 class TestLeagueApiV4:
     def test_challenger_by_queue(self):

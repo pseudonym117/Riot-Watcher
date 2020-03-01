@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.league_of_legends import DataDragonApi
 
 
+@pytest.mark.lol
 @pytest.mark.unit
 class TestDataDragonApi:
     def test_all_champions_default(self):
