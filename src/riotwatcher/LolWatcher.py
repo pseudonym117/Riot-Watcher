@@ -2,7 +2,9 @@ from typing import List
 
 from .Handlers import (
     DeprecationHandler,
-    JsonifyHandler,
+    Deserializer,
+    DeserializerAdapter,
+    DictionaryDeserializer,
     RateLimiter,
     RateLimiterAdapter,
     RequestHandler,
@@ -37,7 +39,7 @@ class LolWatcher:
         timeout: int = None,
         kernel_url: str = None,
         rate_limiter: RateLimiter = BasicRateLimiter(),
-        deserializer: RequestHandler = JsonifyHandler(),
+        deserializer: Deserializer = DictionaryDeserializer(),
         error_handler: RequestHandler = ThrowOnErrorHandler(),
     ):
         """
@@ -48,12 +50,12 @@ class LolWatcher:
                             the Riot API
         :param string kernel_url: URL for the kernel instance to connect to, instead of the API.
                                   See https://github.com/meraki-analytics/kernel for details.
-        :param RateLimiter rate_limiter: RequestHandler instance to be used as a rate
-                                         limiter. This defaults to Handlers.RateLimit.BasicRateLimiter.
+        :param RateLimiter rate_limiter: Instance to be used for rate limiting.
+                                         This defaults to Handlers.RateLimit.BasicRateLimiter.
                                          This parameter is not used when connecting to a
                                          kernel instance.
-        :param RequestHandler deserializer: RequestHandler to be used to deserialize responses
-                                            from the Riot Api. Default is Handlers.JsonifyHandler.
+        :param Deserializer deserializer: Instance to be used to deserialize responses
+                                          from the Riot Api. Default is Handlers.DictionaryDeserializer.
         :param RequsetHandler error_handler: RequestHandler instance to be used to handle any
                                              HTTP errors encountered by the API. Default is
                                              handlers.ThrowOnErrorHandler.
@@ -63,14 +65,14 @@ class LolWatcher:
 
         if kernel_url:
             handler_chain = [
-                deserializer,
+                DeserializerAdapter(deserializer),
                 error_handler,
                 TypeCorrectorHandler(),
                 DeprecationHandler(),
             ]
         else:
             handler_chain = [
-                deserializer,
+                DeserializerAdapter(deserializer),
                 error_handler,
                 TypeCorrectorHandler(),
                 RateLimiterAdapter(rate_limiter),

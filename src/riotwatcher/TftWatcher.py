@@ -2,7 +2,9 @@ from typing import List
 
 from .Handlers import (
     DeprecationHandler,
-    JsonifyHandler,
+    Deserializer,
+    DeserializerAdapter,
+    DictionaryDeserializer,
     RateLimiter,
     RateLimiterAdapter,
     RequestHandler,
@@ -26,7 +28,7 @@ class TftWatcher:
         api_key: str = None,
         timeout: int = None,
         rate_limiter: RateLimiter = BasicRateLimiter(),
-        deserializer: RequestHandler = JsonifyHandler(),
+        deserializer: Deserializer = DictionaryDeserializer(),
         error_handler: RequestHandler = ThrowOnErrorHandler(),
     ):
         """
@@ -35,10 +37,10 @@ class TftWatcher:
         :param string api_key: the API key to use for this instance
         :param int timeout: Time to wait for a response before timing out a connection to
                             the Riot API
-        :param RateLimiter rate_limiter: RequestHandler instance to be used as a rate
-                                         limiter. This defaults to Handlers.RateLimit.BasicRateLimiter.
-        :param RequestHandler deserializer: RequestHandler to be used to deserialize responses
-                                            from the Riot Api. Default is Handlers.JsonifyHandler.
+        :param RateLimiter rate_limiter: Instance to be used for rate limiting.
+                                         This defaults to Handlers.RateLimit.BasicRateLimiter.
+        :param Deserializer deserializer: Instance to be used to deserialize responses
+                                          from the Riot Api. Default is Handlers.DictionaryDeserializer.
         :param RequsetHandler error_handler: RequestHandler instance to be used to handle any
                                              HTTP errors encountered by the API. Default is
                                              handlers.ThrowOnErrorHandler.
@@ -47,7 +49,7 @@ class TftWatcher:
             raise ValueError("api_key must be set!")
 
         handler_chain = [
-            deserializer,
+            DeserializerAdapter(deserializer),
             error_handler,
             TypeCorrectorHandler(),
             RateLimiterAdapter(rate_limiter),
