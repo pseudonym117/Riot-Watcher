@@ -93,16 +93,6 @@ This can be done by providing the ``kernel_url`` parameter to the ``LolWatcher``
     lol_watcher = LolWatcher(kernel_url="https://your-kernel-instance") # should not contain trailing slash
     # use watcher as normal
     
-
-Advanced
---------
-
-All rate limiting, caching, and data transformation is handled by objects
-extending the Handlers.RequestHandler class. These are completely user
-configurable.
-
-TODO: add more info about this
-
 Testing
 -------
 
@@ -126,6 +116,8 @@ Changelog
 v3.0.0 - TBD
 ~~~~~~~~~~~~
 
+LoR APIs added through riotwatcher.LorWatcher class.
+
 TFT APIs added through riotwatcher.TftWatcher class.
 
 Added support for LoR APIs through riotwatcher.LorWatcher class.
@@ -136,6 +128,10 @@ Also Python 3.5 is no longer supported. Please use 3.6 or newer.
 riotwatcher.RiotWatcher class has been deprecated - It has been renamed to LolWatcher.
 The riotwatcher.RiotWatcher class has been maintained for backwards compatibility, but
 will not exist forever.
+
+custom_handler_chain parameter for LolWatcher (previously RiotWatcher) no longer exists. 
+It has been replaced with the parameters rate_limiter, deserializer, and error_handler.
+This is part of the goal to decouple riotwatcher's external APIs from requests.
 
 Removed long-deprecated classes.
 
