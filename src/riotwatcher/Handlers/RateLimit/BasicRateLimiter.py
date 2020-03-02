@@ -4,7 +4,7 @@ import time
 
 from typing import Dict, Optional
 
-from .. import RateLimiter
+from ...RateLimiter import RateLimiter
 
 from . import ApplicationRateLimiter, MethodRateLimiter, OopsRateLimiter
 

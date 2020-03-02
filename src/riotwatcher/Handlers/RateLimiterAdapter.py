@@ -5,7 +5,7 @@ import time
 from requests import Response
 
 from .RequestHandler import RequestHandler
-from . import RateLimiter
+from ..RateLimiter import RateLimiter
 
 log = logging.getLogger(__name__)
 

@@ -1,6 +1,6 @@
 import json
 
-from .Deserializer import Deserializer
+from ..Deserializer import Deserializer
 
 
 class DictionaryDeserializer(Deserializer):

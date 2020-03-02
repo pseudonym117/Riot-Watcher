@@ -2,8 +2,8 @@ from typing import Any
 
 from requests import Response
 
-from . import Deserializer, RequestHandler
-
+from .RequestHandler import RequestHandler
+from ..Deserializer import Deserializer
 
 class DeserializerAdapter(RequestHandler):
     def __init__(self, deserializer: Deserializer):

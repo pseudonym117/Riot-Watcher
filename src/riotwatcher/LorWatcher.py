@@ -1,11 +1,12 @@
 from typing import List
 
+from .Deserializer import Deserializer
+from .RateLimiter import RateLimiter
+
 from .Handlers import (
     DeprecationHandler,
-    Deserializer,
     DeserializerAdapter,
     DictionaryDeserializer,
-    RateLimiter,
     RateLimiterAdapter,
     RequestHandler,
     ThrowOnErrorHandler,
