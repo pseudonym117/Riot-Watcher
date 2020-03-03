@@ -13,4 +13,3 @@ class TestRankedApi:
         lor_context.verify_api_call(
             region, "/lor/ranked/v1/leaderboards", {}, actual_response,
         )
-

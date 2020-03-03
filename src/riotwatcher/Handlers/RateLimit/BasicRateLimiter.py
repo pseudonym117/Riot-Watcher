@@ -24,10 +24,7 @@ class BasicRateLimiter(RateLimiter):
         )
 
     def wait_until(
-        self,
-        region: str,
-        endpoint_name: str,
-        method_name: str,
+        self, region: str, endpoint_name: str, method_name: str,
     ) -> Optional[datetime.datetime]:
         wait_until = max(
             [
@@ -62,9 +59,5 @@ class BasicRateLimiter(RateLimiter):
     ):
         for limiter in self._limiters:
             limiter.update_limiter(
-                region,
-                endpoint_name,
-                method_name,
-                status,
-                headers,
+                region, endpoint_name, method_name, status, headers,
             )
