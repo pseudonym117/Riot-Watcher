@@ -41,7 +41,6 @@ class LolWatcher:
         kernel_url: str = None,
         rate_limiter: RateLimiter = BasicRateLimiter(),
         deserializer: Deserializer = DictionaryDeserializer(),
-        error_handler: RequestHandler = ThrowOnErrorHandler(),
     ):
         """
         Initialize a new instance of the RiotWatcher class.
@@ -57,9 +56,6 @@ class LolWatcher:
                                          kernel instance.
         :param Deserializer deserializer: Instance to be used to deserialize responses
                                           from the Riot Api. Default is Handlers.DictionaryDeserializer.
-        :param RequsetHandler error_handler: RequestHandler instance to be used to handle any
-                                             HTTP errors encountered by the API. Default is
-                                             handlers.ThrowOnErrorHandler.
         """
         if not kernel_url and not api_key:
             raise ValueError("Either api_key or kernel_url must be set!")
@@ -67,14 +63,14 @@ class LolWatcher:
         if kernel_url:
             handler_chain = [
                 DeserializerAdapter(deserializer),
-                error_handler,
+                ThrowOnErrorHandler(),
                 TypeCorrectorHandler(),
                 DeprecationHandler(),
             ]
         else:
             handler_chain = [
                 DeserializerAdapter(deserializer),
-                error_handler,
+                ThrowOnErrorHandler(),
                 TypeCorrectorHandler(),
                 RateLimiterAdapter(rate_limiter),
                 DeprecationHandler(),
