@@ -453,8 +453,8 @@ registered trademarks ofRiot Games, Inc.
   :target: http://riot-watcher.readthedocs.io/en/latest/?badge=latest
   :alt: Documentation Status
 
-.. |build| image:: https://travis-ci.org/pseudonym117/Riot-Watcher.svg?branch=master
-  :target: https://travis-ci.org/pseudonym117/Riot-Watcher
+.. |build| image:: https://travis-ci.com/pseudonym117/Riot-Watcher.svg?branch=master
+  :target: https://travis-ci.com/pseudonym117/Riot-Watcher
   :alt: Build status
 
 .. |coverage| image:: https://img.shields.io/codecov/c/gh/pseudonym117/Riot-Watcher.svg

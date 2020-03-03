@@ -11,14 +11,14 @@ matrix:
     os: windows
     language: shell
     before_install:
-    - choco install python --version=3.7.5
+    - choco install python --version=3.7.6
     - python -m pip install --upgrade pip
     env: PATH=/C/Python37:/C/Python37/Scripts:$PATH
   - name: "Python 3.8 Windows"
     os: windows
     language: shell
     before_install:
-    - choco install python --version=3.8.0
+    - choco install python --version=3.8.2
     - python -m pip install --upgrade pip
     env: PATH=/C/Python38:/C/Python38/Scripts:$PATH
 
