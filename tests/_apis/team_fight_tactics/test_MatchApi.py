@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.team_fight_tactics import MatchApi
 
 
+@pytest.mark.tft
 @pytest.mark.unit
 class TestMatchApi:
     def test_by_puuid(self):

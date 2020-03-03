@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.legends_of_runeterra import RankedApi
 
 
+@pytest.mark.lor
 @pytest.mark.unit
 class TestRankedApi:
     def test_leaderboards(self):

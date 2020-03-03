@@ -1,11 +1,12 @@
 import datetime
+import json
 import sys
+
+from typing import T
+import unittest.mock as mock
 
 import pytest
 
-import unittest.mock as mock
-
-from typing import T
 
 real_datetime_class = datetime.datetime
 
@@ -70,7 +71,7 @@ class MockContext:
         self._kernel_url = kernel_url
 
         mock_response = mock.MagicMock()
-        mock_response.json.return_value = self._expected_response
+        mock_response.text = json.dumps(self._expected_response)
 
         self.get.return_value = mock_response
 
@@ -117,7 +118,7 @@ def lol_context(mock_get: mock.MagicMock, request) -> MockContext:
     yield MockContext(
         api_key,
         mock_get,
-        riotwatcher.RiotWatcher(api_key, kernel_url=request.param),
+        riotwatcher.LolWatcher(api_key, kernel_url=request.param),
         request.param,
     )
 

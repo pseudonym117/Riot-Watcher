@@ -1,8 +1,6 @@
 from setuptools import setup, find_packages
 import os.path
 
-import sys
-
 __version__ = "3.0.0"
 
 descr_file = os.path.join(os.path.dirname(__file__), "README.rst")

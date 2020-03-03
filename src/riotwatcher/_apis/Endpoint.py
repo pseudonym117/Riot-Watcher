@@ -1,7 +1,5 @@
 import re
 
-from .UrlConfig import UrlConfig
-
 
 class Endpoint:
     def __init__(self, url: str, **kwargs):

@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.league_of_legends import MatchApiV4
 
 
+@pytest.mark.lol
 @pytest.mark.unit
 class TestMatchApiV4:
     def test_by_id(self):

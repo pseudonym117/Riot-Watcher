@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.lol
 @pytest.mark.integration
 @pytest.mark.parametrize(
     "region",

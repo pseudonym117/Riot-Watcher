@@ -1,7 +1,7 @@
 import datetime
 import logging
 
-from requests import Response
+from typing import Dict
 
 log = logging.getLogger(__name__)
 
@@ -23,11 +23,16 @@ class OopsRateLimiter:
         return datetime.datetime(datetime.MINYEAR, 1, 1)
 
     def update_limiter(
-        self, region: str, endpoint_name: str, method_name: str, response: Response
+        self,
+        region: str,
+        endpoint_name: str,
+        method_name: str,
+        status: int,
+        headers: Dict[str, str],
     ):
-        if response.status_code == 429:
-            retry_after = response.headers.get("Retry-After")
-            limit_type = response.headers.get("X-Rate-Limit-Type")
+        if status == 429:
+            retry_after = headers.get("Retry-After")
+            limit_type = headers.get("X-Rate-Limit-Type")
 
             if retry_after is not None:
                 log.info(

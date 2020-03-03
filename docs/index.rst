@@ -98,7 +98,6 @@ Main API and other topics
    :maxdepth: 1
 
    riotwatcher/riotwatcher.rst
-   riotwatcher/HandlerChains.rst
    riotwatcher/testing.rst
 
 

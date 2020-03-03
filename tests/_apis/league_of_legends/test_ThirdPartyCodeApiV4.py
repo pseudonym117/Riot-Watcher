@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.league_of_legends import ThirdPartyCodeApiV4
 
 
+@pytest.mark.lol
 @pytest.mark.unit
 class TestThirdPartyCodeApiV4:
     def test_by_summoner(self):

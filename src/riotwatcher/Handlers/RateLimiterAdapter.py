@@ -4,24 +4,15 @@ import time
 
 from requests import Response
 
-from .. import RequestHandler
-
-from . import ApplicationRateLimiter, MethodRateLimiter, OopsRateLimiter
+from .RequestHandler import RequestHandler
+from ..RateLimiter import RateLimiter
 
 log = logging.getLogger(__name__)
 
 
-class RateLimitHandler(RequestHandler):
-    __application_rate_limiter = ApplicationRateLimiter()
-
-    def __init__(self):
-        super().__init__()
-
-        self._limiters = (
-            RateLimitHandler.__application_rate_limiter,
-            MethodRateLimiter(),
-            OopsRateLimiter(),
-        )
+class RateLimiterAdapter(RequestHandler):
+    def __init__(self, limiter: RateLimiter):
+        self._limiter = limiter
 
     def preview_request(
         self,
@@ -41,26 +32,13 @@ class RateLimitHandler(RequestHandler):
         :param query_params: dict: the parameters to the url that is being queried,
                                    e.g. ?key1=val&key2=val2
         """
-        wait_until = max(
-            [
-                (
-                    limiter.wait_until(region, endpoint_name, method_name),
-                    limiter.friendly_name,
-                )
-                for limiter in self._limiters
-            ],
-            key=lambda lim_pair: lim_pair[0]
-            if lim_pair[0]
-            else datetime.datetime(datetime.MINYEAR, 1, 1),
-        )
+        wait_until = self._limiter.wait_until(region, endpoint_name, method_name)
 
-        if wait_until[0] is not None and wait_until[0] > datetime.datetime.now():
-            to_wait = wait_until[0] - datetime.datetime.now()
+        if wait_until is not None and wait_until > datetime.datetime.now():
+            to_wait = wait_until - datetime.datetime.now()
 
             log.info(
-                "waiting for %s seconds due to %s limit...",
-                to_wait.total_seconds(),
-                wait_until[1],
+                "waiting for %s seconds...", to_wait.total_seconds(),
             )
             time.sleep(to_wait.total_seconds())
 
@@ -81,7 +59,8 @@ class RateLimitHandler(RequestHandler):
         :param url: The url that was requested
         :param response: the response received. This is a response from the Requests library
         """
-        for limiter in self._limiters:
-            limiter.update_limiter(region, endpoint_name, method_name, response)
+        self._limiter.record_response(
+            region, endpoint_name, method_name, response.status_code, response.headers
+        )
 
         return response

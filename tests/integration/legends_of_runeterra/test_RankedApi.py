@@ -1,6 +1,7 @@
 import pytest
 
 
+@pytest.mark.lor
 @pytest.mark.integration
 @pytest.mark.parametrize(
     "region", ["EUROPE", "ASIA", "AMERICAS",],
@@ -12,4 +13,3 @@ class TestRankedApi:
         lor_context.verify_api_call(
             region, "/lor/ranked/v1/leaderboards", {}, actual_response,
         )
-

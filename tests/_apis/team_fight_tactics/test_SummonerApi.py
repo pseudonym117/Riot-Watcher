@@ -5,6 +5,7 @@ import pytest
 from riotwatcher._apis.team_fight_tactics import SummonerApi
 
 
+@pytest.mark.tft
 @pytest.mark.unit
 class TestSummonerApi:
     def test_by_account(self):
