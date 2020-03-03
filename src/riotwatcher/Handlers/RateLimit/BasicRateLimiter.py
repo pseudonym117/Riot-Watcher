@@ -47,7 +47,7 @@ class BasicRateLimiter(RateLimiter):
                 to_wait.total_seconds(),
                 wait_until[1],
             )
-            return to_wait.total_seconds()
+            return wait_until[0]
 
     def record_response(
         self,
