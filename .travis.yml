@@ -5,8 +5,10 @@ matrix:
     python: 3.6
   - name: "Python 3.7 Linux"
     python: 3.7
-  - name: "Python 3.8-dev Linux"
-    python: 3.8-dev
+  - name: "Python 3.8 Linux"
+    python: 3.8
+  - name: "PyPy3 Linux"
+    python: "pypy3"
   - name: "Python 3.7 Windows"
     os: windows
     language: shell
