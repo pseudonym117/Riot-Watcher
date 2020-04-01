@@ -1,5 +1,6 @@
 from .ChampionApiUrls import ChampionApiV3Urls
 from .ChampionMasteryApiUrls import ChampionMasteryApiV4Urls
+from .ClashApiUrls import ClashApiV1Urls
 from .DataDragonUrls import DataDragonUrls
 from .LeagueApiUrls import LeagueApiV4Urls
 from .LolStatusApiUrls import LolStatusApiV3Urls

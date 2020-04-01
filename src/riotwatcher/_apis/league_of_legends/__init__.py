@@ -1,5 +1,6 @@
 from .ChampionApiV3 import ChampionApiV3
 from .ChampionMasteryApiV4 import ChampionMasteryApiV4
+from .ClashApiV1 import ClashApiV1
 from .DataDragonApi import DataDragonApi
 from .LeagueApiV4 import LeagueApiV4
 from .LolStatusApiV3 import LolStatusApiV3
