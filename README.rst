@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 2/17/2020 are supported in full.
+of 4/6/2020 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -113,8 +113,12 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
-v3.0.0 - TBD
+v3.1.0 - TBD
 ~~~~~~~~~~~~
+Add support for Clash API's
+
+v3.0.0 - 3/3/2020
+~~~~~~~~~~~~~~~~~
 
 LoR APIs added through riotwatcher.LorWatcher class.
 
