@@ -19,6 +19,7 @@ from ._apis import BaseApi, UrlConfig
 from ._apis.league_of_legends import (
     ChampionApiV3,
     ChampionMasteryApiV4,
+    ClashApiV1,
     DataDragonApi,
     LeagueApiV4,
     LolStatusApiV3,
@@ -86,6 +87,7 @@ class LolWatcher:
         self._champion = ChampionApiV3(self._base_api)
         self._lol_status = LolStatusApiV3(self._base_api)
         self._data_dragon = DataDragonApi(self._base_api)
+        self._clash = ClashApiV1(self._base_api)
         self._champion_mastery = ChampionMasteryApiV4(self._base_api)
         self._league = LeagueApiV4(self._base_api)
         self._match = MatchApiV4(self._base_api)
@@ -112,6 +114,15 @@ class LolWatcher:
         :rtype: ChampionApiV3
         """
         return self._champion
+
+    @property
+    def clash(self) -> ClashApiV1:
+        """
+        Interface to the Clash Endpoint
+
+        :rtype: ClashApiV1
+        """
+        return self._clash
 
     @property
     def league(self) -> LeagueApiV4:
