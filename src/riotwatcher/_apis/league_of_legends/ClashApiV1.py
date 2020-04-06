@@ -11,15 +11,17 @@ class ClashApiV1(NamedEndpoint):
 
     def __init__(self, base_api: BaseApi):
         """
-        Initialize a new SummonerApiV4 which uses the provided base_api
+        Initialize a new ClashApiV1 which uses the provided base_api
 
         :param BaseApi base_api: the root API object to use for making all requests.
         """
         super().__init__(base_api, self.__class__.__name__)
 
-    def by_summoner_id(self, region: str, summoner_id: str):
+    def by_summoner(self, region: str, summoner_id: str):
         """
-        Get players by summoner ID.
+        This endpoint returns a list of active Clash players for a given summoner ID.
+        If a summoner registers for multiple tournaments at the same time (e.g., Saturday and
+        Sunday) then both registrations would appear in this list.
 
         :param string region:               The region to execute this request on.
         :param string summoner_id:          The summoner ID.
@@ -27,13 +29,13 @@ class ClashApiV1(NamedEndpoint):
         :returns: List[PlayerDTO]: represents the summoner's info for the current clash.
         """
         return self._request_endpoint(
-            self.by_summoner_id.__name__,
+            self.by_summoner.__name__,
             region,
-            ClashApiV1Urls.by_summoner_id,
+            ClashApiV1Urls.by_summoner,
             summoner_id=summoner_id,
         )
 
-    def by_team_id(self, region: str, team_id: str):
+    def by_team(self, region: str, team_id: str):
         """
         Get team by ID.
 
@@ -43,27 +45,22 @@ class ClashApiV1(NamedEndpoint):
         :returns: TeamDTO: represents a clash team
         """
         return self._request_endpoint(
-            self.by_team_id.__name__,
-            region,
-            ClashApiV1Urls.by_team_id,
-            team_id=team_id,
+            self.by_team.__name__, region, ClashApiV1Urls.by_team, team_id=team_id,
         )
 
     def tournaments(self, region: str):
         """
-        Get all active or upcoming tournaments.
+        Returns a list of active and upcoming tournaments.
 
         :param string region:           The region to execute this request on
 
         :returns: List[TournamentDTO]: represents all of the current tournaments active
         """
         return self._request_endpoint(
-            self.tournaments.__name__,
-            region,
-            ClashApiV1Urls.tournaments,
+            self.tournaments.__name__, region, ClashApiV1Urls.tournaments,
         )
 
-    def tournament_by_team_id(self, region: str, team_id: str):
+    def tournament_by_team(self, region: str, team_id: str):
         """
         Get tournament by team ID.
 
@@ -73,13 +70,13 @@ class ClashApiV1(NamedEndpoint):
         :returns: TournamentDTO: represents a clash tournament
         """
         return self._request_endpoint(
-            self.tournament_by_team_id.__name__,
+            self.tournament_by_team.__name__,
             region,
-            ClashApiV1Urls.tournament_by_team_id,
+            ClashApiV1Urls.tournament_by_team,
             team_id=team_id,
         )
-    
-    def by_tournament_id(self, region: str, tournament_id: str):
+
+    def by_tournament(self, region: str, tournament_id: str):
         """
         Get tournament by ID.
 
@@ -89,8 +86,8 @@ class ClashApiV1(NamedEndpoint):
         :returns: TournamentDTO: represents a clash tournament
         """
         return self._request_endpoint(
-            self.by_tournament_id.__name__,
+            self.by_tournament.__name__,
             region,
-            ClashApiV1Urls.by_tournament_id,
+            ClashApiV1Urls.by_tournament,
             tournament_id=tournament_id,
         )
