@@ -53,9 +53,13 @@ raised as HTTPError exceptions from the Requests library.
     my_ranked_stats = lol_watcher.league.positions_by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
-    # Lets some champions
-    static_champ_list = lol_watcher.static_data.champions(my_region)
-    print(static_champ_list)
+    # First we get the latest version of the game from data dragon
+    versions = lol_watcher.data_dragon.versions_for_region(my_region)
+    champions_version = versions['n']['champion']
+
+    # Lets get some champions
+    current_champ_list = lol_watcher.data_dragon.champions(champions_version)
+    print(current_champ_list)
 
     # For Riot's API, the 404 status code indicates that the requested data wasn't found and
     # should be expected to occur in normal operation, as in the case of a an
