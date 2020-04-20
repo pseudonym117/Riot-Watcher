@@ -54,7 +54,7 @@ raised as HTTPError exceptions from the Requests library.
 
     # all objects are returned (by default) as a dict
     # lets see if i got diamond yet (i probably didnt)
-    my_ranked_stats = lol_watcher.league.positions_by_summoner(my_region, me['id'])
+    my_ranked_stats = lol_watcher.league.by_summoner(my_region, me['id'])
     print(my_ranked_stats)
 
     # First we get the latest version of the game from data dragon
