@@ -1,7 +1,7 @@
 RiotWatcher v3.0.0
 ==================
 
-|pypi| |docs| |build| |coverage| |lgmt| |black|
+|pypi| |docs| coverage| |lgmt| |black|
 
 Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
 
@@ -460,10 +460,6 @@ registered trademarks ofRiot Games, Inc.
 .. |docs| image:: https://readthedocs.org/projects/riot-watcher/badge/?version=latest
   :target: http://riot-watcher.readthedocs.io/en/latest/?badge=latest
   :alt: Documentation Status
-
-.. |build| image:: https://travis-ci.com/pseudonym117/Riot-Watcher.svg?branch=master
-  :target: https://travis-ci.com/pseudonym117/Riot-Watcher
-  :alt: Build status
 
 .. |coverage| image:: https://img.shields.io/codecov/c/gh/pseudonym117/Riot-Watcher.svg
   :target: https://codecov.io/gh/pseudonym117/Riot-Watcher
