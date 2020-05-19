@@ -1,7 +1,7 @@
 RiotWatcher v3.0.0
 ==================
 
-|pypi| |docs| coverage| |lgmt| |black|
+|pypi| |docs| |coverage| |lgmt| |black|
 
 Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
 
