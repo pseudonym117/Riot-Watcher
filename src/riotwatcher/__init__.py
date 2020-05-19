@@ -1,3 +1,5 @@
+from .__version__ import __author__, __title__, __version__
+
 from .exceptions import ApiError, TimeoutError
 from .Deserializer import Deserializer
 from .RateLimiter import RateLimiter
