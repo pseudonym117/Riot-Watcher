@@ -13,10 +13,10 @@ from .Handlers import (
 from .Handlers.RateLimit import BasicRateLimiter
 
 from ._apis import BaseApi
-from ._apis.riot import AccountApi
+from ._apis.valorant import ContentApi, MatchApi
 
 
-class RiotWatcher:
+class ValWatcher:
     def __init__(
         self,
         api_key: str,
@@ -36,8 +36,14 @@ class RiotWatcher:
         ]
 
         self._base_api = BaseApi(api_key, handler_chain, timeout=timeout)
-        self._account = AccountApi(self._base_api)
+
+        self._content = ContentApi(self._base_api)
+        self._match = MatchApi(self._base_api)
 
     @property
-    def account(self) -> AccountApi:
-        return self._account
+    def content(self) -> ContentApi:
+        return self._content
+
+    @property
+    def match(self) -> MatchApi:
+        return self._match
