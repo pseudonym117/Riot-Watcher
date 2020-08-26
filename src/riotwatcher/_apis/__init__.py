@@ -4,7 +4,13 @@ from .NamedEndpoint import NamedEndpoint
 from .Endpoint import Endpoint
 from .UrlConfig import UrlConfig
 
-from . import league_of_legends, legends_of_runeterra, team_fight_tactics
+from . import (
+    league_of_legends,
+    legends_of_runeterra,
+    riot,
+    team_fight_tactics,
+    valorant,
+)
 
 __all__ = [
     "BaseApi",
@@ -13,5 +19,7 @@ __all__ = [
     "UrlConfig",
     "league_of_legends",
     "legends_of_runeterra",
+    "riot",
     "team_fight_tactics",
+    "valorant",
 ]

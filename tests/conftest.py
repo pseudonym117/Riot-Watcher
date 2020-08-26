@@ -143,3 +143,25 @@ def lor_context(mock_get: mock.MagicMock) -> MockContext:
     yield MockContext(
         api_key, mock_get, riotwatcher.LorWatcher(api_key), None,
     )
+
+
+@pytest.fixture
+@pytest.mark.usefixtures("reset_globals")
+def riot_context(mock_get: mock.MagicMock) -> MockContext:
+    import riotwatcher
+
+    api_key = "abcdefg"
+    yield MockContext(
+        api_key, mock_get, riotwatcher.RiotWatcher(api_key), None,
+    )
+
+
+@pytest.fixture
+@pytest.mark.usefixtures("reset_globals")
+def val_context(mock_get: mock.MagicMock) -> MockContext:
+    import riotwatcher
+
+    api_key = "abcdefg"
+    yield MockContext(
+        api_key, mock_get, riotwatcher.ValWatcher(api_key), None,
+    )

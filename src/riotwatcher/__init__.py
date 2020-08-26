@@ -6,6 +6,7 @@ from .RateLimiter import RateLimiter
 from .LolWatcher import LolWatcher
 from .LorWatcher import LorWatcher
 from .TftWatcher import TftWatcher
+from .ValWatcher import ValWatcher
 
 from .riotwatcher import RiotWatcher
 
@@ -16,6 +17,7 @@ __all__ = [
     "LorWatcher",
     "TftWatcher",
     "RiotWatcher",
+    "ValWatcher",
     "Handlers",
     "ApiError",
     "TimeoutError",
