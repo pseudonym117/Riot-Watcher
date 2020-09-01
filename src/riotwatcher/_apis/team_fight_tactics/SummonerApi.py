@@ -4,7 +4,7 @@ from .urls import SummonerApiUrls
 
 class SummonerApi(NamedEndpoint):
     """
-    This class wraps the TFT Summoner Api calls provided by the Riot API.
+    This class wraps the TFT-Summoner-v1 Api calls provided by the Riot API.
 
     See https://developer.riotgames.com/apis#tft-summoner-v1 for more detailed information.
     """
@@ -18,6 +18,11 @@ class SummonerApi(NamedEndpoint):
         super().__init__(base_api, self.__class__.__name__)
 
     def by_account(self, region: str, encrypted_account_id: str):
+        """
+        Get a summoner by account ID
+
+        :returns: SummonerDTO
+        """
         return self._request_endpoint(
             self.by_account.__name__,
             region,
@@ -26,6 +31,11 @@ class SummonerApi(NamedEndpoint):
         )
 
     def by_name(self, region: str, summoner_name: str):
+        """
+        Get a summoner by summoner name.
+
+        :returns: SummonerDTO
+        """
         return self._request_endpoint(
             self.by_name.__name__,
             region,
@@ -34,11 +44,21 @@ class SummonerApi(NamedEndpoint):
         )
 
     def by_puuid(self, region: str, puuid: str):
+        """
+        Get a summoner by PUUID.
+
+        :returns: SummonerDTO
+        """
         return self._request_endpoint(
             self.by_puuid.__name__, region, SummonerApiUrls.by_puuid, puuid=puuid
         )
 
     def by_id(self, region: str, encrypted_summoner_id: str):
+        """
+        Get a summoner by summoner ID
+
+        :returns: SummonerDTO
+        """
         return self._request_endpoint(
             self.by_id.__name__,
             region,

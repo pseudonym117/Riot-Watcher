@@ -6,7 +6,6 @@ from .Handlers import (
     DeserializerAdapter,
     DictionaryDeserializer,
     RateLimiterAdapter,
-    RequestHandler,
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
@@ -62,7 +61,7 @@ class TftWatcher:
         """
         Interface to the League Endpoint
 
-        :rtype: LeagueApi
+        :rtype: team_fight_tactics.LeagueApi
         """
         return self._league
 
@@ -71,7 +70,7 @@ class TftWatcher:
         """
         Interface to the Match Endpoint
 
-        :rtype: MatchApi
+        :rtype: team_fight_tactics.MatchApi
         """
         return self._match
 
@@ -80,6 +79,6 @@ class TftWatcher:
         """
         Interface to the Summoner Endpoint
 
-        :rtype: SummonerApi
+        :rtype: team_fight_tactics.SummonerApi
         """
         return self._summoner

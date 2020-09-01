@@ -4,7 +4,7 @@ from .urls import RankedApiUrls
 
 class RankedApi(NamedEndpoint):
     """
-    This class wraps the LOR-RANKED-V1 Api calls provided by the Riot API.
+    This class wraps the LoR-Ranked-V1 Api calls provided by the Riot API.
 
     See https://developer.riotgames.com/apis#lor-ranked-v1 for more detailed
     information
@@ -19,6 +19,11 @@ class RankedApi(NamedEndpoint):
         super().__init__(base_api, self.__class__.__name__)
 
     def leaderboards(self, region: str):
+        """
+        Get the players in Master tier.
+
+        :returns: LeaderboardDto
+        """
         return self._request_endpoint(
             self.leaderboards.__name__, region, RankedApiUrls.leaderboards
         )

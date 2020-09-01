@@ -1,4 +1,4 @@
-RiotWatcher v3.0.0
+RiotWatcher v3.1.0
 ==================
 
 |pypi| |docs| |coverage| |lgmt| |black|
@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 4/6/2020 are supported in full.
+of 9/1/2020 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -100,10 +100,6 @@ This can be done by providing the ``kernel_url`` parameter to the ``LolWatcher``
 Testing
 -------
 
-There currently are 2 sets of tests. There are basic unit tests for API related
-functionality, and there is a full system test, which directly accesses the
-API.
-
 Unit tests can be run with the following command from the RiotWatcher folder:
 
 ::
@@ -120,6 +116,12 @@ Changelog
 v3.1.0 - TBD
 ~~~~~~~~~~~~
 Add support for Clash API's
+
+Add support for generic Riot APIs through riotwatcher.RiotWatcher class (note: old deprecated class has been repurposed - you have been warned)
+
+Add support for valorant APIs
+
+Cleaned up documentation. Quite a bit.
 
 v3.0.0 - 3/3/2020
 ~~~~~~~~~~~~~~~~~
@@ -470,5 +472,5 @@ registered trademarks ofRiot Games, Inc.
   :alt: Code quality
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/ambv/black
-    :alt: Code style
+  :target: https://github.com/ambv/black
+  :alt: Code style
