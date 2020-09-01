@@ -51,7 +51,7 @@ master_doc = "index"
 # General information about the project.
 project = riotwatcher.__title__
 author = riotwatcher.__author__
-copyright = f"2019, {author}"
+copyright = f"2020, {author}"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -80,6 +80,7 @@ pygments_style = "sphinx"
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+autoclass_content = "both"
 
 # -- Options for HTML output ----------------------------------------------
 

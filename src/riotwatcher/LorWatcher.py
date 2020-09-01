@@ -6,7 +6,6 @@ from .Handlers import (
     DeserializerAdapter,
     DictionaryDeserializer,
     RateLimiterAdapter,
-    RequestHandler,
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
@@ -59,6 +58,6 @@ class LorWatcher:
         """
         Interface to the Ranked Endpoint
 
-        :rtype: RankedApi
+        :rtype: legends_of_runeterra.RankedApi
         """
         return self._ranked

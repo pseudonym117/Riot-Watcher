@@ -6,7 +6,6 @@ from .Handlers import (
     DeserializerAdapter,
     DictionaryDeserializer,
     RateLimiterAdapter,
-    RequestHandler,
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
@@ -100,7 +99,7 @@ class LolWatcher:
         """
         Interface to the ChampionMastery Endpoint
 
-        :rtype: ChampionMasteryApiV4
+        :rtype: league_of_legends.ChampionMasteryApiV4
         """
         return self._champion_mastery
 
@@ -109,7 +108,7 @@ class LolWatcher:
         """
         Interface to the Champion Endpoint
 
-        :rtype: ChampionApiV3
+        :rtype: league_of_legends.ChampionApiV3
         """
         return self._champion
 
@@ -118,7 +117,7 @@ class LolWatcher:
         """
         Interface to the Clash Endpoint
 
-        :rtype: ClashApiV1
+        :rtype: league_of_legends.ClashApiV1
         """
         return self._clash
 
@@ -127,7 +126,7 @@ class LolWatcher:
         """
         Interface to the League Endpoint
 
-        :rtype: LeagueApiV4
+        :rtype: league_of_legends.LeagueApiV4
         """
         return self._league
 
@@ -136,7 +135,7 @@ class LolWatcher:
         """
         Interface to the LoLStatus Endpoint
 
-        :rtype: LolStatusApiV3
+        :rtype: league_of_legends.LolStatusApiV3
         """
         return self._lol_status
 
@@ -145,7 +144,7 @@ class LolWatcher:
         """
         Interface to the Match Endpoint
 
-        :rtype: MatchApiV4
+        :rtype: league_of_legends.MatchApiV4
         """
         return self._match
 
@@ -154,7 +153,7 @@ class LolWatcher:
         """
         Interface to the Spectator Endpoint
 
-        :rtype: SpectatorApiV4
+        :rtype: league_of_legends.SpectatorApiV4
         """
         return self._spectator
 
@@ -163,7 +162,7 @@ class LolWatcher:
         """
         Interface to the DataDragon Endpoint
 
-        :rtype: DataDragonApi
+        :rtype: league_of_legends.DataDragonApi
         """
         return self._data_dragon
 
@@ -172,7 +171,7 @@ class LolWatcher:
         """
         Interface to the Summoner Endpoint
 
-        :rtype: SummonerApiV4
+        :rtype: league_of_legends.SummonerApiV4
         """
         return self._summoner
 
@@ -181,6 +180,6 @@ class LolWatcher:
         """
         Interface to the Third Party Code Endpoint
 
-        :rtype: ThirdPartyCodeApiV4
+        :rtype: league_of_legends.ThirdPartyCodeApiV4
         """
         return self._third_party_code
