@@ -76,7 +76,7 @@ raised as HTTPError exceptions from the Requests library.
         response = lol_watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
     except ApiError as err:
         if err.response.status_code == 429:
-            print('We should retry in {} seconds.'.format(err.headers['Retry-After']))
+            print('We should retry in {} seconds.'.format(err.response.headers['Retry-After']))
             print('this retry-after is handled by default by the RiotWatcher library')
             print('future requests wait until the retry-after time passes')
         elif err.response.status_code == 404:
