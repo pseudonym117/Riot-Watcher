@@ -24,3 +24,5 @@ class TestContentApi:
             f"https://{region}.api.riotgames.com/val/content/v1/contents",
             {"locale": locale},
         )
+
+        assert ret == expected_return

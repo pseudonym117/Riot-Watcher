@@ -1,4 +1,4 @@
-RiotWatcher v3.1.0
+RiotWatcher v3.1.1
 ==================
 
 |pypi| |docs| |coverage| |lgmt| |black|
@@ -113,8 +113,12 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
-v3.1.0 - TBD
+v3.1.1 - TBD
 ~~~~~~~~~~~~
+Add support for Valorant recent match API.
+
+v3.1.0 - 9/1/2020
+~~~~~~~~~~~~~~~~~
 Add support for Clash API's
 
 Add support for generic Riot APIs through riotwatcher.RiotWatcher class (note: old deprecated class has been repurposed - you have been warned)

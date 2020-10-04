@@ -10,6 +10,11 @@ def match_id(request):
     return request.param
 
 
+@pytest.fixture(params=["queue420"])
+def queue(request):
+    return request.param
+
+
 @pytest.mark.unit
 @pytest.mark.val
 class TestMatchApi:
@@ -30,6 +35,8 @@ class TestMatchApi:
             {},
         )
 
+        assert ret == expected_return
+
     def test_matchlist_by_puuid(self, region, puuid):
         mock_base_api = MagicMock()
         expected_return = object()
@@ -46,3 +53,24 @@ class TestMatchApi:
             f"https://{region}.api.riotgames.com/val/match/v1/matchlists/by-puuid/{puuid}",
             {},
         )
+
+        assert ret == expected_return
+
+    def test_recent_matches(self, region, queue):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        match = MatchApi(mock_base_api)
+
+        ret = match.recent_matches(region, queue)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            MatchApi.__name__,
+            match.recent_matches.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/val/match/v1/recent-matches/by-queue/{queue}",
+            {},
+        )
+
+        assert ret == expected_return
