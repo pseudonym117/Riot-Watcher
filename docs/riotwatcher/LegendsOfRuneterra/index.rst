@@ -12,8 +12,7 @@ All APIs
 --------
 
 .. toctree::
-   :maxdepth: 1
+    :maxdepth: 1
 
-   RankedApi.rst
-   
-
+    MatchApi.rst
+    RankedApi.rst

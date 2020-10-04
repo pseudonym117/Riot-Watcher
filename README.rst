@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 9/1/2020 are supported in full.
+of 10/3/2020 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -116,6 +116,8 @@ Changelog
 v3.1.1 - TBD
 ~~~~~~~~~~~~
 Add support for Valorant recent match API.
+
+Add support for LoR MatchAPI. 
 
 v3.1.0 - 9/1/2020
 ~~~~~~~~~~~~~~~~~
