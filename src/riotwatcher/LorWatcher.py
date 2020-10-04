@@ -12,7 +12,7 @@ from .Handlers import (
 from .Handlers.RateLimit import BasicRateLimiter
 
 from ._apis import BaseApi
-from ._apis.legends_of_runeterra import RankedApi
+from ._apis.legends_of_runeterra import MatchApi, RankedApi
 
 
 class LorWatcher:
@@ -51,7 +51,17 @@ class LorWatcher:
 
         self._base_api = BaseApi(api_key, handler_chain, timeout=timeout)
 
+        self._match = MatchApi(self._base_api)
         self._ranked = RankedApi(self._base_api)
+
+    @property
+    def match(self) -> MatchApi:
+        """
+        Interface to the Match Endpoint
+
+        :rtype: legends_of_runeterra.MatchApi
+        """
+        return self._match
 
     @property
     def ranked(self) -> RankedApi:

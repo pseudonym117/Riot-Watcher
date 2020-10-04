@@ -3,9 +3,6 @@ import pytest
 
 @pytest.mark.lor
 @pytest.mark.integration
-@pytest.mark.parametrize(
-    "region", ["EUROPE", "ASIA", "AMERICAS",],
-)
 class TestRankedApi:
     def test_leaderboards(self, lor_context, region):
         actual_response = lor_context.watcher.ranked.leaderboards(region)
