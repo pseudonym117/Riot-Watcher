@@ -9,3 +9,4 @@ class MatchEndpoint(ValEndpoint):
 class MatchApiUrls:
     by_id = MatchEndpoint("/matches/{match_id}")
     matchlist_by_puuid = MatchEndpoint("/matchlists/by-puuid/{puuid}")
+    recent_matches = MatchEndpoint("/recent-matches/by-queue/{queue}")

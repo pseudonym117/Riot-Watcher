@@ -6,6 +6,11 @@ def match_id(request):
     return request.param
 
 
+@pytest.fixture(params=["competitive", "unrated", "spikerush"])
+def queue(request):
+    return request.param
+
+
 @pytest.mark.val
 @pytest.mark.integration
 class TestMatchApi:
@@ -21,4 +26,14 @@ class TestMatchApi:
 
         val_context.verify_api_call(
             region, f"/val/match/v1/matchlists/by-puuid/{puuid}", {}, actual_response
+        )
+
+    def test_recent_matches(self, val_context, region, queue):
+        actual_response = val_context.watcher.match.recent_matches(region, queue)
+
+        val_context.verify_api_call(
+            region,
+            f"/val/match/v1/recent-matches/by-queue/{queue}",
+            {},
+            actual_response,
         )
