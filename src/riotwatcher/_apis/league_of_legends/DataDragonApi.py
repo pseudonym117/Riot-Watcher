@@ -47,3 +47,6 @@ class DataDragonApi:
     def _request(self, endpoint: Endpoint, version: str, locale: str):
         url, query = endpoint(version=version, locale=locale if locale else "en_US")
         return self._base_api.raw_request_static(url, query)
+
+    def queues(self, version: str, locale: str = None):
+        return self._request(DataDragonUrls.maps, version, locale)
