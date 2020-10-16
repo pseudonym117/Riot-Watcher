@@ -49,4 +49,4 @@ class DataDragonApi:
         return self._base_api.raw_request_static(url, query)
 
     def queues(self, version: str, locale: str = None):
-        return self._request(DataDragonUrls.maps, version, locale)
+        return self._request(DataDragonUrls.queues, version, locale)
