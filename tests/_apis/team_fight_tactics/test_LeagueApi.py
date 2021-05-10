@@ -129,3 +129,24 @@ class TestLeagueApi:
         )
 
         assert ret is expected_return
+
+    def test_rated_ladders(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        league = LeagueApi(mock_base_api)
+        region = "afas"
+        queue = "hdhddfd"
+
+        ret = league.rated_ladders(region, queue)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            LeagueApi.__name__,
+            league.rated_ladders.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/tft/league/v1/rated-ladders/{queue}/top",
+            {},
+        )
+
+        assert ret is expected_return
