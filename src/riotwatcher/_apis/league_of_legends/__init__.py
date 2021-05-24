@@ -8,3 +8,4 @@ from .MatchApiV4 import MatchApiV4
 from .SpectatorApiV4 import SpectatorApiV4
 from .SummonerApiV4 import SummonerApiV4
 from .ThirdPartyCodeApiV4 import ThirdPartyCodeApiV4
+from .MatchApiV5 import MatchApiV5
