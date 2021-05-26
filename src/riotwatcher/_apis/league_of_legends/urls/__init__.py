@@ -8,3 +8,4 @@ from .MatchApiUrls import MatchApiV4Urls
 from .SpectatorApiUrls import SpectatorApiV4Urls
 from .SummonerApiUrls import SummonerApiV4Urls
 from .ThirdPartyCodeApiUrls import ThirdPartyCodeApiV4Urls
+from .MatchApiV5Urls import MatchApiV5Urls

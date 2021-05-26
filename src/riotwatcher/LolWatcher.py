@@ -23,7 +23,8 @@ from ._apis.league_of_legends import (
     MatchApiV4,
     SpectatorApiV4,
     SummonerApiV4,
-    ThirdPartyCodeApiV4,
+    MatchApiV5,
+    ThirdPartyCodeApiV4,    
 )
 
 
@@ -87,10 +88,13 @@ class LolWatcher:
         self._clash = ClashApiV1(self._base_api)
         self._champion_mastery = ChampionMasteryApiV4(self._base_api)
         self._league = LeagueApiV4(self._base_api)
-        self._match = MatchApiV4(self._base_api)
+        self._match = MatchApiV4(self._base_api)        
         self._spectator = SpectatorApiV4(self._base_api)
         self._summoner = SummonerApiV4(self._base_api)
-        self._third_party_code = ThirdPartyCodeApiV4(self._base_api)
+                   
+        self._matchv5 = MatchApiV5(self._base_api)
+       
+        self._third_party_code = ThirdPartyCodeApiV4(self._base_api)        
         # todo: tournament-stub
         # todo: tournament
 
@@ -147,7 +151,7 @@ class LolWatcher:
         :rtype: league_of_legends.MatchApiV4
         """
         return self._match
-
+        
     @property
     def spectator(self) -> SpectatorApiV4:
         """
@@ -174,6 +178,15 @@ class LolWatcher:
         :rtype: league_of_legends.SummonerApiV4
         """
         return self._summoner
+        
+    @property
+    def matchv5(self) -> MatchApiV5:
+        """
+        Interface to the Match Endpoint
+
+        :rtype: league_of_legends.MatchApiV5
+        """
+        return self._matchv5
 
     @property
     def third_party_code(self) -> ThirdPartyCodeApiV4:
@@ -182,4 +195,4 @@ class LolWatcher:
 
         :rtype: league_of_legends.ThirdPartyCodeApiV4
         """
-        return self._third_party_code
+        return self._third_party_code           
