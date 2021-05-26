@@ -81,3 +81,11 @@ class TestLeagueApi:
         tft_context.verify_api_call(
             region, "/tft/league/v1/master", {}, actual_response
         )
+
+    @pytest.mark.parametrize("queue", ["RANKED_TFT_TURBO"])
+    def test_rated_ladders(self, tft_context, region, queue):
+        actual_response = tft_context.watcher.league.rated_ladders(region, queue)
+
+        tft_context.verify_api_call(
+            region, f"/tft/league/v1/rated-ladders/{queue}/top", {}, actual_response
+        )
