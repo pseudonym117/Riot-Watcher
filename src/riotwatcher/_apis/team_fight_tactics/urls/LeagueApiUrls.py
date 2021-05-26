@@ -14,3 +14,4 @@ class LeagueApiUrls:
     grandmaster = LeagueEndpoint("/grandmaster")
     by_id = LeagueEndpoint("/leagues/{league_id}")
     master = LeagueEndpoint("/master")
+    rated_ladders = LeagueEndpoint("/rated-ladders/{queue}/top")
