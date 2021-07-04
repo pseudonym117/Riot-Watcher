@@ -24,7 +24,7 @@ import pytest
 class TestMatchApiV4:
     @pytest.mark.parametrize("match_id", [12345, 54321, 2, 222222222222222222222])
     def test_by_id(self, lol_context, region, match_id):
-        actual_response = lol_context.watcher.match.by_id(region, match_id)
+        actual_response = lol_context.watcher.match_v4.by_id(region, match_id)
 
         lol_context.verify_api_call(
             region, f"/lol/match/v4/matches/{match_id}", {}, actual_response,
@@ -56,7 +56,7 @@ class TestMatchApiV4:
         begin_time, end_time = begin_end_time
         begin_index, end_index = begin_end_index
 
-        actual_response = lol_context.watcher.match.matchlist_by_account(
+        actual_response = lol_context.watcher.match_v4.matchlist_by_account(
             region,
             encrypted_account_id,
             queue=queue,
@@ -93,7 +93,9 @@ class TestMatchApiV4:
 
     @pytest.mark.parametrize("match_id", [0, 54321, 3232323232323223])
     def test_timeline_by_match(self, lol_context, region, match_id):
-        actual_response = lol_context.watcher.match.timeline_by_match(region, match_id)
+        actual_response = lol_context.watcher.match_v4.timeline_by_match(
+            region, match_id
+        )
 
         lol_context.verify_api_call(
             region, f"/lol/match/v4/timelines/by-match/{match_id}", {}, actual_response,
