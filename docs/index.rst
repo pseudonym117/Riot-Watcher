@@ -4,7 +4,7 @@ Welcome to RiotWatcher's documentation!
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 10/3/2020 are supported in full.
+of 7/4/2021 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -79,6 +79,41 @@ raised as HTTPError exceptions from the Requests library.
             print('Summoner with that ridiculous name not found.')
         else:
             raise
+
+MatchApiV5
+----------
+
+As of 7/4/2021, both the v4 and v5 versions of the Match API are supported by Riot. As such, RiotWatcher provides a
+method to use both. By default, the v4 API will be used for backwards compatibility.
+
+To use the v5 API by default, use the following to initialize your LolWatcher instance:
+
+.. code:: python
+
+    from riotwatcher import LolWatcher
+
+    lol_watcher = LolWatcher('<your-api-key>', default_default_match_v5=True)
+
+    # example call
+    matchlist = lol_watcher.match.matchlist_by_puuid('AMERICAS', 'fake-puuid')
+
+To explicitly use v4 or v5 during the deprecation period, you can use the following properties:
+
+.. code:: python
+
+    from riotwatcher import LolWatcher
+
+    lol_watcher = LolWatcher('<your-api-key>')
+
+    # use v5 explicitly
+    matchlist = lol_watcher.match_v5.matchlist_by_puuid('AMERICAS', 'fake-puuid')
+
+    # use v4 explicitly
+    old_matchlist = lol_watcher.match_v4.matchlist_by_account('na1', 'fake-account-id')
+
+Note: this will not be supported after v4 is completely deprecated! Both match_v4 and match_v5 properties will be removed,
+and the change will happen with a minor version increase. If you desire seamless backwards compatibility, do not use these
+properies.
 
 
 Use with kernel

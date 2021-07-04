@@ -1,3 +1,4 @@
+from typing import Union
 from .Deserializer import Deserializer
 from .RateLimiter import RateLimiter
 
@@ -24,7 +25,7 @@ from ._apis.league_of_legends import (
     SpectatorApiV4,
     SummonerApiV4,
     MatchApiV5,
-    ThirdPartyCodeApiV4,    
+    ThirdPartyCodeApiV4,
 )
 
 
@@ -40,6 +41,7 @@ class LolWatcher:
         kernel_url: str = None,
         rate_limiter: RateLimiter = BasicRateLimiter(),
         deserializer: Deserializer = DictionaryDeserializer(),
+        default_match_v5: bool = False,
     ):
         """
         Initialize a new instance of the RiotWatcher class.
@@ -88,13 +90,13 @@ class LolWatcher:
         self._clash = ClashApiV1(self._base_api)
         self._champion_mastery = ChampionMasteryApiV4(self._base_api)
         self._league = LeagueApiV4(self._base_api)
-        self._match = MatchApiV4(self._base_api)        
+        self._match_v4 = MatchApiV4(self._base_api)
+        self._match_v5 = MatchApiV5(self._base_api)
         self._spectator = SpectatorApiV4(self._base_api)
         self._summoner = SummonerApiV4(self._base_api)
-                   
-        self._matchv5 = MatchApiV5(self._base_api)
-       
-        self._third_party_code = ThirdPartyCodeApiV4(self._base_api)        
+        self._third_party_code = ThirdPartyCodeApiV4(self._base_api)
+
+        self._match = self._match_v5 if default_match_v5 else self._match_v4
         # todo: tournament-stub
         # todo: tournament
 
@@ -144,14 +146,34 @@ class LolWatcher:
         return self._lol_status
 
     @property
-    def match(self) -> MatchApiV4:
+    def match(self) -> Union[MatchApiV4, MatchApiV5]:
         """
         Interface to the Match Endpoint
+
+        :rtype: league_of_legends.MatchApiV5
+        """
+        return self._match
+
+    @property
+    def match_v4(self) -> MatchApiV4:
+        """
+        Temporary explicit interface to match-v4 endpoint.
+        Will be removed when matchv4 is deprecated.
 
         :rtype: league_of_legends.MatchApiV4
         """
         return self._match
-        
+
+    @property
+    def match_v5(self) -> MatchApiV5:
+        """
+        Temporary explicit interface to match-v5 endpoint.
+        Will be removed when matchv4 is deprecated.
+
+        :rtype: league_of_legends.MatchApiV5
+        """
+        return self._match_v5
+
     @property
     def spectator(self) -> SpectatorApiV4:
         """
@@ -178,15 +200,6 @@ class LolWatcher:
         :rtype: league_of_legends.SummonerApiV4
         """
         return self._summoner
-        
-    @property
-    def matchv5(self) -> MatchApiV5:
-        """
-        Interface to the Match Endpoint
-
-        :rtype: league_of_legends.MatchApiV5
-        """
-        return self._matchv5
 
     @property
     def third_party_code(self) -> ThirdPartyCodeApiV4:
@@ -195,4 +208,4 @@ class LolWatcher:
 
         :rtype: league_of_legends.ThirdPartyCodeApiV4
         """
-        return self._third_party_code           
+        return self._third_party_code
