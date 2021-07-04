@@ -150,7 +150,7 @@ Rate limiter has some race conditions when used concurrently.
 Changelog
 ---------
 v3.1.2 - 7/4/2021
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 Add support for LoL MatchAPI v5
 
 v3.1.1 - 10/4/2020
