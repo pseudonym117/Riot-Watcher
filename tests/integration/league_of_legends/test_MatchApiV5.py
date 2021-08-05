@@ -20,12 +20,13 @@ class TestMatchApiV5:
     @pytest.mark.parametrize("puuid", ["12345", "3333333333333333333"])
     @pytest.mark.parametrize("count", [None, 20])
     @pytest.mark.parametrize("start", [None, 0])
-    def test_matchlist_by_account(
-        self, lol_context, region, puuid, start, count,
+    @pytest.mark.parametrize("queue", [None, 0, 420, 2020])
+    @pytest.mark.parametrize("type", [None, "ranked", "normal", "tourney", "tutorial"])
+    def test_matchlist_by_puuid(
+        self, lol_context, region, puuid, start, count, queue, type
     ):
-
         actual_response = lol_context.watcher.match_v5.matchlist_by_puuid(
-            region, puuid, start=start, count=count,
+            region, puuid, start=start, count=count, queue=queue, type=type
         )
 
         expected_params = {}
@@ -33,6 +34,10 @@ class TestMatchApiV5:
             expected_params["count"] = count
         if start is not None:
             expected_params["start"] = start
+        if queue is not None:
+            expected_params["queue"] = queue
+        if type is not None:
+            expected_params["type"] = type
 
         lol_context.verify_api_call(
             region,
