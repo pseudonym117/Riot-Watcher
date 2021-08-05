@@ -149,6 +149,10 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v3.1.3 - 8/5/2021
+~~~~~~~~~~~~~~~~~
+Add query "queue" and "type" params for match v5 api
+
 v3.1.2 - 7/4/2021
 ~~~~~~~~~~~~~~~~~
 Add support for LoL MatchAPI v5
