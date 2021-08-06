@@ -1,4 +1,4 @@
-MatchApiV4
+MatchApiV5
 ==========
 
 .. py:currentmodule:: riotwatcher
