@@ -21,6 +21,7 @@ from ._apis.league_of_legends import (
     DataDragonApi,
     LeagueApiV4,
     LolStatusApiV3,
+    LolStatusApiV4,
     MatchApiV4,
     SpectatorApiV4,
     SummonerApiV4,
@@ -42,6 +43,7 @@ class LolWatcher:
         rate_limiter: RateLimiter = BasicRateLimiter(),
         deserializer: Deserializer = DictionaryDeserializer(),
         default_match_v5: bool = False,
+        default_status_v4: bool = False,
     ):
         """
         Initialize a new instance of the RiotWatcher class.
@@ -85,7 +87,8 @@ class LolWatcher:
         self._base_api = BaseApi(api_key, handler_chain, timeout=timeout)
 
         self._champion = ChampionApiV3(self._base_api)
-        self._lol_status = LolStatusApiV3(self._base_api)
+        self._lol_status_v3 = LolStatusApiV3(self._base_api)
+        self._lol_status_v4 = LolStatusApiV4(self._base_api)
         self._data_dragon = DataDragonApi(self._base_api)
         self._clash = ClashApiV1(self._base_api)
         self._champion_mastery = ChampionMasteryApiV4(self._base_api)
@@ -97,6 +100,7 @@ class LolWatcher:
         self._third_party_code = ThirdPartyCodeApiV4(self._base_api)
 
         self._match = self._match_v5 if default_match_v5 else self._match_v4
+        self._lol_status = self._lol_status_v4 if default_status_v4 else self._lol_status_v3
         # todo: tournament-stub
         # todo: tournament
 
@@ -137,7 +141,7 @@ class LolWatcher:
         return self._league
 
     @property
-    def lol_status(self) -> LolStatusApiV3:
+    def lol_status(self) -> Union[LolStatusApiV3, LolStatusApiV4]:
         """
         Interface to the LoLStatus Endpoint
 
