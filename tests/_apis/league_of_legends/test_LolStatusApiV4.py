@@ -22,7 +22,7 @@ class TestLolStatusApiV4:
             LolStatusApiV4.__name__,
             status.platform_data.__name__,
             region,
-            f"https://{region}.api.riotgames.com/lol/status/v4/shard-data",
+            f"https://{region}.api.riotgames.com/lol/status/v4/platform-data",
             {},
         )
 
