@@ -20,6 +20,7 @@ All APIs
    DataDragonApi.rst
    LeagueApiV4.rst
    LolStatusApiV3.rst
+   LolStatusApiV4.rst
    MatchApiV4.rst
    MatchApiV5.rst
    SpectatorApiV4.rst

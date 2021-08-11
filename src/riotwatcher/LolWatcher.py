@@ -100,7 +100,9 @@ class LolWatcher:
         self._third_party_code = ThirdPartyCodeApiV4(self._base_api)
 
         self._match = self._match_v5 if default_match_v5 else self._match_v4
-        self._lol_status = self._lol_status_v4 if default_status_v4 else self._lol_status_v3
+        self._lol_status = (
+            self._lol_status_v4 if default_status_v4 else self._lol_status_v3
+        )
         # todo: tournament-stub
         # todo: tournament
 
@@ -148,6 +150,24 @@ class LolWatcher:
         :rtype: league_of_legends.LolStatusApiV3
         """
         return self._lol_status
+
+    @property
+    def lol_status_v3(self) -> LolStatusApiV3:
+        """
+        Interface to the LoLStatus Endpoint
+
+        :rtype: league_of_legends.LolStatusApiV3
+        """
+        return self._lol_status_v3
+
+    @property
+    def lol_status_v4(self) -> LolStatusApiV4:
+        """
+        Interface to the LoLStatus Endpoint
+
+        :rtype: league_of_legends.LolStatusApiV4
+        """
+        return self._lol_status_v4
 
     @property
     def match(self) -> Union[MatchApiV4, MatchApiV5]:
