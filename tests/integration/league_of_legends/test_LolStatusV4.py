@@ -21,10 +21,10 @@ import pytest
         "pbe1",
     ],
 )
-class TestStatusApiV3:
-    def test_shard_data(self, lol_context, region):
-        actual_response = lol_context.watcher.lol_status_v3.shard_data(region)
+class TestStatusApiV4:
+    def test_platform_data(self, lol_context, region):
+        actual_response = lol_context.watcher.lol_status_v4.platform_data(region)
 
         lol_context.verify_api_call(
-            region, "/lol/status/v3/shard-data", {}, actual_response
+            region, "/lol/status/v4/platform-data", {}, actual_response
         )
