@@ -23,7 +23,7 @@ import pytest
 )
 class TestStatusApiV3:
     def test_shard_data(self, lol_context, region):
-        actual_response = lol_context.watcher.lol_status.shard_data(region)
+        actual_response = lol_context.watcher.lol_status_v3.shard_data(region)
 
         lol_context.verify_api_call(
             region, "/lol/status/v3/shard-data", {}, actual_response
