@@ -7,8 +7,6 @@ class BaseApi:
         self._request_handlers = request_handlers
         self._timeout = timeout
         self._session = session()
-        #self._session.headers.update({"X-Riot-Token": self._api_key})
-        #self._session.mount("https://", adapters.HTTPAdapter(pool_connections=50, pool_maxsize=50))
 
     @property
     def api_key(self):
