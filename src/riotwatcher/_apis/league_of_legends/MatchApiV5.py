@@ -40,6 +40,8 @@ class MatchApiV5(NamedEndpoint):
         count: int = None,
         queue: int = None,
         type: str = None,
+        start_time: int = None,
+        end_time: int = None,
     ):
         """
         Get matchlist for ranked games played on given account ID and platform ID
@@ -83,6 +85,8 @@ class MatchApiV5(NamedEndpoint):
             count=count,
             queue=queue,
             type=type,
+            start_time=start_time,
+            end_time=end_time,
         )
 
     def timeline_by_match(self, region: str, match_id: int):
