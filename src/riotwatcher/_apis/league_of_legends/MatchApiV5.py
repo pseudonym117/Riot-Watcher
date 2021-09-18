@@ -85,8 +85,8 @@ class MatchApiV5(NamedEndpoint):
             count=count,
             queue=queue,
             type=type,
-            start_time=start_time,
-            end_time=end_time,
+            startTime=start_time,
+            endTime=end_time,
         )
 
     def timeline_by_match(self, region: str, match_id: int):
