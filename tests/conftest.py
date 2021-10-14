@@ -1,12 +1,9 @@
 import datetime
 import json
-import sys
-
-from typing import T
 import unittest.mock as mock
+from typing import T
 
 import pytest
-
 
 real_datetime_class = datetime.datetime
 
@@ -46,7 +43,7 @@ def mock_datetime(monkeypatch):
 def mock_get(monkeypatch) -> mock.MagicMock:
     with monkeypatch.context() as m:
         mock_req = mock.MagicMock()
-        m.setattr("requests.get", mock_req)
+        m.setattr("requests.Session.get", mock_req)
 
         yield mock_req
 

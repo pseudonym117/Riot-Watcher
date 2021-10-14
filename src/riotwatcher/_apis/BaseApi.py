@@ -1,4 +1,4 @@
-import requests
+from requests import session
 
 
 class BaseApi:
@@ -6,6 +6,7 @@ class BaseApi:
         self._api_key = api_key
         self._request_handlers = request_handlers
         self._timeout = timeout
+        self._session = session()
 
     @property
     def api_key(self):
@@ -38,7 +39,7 @@ class BaseApi:
             if self._timeout is not None:
                 extra["timeout"] = self._timeout
 
-            response = requests.get(
+            response = self._session.get(
                 url,
                 params=query_params,
                 headers={"X-Riot-Token": self.api_key},
@@ -73,7 +74,7 @@ class BaseApi:
             if self._timeout is not None:
                 extra["timeout"] = self._timeout
 
-            response = requests.get(url, params=query_params, **extra)
+            response = self._session.get(url, params=query_params, **extra)
 
         if self._request_handlers is not None:
             for handler in self._request_handlers[early_ret_idx:None:-1]:
