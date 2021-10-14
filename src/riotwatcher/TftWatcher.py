@@ -6,6 +6,7 @@ from .Handlers import (
     DeserializerAdapter,
     DictionaryDeserializer,
     RateLimiterAdapter,
+    SanitationHandler,
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
@@ -43,6 +44,7 @@ class TftWatcher:
             raise ValueError("api_key must be set!")
 
         handler_chain = [
+            SanitationHandler(),
             DeserializerAdapter(deserializer),
             ThrowOnErrorHandler(),
             TypeCorrectorHandler(),

@@ -1,6 +1,6 @@
 from .__version__ import __author__, __title__, __version__
 
-from .exceptions import ApiError, TimeoutError
+from .exceptions import ApiError, IllegalArgumentError, TimeoutError
 from .Deserializer import Deserializer
 from .RateLimiter import RateLimiter
 from .LolWatcher import LolWatcher
@@ -20,5 +20,6 @@ __all__ = [
     "ValWatcher",
     "Handlers",
     "ApiError",
+    "IllegalArgumentError",
     "TimeoutError",
 ]
