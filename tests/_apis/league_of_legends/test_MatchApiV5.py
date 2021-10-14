@@ -45,7 +45,14 @@ class TestMatchApiV5:
             matchv5.matchlist_by_puuid.__name__,
             region,
             f"https://{region}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids",
-            {"start": None, "count": None, "queue": None, "type": None,},
+            {
+                "start": None,
+                "count": None,
+                "queue": None,
+                "type": None,
+                "startTime": None,
+                "endTime": None,
+            },
         )
 
         assert ret is expected_return
@@ -63,9 +70,18 @@ class TestMatchApiV5:
         count = "afasf"
         queue = 420
         type = "norms"
+        start_time = 1000
+        end_time = 2000
 
         ret = matchv5.matchlist_by_puuid(
-            region, puuid, start=start, count=count, queue=queue, type=type,
+            region,
+            puuid,
+            start=start,
+            count=count,
+            queue=queue,
+            type=type,
+            start_time=start_time,
+            end_time=end_time,
         )
 
         mock_base_api.raw_request.assert_called_once_with(
@@ -73,7 +89,14 @@ class TestMatchApiV5:
             matchv5.matchlist_by_puuid.__name__,
             region,
             f"https://{region}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids",
-            {"start": start, "count": count, "queue": queue, "type": type},
+            {
+                "start": start,
+                "count": count,
+                "queue": queue,
+                "type": type,
+                "startTime": start_time,
+                "endTime": end_time,
+            },
         )
 
         assert ret is expected_return

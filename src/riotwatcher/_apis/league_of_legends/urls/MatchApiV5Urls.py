@@ -10,6 +10,6 @@ class MatchV5Endpoint(LeagueEndpoint):
 class MatchApiV5Urls:
     by_id = MatchV5Endpoint("/matches/{match_id}")
     matchlist_by_puuid = MatchV5Endpoint(
-        "/matches/by-puuid/{puuid}/ids", start=int, count=int, queue=int, type=str
+        "/matches/by-puuid/{puuid}/ids", start=int, count=int, queue=int, type=str, startTime=int, endTime=int
     )
     timeline_by_match = MatchV5Endpoint("/matches/{match_id}/timeline")

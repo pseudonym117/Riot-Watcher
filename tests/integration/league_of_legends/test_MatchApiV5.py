@@ -22,11 +22,29 @@ class TestMatchApiV5:
     @pytest.mark.parametrize("start", [None, 0])
     @pytest.mark.parametrize("queue", [None, 0, 420, 2020])
     @pytest.mark.parametrize("type", [None, "ranked", "normal", "tourney", "tutorial"])
+    @pytest.mark.parametrize("start_time", [None, 1000])
+    @pytest.mark.parametrize("end_time", [None, 2000])
     def test_matchlist_by_puuid(
-        self, lol_context, region, puuid, start, count, queue, type
+        self,
+        lol_context,
+        region,
+        puuid,
+        start,
+        count,
+        queue,
+        type,
+        start_time,
+        end_time,
     ):
         actual_response = lol_context.watcher.match_v5.matchlist_by_puuid(
-            region, puuid, start=start, count=count, queue=queue, type=type
+            region,
+            puuid,
+            start=start,
+            count=count,
+            queue=queue,
+            type=type,
+            start_time=start_time,
+            end_time=end_time,
         )
 
         expected_params = {}
@@ -38,6 +56,10 @@ class TestMatchApiV5:
             expected_params["queue"] = queue
         if type is not None:
             expected_params["type"] = type
+        if start_time is not None:
+            expected_params["startTime"] = start_time
+        if end_time is not None:
+            expected_params["endTime"] = end_time
 
         lol_context.verify_api_call(
             region,
