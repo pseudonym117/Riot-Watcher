@@ -21,9 +21,7 @@ All APIs
    LeagueApiV4.rst
    LolStatusApiV3.rst
    LolStatusApiV4.rst
-   MatchApiV4.rst
    MatchApiV5.rst
    SpectatorApiV4.rst
    SummonerApiV4.rst
    ThirdPartyCodeApiV4.rst
-   

@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 8/11/2021 are supported in full.
+of 10/14/2021 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -84,47 +84,25 @@ raised as HTTPError exceptions from the Requests library.
         else:
             raise
 
-MatchApiV5
+
+DataDragon
 ----------
 
-As of 8/11/2021, both the v4 and v5 versions of the Match API are supported by Riot. As such, RiotWatcher provides a
-method to use both. By default, the v4 API will be used for backwards compatibility.
+Keep in mind when using data dragon APIs with LolWatcher that regions are NOT the same as the other API regions.
+Specifically, the following regions are renamed (as of writing):
 
-To use the v5 API by default, use the following to initialize your LolWatcher instance:
-
-.. code:: python
-
-    from riotwatcher import LolWatcher
-
-    lol_watcher = LolWatcher('<your-api-key>', default_default_match_v5=True)
-
-    # example call
-    matchlist = lol_watcher.match.matchlist_by_puuid('AMERICAS', 'fake-puuid')
-
-To explicitly use v4 or v5 during the deprecation period, you can use the following properties:
-
-
-.. code:: python
-
-    from riotwatcher import LolWatcher
-
-    lol_watcher = LolWatcher('<your-api-key>')
-
-    # use v5 explicitly
-    matchlist = lol_watcher.match_v5.matchlist_by_puuid('AMERICAS', 'fake-puuid')
-
-    # use v4 explicitly
-    old_matchlist = lol_watcher.match_v4.matchlist_by_account('na1', 'fake-account-id')
-
-Note: this will not be supported after v4 is completely deprecated! Both match_v4 and match_v5 properties will be removed,
-and the change will happen with a minor version increase. If you desire seamless backwards compatibility, do not use these
-properies.
+======== ===========
+**API**  **ddragon**
+-------- -----------
+eun1     eune
+oc1      oce
+======== ===========
 
 
 StatusApiV4
 -----------
 
-As of 8/11/2021 (and from the looks of it, indefinitely), both v3 and v4 versions of the LolStatus API are supported by Riot.
+As of 10/14/2021 (and from the looks of it, indefinitely), both v3 and v4 versions of the LolStatus API are supported by Riot.
 As such, RiotWatcher provides a method to use both. By default, the v3 API will be used for backwards compatibility.
 
 To use the v4 API by default, use the following to initialize your LolWatcher instance:
@@ -187,6 +165,16 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v3.2.0 - 10/14/2021
+~~~~~~~~~~~~~~~~~~~
+Removed match_v4 and match_v5 properties from LolWatcher. Use match property now - will use v5 API.
+
+Use persistent http session to connect to API.
+
+Added startTime and endTime params for match v5 api
+
+Documented ddragon weirdness
+
 v3.1.4 - 8/11/2021
 ~~~~~~~~~~~~~~~~~~
 Add LolStatus-V4 API. Didnt realize this existed until now.

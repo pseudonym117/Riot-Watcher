@@ -11,7 +11,7 @@ class TestMatchApiV5:
         "match_id", ["EUW1_12345", "EUW1_54321", "EUW1_1", "EUW_1222222222222222222222"]
     )
     def test_by_id(self, lol_context, region, match_id):
-        actual_response = lol_context.watcher.match_v5.by_id(region, match_id)
+        actual_response = lol_context.watcher.match.by_id(region, match_id)
 
         lol_context.verify_api_call(
             region, f"/lol/match/v5/matches/{match_id}", {}, actual_response,
@@ -36,7 +36,7 @@ class TestMatchApiV5:
         start_time,
         end_time,
     ):
-        actual_response = lol_context.watcher.match_v5.matchlist_by_puuid(
+        actual_response = lol_context.watcher.match.matchlist_by_puuid(
             region,
             puuid,
             start=start,
@@ -72,9 +72,7 @@ class TestMatchApiV5:
         "match_id", ["EUW1_12345", "EUW1_54321", "EUW1_1", "EUW_1222222222222222222222"]
     )
     def test_timeline_by_match(self, lol_context, region, match_id):
-        actual_response = lol_context.watcher.match_v5.timeline_by_match(
-            region, match_id
-        )
+        actual_response = lol_context.watcher.match.timeline_by_match(region, match_id)
 
         lol_context.verify_api_call(
             region, f"/lol/match/v5/matches/{match_id}/timeline", {}, actual_response,
