@@ -175,6 +175,8 @@ Added startTime and endTime params for match v5 api
 
 Documented ddragon weirdness
 
+Fix potential security issue with some common usage patterns
+
 v3.1.4 - 8/11/2021
 ~~~~~~~~~~~~~~~~~~
 Add LolStatus-V4 API. Didnt realize this existed until now.

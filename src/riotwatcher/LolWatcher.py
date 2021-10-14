@@ -9,6 +9,7 @@ from .Handlers import (
     DeserializerAdapter,
     DictionaryDeserializer,
     RateLimiterAdapter,
+    SanitationHandler,
     ThrowOnErrorHandler,
     TypeCorrectorHandler,
 )
@@ -68,6 +69,7 @@ class LolWatcher:
 
         if kernel_url:
             handler_chain = [
+                SanitationHandler(),
                 DeserializerAdapter(deserializer),
                 ThrowOnErrorHandler(),
                 TypeCorrectorHandler(),
@@ -75,6 +77,7 @@ class LolWatcher:
             ]
         else:
             handler_chain = [
+                SanitationHandler(),
                 DeserializerAdapter(deserializer),
                 ThrowOnErrorHandler(),
                 TypeCorrectorHandler(),
