@@ -8,6 +8,7 @@ from ..Deserializer import Deserializer
 
 class DeserializerAdapter(RequestHandler):
     def __init__(self, deserializer: Deserializer):
+        super().__init__()
         self._deserializer = deserializer
 
     def after_request(
@@ -21,5 +22,4 @@ class DeserializerAdapter(RequestHandler):
         return self._deserializer.deserialize(endpoint_name, method_name, response.text)
 
     def after_static_request(self, url: str, response: Response) -> Any:
-        # TODO: add params to get endpoint_name and method_name
         return self._deserializer.deserialize(None, None, response.text)

@@ -1,13 +1,18 @@
 import datetime
 import logging
 
-from typing import Dict, Optional
+from typing import Dict, Optional, Tuple
 
 from ...RateLimiter import RateLimiter
 
-from . import ApplicationRateLimiter, MethodRateLimiter, OopsRateLimiter
+from . import (
+    ApplicationRateLimiter,
+    MethodRateLimiter,
+    OopsRateLimiter,
+    InternalLimiter,
+)
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class BasicRateLimiter(RateLimiter):
@@ -16,7 +21,7 @@ class BasicRateLimiter(RateLimiter):
     def __init__(self):
         super().__init__()
 
-        self._limiters = (
+        self._limiters: Tuple[InternalLimiter, InternalLimiter, InternalLimiter] = (
             BasicRateLimiter.__application_rate_limiter,
             MethodRateLimiter(),
             OopsRateLimiter(),
@@ -41,12 +46,13 @@ class BasicRateLimiter(RateLimiter):
         if wait_until[0] is not None and wait_until[0] > datetime.datetime.now():
             to_wait = wait_until[0] - datetime.datetime.now()
 
-            log.debug(
+            LOG.debug(
                 "waiting for %s seconds due to %s limit...",
                 to_wait.total_seconds(),
                 wait_until[1],
             )
             return wait_until[0]
+        return None
 
     def record_response(
         self,

@@ -5,7 +5,7 @@ from requests import Response
 
 from . import RequestHandler
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class DeprecationHandler(RequestHandler):
@@ -30,10 +30,15 @@ class DeprecationHandler(RequestHandler):
                 return response
             key = f"{endpoint_name}.{method_name}"
             if key not in self._warned:
-                # technically race condition here, but worst case is we double log a warning
+                # technically race condition here, but worst case is we double log
                 self._warned.add(key)
-                log.warning(
-                    "Method %s has been deprecated by Riot! It will no longer work after %s",
+                LOG.warning(
+                    " ".join(
+                        [
+                            "Method %s has been deprecated by Riot!",
+                            "It will no longer work after %s",
+                        ]
+                    ),
                     key,
                     deprecation,
                 )

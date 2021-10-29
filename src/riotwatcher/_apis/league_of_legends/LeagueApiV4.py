@@ -6,7 +6,8 @@ class LeagueApiV4(NamedEndpoint):
     """
     This class wraps the League-v4 Api calls provided by the Riot API.
 
-    See https://developer.riotgames.com/api-methods/#league-v4/ for more detailed information
+    See https://developer.riotgames.com/api-methods/#league-v4/ for more detailed
+    information
     """
 
     def __init__(self, base_api: BaseApi):

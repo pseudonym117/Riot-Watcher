@@ -7,11 +7,12 @@ from requests import Response
 from .RequestHandler import RequestHandler
 from ..RateLimiter import RateLimiter
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class RateLimiterAdapter(RequestHandler):
     def __init__(self, limiter: RateLimiter):
+        super().__init__()
         self._limiter = limiter
 
     def preview_request(
@@ -37,7 +38,7 @@ class RateLimiterAdapter(RequestHandler):
         if wait_until is not None and wait_until > datetime.datetime.now():
             to_wait = wait_until - datetime.datetime.now()
 
-            log.info(
+            LOG.info(
                 "waiting for %s seconds...", to_wait.total_seconds(),
             )
             time.sleep(to_wait.total_seconds())
@@ -57,7 +58,8 @@ class RateLimiterAdapter(RequestHandler):
         :param string endpoint_name: the name of the endpoint that was requested
         :param string method_name: the name of the method that was requested
         :param url: The url that was requested
-        :param response: the response received. This is a response from the Requests library
+        :param response: the response received. This is a response from the "requests"
+                         library
         """
         self._limiter.record_response(
             region, endpoint_name, method_name, response.status_code, response.headers

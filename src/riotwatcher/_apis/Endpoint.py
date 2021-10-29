@@ -10,7 +10,7 @@ class Endpoint:
         if "" in url_params:
             raise ValueError("nameless format parameters not supported!")
         self._url_params = url_params
-        self._query_params = [key for key in kwargs.keys() if key not in url_params]
+        self._query_params = [key for key in kwargs if key not in url_params]
 
     def __call__(self, **kwargs):
         for req_param in self._url_params:

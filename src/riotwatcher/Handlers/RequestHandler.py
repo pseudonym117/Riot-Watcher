@@ -31,7 +31,8 @@ class RequestHandler:
         :param string endpoint_name: the name of the endpoint that was requested
         :param string method_name: the name of the method that was requested
         :param url: The url that was requested
-        :param response: the response received. This is a response from the Requests library
+        :param response: the response received. This is a response from the "requests"
+                         library
         """
 
     def preview_static_request(self, url: str, query_params: dict):
@@ -46,5 +47,6 @@ class RequestHandler:
         Called after a response is received and before it is returned to the user.
 
         :param url: The url that was requested
-        :param response: the response received. This is a response from the Requests library
+        :param response: the response received. This is a response from the "requests"
+        library
         """

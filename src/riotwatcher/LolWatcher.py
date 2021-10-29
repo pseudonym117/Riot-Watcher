@@ -31,12 +31,13 @@ from ._apis.league_of_legends import (
     ThirdPartyCodeApiV4,
 )
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 class LolWatcher:
     """
-    LolWatcher class is intended to be the main interaction point with the APIs for League of Legends.
+    LolWatcher class is intended to be the main interaction point with the APIs for
+    League of Legends.
     """
 
     def __init__(
@@ -53,16 +54,20 @@ class LolWatcher:
         Initialize a new instance of the RiotWatcher class.
 
         :param string api_key: the API key to use for this instance
-        :param int timeout: Time to wait for a response before timing out a connection to
-                            the Riot API
-        :param string kernel_url: URL for the kernel instance to connect to, instead of the API.
-                                  See https://github.com/meraki-analytics/kernel for details.
+        :param int timeout: Time to wait for a response before timing out a connection
+                            to the Riot API
+        :param string kernel_url: URL for the kernel instance to connect to, instead of
+                                  the API. See
+                                  https://github.com/meraki-analytics/kernel for
+                                  details.
         :param RateLimiter rate_limiter: Instance to be used for rate limiting.
-                                         This defaults to Handlers.RateLimit.BasicRateLimiter.
-                                         This parameter is not used when connecting to a
-                                         kernel instance.
+                                         This defaults to
+                                         Handlers.RateLimit.BasicRateLimiter.
+                                         This parameter is not used when connecting to
+                                         a kernel instance.
         :param Deserializer deserializer: Instance to be used to deserialize responses
-                                          from the Riot Api. Default is Handlers.DictionaryDeserializer.
+                                          from the Riot Api. Default is
+                                          Handlers.DictionaryDeserializer.
         """
         if not kernel_url and not api_key:
             raise ValueError("Either api_key or kernel_url must be set!")
@@ -111,7 +116,7 @@ class LolWatcher:
         # todo: tournament
 
         if "default_match_v5" in kwargs:
-            log.warn(
+            LOG.warning(
                 "property 'default_match_v5' has been deprecated and can be removed"
             )
 
@@ -189,9 +194,13 @@ class LolWatcher:
 
     @property
     def match_v4(self):
-        """this property has been deprecated. Use 'match' property instead. Note that v4 is now permanently removed by Riot"""
+        """
+        This property has been deprecated. Use 'match' property instead.
+        Note that v4 is now permanently removed by Riot
+        """
         raise NotImplementedError(
-            "this property has been deprecated. Use 'match' property instead. Note that v4 is now permanently removed by Riot"
+            "this property has been deprecated. Use 'match' property instead. Note "
+            + "that v4 is now permanently removed by Riot"
         )
 
     @property

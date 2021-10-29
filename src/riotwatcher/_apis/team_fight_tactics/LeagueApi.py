@@ -87,7 +87,7 @@ class LeagueApi(NamedEndpoint):
 
     def rated_ladders(self, region: str, queue: str):
         """
-        Get the top rated ladders 
+        Get the top rated ladders
 
         :returns: TopRatedLadderEntryDto
         """

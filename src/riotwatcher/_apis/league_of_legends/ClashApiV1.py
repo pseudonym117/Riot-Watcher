@@ -20,8 +20,8 @@ class ClashApiV1(NamedEndpoint):
     def by_summoner(self, region: str, summoner_id: str):
         """
         This endpoint returns a list of active Clash players for a given summoner ID.
-        If a summoner registers for multiple tournaments at the same time (e.g., Saturday and
-        Sunday) then both registrations would appear in this list.
+        If a summoner registers for multiple tournaments at the same time (e.g.,
+        Saturday and Sunday) then both registrations would appear in this list.
 
         :param string region:               The region to execute this request on.
         :param string summoner_id:          The summoner ID.

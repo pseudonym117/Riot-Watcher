@@ -6,7 +6,8 @@ class ContentApi(NamedEndpoint):
     """
     This class wraps the Val-Content-v1 Api calls provided by the Riot API.
 
-    See https://developer.riotgames.com/apis#val-content-v1 for more detailed information
+    See https://developer.riotgames.com/apis#val-content-v1 for more detailed
+    information
     """
 
     def __init__(self, base_api: BaseApi):

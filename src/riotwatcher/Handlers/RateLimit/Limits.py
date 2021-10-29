@@ -6,7 +6,7 @@ from collections import namedtuple
 from typing import Iterable, Optional
 
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 RawLimit = namedtuple("RawLimit", ["count", "limit", "time"])
 
@@ -72,14 +72,19 @@ class Limit:
                     and self._raw_limit.limit == 0
                     and self._raw_limit.count == 0
                 ):
-                    log.warning(
-                        "overwriting time limit, previously %s, now %s. This may cause rate limitting issues.",
+                    LOG.warning(
+                        " ".join(
+                            [
+                                "overwriting time limit, previously %s, now %s.",
+                                "This may cause rate limitting issues.",
+                            ]
+                        ),
                         self._raw_limit.time,
                         raw_limit.time,
                     )
 
             if self._raw_limit.limit != raw_limit.limit:
-                log.info(
+                LOG.info(
                     "rate limit changed from %s/%ss to %s/%ss",
                     self._raw_limit.limit,
                     self._raw_limit.time,
