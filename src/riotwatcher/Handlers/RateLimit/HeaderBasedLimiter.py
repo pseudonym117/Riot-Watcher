@@ -4,13 +4,15 @@ import threading
 
 from typing import Dict, List, Optional
 
+from .InternalLimiter import InternalLimiter
 from .Limits import LimitCollection, RawLimit
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
-class HeaderBasedLimiter:
+class HeaderBasedLimiter(InternalLimiter):
     def __init__(self, limit_header: str, count_header: str, friendly_name: str = None):
+        super().__init__()
         self._limit_header = limit_header
         self._count_header = count_header
         self._friendly_name = friendly_name
@@ -73,7 +75,7 @@ class HeaderBasedLimiter:
             return None
 
         if len(limits) != len(counts):
-            log.warning(
+            LOG.warning(
                 'header "%s" and "%s" have different sizes!',
                 self._limit_header,
                 self._count_header,
@@ -83,10 +85,15 @@ class HeaderBasedLimiter:
 
         for limit in combined_limits:
             if limit[0][1] != limit[1][1]:
-                log.warning(
-                    'seems that limits for headers "%s" and "%s" did not match up correctly! '
-                    + 'There may be issues in rate limiting. Headers were: "%s", "%s"'
-                    + 'Limits from "%s" will be used.',
+                LOG.warning(
+                    " ".join(
+                        [
+                            'seems that limits for headers "%s" and "%s" did not match',
+                            "up correctly! There may be issues in rate limiting.",
+                            'Headers were: "%s", "%s".',
+                            'Limits from "%s" will be used.',
+                        ]
+                    ),
                     self._limit_header,
                     self._count_header,
                     headers.get(self._limit_header),

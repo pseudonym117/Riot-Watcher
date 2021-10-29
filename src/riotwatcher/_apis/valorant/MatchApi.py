@@ -45,9 +45,10 @@ class MatchApi(NamedEndpoint):
         Get recent matches.
 
         Note: Returns a list of match ids that have completed in the last 10 minutes.
-        NA/LATAM/BR share a match history deployment. As such, recent matches will return
-        a combined list of matches from those three regions. Requests are load balanced so
-        you may see some inconsistencies as matches are added/removed from the list.
+        NA/LATAM/BR share a match history deployment. As such, recent matches will
+        return a combined list of matches from those three regions. Requests are load
+        balanced so you may see some inconsistencies as matches are added/removed from
+        the list.
 
         :returns: RecentMatchesDto
         """

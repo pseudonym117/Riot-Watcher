@@ -13,6 +13,7 @@ class SanitationHandler(RequestHandler):
     """
 
     def __init__(self):
+        super().__init__()
         self._region_expr = re.compile("[a-zA-Z0-9]+")
 
     def preview_request(

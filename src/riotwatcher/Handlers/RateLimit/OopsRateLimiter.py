@@ -3,11 +3,14 @@ import logging
 
 from typing import Dict
 
-log = logging.getLogger(__name__)
+from .InternalLimiter import InternalLimiter
+
+LOG = logging.getLogger(__name__)
 
 
-class OopsRateLimiter:
+class OopsRateLimiter(InternalLimiter):
     def __init__(self):
+        super().__init__()
         self._friendly_name = "429_Limit"
         self._retry_at = None
 
@@ -35,7 +38,7 @@ class OopsRateLimiter:
             limit_type = headers.get("X-Rate-Limit-Type")
 
             if retry_after is not None:
-                log.info(
+                LOG.info(
                     'hit 429 from "%s" limit! retrying after %s seconds',
                     limit_type,
                     retry_after,
@@ -44,6 +47,6 @@ class OopsRateLimiter:
                     seconds=int(retry_after)
                 )
             else:
-                log.info(
+                LOG.info(
                     'hit 429 from "%s" limit! no retry after header...', limit_type
                 )

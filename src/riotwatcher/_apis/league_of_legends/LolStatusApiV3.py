@@ -6,7 +6,8 @@ class LolStatusApiV3(NamedEndpoint):
     """
     This class wraps the LoL-Status-v3 Api calls provided by the Riot API.
 
-    See https://developer.riotgames.com/api-methods/#lol-status-v3 for more detailed information
+    See https://developer.riotgames.com/api-methods/#lol-status-v3 for more detailed
+    information
     """
 
     def __init__(self, base_api: BaseApi):

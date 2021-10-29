@@ -6,7 +6,8 @@ class SummonerApi(NamedEndpoint):
     """
     This class wraps the TFT-Summoner-v1 Api calls provided by the Riot API.
 
-    See https://developer.riotgames.com/apis#tft-summoner-v1 for more detailed information.
+    See https://developer.riotgames.com/apis#tft-summoner-v1 for more detailed
+    information.
     """
 
     def __init__(self, base_api: BaseApi):

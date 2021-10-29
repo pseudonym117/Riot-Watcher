@@ -6,8 +6,8 @@ class ThirdPartyCodeApiV4(NamedEndpoint):
     """
     This class wraps the ThirdPartyCode-v4 Api calls provided by the Riot API.
 
-    See https://developer.riotgames.com/api-methods/#third-party-code-v4 for more detailed
-    information
+    See https://developer.riotgames.com/api-methods/#third-party-code-v4 for more
+    detailed information
     """
 
     def __init__(self, base_api: BaseApi):

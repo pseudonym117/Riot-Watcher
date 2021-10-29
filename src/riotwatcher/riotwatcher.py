@@ -18,7 +18,8 @@ from ._apis.riot import AccountApi
 
 class RiotWatcher:
     """
-    RiotWatcher class is intended to be the main interaction point with the generic Riot APIs.
+    RiotWatcher class is intended to be the main interaction point with the generic
+    Riot APIs.
     """
 
     def __init__(
@@ -32,12 +33,14 @@ class RiotWatcher:
         Initialize a new instance of the RiotWatcher class.
 
         :param string api_key: the API key to use for this instance
-        :param int timeout: Time to wait for a response before timing out a connection to
-                            the Riot API
+        :param int timeout: Time to wait for a response before timing out a connection
+                            to the Riot API
         :param RateLimiter rate_limiter: Instance to be used for rate limiting.
-                                         This defaults to Handlers.RateLimit.BasicRateLimiter.
+                                         This defaults to
+                                         Handlers.RateLimit.BasicRateLimiter.
         :param Deserializer deserializer: Instance to be used to deserialize responses
-                                          from the Riot Api. Default is Handlers.DictionaryDeserializer.
+                                          from the Riot Api. Default is
+                                          Handlers.DictionaryDeserializer.
         """
         if not api_key:
             raise ValueError("api_key must be set!")

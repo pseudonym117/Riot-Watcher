@@ -6,7 +6,8 @@ class SpectatorApiV4(NamedEndpoint):
     """
     This class wraps the Spectator-v4 endpoint calls provided by the Riot API.
 
-    See https://developer.riotgames.com/api-methods/#spectator-v4 for more detailed information
+    See https://developer.riotgames.com/api-methods/#spectator-v4 for more detailed
+    information
     """
 
     def __init__(self, base_api: BaseApi):

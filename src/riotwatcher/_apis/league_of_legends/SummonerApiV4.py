@@ -6,7 +6,8 @@ class SummonerApiV4(NamedEndpoint):
     """
     This class wraps the Summoner-v4 endpoint calls provided by the Riot API.
 
-    See https://developer.riotgames.com/api-methods/#summoner-v4 for more detailed information
+    See https://developer.riotgames.com/api-methods/#summoner-v4 for more detailed
+    information
     """
 
     def __init__(self, base_api: BaseApi):

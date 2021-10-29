@@ -1,3 +1,4 @@
+from .InternalLimiter import InternalLimiter
 from .HeaderBasedLimiter import HeaderBasedLimiter
 from .ApplicationRateLimiter import ApplicationRateLimiter
 from .Limits import Limit, LimitCollection, RawLimit

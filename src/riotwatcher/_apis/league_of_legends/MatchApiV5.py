@@ -8,7 +8,8 @@ class MatchApiV5(NamedEndpoint):
     """
     This class wraps the Match-v5 endpoint calls provided by the Riot API.
 
-    See https://developer.riotgames.com/api-methods/#match-v5 for more detailed information
+    See https://developer.riotgames.com/api-methods/#match-v5 for more detailed
+    information
     """
 
     def __init__(self, base_api: BaseApi):
@@ -47,34 +48,26 @@ class MatchApiV5(NamedEndpoint):
         Get matchlist for ranked games played on given account ID and platform ID
         and filtered using given filter parameters, if any
 
-        A number of optional parameters are provided for filtering. It is up to the caller to
-        ensure that the combination of filter parameters provided is valid for the requested
-        account, otherwise, no matches may be returned.
+        :param string region:   The region to execute this request on
+        :param string puuid:    The puuid.
+        :param int start:       Defaults to 0. Start index.
+        :param int count:       Defaults to 20. Valid values: 0 to 100. Number of
+                                match ids to return.
+        :param int queue:       Filter the list of match ids by a specific queue id.
+                                This filter is mutually inclusive of the type filter
+                                meaning any match ids returned must match both the
+                                queue and type filters.
+        :param string type:     Filter the list of match ids by the type of match.
+                                This filter is mutually inclusive of the queue filter
+                                meaning any match ids returned must match both the
+                                queue and type filters.
+        :param long start_time: Epoch timestamp in seconds. The matchlist started
+                                storing timestamps on June 16th, 2021. Any matches
+                                played before June 16th, 2021 won't be included in the
+                                results if the startTime filter is set.
+        :param long end_time:   Epoch timestamp in seconds.
 
-        Note that if either beginIndex or endIndex are specified, then both must be specified and
-        endIndex must be greater than beginIndex.
-
-        If endTime is specified, but not beginTime, then beginTime is effectively the start of the
-        account's match history.
-
-        If beginTime is specified, but not endTime, then endTime is effectively the current time.
-
-        Note that endTime should be greater than beginTime if both are specified, although there is
-        no maximum limit on their range.
-
-        :param string region:               The region to execute this request on
-        :param string encrypted_account_id: The account ID.
-        :param Set[int] queue:              Set of queue IDs for which to filtering matchlist.
-        :param long begin_time:             The begin time to use for filtering matchlist specified
-                                            as epoch milliseconds.
-        :param long end_time:               The end time to use for filtering matchlist specified
-                                            as epoch milliseconds.
-        :param int begin_index:             The begin index to use for filtering matchlist.
-        :param int end_index:               The end index to use for filtering matchlist.
-        :param Set[int] season:             Set of season IDs for which to filtering matchlist.
-        :param Set[int] champion:           Set of champion IDs for which to filtering matchlist.
-
-        :returns: MatchlistDto
+        :returns: List[string]
         """
         return self._request_endpoint(
             self.matchlist_by_puuid.__name__,

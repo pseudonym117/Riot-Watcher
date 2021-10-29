@@ -6,8 +6,8 @@ class ChampionMasteryApiV4(NamedEndpoint):
     """
     This class wraps the Champion-Mastery-v4 Api calls provided by the Riot API.
 
-    See https://developer.riotgames.com/api-methods/#champion-mastery-v4/ for more detailed
-    information
+    See https://developer.riotgames.com/api-methods/#champion-mastery-v4/ for more
+    detailed information
     """
 
     def __init__(self, base_api: BaseApi):
@@ -25,8 +25,9 @@ class ChampionMasteryApiV4(NamedEndpoint):
         :param string region:                   the region to execute this request on
         :param string encrypted_summoner_id:    Summoner ID associated with the player
 
-        :returns: List[ChampionMasteryDTO]: This object contains a list of Champion Mastery
-                                            information for player and champion combination.
+        :returns: List[ChampionMasteryDTO]: This object contains a list of Champion
+                                            Mastery information for player and champion
+                                            combination.
         """
         return self._request_endpoint(
             self.by_summoner.__name__,
@@ -41,12 +42,14 @@ class ChampionMasteryApiV4(NamedEndpoint):
         """
         Get a champion mastery by player ID and champion ID.
 
-        :param string                           region: the region to execute this request on
+        :param string region:                   the region to execute this
+                                                request on
         :param string encrypted_summoner_id:    Summoner ID associated with the player
-        :param long champion_id:                Champion ID to retrieve Champion Mastery for
+        :param long champion_id:                Champion ID to retrieve Champion
+                                                Mastery for
 
-        :returns: ChampionMasteryDTO: This object contains single Champion Mastery information for
-                                      player and champion combination.
+        :returns: ChampionMasteryDTO: This object contains single Champion Mastery
+                                      information for player and champion combination.
         """
         return self._request_endpoint(
             self.by_summoner_by_champion.__name__,
@@ -58,8 +61,8 @@ class ChampionMasteryApiV4(NamedEndpoint):
 
     def scores_by_summoner(self, region: str, encrypted_summoner_id: str):
         """
-        Get a player's total champion mastery score, which is the sum of individual champion
-        mastery levels
+        Get a player's total champion mastery score, which is the sum of individual
+        champion mastery levels
 
         :param string region:                   the region to execute this request on
         :param string encrypted_summoner_id:    Summoner ID associated with the player
