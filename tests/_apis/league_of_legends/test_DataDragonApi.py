@@ -217,3 +217,17 @@ class TestDataDragonApi:
         )
 
         assert ret is expected_return
+
+    def test_version_all(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request_static.return_value = expected_return
+
+        static_data = DataDragonApi(mock_base_api)
+
+        ret = static_data.versions_all()
+
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/api/versions.json",
+            {},
+        )
