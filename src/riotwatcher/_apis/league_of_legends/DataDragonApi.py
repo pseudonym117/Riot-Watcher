@@ -44,6 +44,10 @@ class DataDragonApi:
         url, query = DataDragonUrls.versions(region=region)
         return self._base_api.raw_request_static(url, query)
 
+    def versions_all(self):
+        url, query = DataDragonUrls.versions_all()
+        return self._base_api.raw_request_static(url, query)
+
     def _request(self, endpoint: Endpoint, version: str, locale: str):
         url, query = endpoint(version=version, locale=locale if locale else "en_US")
         return self._base_api.raw_request_static(url, query)

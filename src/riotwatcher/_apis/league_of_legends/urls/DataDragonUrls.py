@@ -25,3 +25,4 @@ class DataDragonUrls:
     runes_reforged = DDragonVersionLocaleEndpoint("/runesReforged.json")
     summoner_spells = DDragonVersionLocaleEndpoint("/summoner.json")
     versions = DataDragonEndpoint("/realms/{region}.json")
+    versions_all = DataDragonEndpoint("/api/versions.json")
