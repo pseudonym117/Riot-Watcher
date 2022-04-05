@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 10/14/2021 are supported in full.
+of 4/4/20222 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -165,6 +165,12 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v3.2.1 - 4/4/2022
+~~~~~~~~~~~~~~~~~
+Added ddragon all versions method.
+
+Add support for python 3.10, remove support for python 3.6
+
 v3.2.0 - 10/14/2021
 ~~~~~~~~~~~~~~~~~~~
 Removed match_v4 and match_v5 properties from LolWatcher. Use match property now - will use v5 API.
