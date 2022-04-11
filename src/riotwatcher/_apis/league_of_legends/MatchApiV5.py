@@ -25,7 +25,7 @@ class MatchApiV5(NamedEndpoint):
         Get match by match ID
 
         :param string region: The region to execute this request on
-        :param long match_id: The match ID.
+        :param string match_id: The match ID.
 
         :returns: MatchDto
         """
