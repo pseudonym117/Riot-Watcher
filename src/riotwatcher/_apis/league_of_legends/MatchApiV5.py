@@ -1,6 +1,5 @@
-from typing import Set
-
 from .. import BaseApi, NamedEndpoint
+from ..helpers import remap_region_to_platform
 from .urls import MatchApiV5Urls
 
 
@@ -20,6 +19,7 @@ class MatchApiV5(NamedEndpoint):
         """
         super().__init__(base_api, self.__class__.__name__)
 
+    @remap_region_to_platform(1)
     def by_id(self, region: str, match_id: str):
         """
         Get match by match ID
@@ -33,6 +33,7 @@ class MatchApiV5(NamedEndpoint):
             self.by_id.__name__, region, MatchApiV5Urls.by_id, match_id=match_id
         )
 
+    @remap_region_to_platform(1)
     def matchlist_by_puuid(
         self,
         region: str,
@@ -82,6 +83,7 @@ class MatchApiV5(NamedEndpoint):
             endTime=end_time,
         )
 
+    @remap_region_to_platform(1)
     def timeline_by_match(self, region: str, match_id: int):
         """
         Get match timeline by match ID.

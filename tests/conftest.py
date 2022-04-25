@@ -1,3 +1,4 @@
+from collections import namedtuple
 import datetime
 import json
 import unittest.mock as mock
@@ -162,3 +163,26 @@ def val_context(mock_get: mock.MagicMock) -> MockContext:
     yield MockContext(
         api_key, mock_get, riotwatcher.ValWatcher(api_key), None,
     )
+
+
+RegionRemap = namedtuple("RegionRemap", ["original", "to"])
+
+
+@pytest.fixture(
+    params=[
+        ("na1", "americas"),
+        ("NA1", "americas"),
+        ("br1", "americas"),
+        ("la1", "americas"),
+        ("la2", "americas"),
+        ("oc1", "americas"),
+        ("euw1", "europe"),
+        ("eun1", "europe"),
+        ("tr1", "europe"),
+        ("ru", "europe"),
+        ("jp1", "asia"),
+        ("kr", "asia"),
+    ]
+)
+def region_remap(request):
+    return RegionRemap(*request.param)

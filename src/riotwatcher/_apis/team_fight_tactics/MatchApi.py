@@ -1,4 +1,5 @@
 from .. import BaseApi, NamedEndpoint
+from ..helpers import remap_region_to_platform
 from .urls import MatchApiUrls
 
 
@@ -17,6 +18,7 @@ class MatchApi(NamedEndpoint):
         """
         super().__init__(base_api, self.__class__.__name__)
 
+    @remap_region_to_platform(1)
     def by_puuid(self, region: str, puuid: str, count: int = 20):
         """
         Get a list of match ids by PUUID.
@@ -31,6 +33,7 @@ class MatchApi(NamedEndpoint):
             count=count,
         )
 
+    @remap_region_to_platform(1)
     def by_id(self, region: str, match_id: str):
         """
         Get a match by match id.

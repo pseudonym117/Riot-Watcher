@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 4/4/20222 are supported in full.
+of 4/25/20222 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -165,6 +165,14 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v3.2.2 = 4/25/2022
+~~~~~~~~~~~~~~~~~~
+Added support for remapping 'na1' -> 'americas' for LoL Matchv5 and TFT Match endpoints
+
+Removed LoL 3rd Party Code API, as has been removed by riot
+
+Updated some documentation
+
 v3.2.1 - 4/4/2022
 ~~~~~~~~~~~~~~~~~
 Added ddragon all versions method.
