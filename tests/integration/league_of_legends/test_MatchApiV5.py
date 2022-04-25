@@ -77,3 +77,45 @@ class TestMatchApiV5:
         lol_context.verify_api_call(
             region, f"/lol/match/v5/matches/{match_id}/timeline", {}, actual_response,
         )
+
+
+@pytest.mark.lol
+@pytest.mark.integration
+class TestMatchV5Remapping:
+    def test_by_id(self, lol_context, region_remap):
+        match_id = "EUW_1234"
+        actual_response = lol_context.watcher.match.by_id(
+            region_remap.original, match_id
+        )
+
+        lol_context.verify_api_call(
+            region_remap.to, f"/lol/match/v5/matches/{match_id}", {}, actual_response,
+        )
+
+    def test_matchlist_by_puuid(
+        self, lol_context, region_remap,
+    ):
+        puuid = "12345"
+        actual_response = lol_context.watcher.match.matchlist_by_puuid(
+            region_remap.original, puuid,
+        )
+
+        lol_context.verify_api_call(
+            region_remap.to,
+            f"/lol/match/v5/matches/by-puuid/{puuid}/ids",
+            {},
+            actual_response,
+        )
+
+    def test_timeline_by_match(self, lol_context, region_remap):
+        match_id = "EUW1_12345"
+        actual_response = lol_context.watcher.match.timeline_by_match(
+            region_remap.original, match_id
+        )
+
+        lol_context.verify_api_call(
+            region_remap.to,
+            f"/lol/match/v5/matches/{match_id}/timeline",
+            {},
+            actual_response,
+        )

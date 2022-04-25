@@ -28,7 +28,6 @@ from ._apis.league_of_legends import (
     SpectatorApiV4,
     SummonerApiV4,
     MatchApiV5,
-    ThirdPartyCodeApiV4,
 )
 
 LOG = logging.getLogger(__name__)
@@ -107,7 +106,6 @@ class LolWatcher:
         self._match = MatchApiV5(self._base_api)
         self._spectator = SpectatorApiV4(self._base_api)
         self._summoner = SummonerApiV4(self._base_api)
-        self._third_party_code = ThirdPartyCodeApiV4(self._base_api)
 
         self._lol_status = (
             self._lol_status_v4 if default_status_v4 else self._lol_status_v3
@@ -238,10 +236,11 @@ class LolWatcher:
         return self._summoner
 
     @property
-    def third_party_code(self) -> ThirdPartyCodeApiV4:
+    def third_party_code(self) -> None:
         """
-        Interface to the Third Party Code Endpoint
+        DEPRECATED: API has been removed by Riot
+        """
+        raise NotImplementedError(
+            "API has been removed by Riot and no longer functions"
+        )
 
-        :rtype: league_of_legends.ThirdPartyCodeApiV4
-        """
-        return self._third_party_code
