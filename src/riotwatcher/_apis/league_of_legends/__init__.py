@@ -8,3 +8,4 @@ from .LolStatusApiV4 import LolStatusApiV4
 from .SpectatorApiV4 import SpectatorApiV4
 from .SummonerApiV4 import SummonerApiV4
 from .MatchApiV5 import MatchApiV5
+from .ChallengesApiV1 import ChallengesApiV1
