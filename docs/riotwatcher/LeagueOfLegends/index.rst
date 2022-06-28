@@ -25,4 +25,3 @@ All APIs
    ChallengesApiV1.rst
    SpectatorApiV4.rst
    SummonerApiV4.rst
-   ThirdPartyCodeApiV4.rst
