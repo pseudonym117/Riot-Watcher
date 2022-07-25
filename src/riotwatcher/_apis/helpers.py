@@ -8,7 +8,7 @@ def remap_region_to_platform(argument_pos: int, argument_name="region"):
             "la1": "americas",
             "la2": "americas",
             "na1": "americas",
-            "oc1": "americas",
+            "oc1": "sea",
             "eun1": "europe",
             "euw1": "europe",
             "ru": "europe",
