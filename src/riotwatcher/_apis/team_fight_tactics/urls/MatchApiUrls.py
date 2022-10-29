@@ -8,5 +8,5 @@ class MatchEndpoint(TftEndpoint):
 
 
 class MatchApiUrls:
-    by_puuid = MatchEndpoint("/by-puuid/{puuid}/ids", count=int)
+    by_puuid = MatchEndpoint("/by-puuid/{puuid}/ids", start=int, count=int)
     by_id = MatchEndpoint("/{match_id}")
