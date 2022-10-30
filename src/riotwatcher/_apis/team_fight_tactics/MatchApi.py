@@ -19,9 +19,15 @@ class MatchApi(NamedEndpoint):
         super().__init__(base_api, self.__class__.__name__)
 
     @remap_region_to_platform(1)
-    def by_puuid(self, region: str, puuid: str, count: int = 20):
+    def by_puuid(self, region: str, puuid: str, count: int = 20, start: int = 0):
         """
         Get a list of match ids by PUUID.
+
+        :param string region:   The region to execute this request on
+        :param string puuid:    The puuid.
+        :param int count:       Defaults to 20. Valid values: 0 to 100. Number of
+                                match ids to return.
+        :param int start:       Defaults to 0. Start index.
 
         :returns: List[string]
         """
@@ -30,6 +36,7 @@ class MatchApi(NamedEndpoint):
             region,
             MatchApiUrls.by_puuid,
             puuid=puuid,
+            start=start,
             count=count,
         )
 
@@ -37,6 +44,9 @@ class MatchApi(NamedEndpoint):
     def by_id(self, region: str, match_id: str):
         """
         Get a match by match id.
+
+        :param string region:   The region to execute this request on
+        :param string match_id: The match ID.
 
         :returns: MatchDto
         """

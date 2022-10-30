@@ -21,7 +21,7 @@ def mock_match_api():
 @pytest.mark.tft
 @pytest.mark.unit
 class TestMatchApi:
-    def test_by_puuid(self, mock_match_api):
+    def test_by_puuid_defaults(self, mock_match_api):
         region = "afas"
         puuid = "15462-54321"
 
@@ -32,7 +32,24 @@ class TestMatchApi:
             mock_match_api.api.by_puuid.__name__,
             region,
             f"https://{region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids",
-            {"count": 20},
+            {"count": 20, "start": 0},
+        )
+
+        assert ret is mock_match_api.expected_return
+
+    def test_by_puuid_takes_args(self, mock_match_api):
+        region = "afas"
+        puuid = "15462-54321"
+        start, count = 50, 100
+
+        ret = mock_match_api.api.by_puuid(region, puuid, count, start)
+
+        mock_match_api.base_api.raw_request.assert_called_once_with(
+            MatchApi.__name__,
+            mock_match_api.api.by_puuid.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids",
+            {"count": count, "start": start},
         )
 
         assert ret is mock_match_api.expected_return
@@ -47,7 +64,7 @@ class TestMatchApi:
             mock_match_api.api.by_puuid.__name__,
             region_remap.to,
             f"https://{region_remap.to}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids",
-            {"count": 20},
+            {"count": 20, "start": 0},
         )
 
     def test_by_id(self, mock_match_api):
