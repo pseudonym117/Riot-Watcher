@@ -9,13 +9,16 @@ import pytest
 class TestMatchApi:
     @pytest.mark.parametrize("puuid", ["12345", "99999999999999999999"])
     @pytest.mark.parametrize("count", [5, 50, 200])
-    def test_by_puuid(self, tft_context, region, puuid, count):
-        actual_response = tft_context.watcher.match.by_puuid(region, puuid, count=count)
+    @pytest.mark.parametrize("start", [0, 10, 300])
+    def test_by_puuid(self, tft_context, region, puuid, count, start):
+        actual_response = tft_context.watcher.match.by_puuid(
+            region, puuid, count=count, start=start
+        )
 
         tft_context.verify_api_call(
             region,
             f"/tft/match/v1/matches/by-puuid/{puuid}/ids",
-            {"count": count},
+            {"count": count, "start": start},
             actual_response,
         )
 
@@ -40,7 +43,7 @@ class TestMatchApiRemapping:
         tft_context.verify_api_call(
             region_remap.to,
             f"/tft/match/v1/matches/by-puuid/{puuid}/ids",
-            {"count": 20},
+            {"count": 20, "start": 0},
             actual_response,
         )
 

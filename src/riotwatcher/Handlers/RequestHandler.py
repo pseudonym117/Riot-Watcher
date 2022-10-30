@@ -48,5 +48,5 @@ class RequestHandler:
 
         :param url: The url that was requested
         :param response: the response received. This is a response from the "requests"
-        library
+                         library
         """

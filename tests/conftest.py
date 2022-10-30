@@ -175,7 +175,7 @@ RegionRemap = namedtuple("RegionRemap", ["original", "to"])
         ("br1", "americas"),
         ("la1", "americas"),
         ("la2", "americas"),
-        ("oc1", "americas"),
+        ("oc1", "sea"),
         ("euw1", "europe"),
         ("eun1", "europe"),
         ("tr1", "europe"),

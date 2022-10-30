@@ -28,6 +28,7 @@ from ._apis.league_of_legends import (
     SpectatorApiV4,
     SummonerApiV4,
     MatchApiV5,
+    ChallengesApiV1,
 )
 
 LOG = logging.getLogger(__name__)
@@ -105,6 +106,7 @@ class LolWatcher:
         self._league = LeagueApiV4(self._base_api)
         self._match = MatchApiV5(self._base_api)
         self._spectator = SpectatorApiV4(self._base_api)
+        self._challenges = ChallengesApiV1(self._base_api)
         self._summoner = SummonerApiV4(self._base_api)
 
         self._lol_status = (
@@ -244,3 +246,11 @@ class LolWatcher:
             "API has been removed by Riot and no longer functions"
         )
 
+    @property
+    def challenges(self) -> ChallengesApiV1:
+        """
+        Interface to the Challenges Endpoint
+
+        :rtype: league_of_legends.ChallengesApiV1
+        """
+        return self._challenges
