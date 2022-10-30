@@ -3,6 +3,7 @@ name: CD for RiotWatcher
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   deploy:
