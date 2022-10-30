@@ -1,13 +1,13 @@
 RiotWatcher
 ===========
 
-|pypi| |docs| |coverage| |lgmt| |black|
+|pypi| |docs| |coverage| |black|
 
 Check for full (read: slightly better) documentation `here <http://riot-watcher.readthedocs.io/en/latest/>`__!
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 6/28/2022 are supported in full.
+of 10/29/2022 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -165,7 +165,16 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v3.2.4 - 10/29/2022
+~~~~~~~~~~~~~~~~~~~
+Add ``start`` parameter to TFT match API
+
+Correct remapping for SEA region
+
+Add python 3.11 support to CI/CD
+
 v3.2.3 - 6/28/2022
+~~~~~~~~~~~~~~~~~~
 Added support for LoL Challenges API
 
 v3.2.2 - 4/25/2022
@@ -565,10 +574,6 @@ registered trademarks ofRiot Games, Inc.
 .. |coverage| image:: https://img.shields.io/codecov/c/gh/pseudonym117/Riot-Watcher.svg
   :target: https://codecov.io/gh/pseudonym117/Riot-Watcher
   :alt: Test coverage
-
-.. |lgmt| image:: https://img.shields.io/lgtm/grade/python/g/pseudonym117/Riot-Watcher.svg?logo=lgtm&logoWidth=18
-  :target: https://lgtm.com/projects/g/pseudonym117/Riot-Watcher/context:python
-  :alt: Code quality
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
   :target: https://github.com/ambv/black
