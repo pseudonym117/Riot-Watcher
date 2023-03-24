@@ -84,14 +84,14 @@ class MatchApiV5(NamedEndpoint):
         )
 
     @remap_region_to_platform(1)
-    def timeline_by_match(self, region: str, match_id: int):
+    def timeline_by_match(self, region: str, match_id: str):
         """
         Get match timeline by match ID.
 
         Not all matches have timeline data.
 
         :param string region: The region to execute this request on
-        :param long match_id: The match ID.
+        :param string match_id: The match ID.
 
         :returns: MatchTimelineDto
         """
