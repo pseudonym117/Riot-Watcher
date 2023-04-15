@@ -10,7 +10,7 @@ class LeagueEndpoint(TftEndpoint):
 class LeagueApiUrls:
     challenger = LeagueEndpoint("/challenger")
     by_summoner = LeagueEndpoint("/entries/by-summoner/{encrypted_summoner_id}")
-    entries = LeagueEndpoint("/entries/{tier}/{division}", page=int)
+    entries = LeagueEndpoint("/entries/{division}/{tier}", page=int)
     grandmaster = LeagueEndpoint("/grandmaster")
     by_id = LeagueEndpoint("/leagues/{league_id}")
     master = LeagueEndpoint("/master")
