@@ -41,15 +41,23 @@ class TestMatchApi:
         region = "afas"
         puuid = "15462-54321"
         start, count = 50, 100
+        start_time, end_time = 1683990000, 1683991032
 
-        ret = mock_match_api.api.by_puuid(region, puuid, count, start)
+        ret = mock_match_api.api.by_puuid(
+            region,
+            puuid,
+            count,
+            start,
+            start_time,
+            end_time,
+        )
 
         mock_match_api.base_api.raw_request.assert_called_once_with(
             MatchApi.__name__,
             mock_match_api.api.by_puuid.__name__,
             region,
             f"https://{region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids",
-            {"count": count, "start": start},
+            {"count": count, "start": start, "startTime": start_time, "endTime": end_time},
         )
 
         assert ret is mock_match_api.expected_return
