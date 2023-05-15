@@ -28,7 +28,7 @@ jobs:
     - name: Test with tox
       run: |
         tox -e py
-    - uses: codecov/codecov-action@v1
+    - uses: codecov/codecov-action@v3
       with:
         file: cov.xml
         fail_ci_if_error: true
