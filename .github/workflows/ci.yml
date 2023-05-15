@@ -30,7 +30,8 @@ jobs:
         tox -e py
     - uses: codecov/codecov-action@v3
       with:
-        file: cov.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: cov.xml
         fail_ci_if_error: true
   docs:
     runs-on: ubuntu-latest
