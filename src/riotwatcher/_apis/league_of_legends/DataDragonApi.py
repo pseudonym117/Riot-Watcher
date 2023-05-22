@@ -41,6 +41,8 @@ class DataDragonApi:
 
     def versions_for_region(self, region: str):
         region = re.sub(r"\d", "", region)
+        if(region == "eun" or region == "oc"):
+            region += "e"
         url, query = DataDragonUrls.versions(region=region)
         return self._base_api.raw_request_static(url, query)
 
