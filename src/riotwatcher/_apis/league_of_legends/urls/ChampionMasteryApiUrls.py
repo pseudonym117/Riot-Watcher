@@ -17,3 +17,9 @@ class ChampionMasteryApiV4Urls:
     scores_by_summoner = ChampionMasteryV4Endpoint(
         "/scores/by-summoner/{encrypted_summoner_id}"
     )
+    by_puuid = ChampionMasteryV4Endpoint(
+        "/champion-masteries/by-puuid/{puuid}"
+    )
+    by_puuid_by_champion = ChampionMasteryV4Endpoint(
+        "/champion-masteries/by-puuid/{puuid}/by-champion/{champion_id}"
+    )

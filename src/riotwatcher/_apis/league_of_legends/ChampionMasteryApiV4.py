@@ -18,8 +18,50 @@ class ChampionMasteryApiV4(NamedEndpoint):
         """
         super().__init__(base_api, self.__class__.__name__)
 
+    def by_puuid(self, region: str, puuid: str):
+        """
+        Get all champion mastery entries.
+
+        :param string region:                   the region to execute this request on
+        :param string puuid:                    PuuID associated with the player
+
+        :returns: List[ChampionMasteryDTO]: This object contains a list of Champion
+                                            Mastery information for player and champion
+                                            combination.
+        """
+        return self._request_endpoint(
+            self.by_puuid.__name__,
+            region,
+            ChampionMasteryApiV4Urls.by_puuid,
+            puuid=puuid,
+        )
+
+    def by_puuid_by_champion(
+        self, region: str, puuid: str, champion_id: int
+    ):
+        """
+        Get a champion mastery by player ID and champion ID.
+
+        :param string region:                   the region to execute this
+                                                request on
+        :param string puuid:                    PuuID associated with the player
+        :param long champion_id:                Champion ID to retrieve Champion
+                                                Mastery for
+
+        :returns: ChampionMasteryDTO: This object contains single Champion Mastery
+                                      information for player and champion combination.
+        """
+        return self._request_endpoint(
+            self.by_puuid_by_champion.__name__,
+            region,
+            ChampionMasteryApiV4Urls.by_puuid_by_champion,
+            puuid=puuid,
+            champion_id=champion_id,
+        )
+
     def by_summoner(self, region: str, encrypted_summoner_id: str):
         """
+        *Endpoints by summonerID are deprecated and will be removed in January/2024. Use the equivalent by PUUID.*
         Get all champion mastery entries.
 
         :param string region:                   the region to execute this request on
