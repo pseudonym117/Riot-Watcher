@@ -1,14 +1,14 @@
 from .LeagueEndpoint import LeagueEndpoint
 
 
-class SpecatorV4Endpoint(LeagueEndpoint):
+class SpecatorV5Endpoint(LeagueEndpoint):
     def __init__(self, url, **kwargs):
-        nurl = f"/spectator/v4{url}"
+        nurl = f"/spectator/v5{url}"
         super().__init__(nurl, **kwargs)
 
 
-class SpectatorApiV4Urls:
-    by_summoner = SpecatorV4Endpoint(
-        "/active-games/by-summoner/{encrypted_summoner_id}"
+class SpectatorApiV5Urls:
+    by_summoner = SpecatorV5Endpoint(
+        "/active-games/by-summoner/{encrypted_puuid}"
     )
-    featured_games = SpecatorV4Endpoint("/featured-games")
+    featured_games = SpecatorV5Endpoint("/featured-games")

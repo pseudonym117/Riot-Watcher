@@ -25,7 +25,7 @@ from ._apis.league_of_legends import (
     LeagueApiV4,
     LolStatusApiV3,
     LolStatusApiV4,
-    SpectatorApiV4,
+    SpectatorApiV5,
     SummonerApiV4,
     MatchApiV5,
     ChallengesApiV1,
@@ -105,7 +105,7 @@ class LolWatcher:
         self._champion_mastery = ChampionMasteryApiV4(self._base_api)
         self._league = LeagueApiV4(self._base_api)
         self._match = MatchApiV5(self._base_api)
-        self._spectator = SpectatorApiV4(self._base_api)
+        self._spectator = SpectatorApiV5(self._base_api)
         self._challenges = ChallengesApiV1(self._base_api)
         self._summoner = SummonerApiV4(self._base_api)
 
@@ -211,7 +211,7 @@ class LolWatcher:
         )
 
     @property
-    def spectator(self) -> SpectatorApiV4:
+    def spectator(self) -> SpectatorApiV5:
         """
         Interface to the Spectator Endpoint
 
