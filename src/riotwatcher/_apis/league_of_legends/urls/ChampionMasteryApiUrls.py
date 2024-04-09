@@ -8,18 +8,11 @@ class ChampionMasteryV4Endpoint(LeagueEndpoint):
 
 
 class ChampionMasteryApiV4Urls:
-    by_summoner = ChampionMasteryV4Endpoint(
-        "/champion-masteries/by-summoner/{encrypted_summoner_id}"
-    )
-    by_summoner_by_champion = ChampionMasteryV4Endpoint(
-        "/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}"
-    )
-    scores_by_summoner = ChampionMasteryV4Endpoint(
-        "/scores/by-summoner/{encrypted_summoner_id}"
-    )
-    by_puuid = ChampionMasteryV4Endpoint(
-        "/champion-masteries/by-puuid/{puuid}"
-    )
+    by_puuid = ChampionMasteryV4Endpoint("/champion-masteries/by-puuid/{puuid}")
     by_puuid_by_champion = ChampionMasteryV4Endpoint(
         "/champion-masteries/by-puuid/{puuid}/by-champion/{champion_id}"
     )
+    top_by_puuid = ChampionMasteryV4Endpoint(
+        "/champion-masteries/by-puuid/{puuid}/top", count=int
+    )
+    scores_by_puuid = ChampionMasteryV4Endpoint("/scores/by-puuid/{puuid}")
