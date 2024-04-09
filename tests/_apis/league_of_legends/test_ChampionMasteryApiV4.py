@@ -73,3 +73,47 @@ class TestChampionMasteryApiV4:
         )
 
         assert ret is expected_return
+
+    def test_by_puuid(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        mastery = ChampionMasteryApiV4(mock_base_api)
+        region = "sfsfa"
+        puuid = "15357"
+
+        ret = mastery.by_puuid(region, puuid)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            ChampionMasteryApiV4.__name__,
+            mastery.by_puuid.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}",
+            {},
+        )
+
+        assert ret is expected_return
+    def test_by_puuid_by_champion(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        mastery = ChampionMasteryApiV4(mock_base_api)
+        region = "fsgs"
+        puuid = "53526"
+        champion_id = 7
+
+        ret = mastery.by_puuid_by_champion(
+            region, puuid, champion_id
+        )
+
+        mock_base_api.raw_request.assert_called_once_with(
+            ChampionMasteryApiV4.__name__,
+            mastery.by_puuid_by_champion.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{champion_id}",
+            {},
+        )
+
+        assert ret is expected_return
