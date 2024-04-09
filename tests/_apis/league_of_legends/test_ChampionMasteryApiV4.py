@@ -8,67 +8,108 @@ from riotwatcher._apis.league_of_legends import ChampionMasteryApiV4
 @pytest.mark.lol
 @pytest.mark.unit
 class TestChampionMasteryApiV4:
-    def test_by_summoner(self):
+    def test_by_puuid(self):
         mock_base_api = MagicMock()
         expected_return = object()
         mock_base_api.raw_request.return_value = expected_return
 
         mastery = ChampionMasteryApiV4(mock_base_api)
-        region = "afas"
-        encrypted_summoner_id = "15462"
+        region = "sfsfa"
+        puuid = "15357"
 
-        ret = mastery.by_summoner(region, encrypted_summoner_id)
+        ret = mastery.by_puuid(region, puuid)
 
         mock_base_api.raw_request.assert_called_once_with(
             ChampionMasteryApiV4.__name__,
-            mastery.by_summoner.__name__,
+            mastery.by_puuid.__name__,
             region,
-            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}",
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}",
             {},
         )
 
         assert ret is expected_return
 
-    def test_summoner_by_champion(self):
+    def test_by_puuid_by_champion(self):
         mock_base_api = MagicMock()
         expected_return = object()
         mock_base_api.raw_request.return_value = expected_return
 
         mastery = ChampionMasteryApiV4(mock_base_api)
         region = "fsgs"
-        encrypted_summoner_id = "53526"
+        puuid = "53526"
         champion_id = 7
 
-        ret = mastery.by_summoner_by_champion(
-            region, encrypted_summoner_id, champion_id
-        )
+        ret = mastery.by_puuid_by_champion(region, puuid, champion_id)
 
         mock_base_api.raw_request.assert_called_once_with(
             ChampionMasteryApiV4.__name__,
-            mastery.by_summoner_by_champion.__name__,
+            mastery.by_puuid_by_champion.__name__,
             region,
-            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}",
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{champion_id}",
             {},
         )
 
         assert ret is expected_return
 
-    def test_scored_by_summoner(self):
+    def test_top_by_puuid(self):
         mock_base_api = MagicMock()
         expected_return = object()
         mock_base_api.raw_request.return_value = expected_return
 
         mastery = ChampionMasteryApiV4(mock_base_api)
-        region = "fsgs"
-        encrypted_summoner_id = "6243"
+        region = "fdsfs"
+        puuid = "123415r"
+        count = 15
 
-        ret = mastery.scores_by_summoner(region, encrypted_summoner_id)
+        ret = mastery.top_by_puuid(region, puuid, count=count)
 
         mock_base_api.raw_request.assert_called_once_with(
             ChampionMasteryApiV4.__name__,
-            mastery.scores_by_summoner.__name__,
+            mastery.top_by_puuid.__name__,
             region,
-            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}",
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top",
+            {"count": count},
+        )
+
+        assert ret is expected_return
+
+    def test_top_by_puuid_default_count(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        mastery = ChampionMasteryApiV4(mock_base_api)
+        region = "fdsfs"
+        puuid = "123415r"
+
+        ret = mastery.top_by_puuid(region, puuid)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            ChampionMasteryApiV4.__name__,
+            mastery.top_by_puuid.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top",
+            {"count": None},
+        )
+
+        assert ret is expected_return
+
+    def test_scores_by_puuid(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        mastery = ChampionMasteryApiV4(mock_base_api)
+        region = "fdsfs"
+        puuid = "123415r"
+
+        ret = mastery.scores_by_puuid(region, puuid)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            ChampionMasteryApiV4.__name__,
+            mastery.scores_by_puuid.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/scores/by-puuid/{puuid}",
             {},
         )
 

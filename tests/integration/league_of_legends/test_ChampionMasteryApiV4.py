@@ -21,43 +21,56 @@ import pytest
         "pbe1",
     ],
 )
-@pytest.mark.parametrize("encrypted_summoner_id", ["50", "424299938281", "rtbf12345"])
+@pytest.mark.parametrize("puuid", ["50", "rtbf12345"])
 class TestChampionMasteryApiV4(object):
-    def test_by_summoner(self, lol_context, region, encrypted_summoner_id):
-        actual_response = lol_context.watcher.champion_mastery.by_summoner(
-            region, encrypted_summoner_id
-        )
+    def test_by_puuid(self, lol_context, region, puuid):
+        actual_response = lol_context.watcher.champion_mastery.by_puuid(region, puuid)
 
         lol_context.verify_api_call(
             region,
-            f"/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}",
+            f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}",
             {},
             actual_response,
         )
 
     @pytest.mark.parametrize("champion_id", [0, 1, 9999999999, 150])
-    def test_by_summoner_by_champion(
-        self, lol_context, region, encrypted_summoner_id, champion_id
-    ):
-        actual_response = lol_context.watcher.champion_mastery.by_summoner_by_champion(
-            region, encrypted_summoner_id, champion_id
+    def test_by_puuid_by_champion(self, lol_context, region, puuid, champion_id):
+        actual_response = lol_context.watcher.champion_mastery.by_puuid_by_champion(
+            region, puuid, champion_id
         )
 
         lol_context.verify_api_call(
             region,
-            f"/lol/champion-mastery/v4/champion-masteries/by-summoner/{encrypted_summoner_id}/by-champion/{champion_id}",
+            f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/by-champion/{champion_id}",
             {},
             actual_response,
         )
 
-    def test_scores_by_summoner(self, lol_context, region, encrypted_summoner_id):
-        actual_response = lol_context.watcher.champion_mastery.scores_by_summoner(
-            region, encrypted_summoner_id
+    @pytest.mark.parametrize("count", [None, 1, 20])
+    def test_top_by_puuid(self, lol_context, region, puuid, count):
+        params = {}
+        if count is not None:
+            params["count"] = count
+
+        actual_response = lol_context.watcher.champion_mastery.top_by_puuid(
+            region, puuid, **params
         )
 
         lol_context.verify_api_call(
             region,
-            f"/lol/champion-mastery/v4/scores/by-summoner/{encrypted_summoner_id}",
+            f"/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}/top",
+            params,
+            actual_response,
+        )
+
+    def test_scores_by_puuid(self, lol_context, region, puuid):
+        actual_response = lol_context.watcher.champion_mastery.scores_by_puuid(
+            region, puuid
+        )
+
+        lol_context.verify_api_call(
+            region,
+            f"/lol/champion-mastery/v4/scores/by-puuid/{puuid}",
             {},
             actual_response,
         )
