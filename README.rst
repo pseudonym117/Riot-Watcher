@@ -7,7 +7,7 @@ Check for full (read: slightly better) documentation `here <http://riot-watcher.
 
 RiotWatcher is a thin wrapper on top of the `Riot Games API for League
 of Legends <https://developer.riotgames.com/>`__. All public methods as
-of 5/20/2023 are supported in full.
+of 4/9/2024 are supported in full.
 
 RiotWatcher by default supports a naive rate limiter. This rate limiter will
 try to stop you from making too many requests, and in a single threaded test
@@ -165,6 +165,14 @@ Rate limiter has some race conditions when used concurrently.
 
 Changelog
 ---------
+v3.3.0 - 4/9/2024
+~~~~~~~~~~~~~~~~~
+LoL Champion mastery endpoints updated to use puuid
+
+LoL spectator v4 replaced with v5
+
+Remove support for python3.7; add supported for python3.12
+
 v3.2.4 - 10/29/2022
 ~~~~~~~~~~~~~~~~~~~
 Add ``start`` parameter to TFT match API
