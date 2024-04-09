@@ -21,16 +21,16 @@ import pytest
         "pbe1",
     ],
 )
-class TestSpectatorApiV4:
-    @pytest.mark.parametrize("encrypted_summoner_id", ["12345", "99999999999999999"])
-    def test_by_summoner(self, lol_context, region, encrypted_summoner_id):
+class TestSpectatorApiV5:
+    @pytest.mark.parametrize("encrypted_puuid", ["12345", "99999999999999999"])
+    def test_by_summoner(self, lol_context, region, encrypted_puuid):
         actual_response = lol_context.watcher.spectator.by_summoner(
-            region, encrypted_summoner_id
+            region, encrypted_puuid
         )
 
         lol_context.verify_api_call(
             region,
-            f"/lol/spectator/v4/active-games/by-summoner/{encrypted_summoner_id}",
+            f"/lol/spectator/v5/active-games/by-summoner/{encrypted_puuid}",
             {},
             actual_response,
         )
@@ -39,5 +39,5 @@ class TestSpectatorApiV4:
         actual_response = lol_context.watcher.spectator.featured_games(region)
 
         lol_context.verify_api_call(
-            region, "/lol/spectator/v4/featured-games", {}, actual_response
+            region, "/lol/spectator/v5/featured-games", {}, actual_response
         )

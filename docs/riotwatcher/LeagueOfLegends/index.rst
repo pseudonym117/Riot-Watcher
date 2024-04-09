@@ -23,5 +23,5 @@ All APIs
    LolStatusApiV4.rst
    MatchApiV5.rst
    ChallengesApiV1.rst
-   SpectatorApiV4.rst
+   SpectatorApiV5.rst
    SummonerApiV4.rst

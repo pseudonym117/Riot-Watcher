@@ -5,7 +5,7 @@ from .DataDragonApi import DataDragonApi
 from .LeagueApiV4 import LeagueApiV4
 from .LolStatusApiV3 import LolStatusApiV3
 from .LolStatusApiV4 import LolStatusApiV4
-from .SpectatorApiV4 import SpectatorApiV4
+from .SpectatorApiV5 import SpectatorApiV5
 from .SummonerApiV4 import SummonerApiV4
 from .MatchApiV5 import MatchApiV5
 from .ChallengesApiV1 import ChallengesApiV1
