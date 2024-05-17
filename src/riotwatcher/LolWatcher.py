@@ -42,9 +42,9 @@ class LolWatcher:
 
     def __init__(
         self,
-        api_key: str = None,
-        timeout: int = None,
-        kernel_url: str = None,
+        api_key: str | None = None,
+        timeout: int | None = None,
+        kernel_url: str | None = None,
         rate_limiter: RateLimiter = BasicRateLimiter(),
         deserializer: Deserializer = DictionaryDeserializer(),
         default_status_v4: bool = False,
