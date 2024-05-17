@@ -43,13 +43,17 @@ raised as HTTPError exceptions from the Requests library.
 
 .. code:: python
 
-    from riotwatcher import LolWatcher, ApiError
+    from riotwatcher import LolWatcher, RiotWatcher, ApiError
 
     lol_watcher = LolWatcher('<your-api-key>')
 
+    riot_watcher = RiotWatcher('<your-api-key>')
+
     my_region = 'na1'
 
-    me = lol_watcher.summoner.by_name(my_region, 'pseudonym117')
+    my_account = riot_watcher.account.by_riot_id('AMERICAS', 'pseudonym', 'sudo')
+
+    me = lol_watcher.summoner.by_puuid(my_region, my_account['puuid'])
     print(me)
 
     # all objects are returned (by default) as a dict
