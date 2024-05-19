@@ -18,7 +18,7 @@ class OopsRateLimiter(InternalLimiter):
     def friendly_name(self) -> str:
         return self._friendly_name
 
-    def wait_until(self, region: str, endpoint_name: str, method_name: str) -> datetime:
+    def wait_until(self, region: str, endpoint_name: str, method_name: str) -> datetime.datetime:
         if self._retry_at is not None:
             if self._retry_at > datetime.datetime.now():
                 return self._retry_at

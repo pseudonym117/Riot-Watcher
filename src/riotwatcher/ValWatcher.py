@@ -25,7 +25,7 @@ class ValWatcher:
     def __init__(
         self,
         api_key: str,
-        timeout: int = None,
+        timeout: int | None = None,
         rate_limiter: RateLimiter = BasicRateLimiter(),
         deserializer: Deserializer = DictionaryDeserializer(),
     ):

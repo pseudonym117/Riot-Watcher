@@ -25,8 +25,8 @@ class TftWatcher:
 
     def __init__(
         self,
-        api_key: str = None,
-        timeout: int = None,
+        api_key: str | None = None,
+        timeout: int | None = None,
         rate_limiter: RateLimiter = BasicRateLimiter(),
         deserializer: Deserializer = DictionaryDeserializer(),
     ):
@@ -43,7 +43,7 @@ class TftWatcher:
                                           from the Riot Api. Default is
                                           Handlers.DictionaryDeserializer.
         """
-        if not api_key:
+        if api_key is None:
             raise ValueError("api_key must be set!")
 
         handler_chain = [

@@ -24,10 +24,10 @@ class LorWatcher:
 
     def __init__(
         self,
-        api_key: str = None,
-        timeout: int = None,
-        rate_limiter: RateLimiter = BasicRateLimiter(),
-        deserializer: Deserializer = DictionaryDeserializer(),
+        api_key: str | None = None,
+        timeout: int | None = None,
+        rate_limiter: RateLimiter | None = None,
+        deserializer: Deserializer | None = None,
     ):
         """
         Initialize a new instance of the LorWatcher class.
@@ -42,8 +42,12 @@ class LorWatcher:
                                           from the Riot Api. Default is
                                           Handlers.DictionaryDeserializer.
         """
-        if not api_key:
+        if api_key is None:
             raise ValueError("api_key must be set!")
+        if rate_limiter is None:
+            rate_limiter = BasicRateLimiter()
+        if deserializer is None:
+            deserializer = DictionaryDeserializer()
 
         handler_chain = [
             SanitationHandler(),
