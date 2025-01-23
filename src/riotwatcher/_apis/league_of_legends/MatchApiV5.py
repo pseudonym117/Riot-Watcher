@@ -77,7 +77,7 @@ class MatchApiV5(NamedEndpoint):
             puuid=puuid,
             start=start,
             count=count,
-            queue=queue,
+            queueId=queue,
             type=type,
             startTime=start_time,
             endTime=end_time,
