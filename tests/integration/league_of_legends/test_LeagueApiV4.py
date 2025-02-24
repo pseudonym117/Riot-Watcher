@@ -63,7 +63,10 @@ class TestLeagueApiV4:
         actual_response = lol_context.watcher.league.by_id(region, league_id)
 
         lol_context.verify_api_call(
-            region, f"/lol/league/v4/leagues/{league_id}", {}, actual_response,
+            region,
+            f"/lol/league/v4/leagues/{league_id}",
+            {},
+            actual_response,
         )
 
     @pytest.mark.parametrize(
@@ -78,6 +81,17 @@ class TestLeagueApiV4:
         lol_context.verify_api_call(
             region,
             f"/lol/league/v4/entries/by-summoner/{encrypted_summoner_id}",
+            {},
+            actual_response,
+        )
+
+    @pytest.mark.parametrize("puuid", ["dQw4w9WgXcQ", "12093qowie"])
+    def test_by_summoner(self, lol_context, region, puuid):
+        actual_response = lol_context.watcher.league.by_puuid(region, puuid)
+
+        lol_context.verify_api_call(
+            region,
+            f"/lol/league/v4/entries/by-puuid/{puuid}",
             {},
             actual_response,
         )
