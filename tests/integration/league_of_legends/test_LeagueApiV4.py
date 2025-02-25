@@ -86,7 +86,7 @@ class TestLeagueApiV4:
         )
 
     @pytest.mark.parametrize("puuid", ["dQw4w9WgXcQ", "12093qowie"])
-    def test_by_summoner(self, lol_context, region, puuid):
+    def test_by_puuid(self, lol_context, region, puuid):
         actual_response = lol_context.watcher.league.by_puuid(region, puuid)
 
         lol_context.verify_api_call(
