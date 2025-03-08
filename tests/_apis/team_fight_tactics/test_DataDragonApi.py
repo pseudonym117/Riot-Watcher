@@ -4,7 +4,8 @@ import pytest
 
 from riotwatcher._apis.team_fight_tactics import DataDragonApi
 
-@pytest.mark.lol
+
+@pytest.mark.tft
 @pytest.mark.unit
 class TestDataDragonApi:
     def test_arenas(self):
@@ -160,24 +161,24 @@ class TestDataDragonApi:
         assert ret is expected_return
 
     def test_version(self):
-            mock_base_api = MagicMock()
-            expected_return = object()
-            mock_base_api.raw_request_static.return_value = expected_return
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request_static.return_value = expected_return
 
-            static_data = DataDragonApi(mock_base_api)
+        static_data = DataDragonApi(mock_base_api)
 
-            region = "euw1"
+        region = "euw1"
 
-            ret = static_data.versions_for_region(region)
+        ret = static_data.versions_for_region(region)
 
-            mock_base_api.raw_request_static.assert_called_once_with(
-                "https://ddragon.leagueoflegends.com/realms/{region}.json".format(
-                    region="euw"
-                ),
-                {},
-            )
+        mock_base_api.raw_request_static.assert_called_once_with(
+            "https://ddragon.leagueoflegends.com/realms/{region}.json".format(
+                region="euw"
+            ),
+            {},
+        )
 
-            assert ret is expected_return
+        assert ret is expected_return
 
     def test_version_all(self):
         mock_base_api = MagicMock()

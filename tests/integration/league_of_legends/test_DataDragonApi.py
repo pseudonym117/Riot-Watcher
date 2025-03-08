@@ -113,6 +113,7 @@ class TestDataDragonApi:
         )
 
 
+@pytest.mark.lol
 @pytest.mark.integration
 class TestDataDragonVersionsApi(object):
     @pytest.mark.parametrize(
