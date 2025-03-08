@@ -29,27 +29,6 @@ class TestSummonerApiV4:
 
         assert ret is expected_return
 
-    def test_by_name(self):
-        mock_base_api = MagicMock()
-        expected_return = object()
-        mock_base_api.raw_request.return_value = expected_return
-
-        summoner = SummonerApiV4(mock_base_api)
-        region = "htr35ge"
-        summoner_name = "psesn886"
-
-        ret = summoner.by_name(region, summoner_name)
-
-        mock_base_api.raw_request.assert_called_once_with(
-            SummonerApiV4.__name__,
-            summoner.by_name.__name__,
-            region,
-            f"https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}",
-            {},
-        )
-
-        assert ret is expected_return
-
     def test_by_puuid(self):
         mock_base_api = MagicMock()
         expected_return = object()

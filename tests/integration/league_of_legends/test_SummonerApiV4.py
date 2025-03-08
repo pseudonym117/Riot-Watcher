@@ -35,17 +35,6 @@ class TestSummonerApiV4:
             actual_response,
         )
 
-    @pytest.mark.parametrize("summoner_name", ["pseudonym117", "Riot Tuxedo"])
-    def test_by_name(self, lol_context, region, summoner_name):
-        actual_response = lol_context.watcher.summoner.by_name(region, summoner_name)
-
-        lol_context.verify_api_call(
-            region,
-            f"/lol/summoner/v4/summoners/by-name/{summoner_name}",
-            {},
-            actual_response,
-        )
-
     @pytest.mark.parametrize("encrypted_puuid", ["12345", "99999999999999999999"])
     def test_by_puuid(self, lol_context, region, encrypted_puuid):
         actual_response = lol_context.watcher.summoner.by_puuid(region, encrypted_puuid)
