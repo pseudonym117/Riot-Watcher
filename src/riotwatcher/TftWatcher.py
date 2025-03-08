@@ -14,7 +14,7 @@ from .Handlers import (
 from .Handlers.RateLimit import BasicRateLimiter
 
 from ._apis import BaseApi
-from ._apis.team_fight_tactics import LeagueApi, MatchApi, SummonerApi
+from ._apis.team_fight_tactics import LeagueApi, MatchApi, SummonerApi, DataDragonApi
 
 
 class TftWatcher:
@@ -60,6 +60,7 @@ class TftWatcher:
         self._league = LeagueApi(self._base_api)
         self._match = MatchApi(self._base_api)
         self._summoner = SummonerApi(self._base_api)
+        self._data_dragon = DataDragonApi(self._base_api)
 
     @property
     def league(self) -> LeagueApi:
@@ -87,3 +88,12 @@ class TftWatcher:
         :rtype: team_fight_tactics.SummonerApi
         """
         return self._summoner
+    
+    @property
+    def data_dragon(self) -> DataDragonApi:
+        """
+        Interface to the DataDragon Endpoint
+
+        :rtype: team_fight_tactics.DataDragonApi
+        """
+        return self._data_dragon
