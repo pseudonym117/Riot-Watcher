@@ -1,4 +1,16 @@
-from ...league_of_legends.urls.DataDragonUrls import DataDragonEndpoint, DDragonVersionLocaleEndpoint
+from ... import Endpoint
+
+
+class DataDragonEndpoint(Endpoint):
+    def __init__(self, url, **kwargs):
+        nurl = f"https://ddragon.leagueoflegends.com{url}"
+        super().__init__(nurl, **kwargs)
+
+
+class DDragonVersionLocaleEndpoint(DataDragonEndpoint):
+    def __init__(self, url, **kwargs):
+        nurl = f"/cdn/{{version}}/data/{{locale}}{url}"
+        super().__init__(nurl, **kwargs)
 
 
 class DataDragonUrls:
