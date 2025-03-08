@@ -34,22 +34,6 @@ class SummonerApiV4(NamedEndpoint):
             encrypted_account_id=encrypted_account_id,
         )
 
-    def by_name(self, region: str, summoner_name: str):
-        """
-        Get a summoner by summoner name
-
-        :param string region:           The region to execute this request on
-        :param string summoner_name:    Summoner Name
-
-        :returns: SummonerDTO: represents a summoner
-        """
-        return self._request_endpoint(
-            self.by_name.__name__,
-            region,
-            SummonerApiV4Urls.by_name,
-            summoner_name=summoner_name,
-        )
-
     def by_puuid(self, region: str, encrypted_puuid: str):
         """
         Get a summoner by PUUID.
