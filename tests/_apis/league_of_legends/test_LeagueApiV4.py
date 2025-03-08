@@ -113,6 +113,27 @@ class TestLeagueApiV4:
 
         assert ret is expected_return
 
+    def test_by_puuid(self):
+        mock_base_api = MagicMock()
+        expected_return = object()
+        mock_base_api.raw_request.return_value = expected_return
+
+        league = LeagueApiV4(mock_base_api)
+        region = "fdsga"
+        puuid = "puuid_1"
+
+        ret = league.by_puuid(region, puuid)
+
+        mock_base_api.raw_request.assert_called_once_with(
+            LeagueApiV4.__name__,
+            league.by_puuid.__name__,
+            region,
+            f"https://{region}.api.riotgames.com/lol/league/v4/entries/by-puuid/{puuid}",
+            {},
+        )
+
+        assert ret is expected_return
+
     def test_entries(self):
         mock_base_api = MagicMock()
         expected_return = object()

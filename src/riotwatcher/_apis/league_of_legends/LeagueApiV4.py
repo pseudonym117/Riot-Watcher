@@ -95,6 +95,22 @@ class LeagueApiV4(NamedEndpoint):
             encrypted_summoner_id=encrypted_summoner_id,
         )
 
+    def by_puuid(self, region: str, puuid: str):
+        """
+        Get league entries in all queues for a given puuid
+
+        :param string region:                   the region to execute this request on
+        :param string puuid:                    the puuid to query
+
+        :returns: Set[LeagueEntryDTO]
+        """
+        return self._request_endpoint(
+            self.by_puuid.__name__,
+            region,
+            LeagueApiV4Urls.by_puuid,
+            puuid=puuid,
+        )
+
     def entries(self, region: str, queue: str, tier: str, division: str, page: int = 1):
         """
         Get all the league entries

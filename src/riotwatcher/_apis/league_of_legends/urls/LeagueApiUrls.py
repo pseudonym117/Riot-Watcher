@@ -13,4 +13,5 @@ class LeagueApiV4Urls:
     by_id = LeagueV4Endpoint("/leagues/{league_id}")
     master_by_queue = LeagueV4Endpoint("/masterleagues/by-queue/{queue}")
     by_summoner = LeagueV4Endpoint("/entries/by-summoner/{encrypted_summoner_id}")
+    by_puuid = LeagueV4Endpoint("/entries/by-puuid/{puuid}")
     entries = LeagueV4Endpoint("/entries/{queue}/{tier}/{division}", page=int)
