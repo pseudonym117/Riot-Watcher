@@ -30,10 +30,10 @@ def remap_region_to_platform(argument_pos: int, argument_name="region"):
                 if lower_region in remap:
                     kwargs[argument_name] = remap[lower_region]
             if len(args) > argument_pos and isinstance(args[argument_pos], str):
-                region = args[1].lower()
+                region = args[argument_pos].lower()
                 if region in remap:
                     nargs = list(args)
-                    nargs[1] = remap[region]
+                    nargs[argument_pos] = remap[region]
             return api_call(*nargs, **kwargs)
 
         return remapper
