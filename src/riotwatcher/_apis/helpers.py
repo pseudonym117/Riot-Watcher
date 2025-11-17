@@ -4,22 +4,29 @@ from functools import wraps
 def remap_region_to_platform(argument_pos: int, argument_name="region"):
     def _remap_region_to_platform(api_call):
         remap = {
+            
+            # Americas
+            "na1": "americas",
             "br1": "americas",
             "la1": "americas",
             "la2": "americas",
-            "na1": "americas",
-            "oc1": "sea",
-            "ph2": "sea",
-            "sg2": "sea",
-            "th2": "sea",
-            "tw2": "sea",
-            "vn2": "sea",
+
+            # Asia
+            "kr": "asia",
+            "jp1": "asia",
+
+            # Europe
             "eun1": "europe",
             "euw1": "europe",
-            "ru": "europe",
-            "tr1": "europe",
-            "jp1": "asia",
-            "kr": "asia",
+            "ru":   "europe",
+            "tr1":  "europe",
+            "me1":  "europe",
+
+            # Sea
+            "oc1": "sea",
+            "sg2": "sea",
+            "tw2": "sea",
+            "vn2": "sea"    
         }
 
         @wraps(api_call)
